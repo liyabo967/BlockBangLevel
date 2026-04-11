@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_GUID: cb413e3c3c0a44f73b39ad59e0d98465
+  m_SerializeEntries:
+  - m_GUID: 42fecf35a1e774a20a5f0e45c3d3c10e
+    m_Address: Assets/GameMain/Prefabs/GUI/Popups/Settings.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 43cdf41c0bf044188b8e2c3d5abc15fa
+    m_Address: Assets/GameMain/Prefabs/Shapes
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - shapes
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56c562ce2518045ba85b5e21f2caac8f
+    m_Address: Assets/GameMain/Configs/LanguageConfig.txt
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 618a3f8b0bf8e48d38510866eb297143
+    m_Address: Assets/GameMain/Prefabs/GUI/Popups
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7bec41ac40d4840d3b16f53720d99762
+    m_Address: Assets/GameMain/Configs/PresetLanguage.txt
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 932e00b0c360f43eca138d3018853e92
+    m_Address: Assets/GameMain/Sprites
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aee7ce615495240d5be8fdbec54912d4
+    m_Address: Assets/GameMain/Prefabs/Items
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - items
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da44ae41ee4094dd8848f2d622fd640a
+    m_Address: Assets/GameMain/Prefabs/Settings
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 5aa5987ddff844dc2b314d17fdb11a2d, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 1a4c07218c49a4edb8a7b53a9c25b414, type: 2}
+    - {fileID: 11400000, guid: 73777b849038f431293f965452a478b4, type: 2}

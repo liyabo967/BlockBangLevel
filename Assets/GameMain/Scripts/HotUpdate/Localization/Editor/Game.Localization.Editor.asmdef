@@ -1,0 +1,27 @@
+{
+    "name": "Game.Localization.Editor",
+    "rootNamespace": "",
+    "references": [
+        " UnityEngine",
+        " UnityEditor",
+        "UnityEditor.UI",
+        "Unity.TextMeshPro.Editor",
+        "Unity.TextMeshPro",
+        "Reordable",
+        "DOTween.Modules",
+        "HotUpdate",
+        "GameAds",
+        "GameIAP"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

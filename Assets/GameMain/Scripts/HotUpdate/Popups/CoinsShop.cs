@@ -1,0 +1,181 @@
+// // ©2015 - 2026 Candy Smith
+// // All rights reserved
+// // Redistribution of this software is strictly not allowed.
+// // Copy of this software can be obtained from unity asset store only.
+// // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// // FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+// // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// // THE SOFTWARE.
+
+using System;
+using System.Linq;
+using BlockPuzzleGameToolkit.Scripts.Audio;
+using BlockPuzzleGameToolkit.Scripts.Data;
+using BlockPuzzleGameToolkit.Scripts.GUI.Labels;
+using BlockPuzzleGameToolkit.Scripts.Services.IAP;
+using BlockPuzzleGameToolkit.Scripts.Settings;
+using BlockPuzzleGameToolkit.Scripts.System;
+using GameFramework.Event;
+using Quester;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityGameFramework.Scripts.Runtime.Purchase;
+
+namespace BlockPuzzleGameToolkit.Scripts.Popups
+{
+    public class CoinsShop : UGuiForm
+    {
+        public ItemPurchase[] packs;
+        private CoinsShopSettings shopSettings;
+
+        [SerializeField]
+        private ItemPurchase watchAd;
+
+        private void OnEnable()
+        {
+            GameEntry.Event.Subscribe(PurchaseResultEventArgs.EventId, OnPurchaseResult);
+        }
+
+        private void OnDisable()
+        {
+            GameEntry.Event.Unsubscribe(PurchaseResultEventArgs.EventId, OnPurchaseResult);
+        }
+
+        protected override void OnInit(object userData)
+        {
+            base.OnInit(userData);
+            shopSettings = Addressables.LoadAssetAsync<CoinsShopSettings>("Assets/GameMain/Settings/Game/CoinsShopSettings.asset").WaitForCompletion();
+            InstantiateMissingItems();
+            foreach (var itemPurchase in packs)
+            {
+                if (shopSettings.products.Count > 0)
+                {
+                    var productID = itemPurchase.productID;
+                    var settingsShopItem = shopSettings.products.FirstOrDefault(x => x.productID == productID);
+                    if (settingsShopItem != null)
+                    {
+                        itemPurchase.settingsShopItem = settingsShopItem;
+                        itemPurchase.count.text = settingsShopItem.count.ToString();
+#if UNITY_EDITOR
+                        if (!string.IsNullOrEmpty(settingsShopItem.price))
+                        {
+                            itemPurchase.price.text = settingsShopItem.price;
+                        }
+#endif
+                    }
+
+                    if (productID.productType == ProductTypeWrapper.ProductType.NonConsumable &&
+                        PlayerPrefs.GetInt("Purchased_" + productID.ID, 0) == 1)
+                    {
+                        itemPurchase.gameObject.SetActive(false);
+                    }
+                }
+            }
+
+            watchAd.count.text = GameManager.instance.GameSettings.coinsForAd.ToString();
+        }
+
+        private void OnPurchaseResult(object sender, GameEventArgs e)
+        {
+            if (e is PurchaseResultEventArgs eventArgs)
+            {
+                GameEntry.UI.CloseUIForm(UIFormId.Processing);
+                Debug.Log($"OnPurchaseResult: {eventArgs.PurchaseResult.IsSuccessful}");
+                if (eventArgs.PurchaseResult.IsSuccessful)
+                {
+                    PurchaseSuccess(eventArgs.PurchaseResult.ProductId);
+                }
+                else
+                {
+                    Debug.LogError(eventArgs.PurchaseResult.Message);
+                }
+            }
+        }
+
+        private void InstantiateMissingItems()
+        {
+            if (shopSettings.products.Count == 0)
+                return;
+
+            var existingProductIds = packs.Where(p => p.productID != null).Select(p => p.productID).ToList();
+
+            foreach (var shopItem in shopSettings.products)
+            {
+                if (!existingProductIds.Contains(shopItem.productID))
+                {
+                    var prefab = shopItem.prefab != null ? shopItem.prefab : (packs.Length > 0 ? packs[packs.Length - 1] : null);
+                    if (prefab == null)
+                        continue;
+
+                    var parent = packs.Length > 0 ? packs[packs.Length - 1].transform.parent : transform;
+                    
+                    var newItem = Instantiate(prefab, parent);
+                    newItem.productID = shopItem.productID;
+                    newItem.settingsShopItem = shopItem;
+                    newItem.count.text = shopItem.count.ToString();
+#if UNITY_EDITOR
+                    if (!string.IsNullOrEmpty(shopItem.price))
+                    {
+                        newItem.price.text = shopItem.price;
+                    }
+#endif
+
+                    var packsList = packs.ToList();
+                    packsList.Add(newItem);
+                    packs = packsList.ToArray();
+                }
+            }
+        }
+
+        private void PurchaseSuccess(string id)
+        {
+            var shopItem = packs.First(i => i.productID.ID == id);
+            if (shopItem)
+            {
+                var count = shopItem.settingsShopItem.count;
+                LabelAnim.AnimateForResource(shopItem.resource, shopItem.BuyItemButton.transform.position, "+" + count, SoundBase.instance.coins, () =>
+                {
+                    ResourceManager.instance.GetResource("Coins").Add(count);
+                });
+
+                // If the item is non-consumable, mark it as purchased
+                if (shopItem.productID.productType == ProductTypeWrapper.ProductType.NonConsumable)
+                {
+                    PlayerPrefs.SetInt("Purchased_" + id, 1);
+                    PlayerPrefs.Save();
+
+                    // Disable the button for this item
+                    var pack = shopItem;
+                    if (pack.BuyItemButton != null)
+                    {
+                        pack.BuyItemButton.interactable = false;
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError($"not found shop item: {id}");
+            }
+            
+        }
+
+        public void BuyCoins(string id)
+        {
+            GameEntry.UI.OpenUIForm(UIFormId.Processing);
+            GameEntry.Purchase.Purchase(id);
+        }
+
+        public void AwawrdCoins()
+        {
+            var coins = GameManager.instance.GameSettings.coinsForAd;
+            var resourceObject = ResourceManager.instance.GetResource("Coins");
+            LabelAnim.AnimateForResource(resourceObject, watchAd.BuyItemButton.transform.position, "+" + coins, SoundBase.instance.coins, () =>
+            {
+                resourceObject.Add(coins);
+            });
+        }
+    }
+}

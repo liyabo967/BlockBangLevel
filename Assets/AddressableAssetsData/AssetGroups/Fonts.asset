@@ -1,0 +1,179 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Fonts
+  m_EditorClassIdentifier: 
+  m_GroupName: Fonts
+  m_GUID: cdbc6436058364675b9bada4bdcd5e54
+  m_SerializeEntries:
+  - m_GUID: 03aa502012e0e4323b6f6e82edaeb498
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF shadow grey.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0dfe64dccfb1419084fb31e94bf08869
+    m_Address: Assets/GameMain/Font/russia_font.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 14928a98ac0086a4483452d618f1764c
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1a66d5559b7554d67a390ab1f890349f
+    m_Address: Assets/GameMain/Font/NotoSansArabic-Medium.ttf
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1bc401f1f42e1439786ee36e058568d4
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Outline Green button.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 223098261f5d54290b7a5064d3cfb804
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Tips.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 239c91709aa9d490cb286e100ab63f8e
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Outline Select Item Stage.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3fd78ba58db64402793bfc817f86ffd6
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Outline Select item title.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 478af8df2d0934869b4da7ea1da9cab7
+    m_Address: Assets/GameMain/Font/NotoSansArabic-Medium SDF.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56de88235c5524fbe9dc197744521d72
+    m_Address: Assets/GameMain/Font/AlibabaSansKR-Medium.ttf
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 646b4bbcf8a044ed88f9e89a3eb57e05
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Outline BrowDark.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 673c77c9fbb8742adab3d444476a5787
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Outline Green dark.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 68c9b8949d6894b4fac4f68f9a6fe10e
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Outline Grey PreFail.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 70821e016df02461589e3308bbfa3152
+    m_Address: Assets/GameMain/Font/ComboFont.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 73d2ea1f92c744cb09ca0ff99bff0e06
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF shadow 2.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 792849b9b93de4d6bbe54c4fc156498b
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Main Menu2.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a9451493896a4b2daa1d25ae9e4de97
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Outline Score.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8366e7102a60e4b6a9f2af89706add06
+    m_Address: Assets/GameMain/Font/AlibabaPuHuiTi-3-65-Medium SDF.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 86eb40993433143a88b43308d2e6d830
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular.ttf
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b918ef29eb0548ab815890a16211f8e
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Outline BlueDark Best
+      Score.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d8936c9320ff401ebf82697670f3c0d
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Main Menu 3.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a1a9b43f1f63a419eb0cc1abb4c24cc3
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Outline BlueDark.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a355fc2b1e51c499eb19b288920e364f
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Outline Grey Daily.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c9c0b25430a0a47c18a9590d25c6fb90
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Main shadow.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d1da7996567894e0683b7acfb09a30f0
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Outline Violet Spin.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d7d241a568d1d49f7870e33c7691faab
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Main Menu.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dcf94151cf5fb4593bb9b7e326eff2e7
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Outline BlueLight.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e531a6884633e46588dcbcff345d9cf8
+    m_Address: Assets/GameMain/Font/AlibabaPuHuiTi-3-65-Medium.ttf
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: edbcf054f8abc4d1dadb0c72161171d7
+    m_Address: Assets/GameMain/Font/AlibabaSansKR-Medium SDF.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: efb6d41a193cd4d3a9dc22879d6dc571
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Outline Time.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f46a374b9eafa4ebc841edabc9488b2f
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF WIN.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 5aa5987ddff844dc2b314d17fdb11a2d, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 1ae0b42ebb14c4c1ebbfe77bc9fe956b, type: 2}
+    - {fileID: 11400000, guid: 62fc2d33a00d54c89926a72d51edb3d3, type: 2}

@@ -1,0 +1,109 @@
+```gitignore
+# =========================
+# Unity generated folders
+# =========================
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# =========================
+# MemoryCaptures (Unity 2019.3+)
+# =========================
+[Mm]emoryCaptures/
+
+# =========================
+# Asset meta data should only be ignored when the corresponding asset is also ignored
+# =========================
+!/[Aa]ssets/**/*.meta
+
+# =========================
+# AssetStore tools
+# =========================
+[Aa]ssets/AssetStoreTools*
+
+# =========================
+# Auto-generated VS / Rider / MonoDevelop files
+# =========================
+.vs/
+.gradle/
+ExportedObj/
+.consulo/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# =========================
+# Unity3D generated meta files
+# =========================
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# =========================
+# Unity crash reports
+# =========================
+sysinfo.txt
+
+# =========================
+# Builds
+# =========================
+*.apk
+*.aab
+*.unitypackage
+*.app
+*.exe
+*.ipa
+*.xcodeproj
+*.xcworkspace
+
+# =========================
+# Addressables / StreamingAssets (按需启用)
+# =========================
+# Assets/AddressableAssetsData/*
+Assets/StreamingAssets/*
+
+# =========================
+# Crashlytics
+# =========================
+crashlytics-build.properties
+
+# =========================
+# Firebase (⚠️官方模板默认不包含，强烈建议加)
+# =========================
+Assets/Firebase/
+
+# =========================
+# OS generated files
+# =========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+```
+
+Assets/UnityGameFramework/Scripts/Editor/Translation/Resources/EditorApiKey*
+
+
+
+.idea/
+ServerData/
+GeneratedLocalRepo/
+HybridCLRData/

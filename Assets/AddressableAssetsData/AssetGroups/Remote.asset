@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Remote
+  m_EditorClassIdentifier: 
+  m_GroupName: Remote
+  m_GUID: 374acd256c55d4de9b03ae46098f36b9
+  m_SerializeEntries:
+  - m_GUID: 88c9f51e8542e47d28fa27d5846353d5
+    m_Address: Assets/GameMain/Scenes/Main.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - remote
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 89d89093ba94c42a1a30003202766560
+    m_Address: Assets/GameMain/Scenes/Game.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - remote
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b26089e58d044448692fab32d7a37a03
+    m_Address: Assets/GameMain/Prefabs/UnityGameFramework.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - remote
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 5aa5987ddff844dc2b314d17fdb11a2d, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 5f8aa101fd44642bfb0888559614fbff, type: 2}
+    - {fileID: 11400000, guid: 593f150d8d89247268c7c7bb7ae6eeb5, type: 2}
