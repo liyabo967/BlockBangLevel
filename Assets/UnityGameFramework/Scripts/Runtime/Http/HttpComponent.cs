@@ -31,7 +31,7 @@ public class HttpComponent : GameFrameworkComponent, INetworkClient
     protected override void Awake()
     {
         base.Awake();
-        config = Resources.Load<NetworkConfig>("NetworkConfig");
+        // config = Resources.Load<NetworkConfig>("NetworkConfig");
     }
 
     // 注册拦截器

@@ -1,5 +1,4 @@
-﻿using GameMain.Scripts.HotUpdate.Base.DataStore;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Quester
@@ -15,7 +14,7 @@ namespace Quester
                 return;
 
             _lastClickTime = Time.time;
-            if (DataManager.Instance.PlayerData.soundEnabled)
+            if (GameEntry.Setting.GetBool("SoundEnabled", true))
             {
                 GameEntry.Sound.PlaySound(SoundId.ClickUI);
             }

@@ -45,7 +45,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
             {
                 if (binding.mapContainer != null)
                 {
-                    binding.mapContainer.SetActive(binding.mapType == currentMapType);
+                    // binding.mapContainer.SetActive(binding.mapType == currentMapType);
+                    binding.mapContainer.SetActive(false);
                 }
             }
         }

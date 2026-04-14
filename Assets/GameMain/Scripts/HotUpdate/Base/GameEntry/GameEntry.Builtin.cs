@@ -190,13 +190,19 @@ namespace Quester
         /// <summary>
         /// 获取网络组件。
         /// </summary>
-        public static WebRequestComponent WebRequest
+        public static HttpComponent Http
         {
             get;
             private set;
         }
         
         public static PurchaseComponent Purchase
+        {
+            get;
+            private set;
+        }
+        
+        public static DataStorageComponent Storage
         {
             get;
             private set;
@@ -223,8 +229,9 @@ namespace Quester
             Setting = UnityGameFramework.Runtime.GameEntry.GetComponent<SettingComponent>();
             Sound = UnityGameFramework.Runtime.GameEntry.GetComponent<SoundComponent>();
             UI = UnityGameFramework.Runtime.GameEntry.GetComponent<UIComponent>();
-            WebRequest = UnityGameFramework.Runtime.GameEntry.GetComponent<WebRequestComponent>();
+            Http = UnityGameFramework.Runtime.GameEntry.GetComponent<HttpComponent>();
             Purchase = UnityGameFramework.Runtime.GameEntry.GetComponent<PurchaseComponent>();
+            Storage = UnityGameFramework.Runtime.GameEntry.GetComponent<DataStorageComponent>();
         }
     }
 }

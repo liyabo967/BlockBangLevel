@@ -25,7 +25,11 @@ public class NetworkResponse
 
     public T GetData<T>() where T : class
     {
-        if (string.IsNullOrEmpty(data)) return null;
+        if (string.IsNullOrEmpty(data))
+        {
+            return null;
+        }
+        
         try
         {
             var result = JsonConvert.DeserializeObject<T>(data);
