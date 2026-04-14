@@ -90,7 +90,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 }
                 else
                 {
-                    Debug.LogError(eventArgs.PurchaseResult.Message);
+                    Debug.LogWarning(eventArgs.PurchaseResult.Message);
                 }
             }
         }

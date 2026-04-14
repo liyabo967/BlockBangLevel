@@ -24,7 +24,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             };
             LevelPlay.OnInitFailed += SdkInitializationFailedEvent;
             // SDK init
-            LevelPlay.Init("23af029cd");
+            LevelPlay.Init(config.AppId);
         }
 
         private void SdkInitializationCompletedEvent(LevelPlayConfiguration  levelPlayConfiguration)
@@ -99,7 +99,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         
         private void CreateRewardedAd() {
             // Create RewardedAd instance
-            _rewardedAd = new LevelPlayRewardedAd(Config.RewardedVideoId);
+            _rewardedAd = new LevelPlayRewardedAd(Config.RewardedId);
 
             // Subscribe RewardedAd events
             _rewardedAd.OnAdLoaded += RewardedOnAdLoadedEvent;

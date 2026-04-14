@@ -102,7 +102,7 @@ ehthumbs.db
 Assets/UnityGameFramework/Scripts/Editor/Translation/Resources/EditorApiKey*
 
 
-
+.utmp/
 .idea/
 ServerData/
 GeneratedLocalRepo/

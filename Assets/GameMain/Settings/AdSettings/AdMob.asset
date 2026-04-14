@@ -10,11 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cea1b216c6e446f49d49359ca502820a, type: 3}
-  m_Name: LevelPlayConfig
+  m_Name: AdMob
   m_EditorClassIdentifier: 
-  Platform: 1
-  AppId: 
-  BannerId: 1i4ph4my9i89bwdp
-  InterstitialId: hpjlneaiqh0i2jdg
-  RewardedVideoId: jlcjl6dwkh0mn1fp
+  Platform: 0
+  Android:
+    AppId: 25f0d9d6d
+    BannerId: a0kfn7wreh1kzget
+    InterstitialId: uxu8w4l4j9u9eflw
+    RewardedId: adk2kv9aiwd5jc3j
+  iOS:
+    AppId: 
+    BannerId: 
+    InterstitialId: 
+    RewardedId: 
   TestMode: 0

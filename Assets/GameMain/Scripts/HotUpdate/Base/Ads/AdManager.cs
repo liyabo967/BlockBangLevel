@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using BlockPuzzleGameToolkit.Scripts.System;
-using GoogleMobileAds.Api;
 using GoogleMobileAds.Ump.Api;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -34,8 +33,13 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
         private void Initialize(Action<bool> onComplete = null)
         { 
-            _adConfig ??= Addressables.LoadAssetAsync<AdConfig>("Assets/GameMain/Settings/AdSettings/LevelPlayConfig.asset").WaitForCompletion();
-            _adapter = AdAdapterFactory.Create(_adConfig.Platform);
+            var adSettings = Addressables.LoadAssetAsync<AdSettings>("Assets/GameMain/Settings/AdSettings/LevelPlay.asset").WaitForCompletion();
+#if  UNITY_IOS
+            _adConfig = adSettings.iOS;
+#elif UNITY_ANDROID
+            _adConfig = adSettings.Android;
+#endif
+            _adapter = AdAdapterFactory.Create(adSettings.Platform);
             
             _adapter.OnAdLoaded += result =>
             {

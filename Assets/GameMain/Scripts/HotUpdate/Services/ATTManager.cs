@@ -92,14 +92,12 @@ public class ATTManager : MonoSingleton<ATTManager>
 #endif
         yield return new WaitForEndOfFrame();
     }
-
-    // =========================
-    // 完成回调
-    // =========================
+    
+#if UNITY_IOS && !UNITY_EDITOR
     void OnATTFinished(ATTrackingStatusBinding.AuthorizationTrackingStatus status)
     {
         var attStatus = ATTStatus.Denied;
-#if UNITY_IOS && !UNITY_EDITOR
+
         if (status == ATTrackingStatusBinding.AuthorizationTrackingStatus.AUTHORIZED)
         {
             string idfa = Device.advertisingIdentifier;
@@ -111,7 +109,9 @@ public class ATTManager : MonoSingleton<ATTManager>
             Debug.Log("ATT Denied or Restricted");
             attStatus = ATTStatus.Denied;
         }
-#endif
+
         _onCompleted?.Invoke(attStatus);
     }
+#endif
+    
 }

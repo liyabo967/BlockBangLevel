@@ -17,15 +17,15 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         {
             Config = config;
             
-            List<string> testDeviceIds = new List<string>()
-            {
-                "41770E7F-5BC6-4322-8B86-98B4F6E5D1DD"
-            };
-
-            RequestConfiguration requestConfiguration = new RequestConfiguration();
-            requestConfiguration.TestDeviceIds = testDeviceIds;
-            MobileAds.SetRequestConfiguration(requestConfiguration);
-            Debug.Log("AdMobAdapter Initialize, " + testDeviceIds[0]);
+            // List<string> testDeviceIds = new List<string>()
+            // {
+            //     "41770E7F-5BC6-4322-8B86-98B4F6E5D1DD"
+            // };
+            //
+            // RequestConfiguration requestConfiguration = new RequestConfiguration();
+            // requestConfiguration.TestDeviceIds = testDeviceIds;
+            // MobileAds.SetRequestConfiguration(requestConfiguration);
+            // Debug.Log("AdMobAdapter Initialize, " + testDeviceIds[0]);
             MobileAds.Initialize(initStatus =>
             {
                 IsInitialized = true;
@@ -106,7 +106,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
         private void LoadRewarded()
         {
-            RewardedAd.Load(Config.RewardedVideoId, new AdRequest(), (ad, error) =>
+            RewardedAd.Load(Config.RewardedId, new AdRequest(), (ad, error) =>
             {
                 if (error != null)
                 {
