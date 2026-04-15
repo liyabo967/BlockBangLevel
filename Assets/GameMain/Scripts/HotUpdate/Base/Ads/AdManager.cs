@@ -44,10 +44,10 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             _adapter.OnAdLoaded += result =>
             {
                 Debug.Log($"Ad Load success: {result.AdType}, {result.AdNetwork}");
-                if (result.AdType == AdType.Banner)
-                {
-                    _adapter.ShowAd(AdType.Banner);
-                }
+                // if (result.AdType == AdType.Banner)
+                // {
+                //     _adapter.ShowAd(AdType.Banner);
+                // }
             };
             _adapter.OnAdRewarded += r =>
             {

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Quester;
 
 namespace BlockPuzzleGameToolkit.Scripts.Data
@@ -9,6 +10,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         private UserData _userData;
         
         public int Level => _userData.level;
+        
+        public List<string> PictureList => _userData.pictureList;
         
         public void Load()
         {
@@ -26,6 +29,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         {
             _userData.level = 1;
             _userData.coins = 10;
+            _userData.pictureList = new();
         }
 
         // 序列化数据，但是不写入磁盘
