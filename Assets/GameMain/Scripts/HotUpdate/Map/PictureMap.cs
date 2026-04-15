@@ -14,6 +14,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
         public CustomButton levelButton;
         public CustomButton backButton;
         public CustomButton collectionButton;
+        public TextMeshProUGUI completedText;
         
         private PictureComponent _pictureComponent;
 
@@ -28,6 +29,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
         private void OnEnable()
         {
             levelText.text = GameEntry.Localization.GetString("#level_n", UserDataManager.Instance.Level);
+            var seasonCompleted = UserDataManager.Instance.Level > PictureComponent.MaxLevel;
+            levelButton.gameObject.SetActive(!seasonCompleted);
+            completedText.gameObject.SetActive(seasonCompleted);
         }
 
         private void Start()

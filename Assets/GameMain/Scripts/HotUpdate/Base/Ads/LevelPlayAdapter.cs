@@ -16,7 +16,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         {
             Debug.Log("LevelPlay Initialize");
             Config = config;
-            LevelPlay.SetMetaData("is_test_suite", "enable");
+            // LevelPlay.SetMetaData("is_test_suite", "enable");
             LevelPlay.OnInitSuccess += configuration =>
             {
                 SdkInitializationCompletedEvent(configuration);
@@ -31,7 +31,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         {
             Debug.Log("LevelPlayAdapter initialization success");
             CreateAds();
-            LevelPlay.LaunchTestSuite();
+            // LevelPlay.LaunchTestSuite();
         }
 
         private void SdkInitializationFailedEvent(LevelPlayInitError error)
