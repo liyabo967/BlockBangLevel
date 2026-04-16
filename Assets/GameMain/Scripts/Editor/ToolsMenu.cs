@@ -11,7 +11,7 @@ namespace GameMain.Editor
 {
     public class ToolsMenu
     {
-        private const string Server = "https://assets-1301567094.cos.ap-beijing.myqcloud.com/block-bang-level";
+        private const string Server = "https://assets-1301567094.cos.ap-beijing.myqcloud.com/block-bang";
         // private const string Server = "http://localhost:8080";
         
         [MenuItem("HybridCLR/Build Helper/BuildAndCopyFiles")]

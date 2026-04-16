@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CoinsProduct1
   m_EditorClassIdentifier: 
   productType: 0
-  androidId: com.quester.game.blockbang2.coin_100
-  iosId: com.quester.game.blockbang2.coin_100
+  androidId: com.quester.game.blockbang.coin_100
+  iosId: com.quester.game.blockbang.coin_100

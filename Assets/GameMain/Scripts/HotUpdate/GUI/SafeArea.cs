@@ -33,12 +33,12 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
             ApplySafeArea();
         }
 
-        #if UNITY_EDITOR
-        private void OnValidate()
-        {
-            ApplySafeArea();
-        }
-        #endif
+        // #if UNITY_EDITOR
+        // private void OnValidate()
+        // {
+        //     ApplySafeArea();
+        // }
+        // #endif
 
         private void ApplySafeArea()
         {

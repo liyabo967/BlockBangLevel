@@ -72,9 +72,7 @@ namespace GameMain
                     string dictionaryValue = splitedLine[valueKey];
                     if (!AddString(dictionaryKey, dictionaryValue))
                     {
-                        Log.Warning(
-                            "Can not add raw string with dictionary key '{0}' which may be invalid or duplicate.",
-                            dictionaryKey);
+                        Debug.LogError($"Can not add key '{dictionaryKey}', which may be invalid or duplicate.");
                         return false;
                     }
                 }

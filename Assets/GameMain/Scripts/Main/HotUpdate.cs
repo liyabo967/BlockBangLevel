@@ -19,7 +19,7 @@ namespace GameMain
     /// </summary>
     public class HotUpdate : MonoBehaviour
     {
-        private string server = "https://assets-1301567094.cos.ap-beijing.myqcloud.com/block-bang-level";
+        private string server = "https://assets-1301567094.cos.ap-beijing.myqcloud.com/block-bang";
         // private string server = "http://localhost:8080";
         private string _serverUrl;
         
@@ -418,7 +418,7 @@ namespace GameMain
 
         private void ShowDialog(string msg)
         {
-            var message = LocalLanguage.Instance.GetString("#download_fail");
+            var message = LocalLanguage.Instance.GetString("#update_failed");
             message += $"\n{LocalLanguage.Instance.GetString("#check_network")}";
             // message += $"\n{msg}";
             AotDialogUI.Instance.Show(message, () =>

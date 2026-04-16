@@ -36,6 +36,6 @@ MonoBehaviour:
     price: 4.99
   - productID: {fileID: 11400000, guid: b07a9dfbefd2c4749af88de55c02ce4e, type: 2}
     count: 1000
-    prefab: {fileID: 8504871770900910552, guid: b2f88ad68646c4418b9d38b284556714, type: 3}
+    prefab: {fileID: 0}
     price: 9.99
   migrated: 1

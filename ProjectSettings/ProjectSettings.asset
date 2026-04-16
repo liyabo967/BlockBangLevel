@@ -168,7 +168,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.quester.game.blockbang
     Standalone: com.DefaultCompany.2D-URP
-    iPhone: com.quester.game.blockbang2
+    iPhone: com.quester.game.blockbang
   buildNumber:
     Standalone: 0
     VisionOS: 0

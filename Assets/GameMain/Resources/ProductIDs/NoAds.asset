@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: NoAds
   m_EditorClassIdentifier: 
   productType: 1
-  androidId: com.quester.game.blockbang2.noads
-  iosId: com.quester.game.blockbang2.noads
+  androidId: com.quester.game.blockbang.noads
+  iosId: com.quester.game.blockbang.noads

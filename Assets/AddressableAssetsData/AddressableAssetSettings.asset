@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: cb413e3c3c0a44f73b39ad59e0d98465
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 2a8e160813f1c6822118714f48a2d549
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_CatalogRequestsTimeout: 0
@@ -86,7 +86,7 @@ MonoBehaviour:
       - m_Id: 9989a65d1b15b4966bbce497e998c3e2
         m_Value: 0.0.1
       - m_Id: 9bdc2d0ec780d4c87b71ee959f65e697
-        m_Value: https://assets-1301567094.cos.ap-beijing.myqcloud.com/block-bang-level
+        m_Value: https://assets-1301567094.cos.ap-beijing.myqcloud.com/block-bang
       - m_Id: 9ef2062a29e0e4739b467c5c7d2a004a
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
     m_ProfileEntryNames:

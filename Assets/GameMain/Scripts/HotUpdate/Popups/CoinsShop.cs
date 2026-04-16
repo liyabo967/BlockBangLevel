@@ -136,7 +136,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             if (shopItem)
             {
                 var count = shopItem.settingsShopItem.count;
-                LabelAnim.AnimateForResource(shopItem.resource, shopItem.BuyItemButton.transform.position, "+" + count, SoundBase.instance.coins, () =>
+                LabelAnim.AnimateForResource(shopItem.resource, shopItem.buyButton.transform.position, "+" + count, SoundBase.instance.coins, () =>
                 {
                     ResourceManager.instance.GetResource("Coins").Add(count);
                 });
@@ -150,9 +150,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
                     // Disable the button for this item
                     var pack = shopItem;
-                    if (pack.BuyItemButton != null)
+                    if (pack.buyButton != null)
                     {
-                        pack.BuyItemButton.interactable = false;
+                        pack.buyButton.interactable = false;
                     }
                 }
             }
@@ -173,7 +173,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         {
             var coins = GameManager.instance.GameSettings.coinsForAd;
             var resourceObject = ResourceManager.instance.GetResource("Coins");
-            LabelAnim.AnimateForResource(resourceObject, watchAd.BuyItemButton.transform.position, "+" + coins, SoundBase.instance.coins, () =>
+            LabelAnim.AnimateForResource(resourceObject, watchAd.buyButton.transform.position, "+" + coins, SoundBase.instance.coins, () =>
             {
                 resourceObject.Add(coins);
             });

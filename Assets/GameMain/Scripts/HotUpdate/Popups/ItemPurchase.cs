@@ -18,12 +18,13 @@ using BlockPuzzleGameToolkit.Scripts.Settings;
 using Quester;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BlockPuzzleGameToolkit.Scripts.Popups
 {
     public class ItemPurchase : MonoBehaviour
     {
-        public CustomButton BuyItemButton;
+        public Button buyButton;
         public TextMeshProUGUI price;
         public TextMeshProUGUI count;
         public TextMeshProUGUI discountPercent;
@@ -38,7 +39,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         private void Start()
         {
-            BuyItemButton?.onClick.AddListener(BuyCoins);
+            buyButton?.onClick.AddListener(BuyCoins);
             if (productID != null)
             {
                 // var priceValue = IAPManager.instance.GetProductLocalizedPrice(productID.ID);
