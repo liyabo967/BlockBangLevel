@@ -176,7 +176,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Editor.GUI
             adReferenceField.Bind(serializedObject);
             var isRewardedProperty = serializedObject.FindProperty("isRewarded");
             var adReferenceProperty = serializedObject.FindProperty("adReference");
-            adReferenceField.style.display = isRewardedProperty.boolValue ? DisplayStyle.Flex : DisplayStyle.None;
+            // adReferenceField.style.display = isRewardedProperty.boolValue ? DisplayStyle.Flex : DisplayStyle.None;
             // isRewardedField.RegisterValueChangeCallback(evt =>
             // {
             //     adReferenceField.style.display = isRewardedProperty.boolValue ? DisplayStyle.Flex : DisplayStyle.None;
