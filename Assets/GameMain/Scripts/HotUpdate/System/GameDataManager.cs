@@ -54,11 +54,12 @@ namespace BlockPuzzleGameToolkit.Scripts.System
 
         public static void UnlockLevel(int currentLevel)
         {
-            int savedLevel = PlayerPrefs.GetInt("Level", 1);
+            int savedLevel = UserDataManager.Instance.Level;
             if (savedLevel < currentLevel)
             {
                 LevelNum = currentLevel;
-                PlayerPrefs.SetInt("Level", currentLevel);
+                // PlayerPrefs.SetInt("Level", currentLevel);
+                UserDataManager.Instance.SetLevel(currentLevel);
                 PlayerPrefs.Save();
             }
         }
@@ -104,15 +105,17 @@ namespace BlockPuzzleGameToolkit.Scripts.System
 
         public static void SetGameMode(EGameMode gameMode)
         {
-            PlayerPrefs.SetInt("GameMode", (int)gameMode);
-            PlayerPrefs.Save();
+            // PlayerPrefs.SetInt("GameMode", (int)gameMode);
+            // PlayerPrefs.Save();
+            UserDataManager.Instance.SetGameMode((int)gameMode);
         }
 
         public static void SetAllLevelsCompleted()
         {
             var levels = Resources.LoadAll<Level>("Levels").Length;
-            PlayerPrefs.SetInt("Level", levels);
-            PlayerPrefs.Save();
+            // PlayerPrefs.SetInt("Level", levels);
+            // PlayerPrefs.Save();
+            UserDataManager.Instance.SetLevel(levels);
         }
 
         internal static bool HasMoreLevels()

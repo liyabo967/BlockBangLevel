@@ -11,6 +11,7 @@
 // // THE SOFTWARE.
 
 using BlockPuzzleGameToolkit.Scripts.System;
+using Quester;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -27,7 +28,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Audio
 
         private void Start()
         {
-            mixer.SetFloat(musicParameter, PlayerPrefs.GetInt("Music", 1) == 0 ? -80 : 0);
+            mixer.SetFloat(musicParameter, GameEntry.Setting.GetBool("MusicEnabled", true)  ? 0 : -80);
         }
     }
 }

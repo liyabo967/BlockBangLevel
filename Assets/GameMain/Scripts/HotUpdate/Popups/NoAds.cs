@@ -10,6 +10,7 @@
 // // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // // THE SOFTWARE.
 
+using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.Services;
 using BlockPuzzleGameToolkit.Scripts.Services.IAP;
@@ -81,8 +82,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         {
             if (productId == productID.ID)
             {
-                PlayerPrefs.SetInt("Purchased_" + productId, 1);
-                PlayerPrefs.Save();
+                // PlayerPrefs.SetInt("Purchased_" + productId, 1);
+                // PlayerPrefs.Save();
+                UserDataManager.Instance.SetPurchasedProductId(productId);
                 AdManager.Instance.RemoveAds();
                 Close();
             }

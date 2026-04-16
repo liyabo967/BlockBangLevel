@@ -253,7 +253,7 @@ namespace Quester
         private void LoadImage()
         {
             var filePath = $"{Application.persistentDataPath}/pictures/{TimeManager.SeasonTime.year}/{TimeManager.SeasonTime.week}.jpg";
-            Debug.Log(filePath);
+            // Debug.Log(filePath);
             if (File.Exists(filePath))
             {
                 // 异步加载
@@ -291,8 +291,8 @@ namespace Quester
             _sourceTexture = _sourceSprite.texture;
             _imgWidth =  _sourceSprite.texture.width;
             _imgHeight = _sourceSprite.texture.height;
-            Debug.Log($"LoadImageCompleted: {_imgWidth}");
-            Debug.Log($"LoadImageCompleted: {_imgHeight}");
+            // Debug.Log($"LoadImageCompleted: {_imgWidth}");
+            // Debug.Log($"LoadImageCompleted: {_imgHeight}");
             CalcOffset();
             UpdateSprite();
             UpdateFocusPosition();

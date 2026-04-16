@@ -20,13 +20,15 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
     {
         public void OnUserClickAccept()
         {
-            PlayerPrefs.SetInt("npa", 0);
+            // PlayerPrefs.SetInt("npa", 0);
+            GameEntry.Setting.SetInt("npa", 0);
             Close();
         }
 
         public void OnUserClickCancel()
         {
-            PlayerPrefs.SetInt("npa", 1);
+            // PlayerPrefs.SetInt("npa", 1);
+            GameEntry.Setting.SetInt("npa", 1);
             Close();
         }
 

@@ -5,8 +5,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
     public class UserData
     {
         public int level;
-        public int completedLevel;
         public int coins;
+        public int rewardStreak;
+        public int gameMode;
+        public bool tutorialCompleted;
+        public string dailyBonusDay;
+        public string lastPlayedMode;
         public List<string> pictureList;
+        public List<string> purchasedIdList;
     }
 }

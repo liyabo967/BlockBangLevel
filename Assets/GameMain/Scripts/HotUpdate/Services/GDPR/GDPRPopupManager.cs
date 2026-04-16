@@ -33,7 +33,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Services.GDPR
                 return;
             }
 
-            if (PlayerPrefs.GetInt("npa", -1) == -1)
+            if (GameEntry.Setting.GetInt("npa", -1) == -1)
             {
                 GameEntry.UI.OpenUIForm(UIFormId.GDPR);
             }

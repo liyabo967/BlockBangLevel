@@ -13,6 +13,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BlockPuzzleGameToolkit.Scripts.System;
+using Quester;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -50,7 +51,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Audio
 
         private void Start()
         {
-            mixer.SetFloat(soundParameter, PlayerPrefs.GetInt("Sound", 1) == 0 ? -80 : 0);
+            mixer.SetFloat(soundParameter, GameEntry.Setting.GetBool("SoundEnabled", true) ? 0 : -80);
         }
 
         public void PlaySound(AudioClip clip)

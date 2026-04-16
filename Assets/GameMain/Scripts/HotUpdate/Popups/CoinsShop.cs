@@ -68,7 +68,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                     }
 
                     if (productID.productType == ProductTypeWrapper.ProductType.NonConsumable &&
-                        PlayerPrefs.GetInt("Purchased_" + productID.ID, 0) == 1)
+                        UserDataManager.Instance.IsPurchasedProductId(productID.ID))
                     {
                         itemPurchase.gameObject.SetActive(false);
                     }
@@ -144,8 +144,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 // If the item is non-consumable, mark it as purchased
                 if (shopItem.productID.productType == ProductTypeWrapper.ProductType.NonConsumable)
                 {
-                    PlayerPrefs.SetInt("Purchased_" + id, 1);
-                    PlayerPrefs.Save();
+                    // PlayerPrefs.SetInt("Purchased_" + id, 1);
+                    // PlayerPrefs.Save();
+                    UserDataManager.Instance.SetPurchasedProductId(id);
 
                     // Disable the button for this item
                     var pack = shopItem;

@@ -1,4 +1,5 @@
 using System;
+using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
@@ -43,50 +44,54 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             
             state.quitTime = DateTime.Now;
             
-            var json = JsonUtility.ToJson(state);
-            string key = "GameState_" + state.gameMode;
-            PlayerPrefs.SetString(key, json);
+            // var json = JsonUtility.ToJson(state);
+            // string key = "GameState_" + state.gameMode;
+            // PlayerPrefs.SetString(key, json);
+            
+            GameStateManager.Instance.SaveState(state.gameMode, state);
             
             // Also save the current game mode
-            PlayerPrefs.SetString("LastPlayedMode", state.gameMode.ToString());
-            PlayerPrefs.Save();
+            // PlayerPrefs.SetString("LastPlayedMode", state.gameMode.ToString());
+            // PlayerPrefs.Save();
+            UserDataManager.Instance.SetLastPlayedMode(state.gameMode.ToString());
         }
 
         public static GameState Load(EGameMode gameMode)
         {
-            string key = "GameState_" + gameMode;
-            if (PlayerPrefs.HasKey(key))
-            {
-                var json = PlayerPrefs.GetString(key);
-                GameState state = null;
-                
-                try
-                {
-                    switch (gameMode)
-                    {
-                        case EGameMode.Classic:
-                            state = JsonUtility.FromJson<ClassicGameState>(json);
-                            break;
-                        case EGameMode.Timed:
-                            state = JsonUtility.FromJson<TimedGameState>(json);
-                            break;
-                    }
-                    
-                    // Validate loaded state
-                    if (state != null && state.gameMode != gameMode)
-                    {
-                        return null;
-                    }
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Error loading game state: {e.Message}");
-                    return null;
-                }
-                
-                return state;
-            }
-            return null;
+            // string key = "GameState_" + gameMode;
+            // if (PlayerPrefs.HasKey(key))
+            // {
+            //     var json = PlayerPrefs.GetString(key);
+            //     GameState state = null;
+            //     
+            //     try
+            //     {
+            //         switch (gameMode)
+            //         {
+            //             case EGameMode.Classic:
+            //                 state = JsonUtility.FromJson<ClassicGameState>(json);
+            //                 break;
+            //             case EGameMode.Timed:
+            //                 state = JsonUtility.FromJson<TimedGameState>(json);
+            //                 break;
+            //         }
+            //         
+            //         // Validate loaded state
+            //         if (state != null && state.gameMode != gameMode)
+            //         {
+            //             return null;
+            //         }
+            //     }
+            //     catch (Exception e)
+            //     {
+            //         Debug.LogError($"Error loading game state: {e.Message}");
+            //         return null;
+            //     }
+            //     
+            //     return state;
+            // }
+            // return null;
+            return GameStateManager.Instance.Load(gameMode);
         }
 
         public static GameState Load()

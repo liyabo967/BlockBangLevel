@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections;
+using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
@@ -54,15 +55,19 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             settingsButton.onClick.AddListener(SettingsButtonClicked);
             luckySpin.onClick.AddListener(LuckySpinButtonClicked);
             UpdateFreeSpinMarker();
-            GameDataManager.LevelNum = PlayerPrefs.GetInt("Level", 1);
+            GameDataManager.LevelNum = UserDataManager.Instance.Level;
             var levelsCount = Resources.LoadAll<Level>("Levels").Length;
             luckySpin.gameObject.SetActive(GameManager.instance.GameSettings.enableLuckySpin);
             if(!GameManager.instance.GameSettings.enableTimedMode)
                 timedMode.gameObject.SetActive(false);
-            
+        }
+
+        private void OnEnable()
+        {
             _enableTimer = true;
             StartCoroutine(RefreshRemainingTime());
         }
+
         private bool CanUseFreeSpinToday()
         {
             if (!PlayerPrefs.HasKey(LastFreeSpinTimeKey))
@@ -119,7 +124,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             while (_enableTimer)
             {
                 var seconds = TimeManager.SeasonTime.seasonEndTime - TimeManager.GetCurrentTime();
-                Debug.Log($"seconds: {seconds}");
+                // Debug.Log($"seconds: {seconds}");
                 remainingTimeText.text = FormatTime((int)seconds);
                 yield return _waitForSeconds;
                 if (seconds == 0)

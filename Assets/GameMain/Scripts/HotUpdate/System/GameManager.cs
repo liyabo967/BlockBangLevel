@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Resources;
+using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using BlockPuzzleGameToolkit.Scripts.GUI;
@@ -92,13 +93,14 @@ namespace BlockPuzzleGameToolkit.Scripts.System
 
         private bool IsTutorialShown()
         {
-            return PlayerPrefs.GetInt("tutorial", 0) == 1;
+            return UserDataManager.Instance.TutorialCompleted;
         }
 
         public void SetTutorialCompleted()
         {
-            PlayerPrefs.SetInt("tutorial", 1);
-            PlayerPrefs.Save();
+            // PlayerPrefs.SetInt("tutorial", 1);
+            // PlayerPrefs.Save();
+            UserDataManager.Instance.SetTutorialCompleted();
         }
 
         private async void Start()
@@ -161,7 +163,7 @@ namespace BlockPuzzleGameToolkit.Scripts.System
         private bool CheckDailyBonusConditions()
         {
             var today = DateTime.Today;
-            var lastRewardDate = DateTime.Parse(PlayerPrefs.GetString("DailyBonusDay", today.Subtract(TimeSpan.FromDays(1)).ToString(CultureInfo.CurrentCulture)));
+            var lastRewardDate = DateTime.Parse(PlayerPrefs.GetString("DailyBonusDay", today.Subtract(TimeSpan.FromDays(1)).ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)));
             return today.Date > lastRewardDate.Date && dailyBonusSettings.dailyBonusEnabled;
         }
 

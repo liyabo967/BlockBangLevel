@@ -11,6 +11,7 @@
 // // THE SOFTWARE.
 
 using System;
+using System.Globalization;
 using System.Linq;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.GUI.Labels;
@@ -68,14 +69,16 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups.Daily
         public int UpdateRewardStreak()
         {
             var today = DateTime.Today;
-            var lastRewardDate = DateTime.Parse(PlayerPrefs.GetString("DailyBonusDay", today.Subtract(TimeSpan.FromDays(1)).ToString()));
+            var lastRewardDate = DateTime.Parse(UserDataManager.Instance.DailyBonusDay);
 
             if (today > lastRewardDate)
             {
-                var rewardStreak = GetRewardStreak() + 1;
-                PlayerPrefs.SetString("DailyBonusDay", today.ToString());
-                PlayerPrefs.SetInt("RewardStreak", rewardStreak = (int)Mathf.Repeat(rewardStreak, dayHandles.Length));
-                return rewardStreak;
+                var streak = GetRewardStreak() + 1;
+                streak = (int)Mathf.Repeat(streak, dayHandles.Length);
+                UserDataManager.Instance.SetDailyBonusDay(today.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture));
+                // PlayerPrefs.SetInt("RewardStreak", rewardStreak);
+                UserDataManager.Instance.SetRewardStreak(streak);
+                return streak;
             }
 
             return GetRewardStreak();
@@ -100,7 +103,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups.Daily
         // Gets and returns the reward streak count from player preferences 
         public int GetRewardStreak()
         {
-            return PlayerPrefs.GetInt("RewardStreak", -1);
+            return UserDataManager.Instance.RewardStreak;
         }
 
         private void CloseDialog()

@@ -11,6 +11,7 @@
 // // THE SOFTWARE.
 
 using BlockPuzzleGameToolkit.Scripts.Audio;
+using Quester;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -43,13 +44,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         private void OnEnable()
         {
-            UpdateButtonState("Music", musicParameter);
-            UpdateButtonState("Sound", soundParameter);
+            UpdateButtonState("MusicEnabled", musicParameter);
+            UpdateButtonState("SoundEnabled", soundParameter);
         }
 
         private void UpdateButtonState(string playerPrefKey, string volumeParameter)
         {
-            var enabledState = PlayerPrefs.GetInt(playerPrefKey, 1) != 0f;
+            var enabledState = GameEntry.Setting.GetBool(playerPrefKey, true);;
             float volumeValue = enabledState ? 0 : -80;
 
             mixer.SetFloat(volumeParameter, volumeValue);
@@ -66,14 +67,16 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         private void ToggleMusic(float arg0)
         {
             SoundBase.instance.PlaySound(SoundBase.instance.click);
-            PlayerPrefs.SetInt("Music", (int)arg0);
+            // PlayerPrefs.SetInt("Music", (int)arg0);
+            GameEntry.Setting.SetBool("MusicEnabled", (int)arg0 == 1);
             OnEnable();
         }
 
         private void ToggleSound(float arg0)
         {
             SoundBase.instance.PlaySound(SoundBase.instance.click);
-            PlayerPrefs.SetInt("Sound", (int)arg0);
+            // PlayerPrefs.SetInt("Sound", (int)arg0);
+            GameEntry.Setting.SetBool("SoundEnabled", (int)arg0 == 1);
             OnEnable();
         }
     }
