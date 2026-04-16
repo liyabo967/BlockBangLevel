@@ -10,6 +10,7 @@
 // // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // // THE SOFTWARE.
 
+using System.Collections.Generic;
 using BlockPuzzleGameToolkit.Scripts.Audio;
 using Quester;
 using UnityEngine;
@@ -35,6 +36,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         [SerializeField]
         private string soundParameter = "soundVolume";
 
+        private Dictionary<string, bool> _settingDict = new ();
+
         private void Start()
         {
             musicButton.onValueChanged.AddListener(ToggleMusic);
@@ -52,9 +55,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         {
             var enabledState = GameEntry.Setting.GetBool(playerPrefKey, true);;
             float volumeValue = enabledState ? 0 : -80;
-
             mixer.SetFloat(volumeParameter, volumeValue);
-            if (playerPrefKey == "Sound")
+            if (playerPrefKey == "SoundEnabled")
             {
                 soundButton.value = enabledState ? 1 : 0;
             }
@@ -62,22 +64,32 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             {
                 musicButton.value = enabledState ? 1 : 0;
             }
+
+            _settingDict[playerPrefKey] = enabledState;
         }
 
         private void ToggleMusic(float arg0)
         {
-            SoundBase.instance.PlaySound(SoundBase.instance.click);
-            // PlayerPrefs.SetInt("Music", (int)arg0);
-            GameEntry.Setting.SetBool("MusicEnabled", (int)arg0 == 1);
-            OnEnable();
+            var value = (int)arg0 == 1;
+            if (value != _settingDict["MusicEnabled"])
+            {
+                SoundBase.instance.PlaySound(SoundBase.instance.click);
+                // PlayerPrefs.SetInt("Music", (int)arg0);
+                GameEntry.Setting.SetBool("MusicEnabled", value);
+                _settingDict["MusicEnabled"] = value;
+            }
         }
 
         private void ToggleSound(float arg0)
         {
-            SoundBase.instance.PlaySound(SoundBase.instance.click);
-            // PlayerPrefs.SetInt("Sound", (int)arg0);
-            GameEntry.Setting.SetBool("SoundEnabled", (int)arg0 == 1);
-            OnEnable();
+            var value = (int)arg0 == 1;
+            if (value != _settingDict["SoundEnabled"])
+            {
+                SoundBase.instance.PlaySound(SoundBase.instance.click);
+                // PlayerPrefs.SetInt("Sound", (int)arg0);
+                GameEntry.Setting.SetBool("SoundEnabled", value);
+                _settingDict["SoundEnabled"] = value;
+            }
         }
     }
 }

@@ -116,6 +116,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                     newItem.productID = shopItem.productID;
                     newItem.settingsShopItem = shopItem;
                     newItem.count.text = shopItem.count.ToString();
+                    newItem.tag.gameObject.SetActive(false);
 #if UNITY_EDITOR
                     if (!string.IsNullOrEmpty(shopItem.price))
                     {

@@ -28,6 +28,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         public TextMeshProUGUI price;
         public TextMeshProUGUI count;
         public TextMeshProUGUI discountPercent;
+        public GameObject tag;
 
         [HideInInspector]
         public ShopItem settingsShopItem;
