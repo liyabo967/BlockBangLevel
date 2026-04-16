@@ -17,6 +17,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
         public TextMeshProUGUI completedText;
         
         private PictureComponent _pictureComponent;
+        private int _currentLevel = 0;
 
         private void Awake()
         {
@@ -24,6 +25,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
             backButton.onClick.AddListener(Back);
             levelButton.onClick.AddListener(PlayGame);
             collectionButton.onClick.AddListener(OpenCollection);
+            _currentLevel = UserDataManager.Instance.Level;
         }
 
         private void OnEnable()
@@ -32,6 +34,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
             var seasonCompleted = UserDataManager.Instance.Level > PictureComponent.MaxLevel;
             levelButton.gameObject.SetActive(!seasonCompleted);
             completedText.gameObject.SetActive(seasonCompleted);
+            if (UserDataManager.Instance.Level > _currentLevel)
+            {
+                _pictureComponent.ShowPicture(_currentLevel);
+            }
         }
 
         private void Start()
