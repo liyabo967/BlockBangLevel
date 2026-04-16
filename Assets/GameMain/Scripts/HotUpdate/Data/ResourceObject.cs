@@ -49,7 +49,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         //loads prefs from player prefs and assigns to resource variable
         public Task LoadPrefs()
         {
-            Resource = LoadResource();
+            Resource = UserDataManager.Instance.GetData(ResourceName);
             return Task.CompletedTask;
         }
 
@@ -61,18 +61,21 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         //adds amount to resource and saves to player prefs
         public void Add(int amount)
         {
-            Resource += amount;
-            PlayerPrefs.SetInt(ResourceName, Resource);
-            OnResourceChanged();
+            // Resource += amount;
+            // PlayerPrefs.SetInt(ResourceName, Resource);
+            var value = amount + UserDataManager.Instance.GetData(ResourceName);
+            UserDataManager.Instance.SetData(ResourceName, value);
+            OnResourceChanged(value);
         }
 
         //sets resource to amount and saves to player prefs
         public void Set(int amount)
         {
-            Resource = amount;
-            PlayerPrefs.SetInt(ResourceName, Resource);
-            PlayerPrefs.Save();
-            OnResourceChanged();
+            // Resource = amount;
+            // PlayerPrefs.SetInt(ResourceName, Resource);
+            // PlayerPrefs.Save();
+            UserDataManager.Instance.SetData(ResourceName, amount);
+            OnResourceChanged(amount);
         }
 
         //consumes amount from resource and saves to player prefs if there is enough
@@ -80,10 +83,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         {
             if (IsEnough(amount))
             {
-                Resource -= amount;
-                PlayerPrefs.SetInt(ResourceName, Resource);
-                PlayerPrefs.Save();
-                OnResourceChanged();
+                var value = UserDataManager.Instance.GetData(ResourceName);
+                value -= amount;
+                UserDataManager.Instance.SetData(ResourceName, value);
+                // PlayerPrefs.SetInt(ResourceName, Resource);
+                // PlayerPrefs.Save();
+                OnResourceChanged(value);
                 return true;
             }
 
@@ -91,15 +96,15 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         }
 
         //callback for ui elements
-        private void OnResourceChanged()
+        private void OnResourceChanged(int value)
         {
-            OnResourceUpdate?.Invoke(Resource);
+            OnResourceUpdate?.Invoke(value);
         }
 
         //get the resource
         public int GetValue()
         {
-            return Resource;
+            return UserDataManager.Instance.GetData(ResourceName);;
         }
 
         //check if there is enough of the resource

@@ -163,7 +163,7 @@ namespace BlockPuzzleGameToolkit.Scripts.System
         private bool CheckDailyBonusConditions()
         {
             var today = DateTime.Today;
-            var lastRewardDate = DateTime.Parse(PlayerPrefs.GetString("DailyBonusDay", today.Subtract(TimeSpan.FromDays(1)).ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)));
+            var lastRewardDate = DateTime.Parse(UserDataManager.Instance.DailyBonusDay, CultureInfo.InvariantCulture);
             return today.Date > lastRewardDate.Date && dailyBonusSettings.dailyBonusEnabled;
         }
 
@@ -297,7 +297,7 @@ namespace BlockPuzzleGameToolkit.Scripts.System
         public bool IsPurchased(string productId)
         {
             if (!GameSettings.enableInApps) return false;
-            return PlayerPrefs.GetInt("Purchased_" + productId, 0) == 1;;
+            return UserDataManager.Instance.IsPurchasedProductId(productId);
         }
     }
 }

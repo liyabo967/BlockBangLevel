@@ -59,14 +59,14 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             {
                 LevelNum = currentLevel;
                 // PlayerPrefs.SetInt("Level", currentLevel);
+                // PlayerPrefs.Save();
                 UserDataManager.Instance.SetLevel(currentLevel);
-                PlayerPrefs.Save();
             }
         }
 
         public static int GetLevelNum()
         {
-            return PlayerPrefs.GetInt("Level", 1);
+            return UserDataManager.Instance.Level;
         }
 
         public static Level GetLevel()
@@ -100,7 +100,7 @@ namespace BlockPuzzleGameToolkit.Scripts.System
 
         public static EGameMode GetGameMode()
         {
-            return (EGameMode)PlayerPrefs.GetInt("GameMode");
+            return (EGameMode)UserDataManager.Instance.GameMode;
         }
 
         public static void SetGameMode(EGameMode gameMode)

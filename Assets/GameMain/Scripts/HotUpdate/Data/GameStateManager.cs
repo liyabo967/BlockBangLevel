@@ -46,6 +46,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             }
         }
 
+        public void Delete(EGameMode gameMode)
+        {
+            GameEntry.Storage.DeleteKey(gameMode.ToString());
+        }
+
         private void OnApplicationPause(bool pauseStatus)
         {
             if (pauseStatus)

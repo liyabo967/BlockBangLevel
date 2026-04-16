@@ -81,7 +81,11 @@ namespace UnityGameFramework.Runtime
 
         public void DeleteKey(string key)
         {
-            if (_cache.Remove(key)) _dirty = true;
+            if (_cache.Remove(key))
+            {
+                _dirty = true;
+            }
+            File.Delete(GetPath(key));
         }
 
         public void DeleteAll()

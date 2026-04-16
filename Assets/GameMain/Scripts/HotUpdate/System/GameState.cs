@@ -134,8 +134,9 @@ namespace BlockPuzzleGameToolkit.Scripts.System
 
         public static void Delete(EGameMode gameMode)
         {
-            PlayerPrefs.DeleteKey("GameState_" + gameMode);
-            PlayerPrefs.Save();
+            // PlayerPrefs.DeleteKey("GameState_" + gameMode);
+            // PlayerPrefs.Save();
+            GameStateManager.Instance.Delete(gameMode);
         }
 
         public static void Delete()

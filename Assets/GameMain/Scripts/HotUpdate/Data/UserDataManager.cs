@@ -10,13 +10,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         private UserData _userData;
         
         public int Level => _userData.level;
-        
+        public int Coins => _userData.coins;
+        public int Score => _userData.score;
+        public int TimedBestScore => _userData.timedBestScore;
         public string DailyBonusDay => _userData.dailyBonusDay;
-        
         public int RewardStreak => _userData.rewardStreak;
-        
         public bool TutorialCompleted => _userData.tutorialCompleted;
-        
+        public int GameMode => _userData.gameMode;
         public List<string> PictureList => _userData.pictureList;
         
         public void Load()
@@ -36,6 +36,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             _userData.level = 1;
             _userData.coins = 10;
             _userData.rewardStreak = -1;
+            _userData.dailyBonusDay = "0000-00-00 00:00:00";
             _userData.pictureList = new();
             _userData.purchasedIdList = new();
         }
@@ -63,6 +64,59 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public void SetLevel(int level)
         {
             _userData.level = level;
+        }
+
+        public void SetCoins(int coins)
+        {
+            _userData.coins = coins;
+        }
+
+        public void SetScore(int score)
+        {
+            _userData.score = score;
+        }
+
+        public void SetTimedBestScore(int timedBestScore)
+        {
+            _userData.timedBestScore = timedBestScore;
+        }
+
+        /// <summary>
+        /// 关于金币分数的特殊处理，后面再处理 scriptableObject的问题
+        /// </summary>
+        /// <param name="dataName"></param>
+        public int GetData(string dataName)
+        {
+            var result = 0;
+            switch (dataName)
+            {
+                case "Coins":
+                    result = _userData.coins;
+                    break;
+                case "Score":
+                    result = _userData.score;
+                    break;
+                case "TimedBestScore":
+                    result = _userData.timedBestScore;
+                    break;
+            }
+            return result;
+        }
+
+        public void SetData(string dataName, int dataValue)
+        {
+            switch (dataName)
+            {
+                case "Coins":
+                    _userData.coins = dataValue;
+                    break;
+                case "Score":
+                    _userData.score = dataValue;
+                    break;
+                case "TimedBestScore":
+                    _userData.timedBestScore = dataValue;
+                    break;
+            }
         }
 
         public void SetRewardStreak(int rewardStreak)
