@@ -163,7 +163,7 @@ namespace BlockPuzzleGameToolkit.Scripts.System
         private bool CheckDailyBonusConditions()
         {
             var today = DateTime.Today;
-            var lastRewardDate = DateTime.Parse(UserDataManager.Instance.DailyBonusDay, CultureInfo.InvariantCulture);
+            var lastRewardDate = DateTime.ParseExact(UserDataManager.Instance.DailyBonusDay, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
             return today.Date > lastRewardDate.Date && dailyBonusSettings.dailyBonusEnabled;
         }
 

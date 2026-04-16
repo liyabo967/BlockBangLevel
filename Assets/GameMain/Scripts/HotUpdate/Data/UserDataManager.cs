@@ -36,9 +36,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             _userData.level = 1;
             _userData.coins = 10;
             _userData.rewardStreak = -1;
-            _userData.dailyBonusDay = "0000-00-00 00:00:00";
-            _userData.pictureList = new();
-            _userData.purchasedIdList = new();
+            _userData.dailyBonusDay = "1900-01-01 00:00:00";
         }
 
         // 序列化数据，但是不写入磁盘

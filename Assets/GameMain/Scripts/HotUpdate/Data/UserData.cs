@@ -13,7 +13,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public bool tutorialCompleted;
         public string dailyBonusDay;
         public string lastPlayedMode;
-        public List<string> pictureList;
-        public List<string> purchasedIdList;
+        public List<string> pictureList = new ();
+        public List<string> purchasedIdList = new ();
     }
 }
