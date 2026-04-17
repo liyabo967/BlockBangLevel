@@ -10,12 +10,14 @@
 // // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // // THE SOFTWARE.
 
+using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.System;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using GameMain.Scripts.HotUpdate.Base.Ads;
+using Quester;
 
 namespace BlockPuzzleGameToolkit.Scripts.Popups
 {
@@ -26,7 +28,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         protected virtual void OnEnable()
         {
             messageText.transform.localScale = Vector3.zero;
+            UserDataManager.Instance.AddPicture($"{TimeManager.SeasonTime.year}_{TimeManager.SeasonTime.week}");
         }
+        
         public override void AfterShowAnimation()
         {
             if (messageText != null)

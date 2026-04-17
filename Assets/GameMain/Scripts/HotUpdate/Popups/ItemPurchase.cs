@@ -33,7 +33,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         [HideInInspector]
         public ShopItem settingsShopItem;
 
-        public ProductID productID;
+        public string productID;
 
         [SerializeField]
         public ResourceObject resource;
@@ -41,23 +41,23 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         private void Start()
         {
             buyButton?.onClick.AddListener(BuyCoins);
-            if (productID != null)
+            if (!string.IsNullOrEmpty(productID))
             {
                 // var priceValue = IAPManager.instance.GetProductLocalizedPrice(productID.ID);
                 // if (priceValue > 0.01m)
                 // {
                 //     price.text = IAPManager.instance.GetProductLocalizedPriceString(productID.ID);
                 // }
-
-                price.text = GameEntry.Purchase.GetLocalPriceString(productID.ID);
+                // count.text = settingsShopItem.count.ToString();
+                // price.text = GameEntry.Purchase.GetLocalPriceString(productID);
             }
         }
 
         private void BuyCoins()
         {
-            if (productID != null)
+            if (!string.IsNullOrEmpty(productID))
             {
-                GetComponentInParent<CoinsShop>().BuyCoins(productID.ID);
+                GetComponentInParent<CoinsShop>().BuyCoins(productID);
             }
         }
     }

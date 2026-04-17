@@ -27,6 +27,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
                 _userData = new UserData();
                 InitData();
             }
+            
+            // just for test
+            _userData.level = 88;
         }
 
         private void InitData()
@@ -153,6 +156,14 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public bool IsPurchasedProductId(string productId)
         {
             return _userData.purchasedIdList.Contains(productId);
+        }
+
+        public void AddPicture(string picture)
+        {
+            if (!_userData.pictureList.Contains(picture))
+            {
+                _userData.pictureList.Add(picture);
+            }
         }
         
     }

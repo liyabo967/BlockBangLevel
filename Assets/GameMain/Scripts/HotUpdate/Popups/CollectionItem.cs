@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using DG.Tweening;
 using Quester;
 using Quester;
@@ -21,18 +22,31 @@ namespace Quester.UI
         
         private void Start()
         {
-            var assetAsync = Addressables.LoadAssetAsync<Sprite>($"Assets/GameMain/Arts/Pictures/{_year}/{_week}.jpg");
-            assetAsync.Completed += handle =>
+            var filePath = $"{Application.persistentDataPath}/Pictures/{_year}/{_week}.jpg";
+            // Debug.Log(filePath);
+            if (File.Exists(filePath))
             {
-                if (handle.Status == AsyncOperationStatus.Succeeded)
+                // 异步加载
+                StartCoroutine(SpriteLoader.LoadFromFileAsync(filePath, (sprite) =>
                 {
-                    image.sprite = handle.Result;
-                }
-                else
+                    image.sprite = sprite;
+                }));
+            }
+            else
+            {
+                var assetAsync = Addressables.LoadAssetAsync<Sprite>($"Assets/GameMain/Sprites/Pictures/0.jpg");
+                assetAsync.Completed += handle =>
                 {
-                    Debug.LogError(handle.OperationException);
-                }
-            };
+                    if (handle.Status == AsyncOperationStatus.Succeeded)
+                    {
+                        image.sprite = handle.Result;
+                    }
+                    else
+                    {
+                        Debug.LogError(handle.OperationException);
+                    }
+                };
+            }
         }
 
         public void SetData(int year, int week)

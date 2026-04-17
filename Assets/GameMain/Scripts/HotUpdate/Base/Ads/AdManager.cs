@@ -90,7 +90,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
         private bool CanShowInterstitial()
         {
-            return true;
+            return false;
             if (GameDataManager.GetLevelNum() < 10)
             {
                 return false;

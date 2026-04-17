@@ -119,6 +119,7 @@ namespace Quester
                 yield return null;
                 _items =  new Image[_rows, _columns];
                 var index = 1;
+                var padding = _cellWidth * 0.1f;
                 for (int i = 0; i < _rows; i++)
                 {
                     for (int j = 0; j < _columns; j++)
@@ -126,7 +127,7 @@ namespace Quester
                         var item = Instantiate(itemPrefab, parent.transform);
                         item.gameObject.SetActive(true);
                         item.transform.localPosition = GetCellPosition(i, j);
-                        item.GetComponent<RectTransform>().sizeDelta = new Vector2(_cellWidth - 2, _cellHeight - 2);
+                        item.GetComponent<RectTransform>().sizeDelta = new Vector2(_cellWidth - padding, _cellHeight - padding);
                         item.transform.GetChild(0).GetComponent<Text>().text = (i * _columns + j + 1).ToString();
                         item.transform.name = $"item_{index}";
                         _items[i, j] = item;
@@ -252,7 +253,7 @@ namespace Quester
 
         private void LoadImage()
         {
-            var filePath = $"{Application.persistentDataPath}/pictures/{TimeManager.SeasonTime.year}/{TimeManager.SeasonTime.week}.jpg";
+            var filePath = $"{Application.persistentDataPath}/Pictures/{TimeManager.SeasonTime.year}/{TimeManager.SeasonTime.week}.jpg";
             // Debug.Log(filePath);
             if (File.Exists(filePath))
             {
@@ -265,7 +266,7 @@ namespace Quester
             else
             {
                 // 从本地包加载
-                var assetAsync = Addressables.LoadAssetAsync<Sprite>($"Assets/GameMain/Sprites/pictures/0.jpg");
+                var assetAsync = Addressables.LoadAssetAsync<Sprite>($"Assets/GameMain/Sprites/Pictures/0.jpg");
                 assetAsync.Completed += handle =>
                 {
                     Log.Info($"LoadAssetAsync Completed: {handle.Status}");

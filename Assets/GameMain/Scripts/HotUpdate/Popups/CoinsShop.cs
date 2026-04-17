@@ -11,6 +11,7 @@
 // // THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using BlockPuzzleGameToolkit.Scripts.Audio;
 using BlockPuzzleGameToolkit.Scripts.Data;
@@ -29,11 +30,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
     public class CoinsShop : UGuiForm
     {
         public ItemPurchase[] packs;
-        private CoinsShopSettings shopSettings;
+        // private CoinsShopSettings shopSettings;
 
         [SerializeField]
         private ItemPurchase watchAd;
 
+        private Dictionary<string, DRShopProduct> _shopProductDict = new ();
+        
         private void OnEnable()
         {
             GameEntry.Event.Subscribe(PurchaseResultEventArgs.EventId, OnPurchaseResult);
@@ -47,30 +50,40 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
-            shopSettings = Addressables.LoadAssetAsync<CoinsShopSettings>("Assets/GameMain/Settings/Game/CoinsShopSettings.asset").WaitForCompletion();
-            InstantiateMissingItems();
+            // shopSettings = Addressables.LoadAssetAsync<CoinsShopSettings>("Assets/GameMain/Settings/Game/CoinsShopSettings.asset").WaitForCompletion();
+            var shopProductList = GameEntry.DataTable.GetDataTable<DRShopProduct>().ToList();
+            
+            foreach (var drShopProduct in shopProductList)
+            {
+                _shopProductDict[drShopProduct.ProductId] = drShopProduct;
+            }
+            
+            InstantiateMissingItems(shopProductList);
             foreach (var itemPurchase in packs)
             {
-                if (shopSettings.products.Count > 0)
+                if (shopProductList.Count > 0)
                 {
                     var productID = itemPurchase.productID;
-                    var settingsShopItem = shopSettings.products.FirstOrDefault(x => x.productID == productID);
-                    if (settingsShopItem != null)
+                    if (_shopProductDict.TryGetValue(productID, out DRShopProduct drShopProduct))
                     {
-                        itemPurchase.settingsShopItem = settingsShopItem;
-                        itemPurchase.count.text = settingsShopItem.count.ToString();
-#if UNITY_EDITOR
-                        if (!string.IsNullOrEmpty(settingsShopItem.price))
+                        // itemPurchase.settingsShopItem = settingsShopItem;
+                        itemPurchase.count.text = drShopProduct.Content.Split("_")[1];
+                        
+                        var productType = (ProductTypeWrapper.ProductType)Enum.Parse(typeof(ProductTypeWrapper.ProductType), drShopProduct.ProductType);
+                        if (productType == ProductTypeWrapper.ProductType.NonConsumable)
                         {
-                            itemPurchase.price.text = settingsShopItem.price;
+                            if (UserDataManager.Instance.IsPurchasedProductId(productID))
+                            {
+                                itemPurchase.gameObject.SetActive(false);
+                            }
                         }
-#endif
-                    }
-
-                    if (productID.productType == ProductTypeWrapper.ProductType.NonConsumable &&
-                        UserDataManager.Instance.IsPurchasedProductId(productID.ID))
-                    {
-                        itemPurchase.gameObject.SetActive(false);
+                        else
+                        {
+                            if (!productID.Contains("noads"))
+                            {
+                                itemPurchase.price.text = GameEntry.Purchase.GetLocalPriceString(productID);
+                            }
+                        }
                     }
                 }
             }
@@ -95,34 +108,34 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             }
         }
 
-        private void InstantiateMissingItems()
+        private void InstantiateMissingItems(List<DRShopProduct> shopProductList)
         {
-            if (shopSettings.products.Count == 0)
-                return;
+            // Debug.Log($"Instantiating missing items: {shopSettings.products.Count}");
+            // if (shopSettings.products.Count == 0)
+            //     return;
 
             var existingProductIds = packs.Where(p => p.productID != null).Select(p => p.productID).ToList();
-
-            foreach (var shopItem in shopSettings.products)
+            // for (var i = 0; i < existingProductIds.Count; i++)
+            // {
+            //     Debug.LogWarning($"{i}, Product ID: {existingProductIds[i]}");
+            // }
+            foreach (var shopItem in shopProductList)
             {
-                if (!existingProductIds.Contains(shopItem.productID))
+                var shopProductId = shopItem.ProductId;
+                if (!existingProductIds.Contains(shopProductId))
                 {
-                    var prefab = shopItem.prefab != null ? shopItem.prefab : (packs.Length > 0 ? packs[packs.Length - 1] : null);
+                    Debug.LogWarning($"{shopProductId} doesn't exist.");
+                    var prefab = packs.Last();
                     if (prefab == null)
                         continue;
 
-                    var parent = packs.Length > 0 ? packs[packs.Length - 1].transform.parent : transform;
+                    var parent = packs.Length > 0 ? prefab.transform.parent : transform;
                     
                     var newItem = Instantiate(prefab, parent);
-                    newItem.productID = shopItem.productID;
-                    newItem.settingsShopItem = shopItem;
-                    newItem.count.text = shopItem.count.ToString();
+                    newItem.productID = shopProductId;
+                    // newItem.settingsShopItem = shopItem;
+                    newItem.count.text = shopItem.Content.Split("_")[1];
                     newItem.tag.gameObject.SetActive(false);
-#if UNITY_EDITOR
-                    if (!string.IsNullOrEmpty(shopItem.price))
-                    {
-                        newItem.price.text = shopItem.price;
-                    }
-#endif
 
                     var packsList = packs.ToList();
                     packsList.Add(newItem);
@@ -133,7 +146,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         private void PurchaseSuccess(string id)
         {
-            var shopItem = packs.First(i => i.productID.ID == id);
+            var shopItem = packs.First(i => i.productID == id);
             if (shopItem)
             {
                 var count = shopItem.settingsShopItem.count;
@@ -143,7 +156,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 });
 
                 // If the item is non-consumable, mark it as purchased
-                if (shopItem.productID.productType == ProductTypeWrapper.ProductType.NonConsumable)
+                if (_shopProductDict[id].ProductType == nameof(ProductTypeWrapper.ProductType.NonConsumable))
                 {
                     // PlayerPrefs.SetInt("Purchased_" + id, 1);
                     // PlayerPrefs.Save();

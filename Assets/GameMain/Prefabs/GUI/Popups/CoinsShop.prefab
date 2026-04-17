@@ -1375,6 +1375,7 @@ MonoBehaviour:
   closeButton: {fileID: 1616947089610256665}
   faderPrefab: {fileID: 1728106544561907564, guid: 2e8eeaa5cce3b4adbbfc8c9c6f62c64a, type: 3}
   packs:
+  - {fileID: 1213144657998819061}
   - {fileID: 6472171355294180305}
   - {fileID: 4655922832298640159}
   - {fileID: 937021838772777454}
@@ -1717,8 +1718,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8504871770900910552, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: productID
-      value: 
-      objectReference: {fileID: 11400000, guid: 2923d2f0d156243a1b0c5b42520d167b, type: 2}
+      value: com.quester.game.blockbang.coin_100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1854,8 +1855,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8504871770900910552, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: productID
-      value: 
-      objectReference: {fileID: 11400000, guid: 806a87b4a544b4d0a8bfa0ccd27a9de7, type: 2}
+      value: com.quester.game.blockbang.coin_200
+      objectReference: {fileID: 0}
     - target: {fileID: 8738818636553769573, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2039,7 +2040,7 @@ PrefabInstance:
       objectReference: {fileID: 252609838267704485}
     - target: {fileID: 5736691152768228375, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: productID
-      value: 
+      value: com.quester.game.blockbang.noads
       objectReference: {fileID: 0}
     - target: {fileID: 6194208737001796073, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: m_Interactable
@@ -2167,7 +2168,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 6866061533056529122}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9659348afa04bc6bb30eb6900f94b65, type: 3}
   m_Name: 
@@ -2342,8 +2343,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8504871770900910552, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: productID
-      value: 
-      objectReference: {fileID: 11400000, guid: e9b459296fb94459ca8a7fa41e909730, type: 2}
+      value: com.quester.game.blockbang.coin_500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
