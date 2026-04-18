@@ -14,7 +14,6 @@ using UnityEngine;
 
 namespace BlockPuzzleGameToolkit.Scripts.GUI
 {
-    [ExecuteAlways]
     public class SafeArea : MonoBehaviour
     {
         [SerializeField]

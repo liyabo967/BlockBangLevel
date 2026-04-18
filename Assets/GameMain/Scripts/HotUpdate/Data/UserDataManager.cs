@@ -29,7 +29,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             }
             
             // just for test
-            _userData.level = 88;
+            // _userData.level = 88;
         }
 
         private void InitData()

@@ -16,11 +16,35 @@ namespace Quester.UI
         public RectTransform contentTransform;
         public CollectionItem itemPrefab;
         public Transform parent;
+        public GameObject emptyTips;
+        public GridLayoutGroup gridLayoutGroup;
+
+        private int _columns = 3;
+        private int _rowSpacing = 20;
+        // 图片的高度
+        private int _imageHeight = 0;
+
+        private void Awake()
+        {
+            var imageRect = itemPrefab.transform.GetChild(0).GetComponent<RectTransform>().rect;
+            _imageHeight = (int)imageRect.height;
+        }
+
+        private void Start()
+        {
+            var rectTransform = gridLayoutGroup.GetComponent<RectTransform>();
+            // 一行显示 4 个
+            var width = rectTransform.rect.width / _columns;
+            gridLayoutGroup.cellSize = new Vector2(width, gridLayoutGroup.cellSize.y);
+        }
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
             var pictureList = UserDataManager.Instance.PictureList;
+            
+            
+            emptyTips.SetActive(pictureList.Count == 0);
             var startIndex = parent.childCount - 1;
             for (int i = startIndex; i < pictureList.Count; i++)
             {
@@ -32,8 +56,10 @@ namespace Quester.UI
             }
             // contentTransform.sizeDelta = new Vector2(contentTransform.sizeDelta.x, 60);
             int itemCount = parent.childCount - 1;
-            var height = Math.Max(330, 330 * Math.Ceiling(itemCount / 3.0));
-            contentTransform.sizeDelta = new Vector2(contentTransform.sizeDelta.x, (int)height);
+            int rows = Mathf.CeilToInt((float)itemCount / _columns);
+            var height = _imageHeight * rows + _rowSpacing * (rows - 1);
+            Debug.Log($"rows: {rows}, height: {height}");
+            contentTransform.sizeDelta = new Vector2(contentTransform.sizeDelta.x, height);
         }
     }
 }
