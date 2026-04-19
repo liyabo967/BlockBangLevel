@@ -29,7 +29,7 @@ public class AotDialogUI : MonoBehaviour
         closeButton.onClick.AddListener(OnConfirm);
     }
 
-    public void Show(string message, Action callback = null)
+    public void Show(string title, string message, Action callback = null)
     {
         panel.SetActive(true);
         messageText.text = message;

@@ -306,7 +306,7 @@ namespace UnityGameFramework.Scripts.Editor.Translation
 
                 if (append)
                 {
-                    File.AppendAllText(filePath, "\n" + content, Encoding.UTF8);
+                    File.AppendAllText(filePath, content + "\n", Encoding.UTF8);
                 }
                 else
                 {

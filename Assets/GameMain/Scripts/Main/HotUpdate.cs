@@ -111,7 +111,9 @@ namespace GameMain
                             hotUpdateCompleted = true;
                         }, s =>
                         {
-                            ShowDialog(s);
+                            var errorMsg = LocalLanguage.Instance.GetString("#check_network");
+                            errorMsg += "\n" + s;
+                            ShowDialog(errorMsg);
                             Debug.LogError($"download fail: {s}");
                         }, f =>
                         {
@@ -292,7 +294,9 @@ namespace GameMain
 
             if (downloadFailed)
             {
-                ShowDialog(LocalLanguage.Instance.GetString("#download_fail"));
+                var msg = LocalLanguage.Instance.GetString("#download_fail");
+                msg += "\n" + LocalLanguage.Instance.GetString("#check_network");
+                ShowDialog(msg);
             }
             
             Log.Info("=== 补充元数据加载完成 ===");
@@ -336,6 +340,9 @@ namespace GameMain
             catch (Exception e)
             {
                 Log.Error($"启动热更新代码失败: {e.Message}\n{e.StackTrace}");
+                var msg = LocalLanguage.Instance.GetString("#unknown_exception");
+                msg += "\n" + e.Message;
+                ShowDialog(msg);
             }
         }
         
@@ -397,7 +404,9 @@ namespace GameMain
 
             if (handle.Status != AsyncOperationStatus.Succeeded)
             {
-                ShowDialog(handle.OperationException.Message);
+                var msg = LocalLanguage.Instance.GetString("#download_fail");
+                msg += "\n" + handle.OperationException.Message;
+                ShowDialog(msg);
             }
             else
             {
@@ -418,10 +427,11 @@ namespace GameMain
 
         private void ShowDialog(string msg)
         {
-            var message = LocalLanguage.Instance.GetString("#update_failed");
-            message += $"\n{LocalLanguage.Instance.GetString("#check_network")}";
+            var message = msg;
+            // message += $"\n{LocalLanguage.Instance.GetString("#check_network")}";
             // message += $"\n{msg}";
-            AotDialogUI.Instance.Show(message, () =>
+            var title = LocalLanguage.Instance.GetString("#update_failed");
+            AotDialogUI.Instance.Show(title, message, () =>
             {
                 StartCoroutine(Retry());
             });
