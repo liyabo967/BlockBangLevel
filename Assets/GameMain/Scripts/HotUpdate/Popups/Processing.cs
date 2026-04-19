@@ -27,7 +27,7 @@ namespace Quester
                     RotateMode.FastBeyond360
                 )
                 .SetEase(Ease.Linear)       // 匀速（很关键）
-                .SetLoops(-1, LoopType.Restart);
+                .SetLoops(-1, LoopType.Incremental);
         }
 
         private void StopAnim()

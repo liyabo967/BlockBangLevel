@@ -118,6 +118,11 @@ namespace Quester
 
         public static void CloseUIForm(this UIComponent uiComponent, UGuiForm uiForm)
         {
+            if (uiForm == null)
+            {
+                Log.Warning("uiForm is null.");
+                return;
+            }
             uiComponent.CloseUIForm(uiForm.UIForm);
         }
         
