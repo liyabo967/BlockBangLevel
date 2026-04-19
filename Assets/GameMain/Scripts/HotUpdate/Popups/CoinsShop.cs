@@ -110,10 +110,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         private void InstantiateMissingItems(List<DRShopProduct> shopProductList)
         {
-            // Debug.Log($"Instantiating missing items: {shopSettings.products.Count}");
-            // if (shopSettings.products.Count == 0)
-            //     return;
-
             var existingProductIds = packs.Where(p => p.productID != null).Select(p => p.productID).ToList();
             // for (var i = 0; i < existingProductIds.Count; i++)
             // {
@@ -122,6 +118,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             foreach (var shopItem in shopProductList)
             {
                 var shopProductId = shopItem.ProductId;
+                if (shopProductId.Contains("noads"))
+                {
+                    continue;
+                }
                 if (!existingProductIds.Contains(shopProductId))
                 {
                     Debug.LogWarning($"{shopProductId} doesn't exist.");
@@ -149,7 +149,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             var shopItem = packs.First(i => i.productID == id);
             if (shopItem)
             {
-                var count = shopItem.settingsShopItem.count;
+                var count = int.Parse(shopItem.count.text);
                 LabelAnim.AnimateForResource(shopItem.resource, shopItem.buyButton.transform.position, "+" + count, SoundBase.instance.coins, () =>
                 {
                     ResourceManager.instance.GetResource("Coins").Add(count);

@@ -582,7 +582,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: NOADS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 14928a98ac0086a4483452d618f1764c, type: 2}
   m_sharedMaterial: {fileID: 3722732180671858053, guid: 14928a98ac0086a4483452d618f1764c, type: 2}
@@ -609,7 +609,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
+  m_fontSize: 41.3
   m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -719,7 +719,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "\u5546\u5E97"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 14928a98ac0086a4483452d618f1764c, type: 2}
   m_sharedMaterial: {fileID: 3722732180671858053, guid: 14928a98ac0086a4483452d618f1764c, type: 2}
@@ -746,7 +746,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 140.35
+  m_fontSize: 59.65
   m_fontSizeBase: 140.35
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1392,7 +1392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dece0aac2cf9463587dade7a67633f5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardedButton: {fileID: 774450434731541259}
+  rewardedButton: {fileID: 3440427091791896893}
   onRewardedAdComplete:
     m_PersistentCalls:
       m_Calls:
@@ -1602,7 +1602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4633185868086996427, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: m_text
-      value: 
+      value: "\u6700\u53D7\u6B22\u8FCE"
       objectReference: {fileID: 0}
     - target: {fileID: 4633185868086996427, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: instanceID
@@ -1610,7 +1610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4633185868086996427, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: m_fontSize
-      value: 32
+      value: 30.5
       objectReference: {fileID: 0}
     - target: {fileID: 4633185868086996427, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: m_fontColor.b
@@ -2028,11 +2028,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1703259815867691297, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: m_text
-      value: 
+      value: FREE
       objectReference: {fileID: 0}
     - target: {fileID: 1703259815867691297, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: m_fontSize
-      value: 32
+      value: 47.8
       objectReference: {fileID: 0}
     - target: {fileID: 5736691152768228375, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: count
@@ -2040,7 +2040,7 @@ PrefabInstance:
       objectReference: {fileID: 252609838267704485}
     - target: {fileID: 5736691152768228375, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: productID
-      value: com.quester.game.blockbang.noads
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6194208737001796073, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: m_Interactable
@@ -2132,7 +2132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8779745598275641348, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: m_text
-      value: 
+      value: "\u89C2\u770B\u5E7F\u544A"
       objectReference: {fileID: 0}
     - target: {fileID: 8779745598275641348, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: instanceID
@@ -2140,7 +2140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8779745598275641348, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: m_fontSize
-      value: 32
+      value: 30.5
       objectReference: {fileID: 0}
     - target: {fileID: 8779745598275641348, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -2162,17 +2162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &774450434731541259 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6194208737001796073, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
-  m_PrefabInstance: {fileID: 6866061533056529122}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9659348afa04bc6bb30eb6900f94b65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1213144657998819061 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5736691152768228375, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
@@ -2189,6 +2178,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8247059166221603872, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
   m_PrefabInstance: {fileID: 6866061533056529122}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3440427091791896893 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8140252616193741791, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
+  m_PrefabInstance: {fileID: 6866061533056529122}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9659348afa04bc6bb30eb6900f94b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8865238788576534582
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2215,7 +2215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4633185868086996427, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: m_text
-      value: 
+      value: "\u5F3A\u70C8\u63A8\u8350"
       objectReference: {fileID: 0}
     - target: {fileID: 4633185868086996427, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: instanceID
@@ -2223,7 +2223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4633185868086996427, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: m_fontSize
-      value: 32
+      value: 30.5
       objectReference: {fileID: 0}
     - target: {fileID: 4633185868086996427, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: m_fontColor.b
