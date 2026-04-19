@@ -582,7 +582,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: NOADS
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 14928a98ac0086a4483452d618f1764c, type: 2}
   m_sharedMaterial: {fileID: 3722732180671858053, guid: 14928a98ac0086a4483452d618f1764c, type: 2}
@@ -609,7 +609,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.3
+  m_fontSize: 32
   m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -719,7 +719,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5546\u5E97"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 14928a98ac0086a4483452d618f1764c, type: 2}
   m_sharedMaterial: {fileID: 3722732180671858053, guid: 14928a98ac0086a4483452d618f1764c, type: 2}
@@ -746,7 +746,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 59.65
+  m_fontSize: 140.35
   m_fontSizeBase: 140.35
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1602,7 +1602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4633185868086996427, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: m_text
-      value: "\u6700\u53D7\u6B22\u8FCE"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4633185868086996427, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: instanceID
@@ -1610,7 +1610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4633185868086996427, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: m_fontSize
-      value: 30.5
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 4633185868086996427, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: m_fontColor.b
@@ -1718,7 +1718,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8504871770900910552, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: productID
-      value: com.quester.game.blockbang.coin_100
+      value: com.quester.game.blockbang.coin_500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1855,7 +1855,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8504871770900910552, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: productID
-      value: com.quester.game.blockbang.coin_200
+      value: com.quester.game.blockbang.coin_1200
       objectReference: {fileID: 0}
     - target: {fileID: 8738818636553769573, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: m_IsActive
@@ -2028,11 +2028,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1703259815867691297, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: m_text
-      value: FREE
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1703259815867691297, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: m_fontSize
-      value: 47.8
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 5736691152768228375, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: count
@@ -2132,7 +2132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8779745598275641348, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: m_text
-      value: "\u89C2\u770B\u5E7F\u544A"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8779745598275641348, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: instanceID
@@ -2140,7 +2140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8779745598275641348, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: m_fontSize
-      value: 30.5
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 8779745598275641348, guid: 5b4c8fe65fe254c9cb034f7a41219527, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -2215,7 +2215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4633185868086996427, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: m_text
-      value: "\u5F3A\u70C8\u63A8\u8350"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4633185868086996427, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: instanceID
@@ -2223,7 +2223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4633185868086996427, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: m_fontSize
-      value: 30.5
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 4633185868086996427, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: m_fontColor.b
@@ -2343,7 +2343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8504871770900910552, guid: dc00f24615c57464d8e3fb728fdbb6ca, type: 3}
       propertyPath: productID
-      value: com.quester.game.blockbang.coin_500
+      value: com.quester.game.blockbang.coin_3500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
