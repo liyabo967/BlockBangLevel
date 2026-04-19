@@ -134,8 +134,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             }
             else
             {
-                // todo: 暂停计时，并弹出商店
-                
+                PauseTimer();
             }
         }
 
