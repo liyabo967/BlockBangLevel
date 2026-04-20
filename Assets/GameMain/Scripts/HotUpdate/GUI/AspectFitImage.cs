@@ -10,7 +10,6 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
     {
         protected override void OnPopulateMesh(VertexHelper vh)
         {
-            Debug.LogWarning("OnPopulateMesh");
             if (sprite == null)
             {
                 base.OnPopulateMesh(vh);

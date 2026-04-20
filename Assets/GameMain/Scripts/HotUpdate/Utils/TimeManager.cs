@@ -1,11 +1,13 @@
 using System;
 using System.Globalization;
+using BlockPuzzleGameToolkit.Scripts.Data;
 using UnityEngine;
 
 namespace Quester
 {
     public class TimeManager
     {
+        private const int SecondsOneWeek = 3600 * 24 * 7;
         public static SeasonTime SeasonTime;
         public static float StartupTime;
         
@@ -40,15 +42,12 @@ namespace Quester
         private static void SetSeason()
         {
             int season = SeasonTime.year * 100 + SeasonTime.week;
-            // if (season != UserDataManager.Instance.GetService().CurrentSeason)
-            // {
-            //     UserDataManager.Instance.GetService().Level = 1;
-            //     UserDataManager.Instance.GetService().CurrentSeason = season;
-            // }
+            if (season != UserDataManager.Instance.CurrentSeason)
+            {
+                UserDataManager.Instance.SetLevel(1);
+                UserDataManager.Instance.SetSeason(season);
+            }
         }
-        
-        
-        private static int SecondsOneWeek = 3600 * 24 * 7;
         
         public static long GetCurrentTime()
         {
@@ -67,7 +66,7 @@ namespace Quester
         {
             // 获取当前日期和年份
             var currentTime = GetCurrentTime();
-            Debug.LogError($"currentTime; {currentTime}");
+            // Debug.Log($"currentTime; {currentTime}");
             DateTime currentDate = DateTimeOffset.FromUnixTimeSeconds(currentTime).DateTime;
             int year = currentDate.Year;
         
@@ -82,8 +81,8 @@ namespace Quester
                 DayOfWeek.Monday
             );
 
-            Debug.Log($"当前日期：{currentDate.ToShortDateString()}");
-            Debug.Log($"当前是 {year} 年的第 {week} 周");
+            // Debug.Log($"当前日期：{currentDate.ToShortDateString()}");
+            // Debug.Log($"当前是 {year} 年的第 {week} 周");
             
             SeasonTime seasonTime = new SeasonTime();
             seasonTime.serverTime = currentTime;

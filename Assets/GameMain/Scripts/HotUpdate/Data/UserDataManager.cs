@@ -17,6 +17,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public int RewardStreak => _userData.rewardStreak;
         public bool TutorialCompleted => _userData.tutorialCompleted;
         public int GameMode => _userData.gameMode;
+        public int CurrentSeason => _userData.currentSeason;
         public List<string> PictureList => _userData.pictureList;
         
         public void Load()
@@ -78,6 +79,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public void SetTimedBestScore(int timedBestScore)
         {
             _userData.timedBestScore = timedBestScore;
+        }
+
+        public void SetSeason(int season)
+        {
+            _userData.currentSeason = season;
         }
 
         /// <summary>
