@@ -11,6 +11,7 @@
 // // THE SOFTWARE.
 
 using BlockPuzzleGameToolkit.Scripts.System;
+using GameMain.Scripts.HotUpdate.Base.Ads;
 using UnityEngine;
 
 namespace BlockPuzzleGameToolkit.Scripts.Gameplay
@@ -33,6 +34,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             get => _currentState;
             set
             {
+                if (_currentState != value)
+                {
+                    ToggleBanner(value);
+                }
                 _currentState = value;
                 SetActiveState(mainMenus, _currentState == EScreenStates.MainMenu);
                 SetActiveState(maps, _currentState == EScreenStates.Map);
@@ -48,6 +53,18 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 {
                     gameObject.SetActive(isActive);
                 }
+            }
+        }
+
+        private void ToggleBanner(EScreenStates screenStates)
+        {
+            if (screenStates == EScreenStates.Game)
+            {
+                AdManager.Instance.ShowBanner();
+            }
+            else
+            {
+                AdManager.Instance.HideBanner();
             }
         }
     }

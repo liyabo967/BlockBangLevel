@@ -46,7 +46,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 Debug.Log($"Ad Load success: {result.AdType}, {result.AdNetwork}");
                 // if (result.AdType == AdType.Banner)
                 // {
-                //     _adapter.ShowAd(AdType.Banner);
+                //     _adapter.HideBanner();
                 // }
             };
             _adapter.OnAdRewarded += r =>
@@ -69,7 +69,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 if (success)
                 {
                     // 预加载常用广告
-                    _adapter.LoadAd(AdType.Banner);
+                    // _adapter.LoadAd(AdType.Banner);
                     _adapter.LoadAd(AdType.Interstitial);
                     _adapter.LoadAd(AdType.RewardedVideo);
                 }
@@ -90,13 +90,16 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
         private bool CanShowInterstitial()
         {
+#if UNITY_EDITOR
             return false;
+#endif
+            
             if (GameDataManager.GetLevelNum() < 10)
             {
                 return false;
             }
 
-            if (Time.time - _lastAdTime < 300f)
+            if (Time.time - _lastAdTime < 180f)
             {
                 return false;
             }
@@ -169,7 +172,18 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             HideBanner();
         }
 
-        public void ShowBanner() => _adapter?.ShowAd(AdType.Banner);
+        public void ShowBanner()
+        {
+            if (_adapter.IsAdReady(AdType.Banner))
+            {
+                _adapter?.ShowAd(AdType.Banner);
+            }
+            else
+            {
+                _adapter?.LoadAd(AdType.Banner);
+            }
+        }
+
         public void HideBanner() => _adapter?.HideBanner();
         
         public void ReconsiderUMPConsent()
