@@ -27,6 +27,7 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData
         public int id;
         public int rowCount;
         public int columnCount;
+        public int filled;
         public bool[] boolValues;
         public bool isRect;
         

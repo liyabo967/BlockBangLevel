@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 20
   rowCount: 3
-  columnCount: 1
-  boolValues: 010101
+  columnCount: 2
+  filled: 4
+  boolValues: 000101010001
   isRect: 0
   rows:
   - cells: 0000000000

@@ -10,7 +10,7 @@ namespace UnityGameFramework.Runtime
         private readonly string _rootDir;
         private Dictionary<string, string> _cache;
         private bool _dirty;
-        private readonly bool _useEncryption = false;
+        private readonly bool _useEncryption = true;
         
         private readonly AesEncryptor _aesEncryptor;
         

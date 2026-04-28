@@ -17,6 +17,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public int RewardStreak => _userData.rewardStreak;
         public bool TutorialCompleted => _userData.tutorialCompleted;
         public int GameMode => _userData.gameMode;
+        public int FailStreak => _userData.failStreak;
         public int CurrentSeason => _userData.currentSeason;
         public List<string> PictureList => _userData.pictureList;
         
@@ -133,6 +134,16 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         {
             _userData.gameMode = gameMode;
             Save();
+        }
+
+        public void AddFailStreak()
+        {
+            _userData.failStreak++;
+        }
+
+        public void ResetFailStreak()
+        {
+            _userData.failStreak = 0;
         }
 
         public void SetTutorialCompleted()

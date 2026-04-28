@@ -10,6 +10,7 @@
 // // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // // THE SOFTWARE.
 
+using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.System;
 using GameMain.Scripts.HotUpdate.Base.Ads;
@@ -26,6 +27,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             base.OnInit(userData);
             retryButton.onClick.AddListener(Retry);
             closeButton.onClick.AddListener(() => GameManager.instance.MainMenu());
+        }
+
+        protected override void OnOpen(object userData)
+        {
+            base.OnOpen(userData);
+            UserDataManager.Instance.AddFailStreak();
         }
 
         private void Retry()

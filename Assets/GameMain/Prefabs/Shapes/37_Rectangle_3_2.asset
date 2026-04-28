@@ -10,20 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42998e22b5624a1bbb46a78ffb11541e, type: 3}
-  m_Name: 10_Vert_line_5_hor
+  m_Name: 37_Rectangle_3_2
   m_EditorClassIdentifier: 
-  id: 10
-  rowCount: 1
-  columnCount: 5
-  filled: 5
-  boolValues: 0101010101
-  isRect: 1
+  id: 32
+  rowCount: 3
+  columnCount: 3
+  boolValues: 010101010000010000
+  isRect: 0
   rows:
   - cells: 0000000000
   - cells: 0000000000
-  - cells: 0101010101
-  - cells: 0000000000
-  - cells: 0000000000
-  scoreForSpawn: 260
-  chanceForSpawn: 0.37
+  - cells: 0000010101
+  - cells: 0000010000
+  - cells: 0000010000
+  scoreForSpawn: 0
+  chanceForSpawn: 1
   spawnFromLevel: 1

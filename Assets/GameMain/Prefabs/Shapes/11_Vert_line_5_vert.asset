@@ -15,6 +15,7 @@ MonoBehaviour:
   id: 11
   rowCount: 5
   columnCount: 1
+  filled: 5
   boolValues: 0101010101
   isRect: 1
   rows:

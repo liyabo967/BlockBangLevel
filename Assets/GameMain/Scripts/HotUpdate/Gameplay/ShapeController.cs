@@ -123,11 +123,14 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                         
                         continue;
                     }
-                    score += item.rowCount * item.columnCount;
-                    if (item.isRect)
-                    {
-                        score = Mathf.Max(item.rowCount, item.columnCount); 
-                    }
+
+                    var baseScore = item.rowCount * item.columnCount / 2;
+                    score += baseScore;
+                    score += item.rowCount * item.columnCount - item.filled;
+                    // if (item.isRect)
+                    // {
+                    //     score = Mathf.Max(item.rowCount, item.columnCount); 
+                    // }
                     Log.Info($"PerfectInfo, id: {item.id}, IsPerfect: {i}, {j}, score: {score}");
 
                     var around = GetAround(item, i, j);
@@ -194,23 +197,31 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             var down = GetDown(item, row, col);
             Log.Info($"PerfectInfo, id: {item.id}, GetAroundScore, {left}, {right}, {up}, {down}");
             score += left + right + up + down;
-            // if (left > 0 && right > 0)
-            // {
-            //     score += item.rowCount;
-            //     if (up > 0 || down > 0)
-            //     {
-            //         score += item.columnCount;
-            //     }
-            // }
+            if (left > 0 && right > 0)
+            {
+                Log.Info($"PerfectInfo, id: {item.id}, GetAroundScore, LeftRight Extra, {score}");
+                score += item.rowCount;
+                // if (up > 0 || down > 0)
+                // {
+                //     score += item.columnCount;
+                // }
+            }
             //
-            // if (up > 0 && down > 0)
-            // {
-            //     score += item.columnCount;
-            //     if (left > 0 || right > 0)
-            //     {
-            //         score += item.rowCount;
-            //     }
-            // }
+            if (up > 0 && down > 0)
+            {
+                Log.Info($"PerfectInfo, id: {item.id}, GetAroundScore, UpDown Extra, {score}");
+                score += item.columnCount;
+                // if (left > 0 || right > 0)
+                // {
+                //     score += item.rowCount;
+                // }
+            }
+
+            if (left > 0 && right > 0 && up > 0 && down > 0)
+            {
+                Log.Info($"PerfectInfo, id: {item.id}, GetAroundScore, All Extra, {10 * item.rowCount * item.columnCount}");
+                score += 10 * item.rowCount * item.columnCount;
+            }
             Log.Info($"PerfectInfo, id: {item.id}, GetAroundScore, return, {score}");
             return score;
         }
@@ -220,7 +231,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             if (col == 0)
             {
                 // return 0;
-                return item.rowCount / 2;
+                return Math.Max(1, item.rowCount / 2);
             }
             
             var lastState = false;
@@ -245,10 +256,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private static int GetRight(ShapeTemplate item, int row, int col)
         {
-            if (col + item.columnCount >= _columnSize)
+            if (col + item.columnCount == _columnSize)
             {
                 // return 0;
-                return item.rowCount / 2;
+                return Math.Max(1, item.rowCount / 2);
             }
 
             var lastState = false;
@@ -276,7 +287,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             if (row <= 0)
             {
                 // return 0;
-                return item.columnCount / 2;
+                return Math.Max(1, item.columnCount / 2);
             }
 
             var lastState = false;
@@ -301,10 +312,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private static int GetDown(ShapeTemplate item, int row, int col)
         {
-            if (row + item.rowCount >= _rowSize)
+            if (row + item.rowCount == _rowSize)
             {
                 // return 0;
-                return item.columnCount / 2;
+                return Math.Max(1, item.columnCount / 2);
             }
             
             var lastState = false;

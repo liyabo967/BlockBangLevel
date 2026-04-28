@@ -125,7 +125,6 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData.Editor
 
             LoadShapes();
             CreateGrid();
-
             return root;
         }
 
@@ -301,6 +300,7 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData.Editor
             shapeTemplate.columnCount = maxColumn - minColumn + 1;
             shapeTemplate.boolValues = new bool[shapeTemplate.rowCount * shapeTemplate.columnCount];
             shapeTemplate.isRect = true;
+            shapeTemplate.filled = 0;
             
             int index = 0;
             for (var i = minRow; i <= maxRow; i++)
@@ -308,14 +308,18 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData.Editor
                 for (int j = minColumn; j <= maxColumn; j++)
                 {
                     shapeTemplate.boolValues[index] = shapeTemplate.rows[i].cells[j];
-                    if (!shapeTemplate.boolValues[index])
+                    if (shapeTemplate.boolValues[index])
+                    {
+                        shapeTemplate.filled++;
+                    }
+                    else
                     {
                         shapeTemplate.isRect = false;
                     }
                     index++;
                 }
             }
-            // Debug.LogError($"shapeTemplate: {shapeTemplate.rowCount}, {shapeTemplate.columnCount}");
+            Debug.Log($"shapeTemplate: {shapeTemplate.rowCount}, {shapeTemplate.columnCount}, filled: {shapeTemplate.filled}");
             // for (var i = 0; i < shapeTemplate.boolValues.Length; i++)
             // {
             //     Debug.LogError($"{shapeTemplate.boolValues[i]}, ");

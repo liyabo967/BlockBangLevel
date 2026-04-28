@@ -13,6 +13,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay.Pool;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
@@ -97,18 +98,74 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private void FillCellDecksWithPerfectShape()
         {
             Debug.LogError("FillCellDecksWithPerfectShape");
+            
             var shapeTemplates = itemFactory.GetPerfectShape();
             var shapeTemplateIndex = 0;
+            var perfectRatio = GetPerfectRatio(GetDifficulty());
             for (var index = 0; index < cellDecks.Length; index++)
             {
                 var cellDeck = cellDecks[index];
                 if (cellDeck.IsEmpty)
                 {
                     var shapeObject = PoolObject.GetObject(shapePrefab.gameObject);
-                    Shape resultShape = itemFactory.CreatePerfectShape(shapeObject, shapeTemplates[shapeTemplateIndex++]);
+                    var isPerfect = Random.Range(0, 1f) <= perfectRatio;
+                    isPerfect = true;
+                    Shape resultShape;
+                    if (isPerfect)
+                    {
+                        resultShape = itemFactory.CreatePerfectShape(shapeObject, shapeTemplates[shapeTemplateIndex++]);
+                    }
+                    else
+                    {
+                        resultShape = itemFactory.CreateRandomShapeFits(shapeObject);
+                    }
                     cellDeck.FillCell(resultShape);
                 }
             }
+        }
+
+        private float GetPerfectRatio(int difficulty)
+        {
+            var result = 0.1f;
+            switch (difficulty)
+            {
+                case 1:
+                    result = 1;
+                    break;
+                case 2:
+                    result = 0.8f;
+                    break;
+                case 3:
+                    result = 0.6f;
+                    break;
+                case 4:
+                    result = 0.4f;
+                    break;
+                case 5:
+                    result = 0.2f;
+                    break;
+            }
+            return result;
+        }
+
+        private int GetDifficulty()
+        {
+            int difficulty = 1;
+            int level = UserDataManager.Instance.Level;
+            if (level >= 85)
+            {
+                difficulty = 5;
+            }
+            else
+            {
+                difficulty = level % 5;
+                difficulty = difficulty == 0 ? 5 : difficulty;
+            }
+
+            var decreaseDifficulty = UserDataManager.Instance.FailStreak / 2;
+            difficulty -= decreaseDifficulty;
+            difficulty = Mathf.Max(1, difficulty);
+            return difficulty;
         }
 
         public void FillCellDecksWithShapes(ShapeTemplate[] shapes)
