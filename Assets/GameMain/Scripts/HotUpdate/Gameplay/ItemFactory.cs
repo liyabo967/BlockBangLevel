@@ -137,6 +137,31 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             return shape;
         }
 
+        public Shape CreatePerfectShape(GameObject shapeObject, ShapeTemplate shapeTemplate)
+        {
+            var shape = shapeObject.GetComponent<Shape>();
+            shape.transform.localScale = Vector3.one;
+            shape.UpdateShape(shapeTemplate);
+
+            var currentTargets = targetManager.GetTargets();
+            if (currentTargets != null && currentTargets.Any(i => i.targetScriptable.bonusItem != null))
+            {
+                GenerateBonus(shape, currentTargets);
+            }
+
+            shape.UpdateColor(GetColor());
+
+            return shape;
+        }
+
+        public List<ShapeTemplate> GetPerfectShape()
+        {
+            var shapesToConsider = levelManager.GetGameMode() == EGameMode.Adventure
+                ? shapes.Where(shape => shape.spawnFromLevel <= levelManager.currentLevel).ToArray()
+                : shapes.Where(shape => shape.scoreForSpawn <= GetClassicScore()).ToArray();
+            return ShapeController.GetPerfectShapeList(field, shapesToConsider);
+        }
+
         public Shape CreateRandomShapeFits(GameObject shapeObject, HashSet<ShapeTemplate> usedShapes = null)
         {
             var shape = shapeObject.GetComponent<Shape>();

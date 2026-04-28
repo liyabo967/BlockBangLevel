@@ -61,33 +61,52 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 return;
             }
 
-            var usedShapeTemplates = new HashSet<ShapeTemplate>(GetShapes().Select(s => s.shapeTemplate));
+            // var usedShapeTemplates = new HashSet<ShapeTemplate>(GetShapes().Select(s => s.shapeTemplate));
 
-            var fitShapesCount = 0;
+            // var fitShapesCount = 0;
+            // for (var index = 0; index < cellDecks.Length; index++)
+            // {
+            //     var cellDeck = cellDecks[index];
+            //     if (cellDeck.IsEmpty)
+            //     {
+            //         var shapeObject = PoolObject.GetObject(shapePrefab.gameObject);
+            //         Shape randomShape = null;
+            //         
+            //         // Force a fitting shape if we haven't found 2 yet and we're at the last two positions
+            //         if (fitShapesCount < 2 && index >= cellDecks.Length - 2)
+            //         {
+            //             randomShape = itemFactory.CreateRandomShapeFits(shapeObject);
+            //         }
+            //         else
+            //         {
+            //             randomShape = itemFactory.CreateRandomShape(usedShapeTemplates, shapeObject);
+            //         }
+            //
+            //         if (field.CanPlaceShape(randomShape))
+            //         {
+            //             fitShapesCount++;
+            //         }
+            //
+            //         cellDeck.FillCell(randomShape);
+            //     }
+            // }
+
+            FillCellDecksWithPerfectShape();
+        }
+
+        private void FillCellDecksWithPerfectShape()
+        {
+            Debug.LogError("FillCellDecksWithPerfectShape");
+            var shapeTemplates = itemFactory.GetPerfectShape();
+            var shapeTemplateIndex = 0;
             for (var index = 0; index < cellDecks.Length; index++)
             {
                 var cellDeck = cellDecks[index];
                 if (cellDeck.IsEmpty)
                 {
                     var shapeObject = PoolObject.GetObject(shapePrefab.gameObject);
-                    Shape randomShape = null;
-                    
-                    // Force a fitting shape if we haven't found 2 yet and we're at the last two positions
-                    if (fitShapesCount < 2 && index >= cellDecks.Length - 2)
-                    {
-                        randomShape = itemFactory.CreateRandomShapeFits(shapeObject);
-                    }
-                    else
-                    {
-                        randomShape = itemFactory.CreateRandomShape(usedShapeTemplates, shapeObject);
-                    }
-
-                    if (field.CanPlaceShape(randomShape))
-                    {
-                        fitShapesCount++;
-                    }
-
-                    cellDeck.FillCell(randomShape);
+                    Shape resultShape = itemFactory.CreatePerfectShape(shapeObject, shapeTemplates[shapeTemplateIndex++]);
+                    cellDeck.FillCell(resultShape);
                 }
             }
         }

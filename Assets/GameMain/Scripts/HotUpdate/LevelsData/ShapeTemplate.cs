@@ -24,6 +24,12 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData
     [CreateAssetMenu(fileName = "Shape", menuName = "BlockPuzzleGameToolkit/Items/Shape", order = 1)]
     public class ShapeTemplate : ScriptableObject
     {
+        public int id;
+        public int rowCount;
+        public int columnCount;
+        public bool[] boolValues;
+        public bool isRect;
+        
         public ShapeRow[] rows = new ShapeRow[5];
         public int scoreForSpawn;
 

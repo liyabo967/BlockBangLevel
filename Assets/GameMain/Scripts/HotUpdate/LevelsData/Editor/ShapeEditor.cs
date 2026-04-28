@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
 
 namespace BlockPuzzleGameToolkit.Scripts.LevelsData.Editor
@@ -35,10 +36,22 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData.Editor
             var root = new VisualElement();
 
             // Load and apply USS
-            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/BlockPuzzleGameToolkit/UIBuilder/ShapeEditorStyles.uss");
+            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/GameMain/UIBuilder/ShapeEditorStyles.uss");
             root.styleSheets.Add(styleSheet);
 
-            root.Add(new Label(_target.name) { name = "title" });
+            var idContainer = new VisualElement { name = "id-container" };
+            idContainer.style.flexDirection = FlexDirection.Row;
+            var firstIndex = _target.name.IndexOf("_", StringComparison.Ordinal);
+            int shapeId = int.Parse(_target.name.Substring(0, firstIndex));
+            if (_target.id == 0)
+            {
+                _target.id = shapeId;
+                EditorUtility.SetDirty(_target);
+            }
+            
+            idContainer.Add(new Label( shapeId + ": ") { name = "title" });
+            idContainer.Add(new Label(_target.name.Substring(firstIndex + 1)) { name = "title" });
+            root.Add(idContainer);
 
             var navContainer = new VisualElement { name = "nav-container" };
             navContainer.Add(CreateButton("<<", () => NavigateShapes(-1)));
@@ -118,7 +131,9 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData.Editor
 
         private void LoadShapes()
         {
-            shapes = Resources.LoadAll<ShapeTemplate>("Shapes");
+            // shapes = Resources.LoadAll<ShapeTemplate>("Shapes");
+            var shapeHandle = Addressables.LoadAssetsAsync<ShapeTemplate>("shapes", null).WaitForCompletion();
+            shapes =  shapeHandle.ToArray();
             currentIndex = shapes.ToList().IndexOf(_target);
             if (currentIndex == -1 && shapes.Length > 0)
             {
@@ -205,6 +220,7 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData.Editor
                     cell.clicked += () =>
                     {
                         _target.rows[x].cells[y] = !_target.rows[x].cells[y];
+                        BuildShapeInfo(_target);
                         cell.ToggleInClassList("active");
                         cell.ToggleInClassList("inactive");
                         EditorUtility.SetDirty(_target);
@@ -243,6 +259,67 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData.Editor
             EditorUtility.SetDirty(_target);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
+        }
+        
+        private static void BuildShapeInfo(ShapeTemplate shapeTemplate)
+        {
+            int minRow = shapeTemplate.rows.Length;
+            int minColumn = shapeTemplate.rows[0].cells.Length;
+            int maxRow = -1;
+            int maxColumn = -1;
+            for (var i = 0; i < shapeTemplate.rows.Length; i++)
+            {
+                for (var j = 0; j < shapeTemplate.rows[i].cells.Length; j++)
+                {
+                    if (shapeTemplate.rows[i].cells[j])
+                    {
+                        if (minRow > i)
+                        {
+                            minRow = i;
+                        }
+        
+                        if (maxRow < i)
+                        {
+                            maxRow = i;
+                        }
+        
+                        if (minColumn > j)
+                        {
+                            minColumn = j;
+                        }
+        
+                        if (maxColumn < j)
+                        {
+                            maxColumn = j;
+                        }
+                    }
+                }
+            }
+            
+            // Debug.Log($"minRow: {minRow}, maxRow: {maxRow}, minColumn: {minColumn}, maxColumn: {maxColumn}");
+            shapeTemplate.rowCount = maxRow - minRow + 1;
+            shapeTemplate.columnCount = maxColumn - minColumn + 1;
+            shapeTemplate.boolValues = new bool[shapeTemplate.rowCount * shapeTemplate.columnCount];
+            shapeTemplate.isRect = true;
+            
+            int index = 0;
+            for (var i = minRow; i <= maxRow; i++)
+            {
+                for (int j = minColumn; j <= maxColumn; j++)
+                {
+                    shapeTemplate.boolValues[index] = shapeTemplate.rows[i].cells[j];
+                    if (!shapeTemplate.boolValues[index])
+                    {
+                        shapeTemplate.isRect = false;
+                    }
+                    index++;
+                }
+            }
+            // Debug.LogError($"shapeTemplate: {shapeTemplate.rowCount}, {shapeTemplate.columnCount}");
+            // for (var i = 0; i < shapeTemplate.boolValues.Length; i++)
+            // {
+            //     Debug.LogError($"{shapeTemplate.boolValues[i]}, ");
+            // }
         }
     }
 }
