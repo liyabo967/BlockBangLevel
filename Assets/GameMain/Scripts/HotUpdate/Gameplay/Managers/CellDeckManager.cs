@@ -97,8 +97,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private void FillCellDecksWithPerfectShape()
         {
-            Debug.LogError("FillCellDecksWithPerfectShape");
-            
             var shapeTemplates = itemFactory.GetPerfectShape();
             var shapeTemplateIndex = 0;
             var perfectRatio = GetPerfectRatio(GetDifficulty());

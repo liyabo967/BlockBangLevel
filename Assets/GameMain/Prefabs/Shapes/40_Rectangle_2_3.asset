@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42998e22b5624a1bbb46a78ffb11541e, type: 3}
-  m_Name: 100_Z_3
+  m_Name: 40_Rectangle_2_3
   m_EditorClassIdentifier: 
-  id: 100
+  id: 40
   rowCount: 2
   columnCount: 3
-  filled: 4
-  boolValues: 010101010000
-  isRect: 0
+  filled: 6
+  boolValues: 010101010101
+  isRect: 1
   rows:
   - cells: 0000000000
+  - cells: 0001010100
+  - cells: 0001010100
   - cells: 0000000000
-  - cells: 0000010101
-  - cells: 0000010000
   - cells: 0000000000
   scoreForSpawn: 0
   chanceForSpawn: 1
-  spawnFromLevel: 100
+  spawnFromLevel: 1

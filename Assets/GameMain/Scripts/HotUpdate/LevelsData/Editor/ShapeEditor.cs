@@ -43,11 +43,12 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData.Editor
             idContainer.style.flexDirection = FlexDirection.Row;
             var firstIndex = _target.name.IndexOf("_", StringComparison.Ordinal);
             int shapeId = int.Parse(_target.name.Substring(0, firstIndex));
-            if (_target.id == 0)
+            if (_target.id != shapeId)
             {
                 _target.id = shapeId;
                 EditorUtility.SetDirty(_target);
             }
+            // Debug.Log($"{_target.id}: filled: {_target.filled}");
             
             idContainer.Add(new Label( shapeId + ": ") { name = "title" });
             idContainer.Add(new Label(_target.name.Substring(firstIndex + 1)) { name = "title" });
@@ -125,6 +126,8 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData.Editor
 
             LoadShapes();
             CreateGrid();
+            
+            // BuildShapeInfo(_target);
             return root;
         }
 

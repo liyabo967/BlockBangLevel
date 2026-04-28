@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42998e22b5624a1bbb46a78ffb11541e, type: 3}
-  m_Name: 26_Z_Vert_Left
+  m_Name: 28_Z_Hor_Left
   m_EditorClassIdentifier: 
-  id: 26
-  rowCount: 3
-  columnCount: 2
+  id: 28
+  rowCount: 2
+  columnCount: 3
   filled: 4
-  boolValues: 010001010001
+  boolValues: 010100000101
   isRect: 0
   rows:
   - cells: 0000000000
-  - cells: 0000010000
+  - cells: 0001010000
   - cells: 0000010100
-  - cells: 0000000100
+  - cells: 0000000000
   - cells: 0000000000
   scoreForSpawn: 70
   chanceForSpawn: 1

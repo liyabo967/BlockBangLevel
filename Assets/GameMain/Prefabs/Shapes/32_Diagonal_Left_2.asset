@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42998e22b5624a1bbb46a78ffb11541e, type: 3}
-  m_Name: 23_T_Down
+  m_Name: 32_Diagonal_Left_2
   m_EditorClassIdentifier: 
-  id: 23
+  id: 32
   rowCount: 2
-  columnCount: 3
-  filled: 4
-  boolValues: 010101000100
+  columnCount: 2
+  filled: 2
+  boolValues: 01000001
   isRect: 0
   rows:
   - cells: 0000000000
   - cells: 0000000000
-  - cells: 0001010100
   - cells: 0000010000
+  - cells: 0000000100
   - cells: 0000000000
-  scoreForSpawn: 100
-  chanceForSpawn: 1
+  scoreForSpawn: 600
+  chanceForSpawn: 0.59
   spawnFromLevel: 1
