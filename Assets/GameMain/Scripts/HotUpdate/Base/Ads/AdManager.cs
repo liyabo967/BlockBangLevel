@@ -174,13 +174,16 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
         public void ShowBanner()
         {
-            if (_adapter.IsAdReady(AdType.Banner))
+            if (_adapter != null)
             {
-                _adapter?.ShowAd(AdType.Banner);
-            }
-            else
-            {
-                _adapter?.LoadAd(AdType.Banner);
+                if (_adapter.IsAdReady(AdType.Banner))
+                {
+                    _adapter?.ShowAd(AdType.Banner);
+                }
+                else
+                {
+                    _adapter?.LoadAd(AdType.Banner);
+                }
             }
         }
 

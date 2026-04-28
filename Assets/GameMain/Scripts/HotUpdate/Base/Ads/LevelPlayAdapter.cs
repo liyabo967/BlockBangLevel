@@ -269,7 +269,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         
         public void HideBannerAd() {
             //Hide banner
-            _bannerAd.HideAd();
+            _bannerAd?.HideAd();
         }
         
         public void DestroyBannerAd() {

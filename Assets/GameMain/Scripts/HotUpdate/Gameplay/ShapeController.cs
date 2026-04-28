@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using UnityEngine;
 using UnityGameFramework.Runtime;
@@ -124,14 +125,15 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                         continue;
                     }
 
-                    var baseScore = item.rowCount * item.columnCount / 2;
-                    score += baseScore;
+                    // var baseScore = item.rowCount * item.columnCount / 2;
+                    // score += baseScore;
                     score += item.rowCount * item.columnCount - item.filled;
-                    // if (item.isRect)
-                    // {
-                    //     score = Mathf.Max(item.rowCount, item.columnCount); 
-                    // }
                     Log.Info($"PerfectInfo, id: {item.id}, IsPerfect: {i}, {j}, score: {score}");
+                    if (item.isRect)
+                    {
+                        score = Mathf.Max(1, item.rowCount * item.columnCount / 2);
+                        Log.Info($"PerfectInfo, id: {item.id}, IsPerfect: {i}, {j}, isRect, score: {score}");
+                    }
 
                     var around = GetAround(item, i, j);
                     score += around;
@@ -340,10 +342,31 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         
         private static void UpdateBoardStatus(PerfectInfo shapeInfo)
         {
-            if (shapeInfo.score <= 0)
+            Log.Info("Print Captured start -------");
+            for (int i = 0; i < _rowSize; i++)
             {
-                return;
+                var lineStr = new StringBuilder();
+                for (int j = 0; j < _columnSize; j++)
+                {
+                    lineStr.Append(_capturedBoardStatus[i, j] + ",");
+                }
+                Log.Info(lineStr);
             }
+            Log.Info("Print Captured end ----------");
+            
+            Log.Info($"Print shape {shapeInfo.shapeTemplate.id}, start ----------");
+            for (int i = 0; i < shapeInfo.shapeTemplate.rowCount; i++)
+            {
+                var lineStr = new StringBuilder();
+                for (int j = 0; j < shapeInfo.shapeTemplate.columnCount; j++)
+                {
+                    lineStr.Append(shapeInfo.shapeTemplate.boolValues[i * shapeInfo.shapeTemplate.columnCount + j] + ",");
+                }
+                Log.Info(lineStr);
+            }
+            Log.Info($"Print shape {shapeInfo.shapeTemplate.id}, end ----------");
+            
+            
             for (int i = 0; i < shapeInfo.shapeTemplate.rowCount; i++)
             {
                 for (int j = 0; j < shapeInfo.shapeTemplate.columnCount; j++)
