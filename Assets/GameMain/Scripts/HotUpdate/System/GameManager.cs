@@ -128,6 +128,11 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             {
                 GameDataManager.SetLevel(GameDataManager.GetLevel());
             }
+            
+            ATTManager.Instance.RequestAuthorization(status =>
+            {
+                AdManager.Instance.Init();
+            });
         }
 
         private void OnInitializeSuccess()

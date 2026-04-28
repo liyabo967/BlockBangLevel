@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using GameMain.Scripts.HotUpdate.Base.Ads;
 using UnityEngine;
 
 #if UNITY_IOS
@@ -23,14 +22,6 @@ public class ATTManager : MonoSingleton<ATTManager>
         Denied = 2, // 用户拒绝
         Authorized = 3, // 用户同意
         NotSupported = 99 // 非 iOS 或 iOS < 14.5
-    }
-
-    private void Start()
-    {
-        RequestAuthorization(status =>
-        {
-            AdManager.Instance.Init();
-        });
     }
 
     /// <summary>

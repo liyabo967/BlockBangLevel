@@ -93,14 +93,14 @@ public class FileDownloader : MonoSingleton<FileDownloader>
             if (req.result == UnityWebRequest.Result.Success)
             {
                 onProgress?.Invoke(1f);
-                Debug.Log($"[Downloader] ✅ 下载成功 → {savePath}");
+                Debug.Log($"[Downloader] 下载成功 → {savePath}");
                 onSuccess?.Invoke(savePath);
                 succeeded = true;
             }
             else
             {
                 lastError = $"[HTTP {req.responseCode}] {req.error}";
-                Debug.LogWarning($"[Downloader] ❌ 第 {attempt} 次失败：{lastError}");
+                Debug.LogWarning($"[Downloader] 第 {attempt} 次失败：{lastError}");
             }
         }
 
