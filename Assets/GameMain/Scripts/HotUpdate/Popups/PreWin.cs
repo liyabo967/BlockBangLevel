@@ -28,7 +28,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         protected virtual void OnEnable()
         {
             messageText.transform.localScale = Vector3.zero;
-            UserDataManager.Instance.AddPicture($"{TimeManager.SeasonTime.year}_{TimeManager.SeasonTime.week}");
+            if (UserDataManager.Instance.Level > PictureComponent.MaxLevel)
+            {
+                UserDataManager.Instance.AddPicture($"{TimeManager.SeasonTime.year}_{TimeManager.SeasonTime.week}");
+            }
         }
         
         public override void AfterShowAnimation()

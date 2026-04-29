@@ -38,8 +38,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         private void Initialize(Action<bool> onComplete = null)
         {
             var adSettings = Addressables.LoadAssetAsync<AdSettings>("Assets/GameMain/Settings/AdSettings/LevelPlay.asset").WaitForCompletion();
-            Task.Run(() =>
-            {
+            
                 
 #if  UNITY_IOS
                 _adConfig = adSettings.iOS;
@@ -81,7 +80,6 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
                     onComplete?.Invoke(success);
                 });
-            });
         }
 
         private IEnumerator DelayLoadAd()
