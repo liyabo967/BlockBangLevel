@@ -25,6 +25,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private static ClassicModeHandler classicModeHandlerCached;
         private static TimedModeHandler timeModeHandlerCached;
         private ShapeTemplate[] shapes;
+        private Dictionary<int, ShapeTemplate> shapesDict;
+        private List<ShapeTemplate> smallShapeList;
         protected ItemTemplate[] items;
         private Level level;
         private Dictionary<BonusItemTemplate, int> predictedTargets;
@@ -53,6 +55,20 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             
             var shapeHandle = Addressables.LoadAssetsAsync<ShapeTemplate>("shapes", null).WaitForCompletion();
             shapes = shapeHandle.ToArray();
+            shapesDict = new Dictionary<int, ShapeTemplate>();
+            foreach (var shapeTemplate in shapes)
+            {
+                shapesDict[shapeTemplate.id] = shapeTemplate;
+            }
+            smallShapeList = new List<ShapeTemplate>()
+            {
+                shapesDict[1],
+                shapesDict[1],
+                shapesDict[1],
+                shapesDict[1],
+                shapesDict[4],
+                shapesDict[5]
+            };
             
             var itemHandle = Addressables.LoadAssetsAsync<ItemTemplate>("items", null).WaitForCompletion();
             items = itemHandle.ToArray();
@@ -203,6 +219,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             // No shape fits, return null
             PoolObject.Return(shapeObject);
             return null;
+        }
+
+        public Shape CreateSmallShape(GameObject shapeObject, HashSet<ShapeTemplate> usedShapes = null)
+        {
+            var shape = shapeObject.GetComponent<Shape>();
+            shape.UpdateShape(smallShapeList[Random.Range(0, smallShapeList.Count)]);
+            return shape;
         }
 
         public ItemTemplate GetColor()

@@ -228,7 +228,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             foreach (var cellDeck in cellDecks)
             {
                 cellDeck.ClearCell();
-                cellDeck.FillCell(itemFactory.CreateRandomShapeFits(PoolObject.GetObject(shapePrefab.gameObject)));
+                cellDeck.FillCell(itemFactory.CreateSmallShape(PoolObject.GetObject(shapePrefab.gameObject)));
             }
         }
 
