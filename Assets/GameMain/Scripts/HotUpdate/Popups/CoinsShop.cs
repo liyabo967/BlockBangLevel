@@ -59,6 +59,14 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             }
             
             InstantiateMissingItems(shopProductList);
+            // 设置商品列表高度
+            var shopItem = packs.Last();
+            var parent = shopItem.transform.parent;
+            RectTransform rect = parent.GetComponent<RectTransform>();
+            Vector2 size = rect.sizeDelta;
+            size.y = shopItem.transform.GetComponent<RectTransform>().sizeDelta.y * packs.Length + packs.Length * 25;
+            rect.sizeDelta = size;
+            
             foreach (var itemPurchase in packs)
             {
                 if (shopProductList.Count > 0)
