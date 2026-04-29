@@ -16,6 +16,7 @@ using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.System;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 
 namespace BlockPuzzleGameToolkit.Scripts.Popups
@@ -41,15 +42,23 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         public void StartGameSceneClassic()
         {
             GameDataManager.SetGameMode(EGameMode.Classic);
-            GameDataManager.SetLevel(Resources.Load<Level>("Misc/ClassicLevel"));
-            StateManager.instance.CurrentState = EScreenStates.Game;
+            var levelPath = $"Assets/GameMain/Settings/Misc/ClassicLevel.asset";
+            Addressables.LoadAssetAsync<Level>(levelPath).Completed += handle =>
+            {
+                GameDataManager.SetLevel(handle.Result);
+                StateManager.instance.CurrentState = EScreenStates.Game;
+            };
         }
 
-        public void StartGameScene(int levelNumber = 0)
+        public void StartGameScene(int levelNumber = 1)
         {
             GameDataManager.SetGameMode(EGameMode.Adventure);
-            GameDataManager.SetLevel(Resources.Load<Level>("Levels/Level_" + (levelNumber > 0 ? levelNumber : GameDataManager.GetLevelNum())));
-            StateManager.instance.CurrentState = EScreenStates.Game;
+            var levelPath = $"Assets/GameMain/Settings/Levels/Level_{levelNumber}.asset";
+            Addressables.LoadAssetAsync<Level>(levelPath).Completed += handle =>
+            {
+                GameDataManager.SetLevel(handle.Result);
+                StateManager.instance.CurrentState = EScreenStates.Game;
+            };
         }
 
         public void GoMain()

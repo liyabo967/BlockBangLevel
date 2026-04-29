@@ -29,16 +29,28 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             base.OnOpen(userData);
             var targetManager = FindObjectOfType<TargetManager>();
 
-            if (!targetManager.GetTargetGuiElements().TryGetValue(scoreTarget, out var targetGuiElement))
+            // if (!targetManager.GetTargetGuiElements().TryGetValue(scoreTarget, out var targetGuiElement))
+            // {
+            //     scoreSlider.UpdateCount(0, false);
+            //     return;
+            // }
+            // // Get the final score value
+            // if (!int.TryParse(targetGuiElement.countText.text, out int finalScore))
+            // {
+            //     return;
+            // }
+
+            var targetGuiElements = targetManager.GetTargetGuiElements();
+            int finalScore = 0;
+            foreach (var targetGuiElement in targetGuiElements)
             {
-                scoreSlider.UpdateCount(0, false);
-                return;
+                if (targetGuiElement.Value is TargetScoreGUIElement scoreGuiElement)
+                {
+                    finalScore = int.Parse(scoreGuiElement.countText.text);
+                    break;
+                }
             }
-            // Get the final score value
-            if (!int.TryParse(targetGuiElement.countText.text, out int finalScore))
-            {
-                return;
-            }
+            
             // Set up the total score and animate
             scoreSlider.totalText.text = finalScore.ToString();
             scoreSlider.scoreSlider.maxValue = finalScore;

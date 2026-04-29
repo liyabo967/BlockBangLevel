@@ -11,6 +11,7 @@
 // // THE SOFTWARE.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -131,8 +132,14 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             
             ATTManager.Instance.RequestAuthorization(status =>
             {
-                AdManager.Instance.Init();
+                StartCoroutine(DelayInitAd());
             });
+        }
+
+        private IEnumerator DelayInitAd()
+        {
+            yield return new WaitForSeconds(3f);
+            AdManager.Instance.Init();
         }
 
         private void OnInitializeSuccess()

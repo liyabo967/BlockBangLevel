@@ -1,9 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using BlockPuzzleGameToolkit.Scripts.System;
 using GoogleMobileAds.Ump.Api;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityGameFramework.Runtime;
 
 namespace GameMain.Scripts.HotUpdate.Base.Ads
 {
@@ -32,50 +35,59 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         }
 
         private void Initialize(Action<bool> onComplete = null)
-        { 
+        {
             var adSettings = Addressables.LoadAssetAsync<AdSettings>("Assets/GameMain/Settings/AdSettings/LevelPlay.asset").WaitForCompletion();
+            Task.Run(() =>
+            {
+                
 #if  UNITY_IOS
-            _adConfig = adSettings.iOS;
+                _adConfig = adSettings.iOS;
 #elif UNITY_ANDROID
             _adConfig = adSettings.Android;
 #endif
-            _adapter = AdAdapterFactory.Create(adSettings.Platform);
+                _adapter = AdAdapterFactory.Create(adSettings.Platform);
             
-            _adapter.OnAdLoaded += result =>
-            {
-                Debug.Log($"Ad Load success: {result.AdType}, {result.AdNetwork}");
-                // if (result.AdType == AdType.Banner)
-                // {
-                //     _adapter.HideBanner();
-                // }
-            };
-            _adapter.OnAdRewarded += r =>
-            {
-                OnRewardedHandler(r);
-                OnRewarded?.Invoke(r);
-            };
-            _adapter.OnAdClosed += r =>
-            {
-                OnAdClosedHandler(r);
-                OnAdClosed?.Invoke(r);
-                // 关闭后自动预加载下一个
-                _adapter.LoadAd(r.AdType);
-            };
-            _adapter.OnAdRevenuePaid += r => OnRevenuePaid?.Invoke(r);
-            _adapter.OnAdLoadFailed += r => Debug.LogWarning($"Ad Load failed: {r.AdType}, {r.Message}");
-
-            _adapter.Initialize(_adConfig, success =>
-            {
-                if (success)
+                _adapter.OnAdLoaded += result =>
                 {
-                    // 预加载常用广告
-                    // _adapter.LoadAd(AdType.Banner);
-                    _adapter.LoadAd(AdType.Interstitial);
-                    _adapter.LoadAd(AdType.RewardedVideo);
-                }
+                    Log.Info($"Ad Load success: {result.AdType}, {result.AdNetwork}");
+                };
+                _adapter.OnAdRewarded += r =>
+                {
+                    OnRewardedHandler(r);
+                    OnRewarded?.Invoke(r);
+                };
+                _adapter.OnAdClosed += r =>
+                {
+                    OnAdClosedHandler(r);
+                    OnAdClosed?.Invoke(r);
+                    // 关闭后自动预加载下一个
+                    _adapter.LoadAd(r.AdType);
+                };
+                _adapter.OnAdRevenuePaid += r => OnRevenuePaid?.Invoke(r);
+                _adapter.OnAdLoadFailed += r => Log.Warning($"Ad Load failed: {r.AdType}, {r.Message}");
 
-                onComplete?.Invoke(success);
+                _adapter.Initialize(_adConfig, success =>
+                {
+                    if (success)
+                    {
+                        // 预加载常用广告
+                        // _adapter.LoadAd(AdType.Banner);
+                        // _adapter.LoadAd(AdType.Interstitial);
+                        // _adapter.LoadAd(AdType.RewardedVideo);
+                        StartCoroutine(DelayLoadAd());
+                    }
+
+                    onComplete?.Invoke(success);
+                });
             });
+        }
+
+        private IEnumerator DelayLoadAd()
+        {
+            yield return new WaitForSeconds(5f);
+            _adapter.LoadAd(AdType.Interstitial);
+            yield return new WaitForSeconds(5f);
+            _adapter.LoadAd(AdType.RewardedVideo);
         }
 
         public bool IsReady(AdType type) => _adapter?.IsAdReady(type) ?? false;

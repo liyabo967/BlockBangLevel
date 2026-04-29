@@ -61,7 +61,6 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI.Labels
                 {
                     targetInstance.RegisterTargetGuiElement(target.targetScriptable, this);
                     totalText.text = target.totalAmount.ToString();
-                    countText.text = target.totalAmount.ToString();
                     SetupScoreSlider(target.amount);
                     return;
                 }
