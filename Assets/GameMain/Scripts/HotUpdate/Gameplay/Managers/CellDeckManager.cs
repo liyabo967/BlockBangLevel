@@ -19,6 +19,7 @@ using BlockPuzzleGameToolkit.Scripts.Gameplay.Pool;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.System;
 using UnityEngine;
+using UnityGameFramework.Runtime;
 
 namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 {
@@ -100,6 +101,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             var shapeTemplates = itemFactory.GetPerfectShape();
             var shapeTemplateIndex = 0;
             var perfectRatio = GetPerfectRatio(GetDifficulty());
+            // Log.Info("perfectRatio: " + perfectRatio);
             for (var index = 0; index < cellDecks.Length; index++)
             {
                 var cellDeck = cellDecks[index];
@@ -107,7 +109,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 {
                     var shapeObject = PoolObject.GetObject(shapePrefab.gameObject);
                     var isPerfect = Random.Range(0, 1f) <= perfectRatio;
-                    isPerfect = true;
                     Shape resultShape;
                     if (isPerfect)
                     {
@@ -131,16 +132,16 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                     result = 1;
                     break;
                 case 2:
-                    result = 0.8f;
+                    result = 0.9f;
                     break;
                 case 3:
-                    result = 0.6f;
+                    result = 0.8f;
                     break;
                 case 4:
-                    result = 0.4f;
+                    result = 0.7f;
                     break;
                 case 5:
-                    result = 0.2f;
+                    result = 0.4f;
                     break;
             }
             return result;

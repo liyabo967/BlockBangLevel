@@ -16,6 +16,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         public IAdAdapter Adapter => _adapter;
         
         private AdConfig _adConfig;
+        private bool _initialized;
         private bool _consentInfoUpdateInProgress = false;
         private float _lastAdTime = 0;
         
@@ -68,6 +69,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
                 _adapter.Initialize(_adConfig, success =>
                 {
+                    _initialized = success;
                     if (success)
                     {
                         // 预加载常用广告
@@ -124,6 +126,10 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         
         public void ShowInterstitial()
         {
+            if (!_initialized)
+            {
+                return;
+            }
             if (IsReady(AdType.Interstitial))
             {
                 if (CanShowInterstitial())
@@ -140,6 +146,10 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
         public void ShowRewarded(Action<bool> onResult)
         {
+            if (!_initialized)
+            {
+                return;
+            }
             if (!IsReady(AdType.RewardedVideo))
             {
                 _adapter.LoadAd(AdType.RewardedVideo);
@@ -186,6 +196,10 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
         public void ShowBanner()
         {
+            if (!_initialized)
+            {
+                return;
+            }
             if (_adapter != null)
             {
                 if (_adapter.IsAdReady(AdType.Banner))
@@ -199,8 +213,15 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             }
         }
 
-        public void HideBanner() => _adapter?.HideBanner();
-        
+        public void HideBanner()
+        {
+            if (!_initialized)
+            {
+                return;
+            }
+            _adapter?.HideBanner();
+        }
+
         public void ReconsiderUMPConsent()
         {
 #if UMP_AVAILABLE && (UNITY_ANDROID || UNITY_IOS)
