@@ -30,13 +30,20 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         
         private static void CaptureBoardData()
         {
-            _capturedBoardStatus ??= new bool[_rowSize, _columnSize];
-            for (int i = 0; i < _rowSize; i++)
+            try
             {
-                for (int j = 0; j < _columnSize; j++)
+                _capturedBoardStatus ??= new bool[_rowSize, _columnSize];
+                for (int i = 0; i < _rowSize; i++)
                 {
-                    _capturedBoardStatus[i, j] = IsFilled(i, j);
+                    for (int j = 0; j < _columnSize; j++)
+                    {
+                        _capturedBoardStatus[i, j] = IsFilled(i, j);
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
             }
         }
         
@@ -59,6 +66,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             });
             sw.Stop();
             Log.Info($"GetPerfectShapes 运行耗时: {sw.ElapsedMilliseconds} ms");
+            // Debug.Log($"GetPerfectShapes 运行耗时 plus: {sw.ElapsedMilliseconds} ms");
             var result = new List<ShapeTemplate>();
             foreach (var shapeInfo in shapeList)
             {

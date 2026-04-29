@@ -39,6 +39,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
             completedText.gameObject.SetActive(seasonCompleted);
             if (UserDataManager.Instance.Level > _currentLevel)
             {
+                backButton.gameObject.SetActive(false);
+                levelButton.gameObject.SetActive(false);
                 _pictureComponent.ShowPicture(_currentLevel, PictureCompleted);
                 _currentLevel = UserDataManager.Instance.Level;
             }

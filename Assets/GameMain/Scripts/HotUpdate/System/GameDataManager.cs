@@ -110,13 +110,13 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             UserDataManager.Instance.SetGameMode((int)gameMode);
         }
 
-        public static void SetAllLevelsCompleted()
-        {
-            var levels = Resources.LoadAll<Level>("Levels").Length;
-            // PlayerPrefs.SetInt("Level", levels);
-            // PlayerPrefs.Save();
-            UserDataManager.Instance.SetLevel(levels);
-        }
+        // public static void SetAllLevelsCompleted()
+        // {
+        //     var levels = Resources.LoadAll<Level>("Levels").Length;
+        //     // PlayerPrefs.SetInt("Level", levels);
+        //     // PlayerPrefs.Save();
+        //     UserDataManager.Instance.SetLevel(levels);
+        // }
 
         internal static bool HasMoreLevels()
         {
