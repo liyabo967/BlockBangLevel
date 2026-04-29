@@ -84,6 +84,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             {
                 // PlayerPrefs.SetInt("Purchased_" + productId, 1);
                 // PlayerPrefs.Save();
+                UserDataManager.Instance.SetNoAds();
                 UserDataManager.Instance.SetPurchasedProductId(productId);
                 AdManager.Instance.RemoveAds();
                 Close();

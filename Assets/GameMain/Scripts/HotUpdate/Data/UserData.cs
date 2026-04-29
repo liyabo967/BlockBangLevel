@@ -15,6 +15,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public string lastPlayedMode;
         public int failStreak;
         public int currentSeason;
+        public bool noAdsPurchased;
         public List<string> pictureList = new ();
         public List<string> purchasedIdList = new ();
     }

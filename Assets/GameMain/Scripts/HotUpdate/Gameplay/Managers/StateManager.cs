@@ -10,6 +10,7 @@
 // // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // // THE SOFTWARE.
 
+using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.System;
 using GameMain.Scripts.HotUpdate.Base.Ads;
 using UnityEngine;
@@ -60,7 +61,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         {
             if (screenStates == EScreenStates.Game)
             {
-                AdManager.Instance.ShowBanner();
+                if (!UserDataManager.Instance.NoAdsPurchased)
+                {
+                    AdManager.Instance.ShowBanner();
+                }
             }
             else
             {

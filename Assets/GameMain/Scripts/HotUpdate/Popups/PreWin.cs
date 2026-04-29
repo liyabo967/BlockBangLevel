@@ -50,7 +50,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         {
             base.OnClose(isShutdown, userData);
             EventManager.GameStatus = EGameState.Win;
-            AdManager.Instance.ShowInterstitial();
+            if (!UserDataManager.Instance.NoAdsPurchased)
+            {
+                AdManager.Instance.ShowInterstitial();
+            }
         }
     }
     

@@ -19,6 +19,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public int GameMode => _userData.gameMode;
         public int FailStreak => _userData.failStreak;
         public int CurrentSeason => _userData.currentSeason;
+        public bool NoAdsPurchased => _userData.noAdsPurchased;
         public List<string> PictureList => _userData.pictureList;
         
         public void Load()
@@ -159,6 +160,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public void SetLastPlayedMode(string mode)
         {
             _userData.lastPlayedMode = mode;
+        }
+
+        public void SetNoAds()
+        {
+            _userData.noAdsPurchased = true;
         }
 
         public void SetPurchasedProductId(string productId)

@@ -44,7 +44,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
-            AdManager.Instance.ShowInterstitial();
+            if (!UserDataManager.Instance.NoAdsPurchased)
+            {
+                AdManager.Instance.ShowInterstitial();
+            }
         }
     }
 }
