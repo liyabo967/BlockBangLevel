@@ -884,7 +884,7 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
-    Purchasing: 0
+    Purchasing: 1
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -906,10 +906,10 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: ec58847c-a148-494f-b528-619245be103d
+  cloudProjectId: a4890ea0-f014-42f2-bcb0-a66ca79a01cf
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: BlockBang2 2026-04-02_20-07-47
+  projectName: Block Bang!
   organizationId: abellucas
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0

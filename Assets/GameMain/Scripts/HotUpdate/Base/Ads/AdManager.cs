@@ -37,13 +37,14 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
         private void Initialize(Action<bool> onComplete = null)
         {
-            var adSettings = Addressables.LoadAssetAsync<AdSettings>("Assets/GameMain/Settings/AdSettings/LevelPlay.asset").WaitForCompletion();
-            
-                
+            var adSettingsPath = "Assets/GameMain/Settings/AdSettings/LevelPlay.asset";
+            Addressables.LoadAssetAsync<AdSettings>(adSettingsPath).Completed += handle =>
+            {
+                var adSettings = handle.Result;
 #if  UNITY_IOS
                 _adConfig = adSettings.iOS;
 #elif UNITY_ANDROID
-            _adConfig = adSettings.Android;
+                _adConfig = adSettings.Android;
 #endif
                 _adapter = AdAdapterFactory.Create(adSettings.Platform);
             
@@ -63,8 +64,14 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                     // 关闭后自动预加载下一个
                     _adapter.LoadAd(r.AdType);
                 };
-                _adapter.OnAdRevenuePaid += r => OnRevenuePaid?.Invoke(r);
-                _adapter.OnAdLoadFailed += r => Log.Warning($"Ad Load failed: {r.AdType}, {r.Message}");
+                _adapter.OnAdRevenuePaid += r =>
+                {
+                    OnRevenuePaid?.Invoke(r);
+                };
+                _adapter.OnAdLoadFailed += r =>
+                {
+                    Log.Error($"Ad Load failed: {r.AdType}, {r.Message}");
+                };
 
                 _adapter.Initialize(_adConfig, success =>
                 {
@@ -80,6 +87,8 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
                     onComplete?.Invoke(success);
                 });
+            };
+            
         }
 
         private IEnumerator DelayLoadAd()
