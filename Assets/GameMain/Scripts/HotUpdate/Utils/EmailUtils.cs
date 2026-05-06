@@ -28,7 +28,7 @@ public class EmailUtils : MonoBehaviour
 
         string mainMessage = head + infoTitle + gameVersion + systemInfo + deviceInfo + timezone + screenResolution + userLevel  + systemLanguage + uID + country + faceBookID + appleID + time;
 
-        string email = "support@xjoy.games";
+        string email = "quester20100@gmail.com";
         string subject = MyEscapeURL("Block Bang! + Feedback");
         string body = MyEscapeURL(mainMessage);
         Application.OpenURL("mailto:" + email + "?subject=" + subject + "&body=" + body);

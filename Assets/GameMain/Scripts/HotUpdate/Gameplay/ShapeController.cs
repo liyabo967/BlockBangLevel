@@ -33,6 +33,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             try
             {
                 _capturedBoardStatus ??= new bool[_rowSize, _columnSize];
+                Debug.Log($"Capture Board Data, _rowSize: {_rowSize}, columnSize: {_columnSize}");
+                Debug.Log($"Capture Board Data, _capturedBoardStatus: {_capturedBoardStatus.GetLength(0)}, {_capturedBoardStatus.GetLength(1)}");
                 for (int i = 0; i < _rowSize; i++)
                 {
                     for (int j = 0; j < _columnSize; j++)

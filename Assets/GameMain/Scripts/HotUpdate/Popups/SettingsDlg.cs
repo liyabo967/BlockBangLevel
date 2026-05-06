@@ -22,7 +22,7 @@ using UnityEngine.UI;
 
 namespace BlockPuzzleGameToolkit.Scripts.Popups
 {
-    public class Settings : UGuiForm
+    public class SettingsDlg : UGuiForm
     {
         [SerializeField]
         private CustomButton back;
