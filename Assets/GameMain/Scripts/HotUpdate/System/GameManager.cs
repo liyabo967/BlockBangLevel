@@ -210,7 +210,7 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             }
             else if (StateManager.instance.CurrentState == EScreenStates.MainMenu)
             {
-                GameEntry.UI.OpenUIForm(UIFormId.Quit);
+                // GameEntry.UI.OpenUIForm(UIFormId.Quit);
             }
             else
             {

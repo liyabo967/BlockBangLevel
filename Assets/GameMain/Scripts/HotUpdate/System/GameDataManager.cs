@@ -17,6 +17,7 @@ using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Random = UnityEngine.Random;
 
 namespace BlockPuzzleGameToolkit.Scripts.System
 {
@@ -88,7 +89,9 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             }
             else
             {
-                _level = Addressables.LoadAssetAsync<Level>($"Assets/GameMain/Settings/Levels/Level_{GetLevelNum()}.asset").WaitForCompletion();
+                var levelNum = GetLevelNum() * 2;
+                levelNum = Random.Range(levelNum - 1, levelNum + 1);
+                _level = Addressables.LoadAssetAsync<Level>($"Assets/GameMain/Settings/Levels/Level_{levelNum}.asset").WaitForCompletion();
             }
             return _level;
         }
