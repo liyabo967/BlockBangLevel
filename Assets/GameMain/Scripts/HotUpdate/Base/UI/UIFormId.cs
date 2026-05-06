@@ -58,6 +58,7 @@ namespace Quester
         
         PurchaseResultUI,
         Tips,
-        CollectionDlg
+        CollectionDlg,
+        RateDlg
     }
 }

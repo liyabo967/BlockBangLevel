@@ -88,7 +88,16 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
                 {
                     img.gameObject.SetActive(false);
                 };
+                OpenRateDlg(1.2f);
             }
+        }
+
+        private void OpenRateDlg(float delay)
+        {
+            CoroutineRunner.Instance.Delay(delay, () =>
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.RateDlg);
+            });
         }
     }
 }
