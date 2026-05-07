@@ -89,9 +89,9 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             }
             else
             {
-                var levelNum = GetLevelNum() * 2;
-                levelNum = Random.Range(levelNum - 1, levelNum + 1);
-                _level = Addressables.LoadAssetAsync<Level>($"Assets/GameMain/Settings/Levels/Level_{levelNum}.asset").WaitForCompletion();
+                // var levelNum = GetLevelNum() * 2;
+                // levelNum = Random.Range(levelNum - 1, levelNum + 1);
+                _level = Addressables.LoadAssetAsync<Level>($"Assets/GameMain/Settings/Levels/Level_{GetLevelNum()}.asset").WaitForCompletion();
             }
             return _level;
         }

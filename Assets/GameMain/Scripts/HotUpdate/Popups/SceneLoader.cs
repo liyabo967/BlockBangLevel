@@ -53,9 +53,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         public void StartGameScene(int levelNumber = 1)
         {
             GameDataManager.SetGameMode(EGameMode.Adventure);
-            var levelNum = levelNumber * 2;
-            levelNum = UnityEngine.Random.Range(levelNum - 1, levelNum + 1);
-            var levelPath = $"Assets/GameMain/Settings/Levels/Level_{levelNum}.asset";
+            // var levelNum = levelNumber * 2;
+            // levelNum = UnityEngine.Random.Range(levelNum - 1, levelNum + 1);
+            var levelPath = $"Assets/GameMain/Settings/Levels/Level_{levelNumber}.asset";
             Addressables.LoadAssetAsync<Level>(levelPath).Completed += handle =>
             {
                 GameDataManager.SetLevel(handle.Result);
