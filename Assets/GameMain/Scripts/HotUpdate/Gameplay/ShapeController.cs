@@ -33,8 +33,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             try
             {
                 _capturedBoardStatus ??= new bool[_rowSize, _columnSize];
-                Debug.Log($"Capture Board Data, _rowSize: {_rowSize}, columnSize: {_columnSize}");
-                Debug.Log($"Capture Board Data, _capturedBoardStatus: {_capturedBoardStatus.GetLength(0)}, {_capturedBoardStatus.GetLength(1)}");
+                if (_rowSize != _capturedBoardStatus.GetLength(0)
+                    || _columnSize != _capturedBoardStatus.GetLength(1))
+                {
+                    _capturedBoardStatus = new bool[_rowSize, _columnSize];
+                }
+                // Debug.Log($"Debug, Capture Board Data, _rowSize: {_rowSize}, columnSize: {_columnSize}");
+                // Debug.Log($"Debug, Capture Board Data, _capturedBoardStatus: {_capturedBoardStatus.GetLength(0)}, {_capturedBoardStatus.GetLength(1)}");
                 for (int i = 0; i < _rowSize; i++)
                 {
                     for (int j = 0; j < _columnSize; j++)
@@ -353,29 +358,29 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         
         private static void UpdateBoardStatus(PerfectInfo shapeInfo)
         {
-            Log.Info("Print Captured start -------");
-            for (int i = 0; i < _rowSize; i++)
-            {
-                var lineStr = new StringBuilder();
-                for (int j = 0; j < _columnSize; j++)
-                {
-                    lineStr.Append(_capturedBoardStatus[i, j] + ",");
-                }
-                Log.Info(lineStr);
-            }
-            Log.Info("Print Captured end ----------");
+            // Log.Info("Print Captured start -------");
+            // for (int i = 0; i < _rowSize; i++)
+            // {
+            //     var lineStr = new StringBuilder();
+            //     for (int j = 0; j < _columnSize; j++)
+            //     {
+            //         lineStr.Append(_capturedBoardStatus[i, j] + ",");
+            //     }
+            //     Log.Info(lineStr);
+            // }
+            // Log.Info("Print Captured end ----------");
             
-            Log.Info($"Print shape {shapeInfo.shapeTemplate.id}, start ----------");
-            for (int i = 0; i < shapeInfo.shapeTemplate.rowCount; i++)
-            {
-                var lineStr = new StringBuilder();
-                for (int j = 0; j < shapeInfo.shapeTemplate.columnCount; j++)
-                {
-                    lineStr.Append(shapeInfo.shapeTemplate.boolValues[i * shapeInfo.shapeTemplate.columnCount + j] + ",");
-                }
-                Log.Info(lineStr);
-            }
-            Log.Info($"Print shape {shapeInfo.shapeTemplate.id}, end ----------");
+            // Log.Info($"Print shape {shapeInfo.shapeTemplate.id}, start ----------");
+            // for (int i = 0; i < shapeInfo.shapeTemplate.rowCount; i++)
+            // {
+            //     var lineStr = new StringBuilder();
+            //     for (int j = 0; j < shapeInfo.shapeTemplate.columnCount; j++)
+            //     {
+            //         lineStr.Append(shapeInfo.shapeTemplate.boolValues[i * shapeInfo.shapeTemplate.columnCount + j] + ",");
+            //     }
+            //     Log.Info(lineStr);
+            // }
+            // Log.Info($"Print shape {shapeInfo.shapeTemplate.id}, end ----------");
             
             
             for (int i = 0; i < shapeInfo.shapeTemplate.rowCount; i++)
