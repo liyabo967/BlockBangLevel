@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Quester
 {
@@ -46,6 +47,7 @@ namespace Quester
             {
                 UserDataManager.Instance.SetLevel(1);
                 UserDataManager.Instance.SetSeason(season);
+                UserDataManager.Instance.SetLevelGroup(Random.Range(0, int.MaxValue) % 5);
             }
         }
         

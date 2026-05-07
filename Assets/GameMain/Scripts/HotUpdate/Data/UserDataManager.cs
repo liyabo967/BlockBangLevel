@@ -10,6 +10,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         private UserData _userData;
         
         public int Level => _userData.level;
+        public int Group => _userData.group;
+        public int LevelGroup => _userData.levelGroup;
         public int Coins => _userData.coins;
         public int Score => _userData.score;
         public int TimedBestScore => _userData.timedBestScore;
@@ -39,6 +41,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         {
             _userData.level = 1;
             _userData.coins = 10;
+            _userData.group = UnityEngine.Random.Range(0, int.MaxValue) % 100;
             _userData.rewardStreak = -1;
             _userData.dailyBonusDay = "1900-01-01 00:00:00";
         }
@@ -66,6 +69,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public void SetLevel(int level)
         {
             _userData.level = level;
+        }
+
+        public void SetLevelGroup(int levelGroup)
+        {
+            _userData.levelGroup = levelGroup;
         }
 
         public void SetCoins(int coins)

@@ -7,6 +7,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public int level;
         public int coins;
         public int score;
+        public int group;
+        public int levelGroup;
         public int timedBestScore;
         public int rewardStreak;
         public int gameMode;
