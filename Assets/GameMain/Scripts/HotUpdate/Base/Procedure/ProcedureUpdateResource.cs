@@ -33,7 +33,7 @@ namespace Quester
             }
             GameEntry.Event.Fire(this,
                 ProgressEventArgs.Create(ProgressEventArgs.ProgressKey.UpdateResource, 1f));
-            ChangeState<ProcedurePreload>(procedureOwner);
+            ChangeState<ProcedureSdk>(procedureOwner);
         }
 
         private IEnumerator CheckAndUpdate()
