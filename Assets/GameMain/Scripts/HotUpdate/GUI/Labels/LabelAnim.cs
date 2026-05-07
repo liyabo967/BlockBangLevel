@@ -15,6 +15,7 @@ using BlockPuzzleGameToolkit.Scripts.Audio;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Gameplay.Pool;
 using DG.Tweening;
+using Quester;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -106,7 +107,8 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI.Labels
 
                     if (count == 0)
                     {
-                        SoundBase.instance.PlaySound(sound);
+                        // SoundBase.instance.PlaySound(sound);
+                        GameEntry.Sound.PlaySound(SoundId.ChargingCoins);
                     }
 
                     count++;

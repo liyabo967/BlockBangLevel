@@ -13,6 +13,7 @@
 using System.Collections;
 using BlockPuzzleGameToolkit.Scripts.Audio;
 using BlockPuzzleGameToolkit.Scripts.System.Haptic;
+using Quester;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -55,7 +56,8 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
             }
 
             isClicked = true;
-            SoundBase.instance.PlaySound(overrideClickSound ? overrideClickSound : SoundBase.instance.click);
+            GameEntry.Sound.PlaySound(SoundId.Click);
+            // SoundBase.instance.PlaySound(overrideClickSound ? overrideClickSound : SoundBase.instance.click);
             HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Light);
             // Start cooldown
             if (gameObject.activeInHierarchy)

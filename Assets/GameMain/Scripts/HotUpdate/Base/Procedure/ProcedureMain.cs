@@ -19,6 +19,7 @@ namespace Quester
             _procedureOwner = procedureOwner;
             Debug.Log("ProcedureMain OnEnter.");
             LoadingForm.Instance.CloseSelf();
+            GameEntry.Sound.PlayMusic(MusicId.BGM01);
 
             // var fromLaunch = procedureOwner.GetData<VarBoolean>("FromLaunch");
             // if (fromLaunch)

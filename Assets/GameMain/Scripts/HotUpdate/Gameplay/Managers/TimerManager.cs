@@ -15,6 +15,7 @@ using BlockPuzzleGameToolkit.Scripts.Audio;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.System;
 using DG.Tweening;
+using Quester;
 using TMPro;
 using UnityEngine;
 
@@ -130,7 +131,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay.Managers
         {
             if (timerText == null) return;
 
-            SoundBase.instance.PlaySound(SoundBase.instance.alert);
+            // SoundBase.instance.PlaySound(SoundBase.instance.alert);
+            GameEntry.Sound.PlaySound(SoundId.Alert);
             isWarningActive = true;
             originalTextColor = timerText.color;
             

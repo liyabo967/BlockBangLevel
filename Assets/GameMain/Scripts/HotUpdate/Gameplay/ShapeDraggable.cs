@@ -17,6 +17,7 @@ using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.System;
 using BlockPuzzleGameToolkit.Scripts.System.Haptic;
 using BlockPuzzleGameToolkit.Scripts.Gameplay.Managers;
+using Quester;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -299,7 +300,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             }
 
             HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Light);
-            SoundBase.instance.PlaySound(SoundBase.instance.placeShape);
+            // SoundBase.instance.PlaySound(SoundBase.instance.placeShape);
+            GameEntry.Sound.PlaySound(SoundId.Stack);
 
             foreach (var kvp in highlightManager.GetHighlightedCells())
             {

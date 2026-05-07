@@ -14,6 +14,7 @@ using System;
 using BlockPuzzleGameToolkit.Scripts.Audio;
 using BlockPuzzleGameToolkit.Scripts.GUI;
 using DG.Tweening;
+using Quester;
 using UnityEngine;
 
 namespace BlockPuzzleGameToolkit.Scripts.Popups
@@ -114,7 +115,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         public virtual void ShowAnimationSound()
         {
-            SoundBase.instance.PlaySound(SoundBase.instance.swish[0]);
+            // SoundBase.instance.PlaySound(SoundBase.instance.swish[0]);
+            GameEntry.Sound.PlaySound(SoundId.BannerAppearance);
         }
 
         public virtual void AfterShowAnimation()

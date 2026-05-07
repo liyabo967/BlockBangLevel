@@ -141,10 +141,10 @@ namespace Quester
 
             Log.Info("Load scene '{0}' OK.", ne.SceneAssetName);
 
-            if (_drScene != null && _drScene.BackgroundMusicId > 0)
-            {
-                GameEntry.Sound.PlayMusic(_drScene.BackgroundMusicId);
-            }
+            // if (_drScene != null && _drScene.BackgroundMusicId > 0)
+            // {
+            //     GameEntry.Sound.PlayMusic(_drScene.BackgroundMusicId);
+            // }
 
             _isChangeSceneComplete = true;
         }

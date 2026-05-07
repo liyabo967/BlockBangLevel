@@ -16,7 +16,7 @@ namespace Quester
             _lastClickTime = Time.time;
             if (GameEntry.Setting.GetBool("SoundEnabled", true))
             {
-                GameEntry.Sound.PlaySound(SoundId.ClickUI);
+                // GameEntry.Sound.PlaySound(SoundId.ClickUI);
             }
             base.OnPointerClick(eventData);
         }

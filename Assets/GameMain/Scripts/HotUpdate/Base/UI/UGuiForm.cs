@@ -263,6 +263,7 @@ namespace Quester
         protected void ShowCoinsSpendFX(Vector3 position)
         {
             // SoundBase.instance.PlaySound(SoundBase.instance.coinsSpend);
+            GameEntry.Sound.PlaySound(SoundId.Coins);
             var fx = Instantiate(Resources.Load<GameObject>("FX/CoinsSpendFX"), position, Quaternion.identity, transform.parent);
             fx.transform.localScale = Vector3.one;
         }

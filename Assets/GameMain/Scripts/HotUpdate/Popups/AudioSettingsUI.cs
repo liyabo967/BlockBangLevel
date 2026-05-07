@@ -12,6 +12,7 @@
 
 using System.Collections.Generic;
 using BlockPuzzleGameToolkit.Scripts.Audio;
+using GameFramework;
 using Quester;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -35,9 +36,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         [SerializeField]
         private string soundParameter = "soundVolume";
-
-        private Dictionary<string, bool> _settingDict = new ();
-
+        
         private void Start()
         {
             musicButton.onValueChanged.AddListener(ToggleMusic);
@@ -46,53 +45,40 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         private void OnEnable()
         {
-            UpdateButtonState(Constant.Settings.MusicEnabled);
-            UpdateButtonState(Constant.Settings.SoundEnabled);
+            UpdateButtonState(Constant.Setting.MusicGroup);
+            UpdateButtonState(Constant.Setting.SoundGroup);
         }
 
-        private void UpdateButtonState(string playerPrefKey)
+        private void UpdateButtonState(string groupName)
         {
-            var enabledState = GameEntry.Setting.GetBool(playerPrefKey, true);;
-            if (playerPrefKey == Constant.Settings.SoundEnabled)
+            var mute = GameEntry.Setting.GetBool(Utility.Text.Format(Constant.Setting.SoundGroupMuted, groupName), false);;
+            if (groupName == Constant.Setting.SoundGroup)
             {
-                soundButton.value = enabledState ? 1 : 0;
+                soundButton.value = mute ? 0 : 1;
             }
             else
             {
-                musicButton.value = enabledState ? 1 : 0;
+                musicButton.value = mute ? 0 : 1;
             }
-
-            _settingDict[playerPrefKey] = enabledState;
         }
 
         private void ToggleMusic(float arg0)
         {
             var value = (int)arg0 == 1;
-            ToggleState(Constant.Settings.MusicEnabled, value);
+            ToggleState(Constant.Setting.MusicGroup, value);
         }
 
         private void ToggleSound(float arg0)
         {
             var value = (int)arg0 == 1;
-            ToggleState(Constant.Settings.SoundEnabled, value);
+            ToggleState(Constant.Setting.SoundGroup, value);
         }
 
-        private void ToggleState(string key, bool enable)
+        private void ToggleState(string group, bool enable)
         {
-            Debug.Log($"Toggle state: {key}, {enable}");
-            if (GameEntry.Setting.GetBool(key, true) != enable)
-            {
-                UpdateMixer(key == Constant.Settings.SoundEnabled ? soundParameter : musicParameter, enable);
-                SoundBase.instance.PlaySound(SoundBase.instance.click);
-                GameEntry.Setting.SetBool(key, enable);
-                GameEntry.Setting.Save();
-            }
-        }
-
-        private void UpdateMixer(string volumeParameter, bool enabledState)
-        {
-            float volumeValue = enabledState ? 0 : -80;
-            mixer.SetFloat(volumeParameter, volumeValue);
+            Debug.Log($"Toggle state: {group}, {enable}");
+            GameEntry.Sound.PlaySound(SoundId.Click);
+            GameEntry.Sound.Mute(group, !enable);
         }
     }
 }

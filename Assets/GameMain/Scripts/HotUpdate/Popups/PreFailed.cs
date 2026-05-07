@@ -50,7 +50,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             InitializeTimer();
             
             timerText.text = timer.ToString();
-            SoundBase.instance.PlaySound(SoundBase.instance.warningTime);
+            // SoundBase.instance.PlaySound(SoundBase.instance.warningTime);
+            GameEntry.Sound.PlaySound(SoundId.FewTime);
             rewardButton.gameObject.SetActive(GameManager.instance.GameSettings.enableAds);
             if(GameDataManager.GetLevel().enableTimer && timeLeftText != null)
             {

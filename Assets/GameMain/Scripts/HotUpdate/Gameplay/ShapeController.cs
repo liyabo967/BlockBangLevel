@@ -147,10 +147,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
                     var around = GetAround(item, i, j);
                     score += around;
-                    // if (item.isRect && around == 0)
-                    // {
-                    //     score = 0; 
-                    // }
+                    if (item.rowCount == 1 && item.columnCount == 1)
+                    {
+                        score = 5;
+                    }
+                    
                     Log.Info($"PerfectInfo, id: {item.id}, GetAround: {i}, {j}, around: {around}, score: {score}");
                     if (score > maxScore)
                     {

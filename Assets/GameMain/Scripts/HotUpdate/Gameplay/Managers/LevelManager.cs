@@ -24,6 +24,7 @@ using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.System;
 using BlockPuzzleGameToolkit.Scripts.Utils;
 using DG.Tweening;
+using Quester;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -84,6 +85,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private TimedModeHandler timedModeHandler;
         public TimerManager timerManager;
         private int timerDuration;
+        private List<SoundId> _soundCombo;
         
         private Vector3 cachedFieldCenter;
         private bool isFieldCenterCached;
@@ -548,7 +550,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private IEnumerator FillEmptyCellsFailed()
         {
-            SoundBase.instance.PlaySound(SoundBase.instance.fillEmpty);
+            // SoundBase.instance.PlaySound(SoundBase.instance.fillEmpty);
+            GameEntry.Sound.PlaySound(SoundId.Accrual);
             var template = Addressables.LoadAssetAsync<ItemTemplate>("Assets/GameMain/Prefabs/Items/ItemTemplate 0.asset").WaitForCompletion();
             emptyCells = field.GetEmptyCells();
             foreach (var cell in emptyCells)
@@ -569,7 +572,22 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private IEnumerator DestroyLines(List<List<Cell>> lines, Shape shape)
         {
-            SoundBase.instance.PlayLimitSound(SoundBase.instance.combo[Mathf.Min(comboCounter, SoundBase.instance.combo.Length - 1)]);
+            // SoundBase.instance.PlayLimitSound(SoundBase.instance.combo[Mathf.Min(comboCounter, SoundBase.instance.combo.Length - 1)]);
+            if (_soundCombo == null)
+            {
+                _soundCombo = new List<SoundId>()
+                {
+                    SoundId.BlockDestruction,
+                    SoundId.Combo1,
+                    SoundId.Combo2,
+                    SoundId.Combo3,
+                    SoundId.Combo4,
+                    SoundId.Combo5,
+                    SoundId.Combo6
+                };
+            }
+            GameEntry.Sound.PlaySound(_soundCombo[Mathf.Min(comboCounter, _soundCombo.Count - 1)]);
+            
             EventManager.GetEvent<Shape>(EGameEvent.LineDestroyed).Invoke(shape);
 
             // Mark cells as destroying immediately at the start

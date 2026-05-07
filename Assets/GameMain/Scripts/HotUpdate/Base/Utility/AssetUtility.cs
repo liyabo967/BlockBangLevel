@@ -38,12 +38,12 @@ public static class AssetUtility
 
     public static string GetMusicAsset(string assetName)
     {
-        return Utility.Text.Format("Assets/GameMain/Audio/Music/{0}.mp3", assetName);
+        return Utility.Text.Format("Assets/GameMain/Audio/{0}", assetName);
     }
 
     public static string GetSoundAsset(string assetName)
     {
-        return Utility.Text.Format("Assets/GameMain/Audio/Sound/{0}", assetName);
+        return Utility.Text.Format("Assets/GameMain/Audio/{0}.wav", assetName);
     }
 
     public static string GetUISoundAsset(string assetName)

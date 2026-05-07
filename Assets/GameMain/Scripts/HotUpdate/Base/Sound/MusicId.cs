@@ -12,7 +12,5 @@ namespace Quester
         Undefined = 0,
 
         BGM01,
-        
-        
     }
 }

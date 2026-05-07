@@ -5,36 +5,34 @@ namespace Quester
     {
         Undefined = 0,
 
-        CoinFly,
+        Accrual,
         
-        CoinCollect,
+        Alert,
         
-        NewRecord,
+        BannerAppearance,
         
-        Score,
+        BannerDisappearance,
         
-        ComboNice,
+        BlockDestruction,
         
-        ComboGood,
+        ChargingCoins,
         
-        ComboGreat,
+        Click,
         
-        ComboPerfect,
+        Coins,
         
-        ClickUI,
+        Combo1,
         
-        PutDown,
+        Combo2,
+        Combo3,
+        Combo4,
+        Combo5,
+        Combo6,
         
-        LevelWin,
+        FewTime,
         
-        LevelFail,
+        SpinBonus,
         
-        Match,
-        
-        GameOver,
-        
-        CollectOne,
-        
-        CollectAll
+        Stack
     }
 }

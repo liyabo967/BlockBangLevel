@@ -12,6 +12,8 @@ namespace Quester
         public static class Setting
         {
             public const string Language = "Setting.Language";
+            public const string MusicGroup = "Music";
+            public const string SoundGroup = "Sound";
             public const string SoundGroupMuted = "Setting.{0}Muted";
             public const string SoundGroupVolume = "Setting.{0}Volume";
             public const string MusicMuted = "Setting.MusicMuted";
