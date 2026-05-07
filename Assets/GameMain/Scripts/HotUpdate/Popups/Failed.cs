@@ -13,6 +13,7 @@
 using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.System;
+using GameAnalyticsSDK;
 using GameMain.Scripts.HotUpdate.Base.Ads;
 using Quester;
 
@@ -33,6 +34,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         {
             base.OnOpen(userData);
             UserDataManager.Instance.AddFailStreak();
+            GameAnalyticsManager.SendLevelProgression(UserDataManager.Instance.Level, GAProgressionStatus.Fail);
         }
 
         private void Retry()

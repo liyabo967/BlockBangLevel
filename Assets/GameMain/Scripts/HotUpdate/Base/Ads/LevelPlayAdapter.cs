@@ -42,6 +42,11 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
         public override void LoadAd(AdType type, string placementId = null)
         {
+            RaiseRequest(new AdResult()
+            {
+                AdType = type,
+                PlacementId = placementId
+            });
             switch (type)
             {
                 case AdType.Banner:
@@ -142,7 +147,15 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 Message = error.ErrorMessage
             });
         }
-        void RewardedOnAdClickedEvent(LevelPlayAdInfo adInfo) { }
+
+        void RewardedOnAdClickedEvent(LevelPlayAdInfo adInfo)
+        {
+            RaiseClicked(new AdResult()
+            {
+                Success = true,
+                AdType = AdType.RewardedVideo
+            });
+        }
 
         void RewardedOnAdDisplayedEvent(LevelPlayAdInfo adInfo)
         {
@@ -151,7 +164,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
         void RewardedOnAdDisplayFailedEvent(LevelPlayAdInfo adInfo, LevelPlayAdError error)
         {
-            RaiseShown(new AdResult { Success = false, AdType = AdType.RewardedVideo, Message = error.ErrorMessage});
+            RaiseShowFailed(new AdResult { Success = false, AdType = AdType.RewardedVideo, Message = error.ErrorMessage});
         }
 
         void RewardedOnAdClosedEvent(LevelPlayAdInfo adInfo)
@@ -216,7 +229,15 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 Message = error.ErrorMessage
             });
         }
-        void InterstitialOnAdClickedEvent(LevelPlayAdInfo adInfo) { }
+
+        void InterstitialOnAdClickedEvent(LevelPlayAdInfo adInfo)
+        {
+            RaiseClicked(new AdResult()
+            {
+                Success = true,
+                AdType = AdType.Interstitial
+            });
+        }
 
         void InterstitialOnAdDisplayedEvent(LevelPlayAdInfo adInfo)
         {
@@ -225,7 +246,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
         void InterstitialOnAdDisplayFailedEvent(LevelPlayAdInfo adInfo, LevelPlayAdError error)
         {
-            RaiseShown(new AdResult { Success = false, AdType = AdType.Interstitial, Message = error.ErrorMessage});
+            RaiseShowFailed(new AdResult { Success = false, AdType = AdType.Interstitial, Message = error.ErrorMessage});
         }
         void InterstitialOnAdClosedEvent(LevelPlayAdInfo adInfo) { }
         void InterstitialOnAdInfoChangedEvent(LevelPlayAdInfo adInfo) { }
@@ -297,9 +318,25 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 Message = error.ErrorMessage
             });
         }
-        private void BannerOnAdClickedEvent(LevelPlayAdInfo adInfo) {}
-        private void BannerOnAdDisplayedEvent(LevelPlayAdInfo adInfo) {}
-        private void BannerOnAdDisplayFailedEvent(LevelPlayAdInfo adInfo, LevelPlayAdError error){}
+
+        private void BannerOnAdClickedEvent(LevelPlayAdInfo adInfo)
+        {
+            RaiseClicked(new AdResult()
+            {
+                Success = true,
+                AdType = AdType.Banner
+            });
+        }
+
+        private void BannerOnAdDisplayedEvent(LevelPlayAdInfo adInfo)
+        {
+            RaiseShown(new AdResult { Success = true, AdType = AdType.Banner });
+        }
+
+        private void BannerOnAdDisplayFailedEvent(LevelPlayAdInfo adInfo, LevelPlayAdError error)
+        {
+            RaiseShowFailed(new AdResult { Success = false, AdType = AdType.Banner,  Message = error.ErrorMessage });
+        }
         private void BannerOnAdCollapsedEvent(LevelPlayAdInfo adInfo) {}
         private void BannerOnAdLeftApplicationEvent(LevelPlayAdInfo adInfo) {}
         private void BannerOnAdExpandedEvent(LevelPlayAdInfo adInfo) {}

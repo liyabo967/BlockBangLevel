@@ -16,6 +16,7 @@ using BlockPuzzleGameToolkit.Scripts.System;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
+using GameAnalyticsSDK;
 using GameMain.Scripts.HotUpdate.Base.Ads;
 using Quester;
 
@@ -47,6 +48,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         {
             base.OnOpen(userData);
             UserDataManager.Instance.ResetFailStreak();
+            GameAnalyticsManager.SendLevelProgression(UserDataManager.Instance.Level, GAProgressionStatus.Complete);
         }
 
         protected override void OnClose(bool isShutdown, object userData)

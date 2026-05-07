@@ -11,10 +11,12 @@
 // // THE SOFTWARE.
 
 using System;
+using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.System;
+using GameAnalyticsSDK;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
@@ -53,6 +55,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         public void StartGameScene(int levelNumber = 1)
         {
             GameDataManager.SetGameMode(EGameMode.Adventure);
+            GameAnalyticsManager.SendLevelProgression(UserDataManager.Instance.Level, GAProgressionStatus.Start);
             // var levelNum = levelNumber * 2;
             // levelNum = UnityEngine.Random.Range(levelNum - 1, levelNum + 1);
             var levelPath = GameDataManager.GetLevelPath(levelNumber);

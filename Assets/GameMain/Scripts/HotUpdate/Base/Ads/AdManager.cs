@@ -26,6 +26,11 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         private Action<bool> _onRewardedCallback;
 
         // 对外事件（业务层只订阅这里）
+        public event Action<AdResult> OnRequest;
+        public event Action<AdResult> OnLoaded;
+        public event Action<AdResult> OnShown;
+        public event Action<AdResult> OnShowFailed;
+        public event Action<AdResult> OnClicked;
         public event Action<AdResult> OnRewarded;
         public event Action<AdResult> OnAdClosed;
         public event Action<AdResult> OnRevenuePaid;
@@ -48,9 +53,26 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 #endif
                 _adapter = AdAdapterFactory.Create(adSettings.Platform);
             
+                _adapter.OnAdRequest += result =>
+                {
+                    OnRequest?.Invoke(result);
+                };
                 _adapter.OnAdLoaded += result =>
                 {
                     Log.Info($"Ad Load success: {result.AdType}, {result.AdNetwork}");
+                    OnLoaded?.Invoke(result);
+                };
+                _adapter.OnAdShown += result =>
+                {
+                    OnShown?.Invoke(result);
+                };
+                _adapter.OnAdShowFailed += result =>
+                {
+                    OnShowFailed?.Invoke(result);
+                };
+                _adapter.OnAdClicked += result =>
+                {
+                    OnClicked?.Invoke(result);
                 };
                 _adapter.OnAdRewarded += r =>
                 {

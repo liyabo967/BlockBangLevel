@@ -10,6 +10,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
         protected AdConfig Config;
 
+        public event Action<AdResult> OnAdRequest;
         public event Action<AdResult> OnAdLoaded;
         public event Action<AdResult> OnAdLoadFailed;
         public event Action<AdResult> OnAdShown;
@@ -26,6 +27,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         public abstract void HideBanner();
 
         // 子类调用这些方法触发事件
+        protected void RaiseRequest(AdResult r) => OnAdRequest?.Invoke(r);
         protected void RaiseLoaded(AdResult r) => OnAdLoaded?.Invoke(r);
         protected void RaiseLoadFailed(AdResult r) => OnAdLoadFailed?.Invoke(r);
         protected void RaiseShown(AdResult r) => OnAdShown?.Invoke(r);

@@ -26,6 +26,7 @@ using BlockPuzzleGameToolkit.Scripts.Services;
 using BlockPuzzleGameToolkit.Scripts.Services.IAP;
 using BlockPuzzleGameToolkit.Scripts.Settings;
 using DG.Tweening;
+using GameAnalyticsSDK;
 using GameMain.Scripts.HotUpdate.Base.Ads;
 using Quester;
 using UnityEngine;
@@ -139,7 +140,55 @@ namespace BlockPuzzleGameToolkit.Scripts.System
         private IEnumerator DelayInitAd()
         {
             yield return new WaitForSeconds(3f);
+            SubscribeAdEvent();
             AdManager.Instance.Init();
+        }
+
+        private void SubscribeAdEvent()
+        {
+            AdManager.Instance.OnRequest += result =>
+            {
+                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.Request);
+            };
+            
+            AdManager.Instance.OnLoaded += result =>
+            {
+                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.Loaded);
+            };
+            
+            AdManager.Instance.OnShown += result =>
+            {
+                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.Show);
+            };
+            
+            AdManager.Instance.OnShowFailed += result =>
+            {
+                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.FailedShow);
+            };
+            
+            AdManager.Instance.OnClicked += result =>
+            {
+                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.Clicked);
+            };
+
+            AdManager.Instance.OnRewarded += result =>
+            {
+                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.RewardReceived);
+            };
+        }
+
+        private GAAdType GetAdType(AdResult result)
+        {
+            switch (result.AdType)
+            {
+                case AdType.Banner:
+                    return GAAdType.Banner;
+                case AdType.Interstitial:
+                    return GAAdType.Interstitial;
+                case AdType.RewardedVideo:
+                    return GAAdType.RewardedVideo;
+            }
+            return GAAdType.Undefined;
         }
 
         private void OnInitializeSuccess()

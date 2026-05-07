@@ -18,6 +18,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         void HideBanner();
 
         // 事件回调
+        event Action<AdResult> OnAdRequest;
         event Action<AdResult> OnAdLoaded;
         event Action<AdResult> OnAdLoadFailed;
         event Action<AdResult> OnAdShown;
