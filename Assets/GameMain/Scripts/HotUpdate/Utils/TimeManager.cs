@@ -18,7 +18,7 @@ namespace Quester
             {
                 url = "http://api.xjoy.games/block/season",
                 method = NetworkRequest.HttpMethod.GET,
-                retryCount = 3
+                retryCount = 2
             };
             GameEntry.Http.SendRequest(
                 requestConfig,

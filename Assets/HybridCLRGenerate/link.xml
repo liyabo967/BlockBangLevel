@@ -63,8 +63,6 @@
   </assembly>
   <assembly fullname="GoogleMobileAds">
     <type fullname="GoogleMobileAds.Api.AdError" preserve="all" />
-    <type fullname="GoogleMobileAds.Api.AdInspectorError" preserve="all" />
-    <type fullname="GoogleMobileAds.Api.AdInspectorError/AdInspectorErrorCode" preserve="all" />
     <type fullname="GoogleMobileAds.Api.BannerView" preserve="all" />
     <type fullname="GoogleMobileAds.Api.InitializationStatus" preserve="all" />
     <type fullname="GoogleMobileAds.Api.InterstitialAd" preserve="all" />

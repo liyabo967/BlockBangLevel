@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NetworkConfig
   m_EditorClassIdentifier: 
   baseUrl: 
-  defaultTimeout: 30
+  defaultTimeout: 20
   defaultRetryCount: 0
   maxConcurrentRequests: 5
   defaultHeaders: []
