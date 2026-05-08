@@ -27,7 +27,7 @@ MonoBehaviour:
   ScorePerLine: 10
   enablePool: 1
   ResetComboAfterMoves: 3
-  continuePrice: 15
+  continuePrice: 100
   failedTimerStart: 5
   mapType: 1
   maxLevelsInRow: 8
