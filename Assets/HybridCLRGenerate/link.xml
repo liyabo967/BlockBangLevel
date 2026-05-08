@@ -26,6 +26,19 @@
   <assembly fullname="DOTween.Modules">
     <type fullname="DG.Tweening.DOTweenModuleUI" preserve="all" />
   </assembly>
+  <assembly fullname="Firebase.App">
+    <type fullname="Firebase.DependencyStatus" preserve="all" />
+    <type fullname="Firebase.FirebaseApp" preserve="all" />
+  </assembly>
+  <assembly fullname="Firebase.TaskExtension">
+    <type fullname="Firebase.Extensions.TaskExtension" preserve="all" />
+  </assembly>
+  <assembly fullname="GameAnalyticsAsmdef">
+    <type fullname="GameAnalyticsSDK.GAAdAction" preserve="all" />
+    <type fullname="GameAnalyticsSDK.GAAdType" preserve="all" />
+    <type fullname="GameAnalyticsSDK.GAProgressionStatus" preserve="all" />
+    <type fullname="GameAnalyticsSDK.GameAnalytics" preserve="all" />
+  </assembly>
   <assembly fullname="GameFramework">
     <type fullname="GameFramework.DataTable.DataTableBase" preserve="all" />
     <type fullname="GameFramework.DataTable.IDataTable`1" preserve="all" />
@@ -82,10 +95,11 @@
   <assembly fullname="Main">
     <type fullname="ATTManager" preserve="all" />
     <type fullname="ATTManager/ATTStatus" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.System.Haptic.HapticFeedback" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.System.Haptic.HapticFeedback/HapticForce" preserve="all" />
     <type fullname="FileDownloader" preserve="all" />
     <type fullname="GameMain.LocalLanguage" preserve="all" />
     <type fullname="MonoSingleton`1" preserve="all" />
-    <type fullname="VibrationBridge" preserve="all" />
   </assembly>
   <assembly fullname="Reordable">
     <type fullname="BlockPuzzleGameToolkit.Scripts.Unity_Reorderable_List_master.List.Attributes.ReorderableAttribute" preserve="all" />
@@ -149,10 +163,6 @@
     <type fullname="TMPro.TextAlignmentOptions" preserve="all" />
     <type fullname="TMPro.TextMeshProUGUI" preserve="all" />
   </assembly>
-  <assembly fullname="UnityEngine.AndroidJNIModule">
-    <type fullname="UnityEngine.AndroidJavaClass" preserve="all" />
-    <type fullname="UnityEngine.AndroidJavaObject" preserve="all" />
-  </assembly>
   <assembly fullname="UnityEngine.AnimationModule">
     <type fullname="UnityEngine.Animator" preserve="all" />
     <type fullname="UnityEngine.AnimatorControllerParameter" preserve="all" />
@@ -207,6 +217,7 @@
     <type fullname="UnityEngine.RectTransform" preserve="all" />
     <type fullname="UnityEngine.RectTransform/Axis" preserve="all" />
     <type fullname="UnityEngine.RequireComponent" preserve="all" />
+    <type fullname="UnityEngine.Resolution" preserve="all" />
     <type fullname="UnityEngine.Resources" preserve="all" />
     <type fullname="UnityEngine.RuntimePlatform" preserve="all" />
     <type fullname="UnityEngine.SceneManagement.LoadSceneMode" preserve="all" />
@@ -409,6 +420,7 @@
     <type fullname="System.Globalization.CalendarWeekRule" preserve="all" />
     <type fullname="System.Globalization.CultureInfo" preserve="all" />
     <type fullname="System.Globalization.CultureTypes" preserve="all" />
+    <type fullname="System.Globalization.RegionInfo" preserve="all" />
     <type fullname="System.IAsyncResult" preserve="all" />
     <type fullname="System.IDisposable" preserve="all" />
     <type fullname="System.IFormatProvider" preserve="all" />
@@ -463,6 +475,7 @@
     <type fullname="System.Threading.Tasks.ParallelOptions" preserve="all" />
     <type fullname="System.Threading.Tasks.Task" preserve="all" />
     <type fullname="System.Threading.Tasks.Task`1" preserve="all" />
+    <type fullname="System.TimeZoneInfo" preserve="all" />
     <type fullname="System.Type" preserve="all" />
     <type fullname="System.ValueTuple`2" preserve="all" />
     <type fullname="System.ValueTuple`4" preserve="all" />

@@ -19,6 +19,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         private bool _initialized;
         private bool _consentInfoUpdateInProgress = false;
         private float _lastAdTime = 0;
+        private Action<bool> _initializeCallback;
         
         // rewarded, The OnAdRewarded and OnAdClosed are asynchronous
         private bool _isRewarded = false;
@@ -35,8 +36,9 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         public event Action<AdResult> OnAdClosed;
         public event Action<AdResult> OnRevenuePaid;
 
-        public void Init()
+        public void Init(Action<bool> callback)
         {
+            _initializeCallback = callback;
             StartConsentFlow();
         }
 
@@ -98,6 +100,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 _adapter.Initialize(_adConfig, success =>
                 {
                     _initialized = success;
+                    _initializeCallback?.Invoke(success);
                     if (success)
                     {
                         // 预加载常用广告
@@ -115,9 +118,9 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
         private IEnumerator DelayLoadAd()
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(1f);
             _adapter.LoadAd(AdType.Interstitial);
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(1f);
             _adapter.LoadAd(AdType.RewardedVideo);
         }
 
@@ -269,13 +272,13 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             _consentInfoUpdateInProgress = true;
 
             // Skip consent if disabled in settings
-            if (GameManager.instance.GameSettings.skipConsentPopup)
-            {
-                Debug.Log("Consent popup disabled in settings - skipping consent flow");
-                Initialize();
-                _consentInfoUpdateInProgress = false;
-                return;
-            }
+            // if (GameManager.instance.GameSettings.skipConsentPopup)
+            // {
+            //     Debug.Log("Consent popup disabled in settings - skipping consent flow");
+            //     Initialize();
+            //     _consentInfoUpdateInProgress = false;
+            //     return;
+            // }
 
 #if UMP_AVAILABLE && (UNITY_ANDROID || UNITY_IOS)
             var request = new ConsentRequestParameters();

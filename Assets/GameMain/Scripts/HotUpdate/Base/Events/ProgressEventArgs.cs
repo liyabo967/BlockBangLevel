@@ -11,7 +11,8 @@ namespace Quester
             HotUpdate,
             PreLoadDataTable,
             Preload,
-            UpdateResource
+            UpdateResource,
+            InitSdk
         }
         
         public static readonly int EventId = typeof(ProgressEventArgs).GetHashCode();

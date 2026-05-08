@@ -24,15 +24,15 @@ public class LoadingForm : UGuiForm
     // 不同阶段的进度条占比
     private Dictionary<ProgressEventArgs.ProgressKey, float> _progressWeightDict = new()
     {
-        { ProgressEventArgs.ProgressKey.HotUpdate , 0.3f},
+        { ProgressEventArgs.ProgressKey.HotUpdate , 0.2f},
         { ProgressEventArgs.ProgressKey.PreLoadDataTable , 0.4f},
         { ProgressEventArgs.ProgressKey.UpdateResource , 0.2f},
+        { ProgressEventArgs.ProgressKey.InitSdk , 0.1f},
         { ProgressEventArgs.ProgressKey.Preload , 0.1f}
     };
 
     private Dictionary<ProgressEventArgs.ProgressKey, float> _currentProgressDict = new();
     private ProgressEventArgs.ProgressKey _currentProgressKey;
-    
 
     private void Awake()
     {
