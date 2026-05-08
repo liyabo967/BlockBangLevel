@@ -191,11 +191,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             GameEntry.Purchase.Purchase(id);
         }
 
-        public void AwawrdCoins()
+        public void AwardCoins()
         {
             var coins = GameManager.instance.GameSettings.coinsForAd;
             var resourceObject = ResourceManager.instance.GetResource("Coins");
-            LabelAnim.AnimateForResource(resourceObject, watchAd.buyButton.transform.position, "+" + coins, SoundBase.instance.coins, () =>
+            LabelAnim.AnimateForResource(resourceObject, watchAd.buyButton.transform.position, "+" + coins, null, () =>
             {
                 resourceObject.Add(coins);
             });

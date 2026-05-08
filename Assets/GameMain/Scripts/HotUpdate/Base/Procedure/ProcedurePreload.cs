@@ -68,9 +68,9 @@ namespace Quester
 
         private void CheckPicture()
         {
-            var picturePath = $"pictures/{TimeManager.SeasonTime.year}/{TimeManager.SeasonTime.week}.jpg";
-            var pictureUrl = $"https://assets-1301567094.cos.ap-beijing.myqcloud.com/block-bang/{picturePath}";
-            string savePath = Path.Combine(Application.persistentDataPath, picturePath);
+            var pictureName = $"{TimeManager.SeasonTime.year}/{TimeManager.SeasonTime.week}.jpg";
+            var pictureUrl = $"https://assets-1301567094.cos.ap-beijing.myqcloud.com/block-bang/pictures/{pictureName}";
+            string savePath = Path.Combine(Application.persistentDataPath, "Pictures", pictureName);
             if (File.Exists(savePath))
             {
                 CheckPictureCompleted();
