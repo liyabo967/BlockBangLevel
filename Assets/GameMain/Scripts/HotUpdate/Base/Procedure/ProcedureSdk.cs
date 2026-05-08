@@ -30,6 +30,7 @@ namespace Quester
 
         private void InitFirebase()
         {
+#if !UNITY_EDITOR
             Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task => {
                 var dependencyStatus = task.Result;
                 if (dependencyStatus == Firebase.DependencyStatus.Available) {
@@ -44,6 +45,7 @@ namespace Quester
                     // Firebase Unity SDK is not safe to use here.
                 }
             });
+#endif
         }
 
         private void InitATT()

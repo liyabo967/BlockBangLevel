@@ -116,7 +116,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups.Daily
         private void CloseDaily(ResourceObject resource)
         {
             resource.Add(dayHandles[rewardStreak].RewardData.count);
-            Close(true);
+            CoroutineRunner.Instance.Delay(0.8f, () =>
+            {
+                Close(true);
+            });
         }
     }
 }
