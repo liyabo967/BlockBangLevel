@@ -40,7 +40,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         private void InitData()
         {
             _userData.level = 1;
-            _userData.coins = 10;
+            _userData.coins = 100;
             _userData.group = UnityEngine.Random.Range(0, int.MaxValue) % 100;
             _userData.rewardStreak = -1;
             _userData.dailyBonusDay = "1900-01-01 00:00:00";

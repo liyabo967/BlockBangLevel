@@ -238,7 +238,7 @@ namespace BlockPuzzleGameToolkit.Scripts.System
 
         public bool IsNoAdsPurchased()
         {
-            return !GameSettings.enableAds || IsPurchased(noAdsProduct.ID);
+            return !GameSettings.enableAds || UserDataManager.Instance.IsPurchasedProductId(noAdsProduct.ID);
         }
 
         public void SetGameMode(EGameMode gameMode)
@@ -294,12 +294,6 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             
             this.OnPurchasesRestored = OnPurchasesRestored;
             IAPManager.instance?.RestorePurchases(OnPurchasesRestored);
-        }
-
-        public bool IsPurchased(string productId)
-        {
-            if (!GameSettings.enableInApps) return false;
-            return UserDataManager.Instance.IsPurchasedProductId(productId);
         }
     }
 }

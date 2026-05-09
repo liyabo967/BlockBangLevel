@@ -15,14 +15,14 @@ MonoBehaviour:
   dailyBonusEnabled: 1
   rewards:
   - resource: {fileID: 11400000, guid: 05af233fe9cfa409abb37d57d2cceaea, type: 2}
-    count: 2
-  - resource: {fileID: 11400000, guid: 05af233fe9cfa409abb37d57d2cceaea, type: 2}
-    count: 10
-  - resource: {fileID: 11400000, guid: 05af233fe9cfa409abb37d57d2cceaea, type: 2}
     count: 20
   - resource: {fileID: 11400000, guid: 05af233fe9cfa409abb37d57d2cceaea, type: 2}
-    count: 30
+    count: 50
   - resource: {fileID: 11400000, guid: 05af233fe9cfa409abb37d57d2cceaea, type: 2}
-    count: 40
+    count: 100
   - resource: {fileID: 11400000, guid: 05af233fe9cfa409abb37d57d2cceaea, type: 2}
-    count: 80
+    count: 200
+  - resource: {fileID: 11400000, guid: 05af233fe9cfa409abb37d57d2cceaea, type: 2}
+    count: 300
+  - resource: {fileID: 11400000, guid: 05af233fe9cfa409abb37d57d2cceaea, type: 2}
+    count: 500

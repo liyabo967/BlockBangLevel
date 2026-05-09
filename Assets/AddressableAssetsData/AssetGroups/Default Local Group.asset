@@ -31,11 +31,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 618a3f8b0bf8e48d38510866eb297143
-    m_Address: Assets/GameMain/Prefabs/GUI/Popups
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7bec41ac40d4840d3b16f53720d99762
     m_Address: Assets/GameMain/Configs/PresetLanguage.txt
     m_ReadOnly: 0
