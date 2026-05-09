@@ -83,6 +83,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             rewardButton.interactable = true;
             hasContinued = false;
             // Start the timer only after the popup animation is complete
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
             InvokeRepeating(nameof(UpdateTimer), 1, 1);
         }
 

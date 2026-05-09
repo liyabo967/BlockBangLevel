@@ -129,17 +129,16 @@ namespace GameMain
                     {
                         Debug.Log("HotUpdate 无需更新");
                     }
-
-                    // 3. 加载补充元数据 DLL
-                    if (loadAOTMetadata)
-                    {
-                        yield return StartCoroutine(LoadMetadataForAOTAssemblies());
-                    }
                 }
                 else
                 {
                     Log.Error("版本检查失败，使用本地版本");
                 }
+            }
+            // 3. 加载补充元数据 DLL
+            if (loadAOTMetadata)
+            {
+                yield return StartCoroutine(LoadMetadataForAOTAssemblies());
             }
             LoadAssemblyAndLaunch(dllPath);
         }
@@ -163,7 +162,7 @@ namespace GameMain
         {
             if (!VerifyDlls())
             {
-                ShowDialog(LocalLanguage.Instance.GetString("#verify_dll_fail"));
+                ShowDialog(LocalLanguage.Instance.GetString("#update_failed"));
                 return;
             }
             SetTipsByKey("#launch_update");
@@ -188,7 +187,7 @@ namespace GameMain
             };
             foreach (var aotDll in aotDlls)
             {
-                var aotPath = Path.Combine(_hotUpdateDir, "AOT", aotDll);
+                var aotPath = Path.Combine(_hotUpdateDir, "AOT", Application.version, aotDll);
                 if (!File.Exists(aotPath))
                 {
                     return false;
@@ -241,21 +240,20 @@ namespace GameMain
             HomologousImageMode mode = HomologousImageMode.SuperSet;
             int i = 0;
             var downloadFailed = false;
+            string aotDir = Path.Combine(_hotUpdateDir, "AOT", Application.version);
+            if (!Directory.Exists(aotDir))
+            {
+                Directory.CreateDirectory(aotDir);
+            }
             foreach (string dllName in aotDlls)
             {
                 i++;
-                string dllPath = Path.Combine(_hotUpdateDir, "AOT", dllName);
+                string dllPath = Path.Combine(aotDir, dllName);
                 
                 // 如果本地不存在，尝试下载
                 if (!File.Exists(dllPath))
                 {
                     string dllUrl = $"{_serverUrl}/AOT/{dllName}";
-                    string aotDir = Path.Combine(_hotUpdateDir, "AOT");
-                    if (!Directory.Exists(aotDir))
-                    {
-                        Directory.CreateDirectory(aotDir);
-                    }
-                    
                     yield return StartCoroutine(
                         FileDownloader.Instance.Download(dllUrl, dllPath, s =>
                         {
@@ -430,7 +428,7 @@ namespace GameMain
             var message = msg;
             // message += $"\n{LocalLanguage.Instance.GetString("#check_network")}";
             // message += $"\n{msg}";
-            var title = LocalLanguage.Instance.GetString("#update_failed");
+            var title = LocalLanguage.Instance.GetString("#tips");
             AotDialogUI.Instance.Show(title, message, () =>
             {
                 StartCoroutine(Retry());
