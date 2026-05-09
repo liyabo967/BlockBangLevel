@@ -24,7 +24,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 {
     public class ItemPurchase : MonoBehaviour
     {
-        public Button buyButton;
+        public CustomButton buyButton;
         public TextMeshProUGUI price;
         public TextMeshProUGUI count;
         public TextMeshProUGUI discountPercent;

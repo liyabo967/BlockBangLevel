@@ -43,7 +43,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         private CustomButton retryButton;
 
         [SerializeField]
-        private Button restorePurchase;
+        private CustomButton restorePurchase;
 
         [SerializeField]
         private Slider vibrationSlider;
@@ -127,11 +127,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         private void RestorePurchase()
         {
-             GameManager.instance.RestorePurchases(((b, list) =>
-            {
-                if (b)
-                    Close();
-            }));
+            GameEntry.Purchase.RestorePurchases();
         }
 
         private void BackToGame()

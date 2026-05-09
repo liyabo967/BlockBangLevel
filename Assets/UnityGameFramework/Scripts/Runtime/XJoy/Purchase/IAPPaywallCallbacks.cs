@@ -24,8 +24,37 @@ namespace UnityGameFramework.Scripts.Runtime.Purchase
         }
         public void OnExistingPurchasesFetched(Orders existingOrders)
         {
-            Log.Info(PurchaseComponent.IsReceiptAvailable(existingOrders) ? "Success - Found Existing Orders with receipts" : "Notice: - No Existing Orders with receipts");
+            Log.Info(PurchaseComponent.IsReceiptAvailable(existingOrders) ? "Success - Found Existing Orders with receipts, ConfirmedOrders: " + existingOrders.ConfirmedOrders.Count : "Notice: - No Existing Orders with receipts");
+            
+            // 已确认订单
+            var productIdList = new List<string>();
+            foreach (var order in existingOrders.ConfirmedOrders)
+            {
+                foreach (var item in order.CartOrdered.Items())
+                {
+                    var product = item.Product;
+                    // Debug.Log($"Owned Product: {product.definition.id}");
+                    productIdList.Add(product.definition.id);
+                }
+            }
+            HandleOwnedProduct(productIdList);
         }
+
+        private void HandleOwnedProduct(List<string> productIdList)
+        {
+            if (productIdList.Count > 0)
+            {
+                PurchaseResult result = new PurchaseResult()
+                {
+                    ProductIdList = productIdList,
+                    IsSuccessful = true,
+                    IsRestored = true,
+                    Message = "Restore Product Success"
+                };
+                GameEntry.GetComponent<EventComponent>().Fire(this, PurchaseResultEventArgs.Create(result));
+            }
+        }
+        
         public void OnExistingPurchasesFetchFailed(PurchasesFetchFailureDescription failure)
         {
             Debug.LogError($"OnExistingPurchasesFetchFailed: {failure.Message}");

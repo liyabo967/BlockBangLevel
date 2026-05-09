@@ -45,8 +45,7 @@ namespace Quester
             {
                 return;
             }
-
-            InitPurchase();
+            
             procedureOwner.SetData<VarInt32>("NextSceneId", 1);
             procedureOwner.SetData<VarBoolean>("FromLaunch", true);
             ChangeState<ProcedureChangeScene>(procedureOwner);
@@ -86,21 +85,6 @@ namespace Quester
         private void CheckPictureCompleted()
         {
             UpdateProgress(PreloadKey.AssetCheck, 1f);
-        }
-
-        private void InitPurchase()
-        {
-            var productTable = GameEntry.DataTable.GetDataTable<DRShopProduct>();
-            var products = new Dictionary<string, ProductType>();
-            foreach (var drShopProduct in productTable)
-            {
-                if (Enum.TryParse(drShopProduct.ProductType, out ProductType productType))
-                {
-                    products[drShopProduct.ProductId] = productType;
-                }
-            }
-
-            GameEntry.Purchase.Initialize(products);
         }
 
         private void OnPreloadSuccess(object sender, GameEventArgs e)

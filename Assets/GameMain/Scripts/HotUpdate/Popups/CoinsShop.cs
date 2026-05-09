@@ -154,11 +154,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         private void PurchaseSuccess(string id)
         {
+            GameEntry.Purchase.ConfirmPendingPurchaseForId(id);
             var shopItem = packs.First(i => i.productID == id);
             if (shopItem)
             {
                 var count = int.Parse(shopItem.count.text);
-                LabelAnim.AnimateForResource(shopItem.resource, shopItem.buyButton.transform.position, "+" + count, SoundBase.instance.coins, () =>
+                LabelAnim.AnimateForResource(shopItem.resource, shopItem.buyButton.transform.position, "+" + count, null, () =>
                 {
                     ResourceManager.instance.GetResource("Coins").Add(count);
                 });

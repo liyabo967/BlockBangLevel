@@ -9,9 +9,9 @@ using UnityEngine.Networking;
 public class FileDownloader : MonoSingleton<FileDownloader>
 {
     // ── 默认配置 ──────────────────────────────────────
-    private const int   DEFAULT_MAX_RETRIES  = 3;
-    private const float DEFAULT_TIMEOUT      = 30f;   // 秒
-    private const float DEFAULT_RETRY_DELAY  = 2f;    // 重试前等待秒数
+    private const int   DEFAULT_MAX_RETRIES  = 1;
+    private const float DEFAULT_TIMEOUT      = 20f;   // 秒
+    private const float DEFAULT_RETRY_DELAY  = 1f;    // 重试前等待秒数
 
     // ══════════════════════════════════════════════════
     //  公开入口

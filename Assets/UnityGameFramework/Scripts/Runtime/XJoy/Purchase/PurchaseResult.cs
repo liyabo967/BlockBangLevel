@@ -1,8 +1,11 @@
+using System.Collections.Generic;
+
 namespace UnityGameFramework.Scripts.Runtime.Purchase
 {
     public class PurchaseResult
     {
         private string _productId;
+        private List<string> _productIdList;
         private bool _isSuccessful;
         private bool _isRestored;
         private string _message;
@@ -11,6 +14,12 @@ namespace UnityGameFramework.Scripts.Runtime.Purchase
         {
             get => _productId;
             set => _productId = value;
+        }
+
+        public List<string> ProductIdList
+        {
+            get => _productIdList;
+            set => _productIdList = value;
         }
 
         public bool IsSuccessful
