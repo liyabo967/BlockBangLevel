@@ -11,12 +11,18 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         private LevelPlayRewardedAd _rewardedAd;
         private LevelPlayInterstitialAd _interstitialAd;
         private LevelPlayBannerAd _bannerAd;
+
+        private bool _enableTestSuite = false;
         
         public override void Initialize(AdConfig config, Action<bool> onComplete)
         {
             Debug.Log("LevelPlay Initialize");
             Config = config;
-            // LevelPlay.SetMetaData("is_test_suite", "enable");
+            if (_enableTestSuite)
+            {
+                LevelPlay.SetMetaData("is_test_suite", "enable");
+            }
+            
             LevelPlay.OnInitSuccess += configuration =>
             {
                 SdkInitializationCompletedEvent(configuration);
@@ -31,7 +37,10 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         {
             Debug.Log("LevelPlayAdapter initialization success");
             CreateAds();
-            // LevelPlay.LaunchTestSuite();
+            if (_enableTestSuite)
+            {
+                LevelPlay.LaunchTestSuite();
+            }
         }
 
         private void SdkInitializationFailedEvent(LevelPlayInitError error)

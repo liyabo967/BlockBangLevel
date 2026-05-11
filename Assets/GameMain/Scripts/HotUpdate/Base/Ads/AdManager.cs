@@ -304,7 +304,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             ConsentInformation.Update(request, OnConsentInfoUpdated);
 #else
             Initialize();
-            consentInfoUpdateInProgress = false;
+            _consentInfoUpdateInProgress = false;
 #endif
         }
         
@@ -318,11 +318,11 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         }
         
 #if UMP_AVAILABLE
-        private void OnConsentInfoUpdated(FormError consentError)
+        private void OnConsentInfoUpdated(FormError error)
         {
-            if (consentError != null)
+            if (error != null)
             {
-                Debug.LogError($"Consent info update error: {consentError}");
+                Debug.LogError($"Consent Error Code: {error.ErrorCode}, Message: {error.Message}");
                 _consentInfoUpdateInProgress = false;
                 // Initialize ads even if consent update failed
                 Initialize();

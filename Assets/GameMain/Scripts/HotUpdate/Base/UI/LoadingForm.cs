@@ -25,9 +25,9 @@ public class LoadingForm : UGuiForm
     private Dictionary<ProgressEventArgs.ProgressKey, float> _progressWeightDict = new()
     {
         { ProgressEventArgs.ProgressKey.HotUpdate , 0.2f},
-        { ProgressEventArgs.ProgressKey.PreLoadDataTable , 0.4f},
+        { ProgressEventArgs.ProgressKey.PreLoadDataTable , 0.3f},
         { ProgressEventArgs.ProgressKey.UpdateResource , 0.2f},
-        { ProgressEventArgs.ProgressKey.InitSdk , 0.1f},
+        { ProgressEventArgs.ProgressKey.InitSdk , 0.2f},
         { ProgressEventArgs.ProgressKey.Preload , 0.1f}
     };
 
@@ -69,6 +69,7 @@ public class LoadingForm : UGuiForm
             var currentProgress = _currentProgressDict.GetValueOrDefault(progressArgs.Key, 0);
             if (progressArgs.Progress > currentProgress)
             {
+                // Debug.LogError($"progress: {progressArgs.Key}, {progressArgs.Progress}");
                 SetProgressTips(progressArgs.Key);
                 _currentProgressDict[progressArgs.Key] = progressArgs.Progress;
 
