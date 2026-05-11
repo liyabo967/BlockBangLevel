@@ -11,6 +11,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         private LevelPlayRewardedAd _rewardedAd;
         private LevelPlayInterstitialAd _interstitialAd;
         private LevelPlayBannerAd _bannerAd;
+        private bool _bannerAdLoaded;
 
         private bool _enableTestSuite = false;
         
@@ -92,6 +93,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             {
                 AdType.Interstitial => _interstitialAd != null && _interstitialAd.IsAdReady(),
                 AdType.RewardedVideo => _rewardedAd != null && _rewardedAd.IsAdReady(),
+                AdType.Banner => _bannerAd != null && _bannerAdLoaded,
                 _ => false
             };
         }
@@ -310,6 +312,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         //Implement BannerAd Events
         private void BannerOnAdLoadedEvent(LevelPlayAdInfo adInfo)
         {
+            _bannerAdLoaded = true;
             RaiseLoaded(new AdResult
             {
                 Success = true, 
