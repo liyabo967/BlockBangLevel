@@ -11,12 +11,15 @@
 // // THE SOFTWARE.
 
 using System;
+using System.IO;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.System;
+using GameMain;
 using GameMain.Scripts.HotUpdate.Base.Ads;
 using Quester;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,9 +51,24 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         [SerializeField]
         private Slider vibrationSlider;
 
+        [SerializeField]
+        private TextMeshProUGUI versionText;
+
         private MenuManager menuManager;
 
         private const string VibrationPrefKey = "VibrationLevel";
+
+        protected override void OnInit(object userData)
+        {
+            base.OnInit(userData);
+            versionText.text = $"Version {Application.version}";
+            var dllPath = Path.Combine(Application.persistentDataPath, "HotUpdate/HotUpdate.dll");
+            if (File.Exists(dllPath))
+            {
+                string localMD5 = Util.CalculateMD5(dllPath);
+                versionText.text += "_" + localMD5.Substring(localMD5.Length - 6);
+            }
+        }
 
         protected override void OnOpen(object userData)
         {

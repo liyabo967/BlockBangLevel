@@ -49,7 +49,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups.Reward
             }
             else
             {
-                Debug.Log("Rewarded ad is not available");
                 AdManager.Instance.LoadAd(AdType.RewardedVideo);
                 GameEntry.UI.OpenUIForm(UIFormId.Tips, GameEntry.Localization.GetString("#rewarded_ad_not_ready"));
             }
