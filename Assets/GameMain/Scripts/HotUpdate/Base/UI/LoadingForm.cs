@@ -8,6 +8,8 @@ using Quester;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityGameFramework.Runtime;
+using GameEntry = Quester.GameEntry;
 
 public class LoadingForm : UGuiForm
 {
@@ -84,7 +86,7 @@ public class LoadingForm : UGuiForm
             }
             else
             {
-                Debug.LogError($"{progressArgs.Key}, {progressArgs.Progress}");
+                Log.Info($"unexpected progress, {progressArgs.Key}, {progressArgs.Progress}");
             }
         }
     }

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: cb413e3c3c0a44f73b39ad59e0d98465
   m_currentHash:
     serializedVersion: 2
-    Hash: a9d7803c36f99734d6045a6b7f8c0aa5
+    Hash: ad9b4b438e212fb90933c3794a61eba1
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_CatalogRequestsTimeout: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
       - m_Id: 6e0716c06075d4108b93a57e2a6f5607
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: 9989a65d1b15b4966bbce497e998c3e2
-        m_Value: 0.0.5
+        m_Value: '[UnityEditor.PlayerSettings.bundleVersion]'
       - m_Id: 9bdc2d0ec780d4c87b71ee959f65e697
         m_Value: https://assets-1301567094.cos.ap-beijing.myqcloud.com/block-bang
       - m_Id: 9ef2062a29e0e4739b467c5c7d2a004a

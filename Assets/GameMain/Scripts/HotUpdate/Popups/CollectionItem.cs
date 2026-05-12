@@ -43,7 +43,7 @@ namespace Quester.UI
                     }
                     else
                     {
-                        Debug.LogError(handle.OperationException);
+                        Debug.LogError($"default picture load error, {handle.OperationException}");
                     }
                 };
             }

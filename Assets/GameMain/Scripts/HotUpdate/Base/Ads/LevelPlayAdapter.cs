@@ -48,7 +48,6 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         {
             Debug.LogError($"LevelPlayAdapter initialization failed, {error.ErrorCode}, {error.ErrorMessage}");
         }
-        
 
         public override void LoadAd(AdType type, string placementId = null)
         {

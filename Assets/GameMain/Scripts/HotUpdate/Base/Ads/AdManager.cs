@@ -325,15 +325,14 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         {
             if (error != null)
             {
-                Debug.LogError($"Consent Error Code: {error.ErrorCode}, Message: {error.Message}");
+                Log.Info($"Consent Error Code: {error.ErrorCode}, Message: {error.Message}");
                 _consentInfoUpdateInProgress = false;
                 // Initialize ads even if consent update failed
                 Initialize();
                 return;
             }
-
-            Debug.Log($"Consent status: {ConsentInformation.ConsentStatus}");
-
+            
+            Log.Info($"Consent status: {ConsentInformation.ConsentStatus}");
             ConsentForm.LoadAndShowConsentFormIfRequired(OnConsentFormDismissed);
         }
 
@@ -343,13 +342,13 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
             if (formError != null)
             {
-                Debug.LogError($"Consent form error: {formError}");
+                Log.Info($"Consent form error: {formError}");
             }
             else
             {
-                Debug.Log("Consent form completed");
-                Debug.Log($"Final consent status: {ConsentInformation.ConsentStatus}");
-                Debug.Log($"Can request personalized ads: {ConsentInformation.CanRequestAds()}");
+                Log.Info("Consent form completed");
+                Log.Info($"Final consent status: {ConsentInformation.ConsentStatus}");
+                Log.Info($"Can request personalized ads: {ConsentInformation.CanRequestAds()}");
             }
 
             // Initialize ads after consent is handled (whether accepted or denied)

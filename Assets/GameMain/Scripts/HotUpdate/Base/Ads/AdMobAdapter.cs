@@ -162,7 +162,6 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 case AdType.RewardedVideo:
                     rewardedAd?.Show(reward =>
                     {
-                        Debug.LogError("show RewardedVideo completed");
                         RaiseRewarded(new AdResult { Success = true, AdType = AdType.RewardedVideo });
                     });
                     break;

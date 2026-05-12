@@ -39,6 +39,10 @@ namespace GameMain.Editor
             };
             var targetDir = $"{Directory.GetParent(Application.dataPath)?.FullName}/ServerData/{Application.version}/{targetPlatform}";
             var jsonPath = $"{targetDir}/version.json";
+            if (!Directory.Exists(targetDir))
+            {
+                Directory.CreateDirectory(targetDir);
+            }
             File.WriteAllText(jsonPath, JsonConvert.SerializeObject(versionInfo));
             
             // 复制热更文件
