@@ -272,8 +272,8 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             var adConfig = new LevelPlayBannerAd.Config.Builder()
                 .SetSize(LevelPlayAdSize.BANNER)
                 .SetPosition(LevelPlayBannerPosition.BottomCenter)
-                .SetDisplayOnLoad(true)
-                .SetRespectSafeArea(true)
+                .SetDisplayOnLoad(false)
+                .SetRespectSafeArea(false)
                 .Build();
         
             // Create banner instance

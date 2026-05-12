@@ -118,10 +118,13 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
         private IEnumerator DelayLoadAd()
         {
-            yield return new WaitForSeconds(1f);
+            var delay = new WaitForSeconds(1f);
+            yield return delay;
             _adapter.LoadAd(AdType.Interstitial);
-            yield return new WaitForSeconds(1f);
+            yield return delay;
             _adapter.LoadAd(AdType.RewardedVideo);
+            yield return delay;
+            _adapter.LoadAd(AdType.Banner);
         }
 
         public bool IsReady(AdType type) => _adapter?.IsAdReady(type) ?? false;
