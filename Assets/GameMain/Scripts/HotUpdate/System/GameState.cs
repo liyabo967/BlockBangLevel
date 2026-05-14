@@ -48,7 +48,7 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             // string key = "GameState_" + state.gameMode;
             // PlayerPrefs.SetString(key, json);
             
-            GameStateManager.Instance.SaveState(state.gameMode, state);
+            // GameStateManager.Instance.SaveState(state.gameMode, state);
             
             // Also save the current game mode
             // PlayerPrefs.SetString("LastPlayedMode", state.gameMode.ToString());

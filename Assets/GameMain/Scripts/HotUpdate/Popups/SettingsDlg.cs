@@ -16,6 +16,7 @@ using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.System;
+using GameAnalyticsSDK;
 using GameMain;
 using GameMain.Scripts.HotUpdate.Base.Ads;
 using Quester;
@@ -66,7 +67,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             if (File.Exists(dllPath))
             {
                 string localMD5 = Util.CalculateMD5(dllPath);
-                versionText.text += "_" + localMD5.Substring(localMD5.Length - 6);
+                versionText.text = $"Version {Application.version}_{localMD5.Substring(localMD5.Length - 6)}";
+                versionText.text += $"\n{GameAnalytics.GetUserId()}";
             }
         }
 

@@ -10,6 +10,7 @@
 // // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // // THE SOFTWARE.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.System;
 using UnityEngine;
 using UnityGameFramework.Runtime;
+using Random = UnityEngine.Random;
 
 namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 {
@@ -102,24 +104,39 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             var shapeTemplateIndex = 0;
             var perfectRatio = GetPerfectRatio(GetDifficulty());
             // Log.Info("perfectRatio: " + perfectRatio);
-            for (var index = 0; index < cellDecks.Length; index++)
+            try
             {
-                var cellDeck = cellDecks[index];
-                if (cellDeck.IsEmpty)
+                for (var index = 0; index < cellDecks.Length; index++)
                 {
-                    var shapeObject = PoolObject.GetObject(shapePrefab.gameObject);
-                    var isPerfect = Random.Range(0, 1f) <= perfectRatio;
-                    Shape resultShape;
-                    if (isPerfect)
+                    var cellDeck = cellDecks[index];
+                    if (cellDeck.IsEmpty)
                     {
-                        resultShape = itemFactory.CreatePerfectShape(shapeObject, shapeTemplates[shapeTemplateIndex++]);
+                        var shapeObject = PoolObject.GetObject(shapePrefab.gameObject);
+                        var isPerfect = Random.Range(0, 1f) <= perfectRatio;
+                        Shape resultShape;
+                        if (isPerfect)
+                        {
+                            if (shapeTemplateIndex  < shapeTemplates.Count)
+                            {
+                                resultShape = itemFactory.CreatePerfectShape(shapeObject, shapeTemplates[shapeTemplateIndex++]);
+                            }
+                            else
+                            {
+                                Debug.LogWarning($"perfect shapes not enough, count: {shapeTemplates.Count}, index: {shapeTemplateIndex}");
+                                resultShape = itemFactory.CreateRandomShapeFits(shapeObject);
+                            }
+                        }
+                        else
+                        {
+                            resultShape = itemFactory.CreateRandomShapeFits(shapeObject);
+                        }
+                        cellDeck.FillCell(resultShape);
                     }
-                    else
-                    {
-                        resultShape = itemFactory.CreateRandomShapeFits(shapeObject);
-                    }
-                    cellDeck.FillCell(resultShape);
                 }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"FillPerfectShape Error: shapeTemplates length: {shapeTemplates.Count}, index: {shapeTemplateIndex}, error: " + e.Message);
             }
         }
 
