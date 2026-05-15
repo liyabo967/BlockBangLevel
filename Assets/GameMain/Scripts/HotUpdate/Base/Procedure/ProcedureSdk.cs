@@ -79,32 +79,32 @@ namespace Quester
         {
             AdManager.Instance.OnRequest += result =>
             {
-                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.Request);
+                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.Request, result.AdNetwork);
             };
             
             AdManager.Instance.OnLoaded += result =>
             {
-                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.Loaded);
+                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.Loaded, result.AdNetwork);
             };
             
             AdManager.Instance.OnShown += result =>
             {
-                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.Show);
+                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.Show, result.AdNetwork);
             };
             
             AdManager.Instance.OnShowFailed += result =>
             {
-                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.FailedShow);
+                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.FailedShow, result.AdNetwork);
             };
             
             AdManager.Instance.OnClicked += result =>
             {
-                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.Clicked);
+                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.Clicked, result.AdNetwork);
             };
 
             AdManager.Instance.OnRewarded += result =>
             {
-                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.RewardReceived);
+                GameAnalyticsManager.SendAdEvent(GetAdType(result), GAAdAction.RewardReceived, result.AdNetwork);
             };
         }
 

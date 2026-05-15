@@ -29,6 +29,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         // 对外事件（业务层只订阅这里）
         public event Action<AdResult> OnRequest;
         public event Action<AdResult> OnLoaded;
+        public event Action<AdResult> OnLoadFailed;
         public event Action<AdResult> OnShown;
         public event Action<AdResult> OnShowFailed;
         public event Action<AdResult> OnClicked;
@@ -64,6 +65,11 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                     Log.Info($"Ad Load success: {result.AdType}, {result.AdNetwork}");
                     OnLoaded?.Invoke(result);
                 };
+                _adapter.OnAdLoadFailed += result =>
+                {
+                    Log.Warning($"Ad Load failed: {result.AdType}, {result.Message}");
+                    OnLoadFailed?.Invoke(result);
+                };
                 _adapter.OnAdShown += result =>
                 {
                     OnShown?.Invoke(result);
@@ -91,10 +97,6 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 _adapter.OnAdRevenuePaid += r =>
                 {
                     OnRevenuePaid?.Invoke(r);
-                };
-                _adapter.OnAdLoadFailed += r =>
-                {
-                    Log.Error($"Ad Load failed: {r.AdType}, {r.Message}");
                 };
 
                 _adapter.Initialize(_adConfig, success =>

@@ -9,8 +9,8 @@ public class GameAnalyticsManager
         GameAnalytics.NewProgressionEvent(status, season, level.ToString(), score);
     }
 
-    public static void SendAdEvent(GAAdType adType, GAAdAction action)
+    public static void SendAdEvent(GAAdType adType, GAAdAction action, string adNetwork, GAAdError error = GAAdError.Undefined)
     {
-        GameAnalytics.NewAdEvent(action, adType, "LevelPlay", "");
+        GameAnalytics.NewAdEvent(action, adType, adNetwork, "default", error);
     }
 }

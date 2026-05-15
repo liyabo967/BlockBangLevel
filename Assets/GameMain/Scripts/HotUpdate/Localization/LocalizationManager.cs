@@ -27,7 +27,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Localization
 
         public override void Awake()
         {
-            InitializeLocalization();
+            // InitializeLocalization();
         }
 
         public static void InitializeLocalization()
