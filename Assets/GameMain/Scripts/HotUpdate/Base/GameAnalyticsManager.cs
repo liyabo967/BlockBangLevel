@@ -11,6 +11,10 @@ public class GameAnalyticsManager
 
     public static void SendAdEvent(GAAdType adType, GAAdAction action, string adNetwork, GAAdError error = GAAdError.Undefined)
     {
+        if (string.IsNullOrEmpty(adNetwork))
+        {
+            adNetwork = "levelplay";
+        }
         GameAnalytics.NewAdEvent(action, adType, adNetwork, "default", error);
     }
 }

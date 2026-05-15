@@ -163,28 +163,29 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             RaiseClicked(new AdResult()
             {
                 Success = true,
-                AdType = AdType.RewardedVideo
+                AdType = AdType.RewardedVideo,
+                AdNetwork = adInfo.AdNetwork
             });
         }
 
         void RewardedOnAdDisplayedEvent(LevelPlayAdInfo adInfo)
         {
-            RaiseShown(new AdResult { Success = true, AdType = AdType.RewardedVideo });
+            RaiseShown(new AdResult { Success = true, AdType = AdType.RewardedVideo, AdNetwork = adInfo.AdNetwork });
         }
 
         void RewardedOnAdDisplayFailedEvent(LevelPlayAdInfo adInfo, LevelPlayAdError error)
         {
-            RaiseShowFailed(new AdResult { Success = false, AdType = AdType.RewardedVideo, Message = error.ErrorMessage});
+            RaiseShowFailed(new AdResult { Success = false, AdType = AdType.RewardedVideo, AdNetwork = adInfo.AdNetwork, Message = error.ErrorMessage});
         }
 
         void RewardedOnAdClosedEvent(LevelPlayAdInfo adInfo)
         {
-            RaiseClosed(new AdResult { Success = true, AdType = AdType.RewardedVideo });
+            RaiseClosed(new AdResult { Success = true, AdType = AdType.RewardedVideo, AdNetwork = adInfo.AdNetwork});
         }
 
         void RewardedOnAdRewardedEvent(LevelPlayAdInfo adInfo, LevelPlayReward adReward)
         {
-            RaiseRewarded(new AdResult { Success = true, AdType = AdType.RewardedVideo });
+            RaiseRewarded(new AdResult { Success = true, AdType = AdType.RewardedVideo, AdNetwork = adInfo.AdNetwork});
         }
         void RewardedOnAdInfoChangedEvent(LevelPlayAdInfo adInfo) { }
 
@@ -245,20 +246,25 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             RaiseClicked(new AdResult()
             {
                 Success = true,
-                AdType = AdType.Interstitial
+                AdType = AdType.Interstitial,
+                AdNetwork = adInfo.AdNetwork
             });
         }
 
         void InterstitialOnAdDisplayedEvent(LevelPlayAdInfo adInfo)
         {
-            RaiseShown(new AdResult { Success = true, AdType = AdType.Interstitial });
+            RaiseShown(new AdResult { Success = true, AdType = AdType.Interstitial, AdNetwork = adInfo.AdNetwork });
         }
 
         void InterstitialOnAdDisplayFailedEvent(LevelPlayAdInfo adInfo, LevelPlayAdError error)
         {
-            RaiseShowFailed(new AdResult { Success = false, AdType = AdType.Interstitial, Message = error.ErrorMessage});
+            RaiseShowFailed(new AdResult { Success = false, AdType = AdType.Interstitial, AdNetwork = adInfo.AdNetwork, Message = error.ErrorMessage});
         }
-        void InterstitialOnAdClosedEvent(LevelPlayAdInfo adInfo) { }
+
+        void InterstitialOnAdClosedEvent(LevelPlayAdInfo adInfo)
+        {
+            RaiseClosed(new AdResult { Success = true, AdType = AdType.Interstitial, AdNetwork = adInfo.AdNetwork});
+        }
         void InterstitialOnAdInfoChangedEvent(LevelPlayAdInfo adInfo) { }
 
         #endregion
@@ -335,18 +341,19 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             RaiseClicked(new AdResult()
             {
                 Success = true,
-                AdType = AdType.Banner
+                AdType = AdType.Banner,
+                AdNetwork = adInfo.AdNetwork
             });
         }
 
         private void BannerOnAdDisplayedEvent(LevelPlayAdInfo adInfo)
         {
-            RaiseShown(new AdResult { Success = true, AdType = AdType.Banner });
+            RaiseShown(new AdResult { Success = true, AdType = AdType.Banner, AdNetwork = adInfo.AdNetwork});
         }
 
         private void BannerOnAdDisplayFailedEvent(LevelPlayAdInfo adInfo, LevelPlayAdError error)
         {
-            RaiseShowFailed(new AdResult { Success = false, AdType = AdType.Banner,  Message = error.ErrorMessage });
+            RaiseShowFailed(new AdResult { Success = false, AdType = AdType.Banner, AdNetwork = adInfo.AdNetwork, Message = error.ErrorMessage });
         }
         private void BannerOnAdCollapsedEvent(LevelPlayAdInfo adInfo) {}
         private void BannerOnAdLeftApplicationEvent(LevelPlayAdInfo adInfo) {}
