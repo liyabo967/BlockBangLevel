@@ -58,11 +58,11 @@ namespace Quester
         
         private void InitAd()
         {
-            CoroutineRunner.Instance.Delay(7f, () =>
+            CoroutineRunner.Instance.Delay(2f, () =>
             {
                 GameEntry.Event.Fire(this, ProgressEventArgs.Create(ProgressEventArgs.ProgressKey.InitSdk, 0.5f));
             });
-            CoroutineRunner.Instance.Delay(15f, () =>
+            CoroutineRunner.Instance.Delay(4f, () =>
             {
                 _completed = true;
                 GameEntry.Event.Fire(this, ProgressEventArgs.Create(ProgressEventArgs.ProgressKey.InitSdk, 1f));
