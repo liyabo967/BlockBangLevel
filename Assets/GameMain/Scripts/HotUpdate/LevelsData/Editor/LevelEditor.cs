@@ -18,6 +18,7 @@ using BlockPuzzleGameToolkit.Scripts.Enums;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
 using Random = System.Random;
 
@@ -57,7 +58,10 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData.Editor
 
         private void LoadAvailableTemplates()
         {
-            availableTemplates = new List<ItemTemplate>(Resources.LoadAll<ItemTemplate>(""));
+            // availableTemplates = new List<ItemTemplate>(Resources.LoadAll<ItemTemplate>(""));
+            var itemHandle = Addressables.LoadAssetsAsync<ItemTemplate>("items", null).WaitForCompletion();
+            availableTemplates = itemHandle.ToList();
+            
             availableTemplates.Insert(0, null); // Add null as the first option (empty cell)
         }
 

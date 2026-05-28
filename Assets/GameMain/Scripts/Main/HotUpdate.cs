@@ -162,7 +162,9 @@ namespace GameMain
         {
             if (!VerifyDlls())
             {
-                ShowDialog(LocalLanguage.Instance.GetString("#update_failed"));
+                var msg = LocalLanguage.Instance.GetString("#update_failed");
+                msg += "\n" + LocalLanguage.Instance.GetString("#check_network");
+                ShowDialog(msg);
                 return;
             }
             SetTipsByKey("#launch_update");

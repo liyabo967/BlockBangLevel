@@ -125,10 +125,10 @@ MonoBehaviour:
     amount: 0
     totalAmount: 0
   - targetScriptable: {fileID: 11400000, guid: 32bb1a5aabb76418d9540dfcc3861b71, type: 2}
-    amount: 5
+    amount: 27
     totalAmount: 0
   - targetScriptable: {fileID: 11400000, guid: 5482c8ad9b4404200ad40dc5e0f36405, type: 2}
-    amount: 10
+    amount: 27
     totalAmount: 0
   - targetScriptable: {fileID: 11400000, guid: 32e9f8bcbba534fc5968df591158bf38, type: 2}
     amount: 0
