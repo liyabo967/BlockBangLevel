@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Quester;
+using UnityEngine;
 
 namespace BlockPuzzleGameToolkit.Scripts.Data
 {
@@ -18,9 +19,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public string DailyBonusDay => _userData.dailyBonusDay;
         public int RewardStreak => _userData.rewardStreak;
         public bool TutorialCompleted => _userData.tutorialCompleted;
+        public bool AdventureUnlocked => _userData.adventureUnlocked;
         public int GameMode => _userData.gameMode;
         public int FailStreak => _userData.failStreak;
         public int CurrentSeason => _userData.currentSeason;
+        public long LastRateTimestamp => _userData.lastRateTimestamp;
         public bool NoAdsPurchased => _userData.noAdsPurchased;
         public List<string> PictureList => _userData.pictureList;
         
@@ -32,6 +35,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
                 _userData = new UserData();
                 InitData();
             }
+
+            FixUserData();
             
             // just for test
             // _userData.level = 87;
@@ -44,6 +49,14 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             _userData.group = UnityEngine.Random.Range(0, int.MaxValue) % 100;
             _userData.rewardStreak = -1;
             _userData.dailyBonusDay = "1900-01-01 00:00:00";
+        }
+
+        private void FixUserData()
+        {
+            if (Application.version == "0.0.5")
+            {
+                _userData.adventureUnlocked = true;
+            }
         }
 
         // 序列化数据，但是不写入磁盘
@@ -96,6 +109,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             _userData.currentSeason = season;
         }
 
+        public void SetLastRateTimestamp(long lastRateTimestamp)
+        {
+            _userData.lastRateTimestamp = lastRateTimestamp;
+        }
+
         /// <summary>
         /// 关于金币分数的特殊处理，后面再处理 scriptableObject的问题
         /// </summary>
@@ -144,6 +162,16 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             _userData.gameMode = gameMode;
             Save();
         }
+        
+        public void AddWinStreak()
+        {
+            _userData.winStreak++;
+        }
+
+        public void ResetWinStreak()
+        {
+            _userData.winStreak = 0;
+        }
 
         public void AddFailStreak()
         {
@@ -158,6 +186,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public void SetTutorialCompleted()
         {
             _userData.tutorialCompleted = true;
+        }
+
+        public void UnlockAdventure()
+        {
+            _userData.adventureUnlocked = true;
         }
 
         public void SetDailyBonusDay(string day)

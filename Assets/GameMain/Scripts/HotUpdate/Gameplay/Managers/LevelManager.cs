@@ -529,6 +529,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private void SetWin()
         {
+            UserDataManager.Instance.AddWinStreak();
             UserDataManager.Instance.ResetFailStreak();
             GameAnalyticsManager.SendLevelProgression(currentLevel, GAProgressionStatus.Complete);
             
@@ -543,6 +544,14 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             else if (gameMode == EGameMode.Timed)
                 GameState.Delete(EGameMode.Timed);
             OnLose?.Invoke();
+
+            if (gameMode == EGameMode.Adventure)
+            {
+                UserDataManager.Instance.AddFailStreak();
+                UserDataManager.Instance.ResetWinStreak();
+                // fail event will fire at Fail UI
+            }
+            
             EventManager.GameStatus = EGameState.PreFailed;
         }
 

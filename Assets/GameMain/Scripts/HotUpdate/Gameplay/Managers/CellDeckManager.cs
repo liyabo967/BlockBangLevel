@@ -168,7 +168,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         {
             int difficulty = 1;
             int level = UserDataManager.Instance.Level;
-            if (level >= 85)
+            if (level >= 87)
             {
                 difficulty = 5;
             }
@@ -176,6 +176,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             {
                 difficulty = level % 5;
                 difficulty = difficulty == 0 ? 5 : difficulty;
+            }
+
+            if (level <= 5)
+            {
+                difficulty = Mathf.Min(3, difficulty);
             }
 
             var decreaseDifficulty = UserDataManager.Instance.FailStreak / 2;

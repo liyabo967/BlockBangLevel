@@ -88,7 +88,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
                 {
                     img.gameObject.SetActive(false);
                 };
+            }
+
+            var isIntervalReady =  UserDataManager.Instance.LastRateTimestamp == 0;
+            if (isIntervalReady && _currentLevel == 6)
+            {
                 OpenRateDlg(1.2f);
+                UserDataManager.Instance.SetLastRateTimestamp(DateTimeOffset.Now.ToUnixTimeSeconds());
             }
         }
 
