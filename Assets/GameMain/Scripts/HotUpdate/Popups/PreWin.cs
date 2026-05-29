@@ -44,13 +44,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             base.AfterShowAnimation();
         }
 
-        protected override void OnOpen(object userData)
-        {
-            base.OnOpen(userData);
-            UserDataManager.Instance.ResetFailStreak();
-            GameAnalyticsManager.SendLevelProgression(UserDataManager.Instance.Level, GAProgressionStatus.Complete);
-        }
-
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);

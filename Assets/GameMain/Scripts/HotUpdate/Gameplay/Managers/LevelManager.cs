@@ -24,6 +24,7 @@ using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.System;
 using BlockPuzzleGameToolkit.Scripts.Utils;
 using DG.Tweening;
+using GameAnalyticsSDK;
 using Quester;
 using TMPro;
 using UnityEngine;
@@ -528,6 +529,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private void SetWin()
         {
+            UserDataManager.Instance.ResetFailStreak();
+            GameAnalyticsManager.SendLevelProgression(currentLevel, GAProgressionStatus.Complete);
+            
             GameDataManager.UnlockLevel(currentLevel + 1);
             EventManager.GameStatus = EGameState.PreWin;
         }
