@@ -48,7 +48,7 @@ namespace Quester
             {
                 UserDataManager.Instance.SetLevel(1);
                 UserDataManager.Instance.SetSeason(season);
-                UserDataManager.Instance.SetLevelGroup(Random.Range(0, int.MaxValue) % 5);
+                UserDataManager.Instance.SetLevelGroup(1);
             }
         }
         

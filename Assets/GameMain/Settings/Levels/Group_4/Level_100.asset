@@ -18,24 +18,12 @@ MonoBehaviour:
   - cells:
     - {fileID: 0}
     - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    bonusItems: 0000000000000000
-    disabled: 0000000000000000
-    highlighted: 0000000000000000
-  - cells:
     - {fileID: 11400000, guid: 0f9f812a475d3440da78ff122ce1c739, type: 2}
     - {fileID: 0}
     - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
     - {fileID: 11400000, guid: 0f9f812a475d3440da78ff122ce1c739, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
     bonusItems: 0000000000000000
     disabled: 0000000000000000
     highlighted: 0000000000000000
@@ -43,8 +31,8 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 11400000, guid: 0f9f812a475d3440da78ff122ce1c739, type: 2}
     - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 0f9f812a475d3440da78ff122ce1c739, type: 2}
+    - {fileID: 11400000, guid: 0f9f812a475d3440da78ff122ce1c739, type: 2}
     - {fileID: 0}
     - {fileID: 11400000, guid: 0f9f812a475d3440da78ff122ce1c739, type: 2}
     - {fileID: 0}
@@ -53,12 +41,12 @@ MonoBehaviour:
     highlighted: 0000000000000000
   - cells:
     - {fileID: 0}
+    - {fileID: 11400000, guid: 0f9f812a475d3440da78ff122ce1c739, type: 2}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 0f9f812a475d3440da78ff122ce1c739, type: 2}
     - {fileID: 0}
     bonusItems: 0000000000000000
     disabled: 0000000000000000
@@ -77,6 +65,18 @@ MonoBehaviour:
     highlighted: 0000000000000000
   - cells:
     - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    bonusItems: 0000000000000000
+    disabled: 0000000000000000
+    highlighted: 0000000000000000
+  - cells:
+    - {fileID: 0}
     - {fileID: 11400000, guid: 0f9f812a475d3440da78ff122ce1c739, type: 2}
     - {fileID: 0}
     - {fileID: 0}
@@ -88,24 +88,24 @@ MonoBehaviour:
     disabled: 0000000000000000
     highlighted: 0000000000000000
   - cells:
-    - {fileID: 11400000, guid: 0f9f812a475d3440da78ff122ce1c739, type: 2}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 11400000, guid: 0f9f812a475d3440da78ff122ce1c739, type: 2}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 0f9f812a475d3440da78ff122ce1c739, type: 2}
+    - {fileID: 11400000, guid: 0f9f812a475d3440da78ff122ce1c739, type: 2}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 0f9f812a475d3440da78ff122ce1c739, type: 2}
+    - {fileID: 0}
     bonusItems: 0000000000000000
     disabled: 0000000000000000
     highlighted: 0000000000000000
   - cells:
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 11400000, guid: 0f9f812a475d3440da78ff122ce1c739, type: 2}
     - {fileID: 0}
     - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 0f9f812a475d3440da78ff122ce1c739, type: 2}
     - {fileID: 0}
     - {fileID: 0}
     bonusItems: 0000000000000000
@@ -116,6 +116,6 @@ MonoBehaviour:
   timerDuration: 120
   targetInstance:
   - targetScriptable: {fileID: 11400000, guid: a101d12b2edd14116a6ec86daa24704b, type: 2}
-    amount: 630
+    amount: 640
     totalAmount: 0
-  emptyCellPercentage: 26.8
+  emptyCellPercentage: 25

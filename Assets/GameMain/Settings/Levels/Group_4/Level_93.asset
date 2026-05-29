@@ -16,14 +16,26 @@ MonoBehaviour:
   columns: 8
   levelRows:
   - cells:
-    - {fileID: 11400000, guid: 85ebb1f53c8674f2894e5ebb8a375354, type: 2}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 076dfbfdcab5144ef8bb5ebcffb3028d, type: 2}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 11400000, guid: 076dfbfdcab5144ef8bb5ebcffb3028d, type: 2}
+    - {fileID: 0}
+    bonusItems: 0000000000000000
+    disabled: 0000000000000000
+    highlighted: 0000000000000000
+  - cells:
     - {fileID: 0}
     - {fileID: 0}
-    - {fileID: 11400000, guid: 85ebb1f53c8674f2894e5ebb8a375354, type: 2}
+    - {fileID: 11400000, guid: 076dfbfdcab5144ef8bb5ebcffb3028d, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 076dfbfdcab5144ef8bb5ebcffb3028d, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
     bonusItems: 0000000000000000
     disabled: 0000000000000000
     highlighted: 0000000000000000
@@ -41,48 +53,24 @@ MonoBehaviour:
     highlighted: 0000000000000000
   - cells:
     - {fileID: 0}
-    - {fileID: 11400000, guid: 85ebb1f53c8674f2894e5ebb8a375354, type: 2}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 076dfbfdcab5144ef8bb5ebcffb3028d, type: 2}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 11400000, guid: 076dfbfdcab5144ef8bb5ebcffb3028d, type: 2}
     - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 11400000, guid: 85ebb1f53c8674f2894e5ebb8a375354, type: 2}
     - {fileID: 0}
     bonusItems: 0000000000000000
     disabled: 0000000000000000
     highlighted: 0000000000000000
   - cells:
     - {fileID: 0}
-    - {fileID: 11400000, guid: 85ebb1f53c8674f2894e5ebb8a375354, type: 2}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 076dfbfdcab5144ef8bb5ebcffb3028d, type: 2}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 11400000, guid: 076dfbfdcab5144ef8bb5ebcffb3028d, type: 2}
     - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 11400000, guid: 85ebb1f53c8674f2894e5ebb8a375354, type: 2}
-    - {fileID: 0}
-    bonusItems: 0000000000000000
-    disabled: 0000000000000000
-    highlighted: 0000000000000000
-  - cells:
-    - {fileID: 0}
-    - {fileID: 11400000, guid: 85ebb1f53c8674f2894e5ebb8a375354, type: 2}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 11400000, guid: 85ebb1f53c8674f2894e5ebb8a375354, type: 2}
-    - {fileID: 0}
-    bonusItems: 0000000000000000
-    disabled: 0000000000000000
-    highlighted: 0000000000000000
-  - cells:
-    - {fileID: 0}
-    - {fileID: 11400000, guid: 85ebb1f53c8674f2894e5ebb8a375354, type: 2}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 11400000, guid: 85ebb1f53c8674f2894e5ebb8a375354, type: 2}
     - {fileID: 0}
     bonusItems: 0000000000000000
     disabled: 0000000000000000
@@ -100,22 +88,34 @@ MonoBehaviour:
     disabled: 0000000000000000
     highlighted: 0000000000000000
   - cells:
-    - {fileID: 11400000, guid: 85ebb1f53c8674f2894e5ebb8a375354, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 076dfbfdcab5144ef8bb5ebcffb3028d, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 076dfbfdcab5144ef8bb5ebcffb3028d, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    bonusItems: 0000000000000000
+    disabled: 0000000000000000
+    highlighted: 0000000000000000
+  - cells:
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 076dfbfdcab5144ef8bb5ebcffb3028d, type: 2}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 11400000, guid: 076dfbfdcab5144ef8bb5ebcffb3028d, type: 2}
     - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 11400000, guid: 85ebb1f53c8674f2894e5ebb8a375354, type: 2}
     bonusItems: 0000000000000000
     disabled: 0000000000000000
     highlighted: 0000000000000000
   levelType: {fileID: 11400000, guid: 042f8c10c07a44f1194830c606c0ffbb, type: 2}
-  enableTimer: 1
+  enableTimer: 0
   timerDuration: 120
   targetInstance:
   - targetScriptable: {fileID: 11400000, guid: a101d12b2edd14116a6ec86daa24704b, type: 2}
-    amount: 200
+    amount: 590
     totalAmount: 0
-  emptyCellPercentage: 17.9
+  emptyCellPercentage: 25
