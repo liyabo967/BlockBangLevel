@@ -29,11 +29,16 @@ public class AotDialogUI : MonoBehaviour
         closeButton.onClick.AddListener(OnConfirm);
     }
 
-    public void Show(string title, string message, Action callback = null)
+    public void Show(AotDialogParams dialogParams)
     {
         panel.SetActive(true);
-        messageText.text = message;
-        _onButtonClick = callback;
+        if (!string.IsNullOrEmpty(dialogParams.title))
+        {
+            titleText.text = dialogParams.title;
+        }
+        messageText.text = dialogParams.message;
+        confirmText.text = dialogParams.confirmText;
+        _onButtonClick = dialogParams.callback;
     }
 
     private void OnConfirm()
@@ -42,4 +47,11 @@ public class AotDialogUI : MonoBehaviour
         _onButtonClick?.Invoke();
     }
 
+    public class AotDialogParams
+    {
+        public string title;
+        public string message;
+        public string confirmText;
+        public Action callback;
+    }
 }

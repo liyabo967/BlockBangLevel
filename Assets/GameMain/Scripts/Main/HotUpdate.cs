@@ -143,21 +143,6 @@ namespace GameMain
             LoadAssemblyAndLaunch(dllPath);
         }
 
-        private void DownloadHotUpdateDllCompleted(string dllPath)
-        {
-            // 验证 MD5
-            if (verifyMD5 && _remoteVersion != null)
-            {
-                string downloadedMD5 = CalculateMD5(dllPath);
-                if (downloadedMD5 != _remoteVersion.hotUpdateDll.md5)
-                {
-                    Log.Error($"MD5 校验失败！期望: {_remoteVersion.hotUpdateDll.md5}, 实际: {downloadedMD5}");
-                    File.Delete(dllPath);
-                }
-                Debug.Log("MD5 校验通过");
-            }
-        }
-
         private void LoadAssemblyAndLaunch(string dllPath)
         {
             if (!VerifyDlls())
@@ -431,10 +416,10 @@ namespace GameMain
             // message += $"\n{LocalLanguage.Instance.GetString("#check_network")}";
             // message += $"\n{msg}";
             var title = LocalLanguage.Instance.GetString("#tips");
-            AotDialogUI.Instance.Show(title, message, () =>
-            {
-                StartCoroutine(Retry());
-            });
+            // AotDialogUI.Instance.Show(title, message, () =>
+            // {
+            //     StartCoroutine(Retry());
+            // });
         }
 
         private IEnumerator Retry()

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GameFramework.Fsm;
 using GameFramework.Procedure;
+using GameMain;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -46,7 +47,7 @@ namespace Quester
 
             if (size > 0)
             {
-                Debug.Log($"需要下载资源 {size / 1024f / 1024f} MB");
+                Debug.Log($"update resource size：" + Util.FormatSize(size));
 
                 // 下载依赖
                 AsyncOperationHandle downloadHandle =

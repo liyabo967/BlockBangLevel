@@ -991,8 +991,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1381978163}
-  - component: {fileID: 1381978162}
   - component: {fileID: 1381978164}
+  - component: {fileID: 1381978165}
   m_Layer: 0
   m_Name: HotUpdate
   m_TagString: Untagged
@@ -1000,22 +1000,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1381978162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1381978161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2593d66e8c1414a8e88a1614fc58ffcf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkVersion: 1
-  verifyMD5: 1
-  loadAOTMetadata: 1
-  showDebugLog: 1
 --- !u!4 &1381978163
 Transform:
   m_ObjectHideFlags: 0
@@ -1044,6 +1028,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   languageAsset: {fileID: 4900000, guid: 7bec41ac40d4840d3b16f53720d99762, type: 3}
+--- !u!114 &1381978165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381978161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5d8e52858648e99dfb2d0b3a4c1e5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1393185054
 GameObject:
   m_ObjectHideFlags: 0

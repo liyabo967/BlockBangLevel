@@ -1,4 +1,4 @@
-#	多语言表																	
+﻿#	多语言表																	
 #	Key	ChineseSimplified	ChineseTraditional	English	Japanese	Korean	French	German	Spanish	Portuguese	Russian	Italian	Thai	Vietnamese	Indonesian	Arabic	Turkish	Hindi
 #	多语言key	中文	繁中	英语	日语	韩语	法语	德语	西班牙语	葡萄牙语	俄语	意大利语	泰语	越南语	印尼语	阿拉伯语	土耳其语	印地语
 	#check_update	正在检查	正在檢查	Checking	チェック中	검사 중	Vérification en cours	Wird geprüft	Comprobando	Verificando	Проверка	Verifica in corso	กำลังตรวจสอบ	Đang kiểm tra	Sedang memeriksa	جارٍ الفحص	Kontrol ediliyor	जाँच जारी है
@@ -16,3 +16,5 @@
 	#tips	提示	提示	Prompt	ヒント	힌트	Indice	Hinweis	Sugerencia	Dica	Подсказка	Suggerimento	คำใบ้	Gợi ý	Petunjuk	تلميح	İpucu	संकेत
 	#update_failed	更新失败	更新失敗	Update failed	更新に失敗しました	업데이트 실패	Échec de la mise à jour	Aktualisierung fehlgeschlagen	Actualización fallida	Falha na atualização	Ошибка обновления	Aggiornamento fallito	การอัปเดตล้มเหลว	Cập nhật thất bại	Pembaruan gagal	فشل التحديث	Güncelleme başarısız	अपडेट विफल
 	#unknown_exception	未知异常	未知異常	Unknown exception	未知の例外	알 수 없는 예외	Exception inconnue	Unbekannte Ausnahme	Excepción desconocida	Exceção desconhecida	Неизвестное исключение	Eccezione sconosciuta	ข้อยกเว้นที่ไม่ทราบ	Ngoại lệ không xác định	Pengecualian tidak diketahui	استثناء غير معروف	Bilinmeyen istisna	अज्ञात अपवाद
+	#update	更新	更新	update	更新	업데이트	mise à jour	Aktualisierung	actualización	atualização	обновление	aggiornamento	อัปเดต	cập nhật	pembaruan	تحديث	güncelleme	अद्यतन
+	#update_tips	发现了新版本	發現了新版本	Discovered a new version	新しいバージョンが見つかりました	새로운 버전을 발견했습니다	Découverte d'une nouvelle version	Neue Version gefunden	Se ha descubierto una nueva versión	Descobriu-se uma nova versão	Обнаружена новая версия	È stata trovata una nuova versione	พบเวอร์ชันใหม่	Đã phát hiện phiên bản mới	Ditemukan versi baru	تم اكتشاف نسخة جديدة	Yeni bir sürüm bulundu	नई संस्करण मिला
