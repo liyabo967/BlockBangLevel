@@ -47,7 +47,7 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI.Labels
 
         public static void AnimateForResource(Vector3 startPosition, string rewardDataCount, AudioClip sound, Action callback)
         {
-            var label = FindFirstObjectByType<LabelAnim>();;
+            var label = FindFirstObjectByType<LabelAnim>();
             if (label != null)
             {
                 label.Animate(startPosition, rewardDataCount, sound, callback);

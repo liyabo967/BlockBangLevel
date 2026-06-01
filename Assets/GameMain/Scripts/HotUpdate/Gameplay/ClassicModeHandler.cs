@@ -58,6 +58,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             if (score > bestScore)
             {
                 UserDataManager.Instance.SetScore(score);
+                if (score >= 1000)
+                {
+                    UserDataManager.Instance.UnlockAdventure();
+                }
             }
 
             base.OnLose();
