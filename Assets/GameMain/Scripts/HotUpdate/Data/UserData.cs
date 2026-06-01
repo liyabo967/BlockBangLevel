@@ -18,6 +18,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public string lastPlayedMode;
         public int winStreak;
         public int failStreak;
+        public int firstSeason;
         public int currentSeason;
         public long lastRateTimestamp;
         public bool noAdsPurchased;

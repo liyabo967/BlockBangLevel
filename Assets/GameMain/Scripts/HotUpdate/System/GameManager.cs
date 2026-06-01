@@ -147,6 +147,13 @@ namespace BlockPuzzleGameToolkit.Scripts.System
                 return;
             }
 
+            // No DailyBonus For First Season
+            if (UserDataManager.Instance.FirstSeason == UserDataManager.Instance.CurrentSeason)
+            {
+                return;
+            }
+            
+
             var shouldShowDailyBonus = CheckDailyBonusConditions();
 
             if (shouldShowDailyBonus)
@@ -281,7 +288,6 @@ namespace BlockPuzzleGameToolkit.Scripts.System
         {
             if (StateManager.instance.CurrentState == EScreenStates.MainMenu)
             {
-
                 HandleDailyBonus();
             }
         }

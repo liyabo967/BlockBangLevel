@@ -49,6 +49,10 @@ namespace Quester
                 UserDataManager.Instance.SetLevel(1);
                 UserDataManager.Instance.SetSeason(season);
                 UserDataManager.Instance.SetLevelGroup(1);
+                if (UserDataManager.Instance.FirstSeason == 0)
+                {
+                    UserDataManager.Instance.SetFirstSeason(season);
+                }
             }
         }
         
