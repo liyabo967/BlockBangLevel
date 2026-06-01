@@ -25,18 +25,21 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI.Labels
 
         protected virtual void OnEnable()
         {
-            resourceObject.OnResourceUpdate += UpdateValue;
-            UpdateValue(resourceObject.GetValue());
+            UpdateValue("Coins");
+            UserDataManager.Instance.OnValueChanged += UpdateValue;
         }
 
         protected virtual void OnDisable()
         {
-            resourceObject.OnResourceUpdate -= UpdateValue;
+            UserDataManager.Instance.OnValueChanged -= UpdateValue;
         }
 
-        protected virtual void UpdateValue(int count)
+        protected virtual void UpdateValue(string field)
         {
-            text.text = count.ToString();
+            if (field == "Coins")
+            {
+                text.text = UserDataManager.Instance.Coins.ToString();
+            }
         }
     }
 }

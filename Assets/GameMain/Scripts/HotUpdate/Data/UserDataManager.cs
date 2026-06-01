@@ -26,6 +26,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public long LastRateTimestamp => _userData.lastRateTimestamp;
         public bool NoAdsPurchased => _userData.noAdsPurchased;
         public List<string> PictureList => _userData.pictureList;
+
+
+        public Action<string> OnValueChanged;
         
         public void Load()
         {
@@ -97,11 +100,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public void AddCoins(int amount)
         {
             _userData.coins += amount;
+            OnValueChanged?.Invoke("Coins");
         }
 
         public void ConsumeCoins(int amount)
         {
             _userData.coins -= amount;
+            OnValueChanged?.Invoke("Coins");
         }
 
         public void SetScore(int score)

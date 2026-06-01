@@ -407,6 +407,7 @@ namespace GameMain
             {
                 title = title,
                 message = message,
+                confirmText = LocalLanguage.Instance.GetString("#retry"),
                 callback = () =>
                 {
                     StartCoroutine(Retry());
