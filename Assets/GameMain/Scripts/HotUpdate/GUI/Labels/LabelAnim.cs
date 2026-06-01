@@ -45,9 +45,9 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI.Labels
             _fxParent = FindObjectOfType<FXCanvas>().transform;
         }
 
-        public static void AnimateForResource(ResourceObject resourceObject, Vector3 startPosition, string rewardDataCount, AudioClip sound, Action callback)
+        public static void AnimateForResource(Vector3 startPosition, string rewardDataCount, AudioClip sound, Action callback)
         {
-            var label = FindLabelForResource(resourceObject);
+            var label = FindFirstObjectByType<LabelAnim>();;
             if (label != null)
             {
                 label.Animate(startPosition, rewardDataCount, sound, callback);

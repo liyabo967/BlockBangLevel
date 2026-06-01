@@ -51,7 +51,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         protected override void LoadScores()
         {
             // Load best score from resources using timed-specific key
-            bestScore = ResourceManager.instance.GetResource("TimedBestScore").GetValue();
+            bestScore = UserDataManager.Instance.TimedBestScore;
             bestScoreText.text = bestScore.ToString();
 
             // Load current score from timed game state
@@ -112,10 +112,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             // Only update best score if timer actually reached 0
             if (TimerManager != null && TimerManager.RemainingTime <= 0)
             {
-                bestScore = ResourceManager.instance.GetResource("TimedBestScore").GetValue();
+                bestScore = UserDataManager.Instance.TimedBestScore;
                 if (score > bestScore)
                 {
-                    ResourceManager.instance.GetResource("TimedBestScore").Set(score);
+                    UserDataManager.Instance.SetTimedBestScore(score);
                 }
             }
             

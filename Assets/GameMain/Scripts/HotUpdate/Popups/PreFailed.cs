@@ -126,10 +126,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             {
                 return;
             }
-
-            var coinsResource = ResourceManager.instance.GetResource("Coins");
-            if (coinsResource.Consume(price))
+            
+            if (UserDataManager.Instance.Coins >= price)
             {
+                UserDataManager.Instance.ConsumeCoins(price);
                 hasContinued = true;
                 continueButton.interactable = false;
                 rewardButton.interactable = false;

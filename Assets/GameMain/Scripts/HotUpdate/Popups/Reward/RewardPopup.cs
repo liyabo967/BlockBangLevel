@@ -39,7 +39,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups.Reward
         {
             StopInteration();
 
-            LabelAnim.AnimateForResource(_resource, iconPos.position, "+" + _count, _resource.sound, () =>
+            LabelAnim.AnimateForResource(iconPos.position, "+" + _count, _resource.sound, () =>
             {
                 rewardVisual.resource.Add(rewardVisual.count);
                 base.Close();

@@ -139,11 +139,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         private void BuySpin()
         {
-            if (ResourceManager.instance.Consume("Coins", spinSettings.costToSpin))
-            {
-                ShowCoinsSpendFX(buySpinButton.transform.position);
-                Spin();
-            }
+            // if (ResourceManager.instance.Consume("Coins", spinSettings.costToSpin))
+            // {
+            //     ShowCoinsSpendFX(buySpinButton.transform.position);
+            //     Spin();
+            // }
         }
         
         protected void ShowCoinsSpendFX(Vector3 position)

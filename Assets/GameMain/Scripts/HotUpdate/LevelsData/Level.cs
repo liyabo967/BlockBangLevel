@@ -113,7 +113,7 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData
                 return levelNum;
             }
 
-            Debug.LogError($"Unable to parse the numeric part from the level name. name: {name}");
+            // Debug.LogError($"Unable to parse the numeric part from the level name. name: {name}");
             return -1;
         }
 

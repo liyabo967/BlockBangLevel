@@ -49,9 +49,7 @@ namespace BlockPuzzleGameToolkit.Scripts.System
         public Action<bool, List<string>> OnPurchasesRestored;
         public ProductID noAdsProduct;
         private bool blockButtons;
-
-        public int Score { get=> ResourceManager.instance.GetResource("Score").GetValue(); set => ResourceManager.instance.GetResource("Score").Set(value); }
-
+        
         public override void Awake()
         {
             base.Awake();

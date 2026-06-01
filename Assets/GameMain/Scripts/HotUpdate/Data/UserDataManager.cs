@@ -94,6 +94,16 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             _userData.coins = coins;
         }
 
+        public void AddCoins(int amount)
+        {
+            _userData.coins += amount;
+        }
+
+        public void ConsumeCoins(int amount)
+        {
+            _userData.coins -= amount;
+        }
+
         public void SetScore(int score)
         {
             _userData.score = score;

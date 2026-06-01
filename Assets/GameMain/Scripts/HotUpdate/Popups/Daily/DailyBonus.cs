@@ -108,14 +108,14 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups.Daily
 
         private void CloseDialog()
         {
-            var resource = dayHandles[rewardStreak].RewardData.resource;
+            // var resource = dayHandles[rewardStreak].RewardData.resource;
             var dayHandle = dayHandles.First(i => i.DailyStatus == EDailyStatus.current);
-            LabelAnim.AnimateForResource(resource, dayHandle.transform.position, "+" + dayHandle.RewardData.count, resource.sound, () => CloseDaily(resource));
+            LabelAnim.AnimateForResource(dayHandle.transform.position, "+" + dayHandle.RewardData.count, null, () => CloseDaily());
         }
 
-        private void CloseDaily(ResourceObject resource)
+        private void CloseDaily()
         {
-            resource.Add(dayHandles[rewardStreak].RewardData.count);
+            UserDataManager.Instance.AddCoins(dayHandles[rewardStreak].RewardData.count);
             CoroutineRunner.Instance.Delay(0.8f, () =>
             {
                 Close(true);

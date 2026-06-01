@@ -159,9 +159,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             if (shopItem)
             {
                 var count = int.Parse(shopItem.count.text);
-                LabelAnim.AnimateForResource(shopItem.resource, shopItem.buyButton.transform.position, "+" + count, null, () =>
+                LabelAnim.AnimateForResource(shopItem.buyButton.transform.position, "+" + count, null, () =>
                 {
-                    ResourceManager.instance.GetResource("Coins").Add(count);
+                    UserDataManager.Instance.AddCoins(count);
                 });
 
                 // If the item is non-consumable, mark it as purchased
@@ -195,10 +195,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         public void AwardCoins()
         {
             var coins = GameManager.instance.GameSettings.coinsForAd;
-            var resourceObject = ResourceManager.instance.GetResource("Coins");
-            LabelAnim.AnimateForResource(resourceObject, watchAd.buyButton.transform.position, "+" + coins, null, () =>
+            // var resourceObject = ResourceManager.instance.GetResource("Coins");
+            LabelAnim.AnimateForResource(watchAd.buyButton.transform.position, "+" + coins, null, () =>
             {
-                resourceObject.Add(coins);
+                // resourceObject.Add(coins);
+                UserDataManager.Instance.AddCoins(coins);
             });
         }
     }

@@ -152,8 +152,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             var state = GameState.Load(EGameMode.Classic) as ClassicGameState;
             if (state != null)
             {
-                GameManager.instance.Score = state.score;
-
                 if (state.levelRows != null)
                 {
                     var fieldManager = FindObjectOfType<FieldManager>();
