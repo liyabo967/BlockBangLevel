@@ -87,7 +87,7 @@ namespace GameMain.Editor
             // generate version.json
             // 生成版本文件
             VersionInfo versionInfo = new VersionInfo();
-            versionInfo.forceUpdate = true;
+            versionInfo.forceUpdate = false;
             versionInfo.version = Application.version;
             versionInfo.buildTime = DateTime.Now.ToString("yyyyMMddHHmm");
             versionInfo.hotUpdateDll = new DllInfo()
