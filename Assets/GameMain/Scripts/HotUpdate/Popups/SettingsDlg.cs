@@ -12,6 +12,7 @@
 
 using System;
 using System.IO;
+using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using BlockPuzzleGameToolkit.Scripts.GUI;
@@ -75,7 +76,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            back.gameObject.SetActive(StateManager.instance.CurrentState == EScreenStates.Game);
+            back.gameObject.SetActive(StateManager.instance.CurrentState == EScreenStates.Game && UserDataManager.Instance.AdventureUnlocked);
             var fieldManager = FindObjectOfType<FieldManager>();
             // Save current game state when settings is opened
             if (StateManager.instance.CurrentState == EScreenStates.Game)

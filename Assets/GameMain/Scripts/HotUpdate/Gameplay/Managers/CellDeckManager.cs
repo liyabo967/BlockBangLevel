@@ -216,6 +216,20 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             }
         }
 
+        public void FillCellDecksWithShape(ShapeTemplate shapeTemplate, int index)
+        {
+            if (shapeTemplate == null)
+            {
+                return;
+            }
+            ClearCellDecks();
+            var shapeObject = PoolObject.GetObject(shapePrefab.gameObject);
+            var shape = shapeObject.GetComponent<Shape>();
+            shape.UpdateShape(shapeTemplate);
+            shape.UpdateColor(itemFactory.GetColor());
+            cellDecks[index].FillCell(shape);
+        }
+
         private void RemoveUsedShapes(Shape shape)
         {
             if (shape == null)

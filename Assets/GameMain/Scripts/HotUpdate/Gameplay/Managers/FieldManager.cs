@@ -349,7 +349,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             {
                 for (var j = 0; j < cells.GetLength(1); j++)
                 {
-                    if (cells[i, j].IsHighlighted())
+                    if (cells[i, j].IsHighlighted() && cells[i, j].IsEmpty())
                     {
                         line.Add(cells[i, j]);
                     }

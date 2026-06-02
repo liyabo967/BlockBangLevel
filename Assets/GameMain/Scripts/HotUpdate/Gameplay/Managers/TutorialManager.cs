@@ -91,7 +91,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay.Managers
             tutorialShapesQueue = tutorialSettings.tutorialShapes
                 .Skip(currentPhase * 3).Take(3).ToArray();
             cellDeckManager.ClearCellDecks();
-            cellDeckManager.FillCellDecksWithShapes(tutorialShapesQueue);
+            cellDeckManager.FillCellDecksWithShape(tutorialShapesQueue[0], 1);
         }
 
         public void EndTutorial()
@@ -112,8 +112,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay.Managers
         private void OnShapePlaced(Shape obj)
         {
             StopHandAnimation();
-            cellDeckManager.AddShapeToFreeCell(tutorialShapesQueue[0]);
-            StopHandAnimation();
+            // cellDeckManager.AddShapeToFreeCell(tutorialShapesQueue[0]);
+            // StopHandAnimation();
         }
 
         private void OnLineDestroyed(Shape obj)

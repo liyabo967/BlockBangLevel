@@ -91,6 +91,12 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             GameDataManager.isTestPlay = false; // Reset isTestPlay
         }
 
+        private void OpenClassicMode()
+        {
+           SetGameMode(EGameMode.Classic);
+           OpenMap();
+        }
+
         private bool IsTutorialShown()
         {
             return UserDataManager.Instance.TutorialCompleted;
@@ -105,20 +111,6 @@ namespace BlockPuzzleGameToolkit.Scripts.System
 
         private async void Start()
         {
-            // if (GameSettings.enableInApps) {
-            //     products = Resources.LoadAll<ProductID>("ProductIDs")
-            //         .Select(p => (p.ID, p.productType))
-            //         .ToArray();
-            //
-            //     // Initialize gaming services
-            //     await InitializeGamingServices.instance?.Initialize(
-            //         OnInitializeSuccess,
-            //         OnInitializeError
-            //     );
-            //     // Initialize IAP directly if InitializeGamingServices is not used
-            //     await IAPManager.instance?.InitializePurchasing(products);
-            // }
-
             if (GameSettings.enableAds && IsNoAdsPurchased())
             {
                 AdManager.Instance.RemoveAds();
@@ -127,6 +119,12 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             if (GameDataManager.isTestPlay)
             {
                 GameDataManager.SetLevel(GameDataManager.GetLevel());
+            }
+            
+            if (!UserDataManager.Instance.AdventureUnlocked)
+            {
+                blockButtons = false;
+                OpenClassicMode();
             }
         }
 

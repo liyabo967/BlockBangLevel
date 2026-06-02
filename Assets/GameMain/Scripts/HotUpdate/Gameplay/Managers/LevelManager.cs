@@ -234,34 +234,34 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private void SaveGameState()
         {
-            if (gameMode == EGameMode.Classic)
-            {
-                classicModeHandler = FindObjectOfType<ClassicModeHandler>();
-                var state = new ClassicGameState
-                {
-                    score = classicModeHandler.score,
-                    bestScore = classicModeHandler.bestScore,
-                    gameMode = EGameMode.Classic,
-                    gameStatus = EventManager.GameStatus
-                };
-                GameState.Save(state, field);
-            }
-            else if (gameMode == EGameMode.Timed)
-            {
-                timedModeHandler = FindObjectOfType<TimedModeHandler>();
-                if (timedModeHandler != null)
-                {
-                    var state = new TimedGameState
-                    {
-                        score = timedModeHandler.score,
-                        bestScore = timedModeHandler.bestScore,
-                        remainingTime = timedModeHandler.GetRemainingTime(),
-                        gameMode = EGameMode.Timed,
-                        gameStatus = EventManager.GameStatus
-                    };
-                    GameState.Save(state, field);
-                }
-            }
+            // if (gameMode == EGameMode.Classic)
+            // {
+            //     classicModeHandler = FindObjectOfType<ClassicModeHandler>();
+            //     var state = new ClassicGameState
+            //     {
+            //         score = classicModeHandler.score,
+            //         bestScore = classicModeHandler.bestScore,
+            //         gameMode = EGameMode.Classic,
+            //         gameStatus = EventManager.GameStatus
+            //     };
+            //     GameState.Save(state, field);
+            // }
+            // else if (gameMode == EGameMode.Timed)
+            // {
+            //     timedModeHandler = FindObjectOfType<TimedModeHandler>();
+            //     if (timedModeHandler != null)
+            //     {
+            //         var state = new TimedGameState
+            //         {
+            //             score = timedModeHandler.score,
+            //             bestScore = timedModeHandler.bestScore,
+            //             remainingTime = timedModeHandler.GetRemainingTime(),
+            //             gameMode = EGameMode.Timed,
+            //             gameStatus = EventManager.GameStatus
+            //         };
+            //         GameState.Save(state, field);
+            //     }
+            // }
         }
 
         private void OnDisable()
@@ -487,12 +487,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 DOVirtual.DelayedCall(1.5f, () => { wordsPool.Release(txt); });
             }
 
-            if (EventManager.GameStatus == EGameState.Playing)
+            if (EventManager.GameStatus == EGameState.Playing && !GameManager.instance.IsTutorialMode())
                 yield return StartCoroutine(CheckLose());
         }
 
         private IEnumerator CheckLose()
         {
+            
             if (gameMode != EGameMode.Classic && targetManager != null && targetManager.WillLevelBeComplete())
             {
                 EventManager.GameStatus = EGameState.WinWaiting;
@@ -516,7 +517,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 SetWin();
                 lose = false;
             }
-
+            
             if (lose)
             {
                 SetLose();
