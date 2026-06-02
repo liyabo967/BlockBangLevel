@@ -86,6 +86,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         private void OnEnable()
         {
+            Debug.Log("Menu OnEnable: " + _adventureUnlocked);
+            Debug.Log("Menu OnEnable: " + UserDataManager.Instance.AdventureState);
             _enableTimer = true;
             StartCoroutine(RefreshRemainingTime());
             
@@ -96,7 +98,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                     _adventureUnlocked = true;
                     DOVirtual.DelayedCall(1f, () =>
                     {
-                        adventureLock.transform.DOScale(Vector3.zero, 0.3f)
+                        adventureLock.transform.DOScale(Vector3.zero, 0.5f)
                             .SetEase(Ease.InBack)
                             .OnComplete(() =>
                             {

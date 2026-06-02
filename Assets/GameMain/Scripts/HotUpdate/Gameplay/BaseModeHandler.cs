@@ -85,10 +85,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         {
             _displayedScore = startValue;
             bool newBestScore = endValue > UserDataManager.Instance.ClassicBestScore;
-            if (newBestScore)
-            {
-                UserDataManager.Instance.SetClassicBestScore(endValue);
-            }
 
             float actualSpeed = counterSpeed;
             if (endValue - startValue > 100)

@@ -94,7 +94,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                         currentState = new ClassicGameState
                         {
                             score = classicHandler.score,
-                            bestScore = classicHandler.bestScore,
+                            bestScore = classicHandler.bestScore > classicHandler.score ? classicHandler.bestScore : classicHandler.score,
                             gameMode = EGameMode.Classic,
                             gameStatus = EventManager.GameStatus
                         };
