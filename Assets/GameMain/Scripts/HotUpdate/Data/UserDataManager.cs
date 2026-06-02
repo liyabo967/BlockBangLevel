@@ -14,7 +14,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public int Group => _userData.group;
         public int LevelGroup => _userData.levelGroup;
         public int Coins => _userData.coins;
-        public int Score => _userData.score;
+        // public int Score => _userData.score;
+        public int ClassicBestScore => _userData.classicBestScore;
         public int TimedBestScore => _userData.timedBestScore;
         public string DailyBonusDay => _userData.dailyBonusDay;
         public int RewardStreak => _userData.rewardStreak;
@@ -62,8 +63,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
                 _userData.adventureState = 2;
             }
         }
-
-        // 序列化数据，但是不写入磁盘
+        
         private void Save()
         {
             GameEntry.Storage.Save(UserKey, _userData);
@@ -110,9 +110,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             OnValueChanged?.Invoke("Coins");
         }
 
-        public void SetScore(int score)
+        public void SetClassicBestScore(int score)
         {
-            _userData.score = score;
+            _userData.classicBestScore = score;
         }
 
         public void SetTimedBestScore(int timedBestScore)
@@ -139,39 +139,39 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         /// 关于金币分数的特殊处理，后面再处理 scriptableObject的问题
         /// </summary>
         /// <param name="dataName"></param>
-        public int GetData(string dataName)
-        {
-            var result = 0;
-            switch (dataName)
-            {
-                case "Coins":
-                    result = _userData.coins;
-                    break;
-                case "Score":
-                    result = _userData.score;
-                    break;
-                case "TimedBestScore":
-                    result = _userData.timedBestScore;
-                    break;
-            }
-            return result;
-        }
-
-        public void SetData(string dataName, int dataValue)
-        {
-            switch (dataName)
-            {
-                case "Coins":
-                    _userData.coins = dataValue;
-                    break;
-                case "Score":
-                    _userData.score = dataValue;
-                    break;
-                case "TimedBestScore":
-                    _userData.timedBestScore = dataValue;
-                    break;
-            }
-        }
+        // public int GetData(string dataName)
+        // {
+        //     var result = 0;
+        //     switch (dataName)
+        //     {
+        //         case "Coins":
+        //             result = _userData.coins;
+        //             break;
+        //         case "Score":
+        //             result = _userData.classicBestScore;
+        //             break;
+        //         case "TimedBestScore":
+        //             result = _userData.timedBestScore;
+        //             break;
+        //     }
+        //     return result;
+        // }
+        //
+        // public void SetData(string dataName, int dataValue)
+        // {
+        //     switch (dataName)
+        //     {
+        //         case "Coins":
+        //             _userData.coins = dataValue;
+        //             break;
+        //         case "Score":
+        //             _userData.classicBestScore = dataValue;
+        //             break;
+        //         case "TimedBestScore":
+        //             _userData.timedBestScore = dataValue;
+        //             break;
+        //     }
+        // }
 
         public void SetRewardStreak(int rewardStreak)
         {

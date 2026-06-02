@@ -84,6 +84,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         protected IEnumerator CountScore(int startValue, int endValue)
         {
             _displayedScore = startValue;
+            bool newBestScore = endValue > UserDataManager.Instance.ClassicBestScore;
+            if (newBestScore)
+            {
+                UserDataManager.Instance.SetClassicBestScore(endValue);
+            }
 
             float actualSpeed = counterSpeed;
             if (endValue - startValue > 100)
@@ -95,6 +100,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             {
                 _displayedScore++;
                 scoreText.text = _displayedScore.ToString();
+                if (newBestScore)
+                {
+                    bestScoreText.text = _displayedScore.ToString();
+                }
                 yield return new WaitForSeconds(actualSpeed);
             }
 

@@ -20,8 +20,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public int defaultValue;
         public override int DefaultValue => defaultValue;
 
-        public override void ResetResource()
-        {
-        }
+        // public override void ResetResource()
+        // {
+        // }
     }
 }

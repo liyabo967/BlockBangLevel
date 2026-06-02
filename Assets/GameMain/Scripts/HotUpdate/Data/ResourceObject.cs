@@ -39,19 +39,19 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         //runs when the object is created
         private void OnEnable()
         {
-            Task.Run(async () =>
-            {
-                await Task.Delay(1000);
-                await LoadPrefs();
-            });
+            // Task.Run(async () =>
+            // {
+            //     await Task.Delay(1000);
+            //     await LoadPrefs();
+            // });
         }
 
         //loads prefs from player prefs and assigns to resource variable
-        public Task LoadPrefs()
-        {
-            Resource = UserDataManager.Instance.GetData(ResourceName);
-            return Task.CompletedTask;
-        }
+        // public Task LoadPrefs()
+        // {
+        //     Resource = UserDataManager.Instance.GetData(ResourceName);
+        //     return Task.CompletedTask;
+        // }
 
         public int LoadResource()
         {
@@ -59,39 +59,39 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         }
 
         //adds amount to resource and saves to player prefs
-        public void Add(int amount)
-        {
-            // Resource += amount;
-            // PlayerPrefs.SetInt(ResourceName, Resource);
-            var value = amount + UserDataManager.Instance.GetData(ResourceName);
-            UserDataManager.Instance.SetData(ResourceName, value);
-            OnResourceChanged(value);
-        }
+        // public void Add(int amount)
+        // {
+        //     // Resource += amount;
+        //     // PlayerPrefs.SetInt(ResourceName, Resource);
+        //     var value = amount + UserDataManager.Instance.GetData(ResourceName);
+        //     UserDataManager.Instance.SetData(ResourceName, value);
+        //     OnResourceChanged(value);
+        // }
 
         //sets resource to amount and saves to player prefs
-        public void Set(int amount)
-        {
-            // Resource = amount;
-            // PlayerPrefs.SetInt(ResourceName, Resource);
-            // PlayerPrefs.Save();
-            UserDataManager.Instance.SetData(ResourceName, amount);
-            OnResourceChanged(amount);
-        }
+        // public void Set(int amount)
+        // {
+        //     // Resource = amount;
+        //     // PlayerPrefs.SetInt(ResourceName, Resource);
+        //     // PlayerPrefs.Save();
+        //     UserDataManager.Instance.SetData(ResourceName, amount);
+        //     OnResourceChanged(amount);
+        // }
 
         //consumes amount from resource and saves to player prefs if there is enough
         public virtual bool Consume(int amount)
         {
-            if (IsEnough(amount))
-            {
-                var value = UserDataManager.Instance.GetData(ResourceName);
-                value -= amount;
-                UserDataManager.Instance.SetData(ResourceName, value);
-                // PlayerPrefs.SetInt(ResourceName, Resource);
-                // PlayerPrefs.Save();
-                OnResourceChanged(value);
-                return true;
-            }
-
+            // if (IsEnough(amount))
+            // {
+            //     var value = UserDataManager.Instance.GetData(ResourceName);
+            //     value -= amount;
+            //     UserDataManager.Instance.SetData(ResourceName, value);
+            //     // PlayerPrefs.SetInt(ResourceName, Resource);
+            //     // PlayerPrefs.Save();
+            //     OnResourceChanged(value);
+            //     return true;
+            // }
+        
             return false;
         }
 
@@ -102,23 +102,23 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         }
 
         //get the resource
-        public int GetValue()
-        {
-            return UserDataManager.Instance.GetData(ResourceName);;
-        }
+        // public int GetValue()
+        // {
+        //     return UserDataManager.Instance.GetData(ResourceName);;
+        // }
 
         //check if there is enough of the resource
-        public bool IsEnough(int targetAmount)
-        {
-            if (GetValue() < targetAmount)
-            {
-                Debug.Log("Not enough " + ResourceName);
-            }
+        // public bool IsEnough(int targetAmount)
+        // {
+        //     if (GetValue() < targetAmount)
+        //     {
+        //         Debug.Log("Not enough " + ResourceName);
+        //     }
+        //
+        //     return GetValue() >= targetAmount;
+        // }
 
-            return GetValue() >= targetAmount;
-        }
-
-        public abstract void ResetResource();
+        // public abstract void ResetResource();
     }
 
     [Serializable]

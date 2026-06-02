@@ -118,7 +118,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
                 if (currentState != null && fieldManager != null)
                 {
-                    // GameState.Save(currentState, fieldManager);
+                    GameState.Save(currentState, fieldManager);
                 }
             }
 

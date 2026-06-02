@@ -13,7 +13,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         protected override void LoadScores()
         {
             // Load best score from resources
-            bestScore = UserDataManager.Instance.Score;
+            bestScore = UserDataManager.Instance.ClassicBestScore;
             bestScoreText.text = bestScore.ToString();
 
             // Load current score from game state using the proper mode-specific loading
@@ -21,7 +21,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             if (state != null)
             {
                 score = state.score;
-                bestScore = state.bestScore;
+                // bestScore = state.bestScore;
                 scoreText.text = score.ToString();
             }
             else
@@ -54,11 +54,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         public override void OnLose()
         {
-            bestScore = UserDataManager.Instance.Score;
-            if (score > bestScore)
+            if (score > UserDataManager.Instance.ClassicBestScore)
             {
-                UserDataManager.Instance.SetScore(score);
-                if (score >= 20)
+                UserDataManager.Instance.SetClassicBestScore(score);
+                if (score >= 700)
                 {
                     UserDataManager.Instance.SetAdventureState(1);
                 }

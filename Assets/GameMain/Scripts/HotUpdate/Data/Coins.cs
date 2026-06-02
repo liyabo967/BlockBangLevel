@@ -24,7 +24,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
 
         public override bool Consume(int amount)
         {
-            if (!base.Consume(amount))
+            if (UserDataManager.Instance.Coins < amount)
             {
                 GameEntry.UI.OpenUIForm(UIFormId.CoinsShop);
                 return false;
@@ -33,8 +33,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             return true;
         }
 
-        public override void ResetResource()
-        {
-        }
+        // public override void ResetResource()
+        // {
+        // }
     }
 }

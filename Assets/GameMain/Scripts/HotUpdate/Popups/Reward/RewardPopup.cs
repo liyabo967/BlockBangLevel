@@ -35,15 +35,15 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups.Reward
             _resource = rewardVisual.resource;
         }
 
-        public override void Close()
-        {
-            StopInteration();
-
-            LabelAnim.AnimateForResource(iconPos.position, "+" + _count, _resource.sound, () =>
-            {
-                rewardVisual.resource.Add(rewardVisual.count);
-                base.Close();
-            });
-        }
+        // public override void Close()
+        // {
+        //     StopInteration();
+        //
+        //     LabelAnim.AnimateForResource(iconPos.position, "+" + _count, _resource.sound, () =>
+        //     {
+        //         rewardVisual.resource.Add(rewardVisual.count);
+        //         base.Close();
+        //     });
+        // }
     }
 }

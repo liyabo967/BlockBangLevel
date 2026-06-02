@@ -39,11 +39,11 @@ namespace BlockPuzzleGameToolkit.Scripts.System
         {
             #if UNITY_EDITOR
             // clear variables ResourceObject from Resources/Variables
-            var resourceObjects = Resources.LoadAll<ResourceObject>("Variables");
-            foreach (var resourceObject in resourceObjects)
-            {
-                resourceObject.Set(0);
-            }
+            // var resourceObjects = Resources.LoadAll<ResourceObject>("Variables");
+            // foreach (var resourceObject in resourceObjects)
+            // {
+            //     resourceObject.Set(0);
+            // }
 
             AssetDatabase.SaveAssets();
 
