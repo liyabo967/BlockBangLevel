@@ -86,17 +86,27 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         private void OnEnable()
         {
-            Debug.Log("Menu OnEnable: " + _adventureUnlocked);
-            Debug.Log("Menu OnEnable: " + UserDataManager.Instance.AdventureState);
             _enableTimer = true;
             StartCoroutine(RefreshRemainingTime());
-            
+        }
+
+        public void RefreshUI()
+        {
+            gameSettingBtn.SetActive(!GameManager.instance.IsTutorialMode());
+            adventureRedPoint.SetActive(UserDataManager.Instance.AdventureState == 1);
+            settingsRedPoint.SetActive(UserDataManager.Instance.AdventureState == 1 && StateManager.instance.CurrentState == EScreenStates.Game);
+        }
+        
+        private void TryToUnlockAdventure()
+        {
+            Debug.Log("TryToUnlockAdventure, _adventureUnlocked: " + _adventureUnlocked);
+            Debug.Log("TryToUnlockAdventure: " + UserDataManager.Instance.AdventureState);
             if (!_adventureUnlocked)
             {
                 if (UserDataManager.Instance.AdventureState == 1)
                 {
                     _adventureUnlocked = true;
-                    DOVirtual.DelayedCall(1f, () =>
+                    DOVirtual.DelayedCall(0.3f, () =>
                     {
                         adventureLock.transform.DOScale(Vector3.zero, 0.5f)
                             .SetEase(Ease.InBack)
@@ -112,13 +122,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                     });
                 }
             }
-        }
-
-        public void RefreshUI()
-        {
-            gameSettingBtn.SetActive(!GameManager.instance.IsTutorialMode());
-            adventureRedPoint.SetActive(UserDataManager.Instance.AdventureState == 1);
-            settingsRedPoint.SetActive(UserDataManager.Instance.AdventureState == 1 && StateManager.instance.CurrentState == EScreenStates.Game);
         }
 
         private void PlayAdventureButtonAnim()
@@ -207,6 +210,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         public void OnAnimationEnd(){
             OnAnimationEnded?.Invoke();
+            TryToUnlockAdventure();
         }
         
         private IEnumerator RefreshRemainingTime()
