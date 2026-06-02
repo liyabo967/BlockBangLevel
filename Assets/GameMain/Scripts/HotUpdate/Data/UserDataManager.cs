@@ -19,7 +19,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public string DailyBonusDay => _userData.dailyBonusDay;
         public int RewardStreak => _userData.rewardStreak;
         public bool TutorialCompleted => _userData.tutorialCompleted;
-        public bool AdventureUnlocked => _userData.adventureUnlocked;
+        public int AdventureState => _userData.adventureState;
         public int GameMode => _userData.gameMode;
         public int FailStreak => _userData.failStreak;
         public int CurrentSeason => _userData.currentSeason;
@@ -59,7 +59,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         {
             if (Application.version == "0.0.5")
             {
-                _userData.adventureUnlocked = true;
+                _userData.adventureState = 2;
             }
         }
 
@@ -209,9 +209,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             _userData.tutorialCompleted = true;
         }
 
-        public void UnlockAdventure()
+        public void SetAdventureState(int adventureState)
         {
-            _userData.adventureUnlocked = true;
+            _userData.adventureState = adventureState;
         }
 
         public void SetDailyBonusDay(string day)

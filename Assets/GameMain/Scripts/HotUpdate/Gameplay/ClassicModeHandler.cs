@@ -58,9 +58,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             if (score > bestScore)
             {
                 UserDataManager.Instance.SetScore(score);
-                if (score >= 700)
+                if (score >= 20)
                 {
-                    UserDataManager.Instance.UnlockAdventure();
+                    UserDataManager.Instance.SetAdventureState(1);
                 }
             }
 

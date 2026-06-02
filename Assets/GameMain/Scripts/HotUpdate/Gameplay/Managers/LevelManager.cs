@@ -358,6 +358,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                     timerPanel.SetActive(false);
                 }
             }
+            
+            GameManager.instance.RefreshUI();
         }
 
         private void StartGame()

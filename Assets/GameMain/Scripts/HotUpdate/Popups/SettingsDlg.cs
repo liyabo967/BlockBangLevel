@@ -17,6 +17,7 @@ using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.System;
+using DG.Tweening;
 using GameAnalyticsSDK;
 using GameMain;
 using GameMain.Scripts.HotUpdate.Base.Ads;
@@ -56,7 +57,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         [SerializeField]
         private TextMeshProUGUI versionText;
 
-        private MenuManager menuManager;
+        private Tween _breathTween;
 
         private const string VibrationPrefKey = "VibrationLevel";
 
@@ -76,7 +77,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            back.gameObject.SetActive(StateManager.instance.CurrentState == EScreenStates.Game && UserDataManager.Instance.AdventureUnlocked);
+            back.gameObject.SetActive(StateManager.instance.CurrentState == EScreenStates.Game && UserDataManager.Instance.AdventureState > 0);
             var fieldManager = FindObjectOfType<FieldManager>();
             // Save current game state when settings is opened
             if (StateManager.instance.CurrentState == EScreenStates.Game)
@@ -132,7 +133,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
             // Register the OnValueChanged event
             vibrationSlider.onValueChanged.AddListener(SaveVibrationLevel);
-            menuManager = GetComponentInParent<MenuManager>();
             closeButton.onClick.RemoveAllListeners();
             closeButton.onClick.AddListener(BackToGame);
             restorePurchase.onClick.AddListener(RestorePurchase);
@@ -141,9 +141,35 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             shop.gameObject.SetActive(GameManager.instance.GameSettings.enableInApps);
             
             // Show privacy consent button only if UMP is available and privacy options are required
-            if( privacyConsent.gameObject.activeSelf )
+            if( privacyConsent.gameObject.activeSelf)
+            {
                 privacyConsent.gameObject.SetActive(GameManager.instance.GameSettings.enableAds &&
-                                                AdManager.Instance.IsPrivacyOptionsRequired());
+                                                 AdManager.Instance.IsPrivacyOptionsRequired());
+            }
+
+            // HomeButtonPlayAnim();
+        }
+
+        // protected override void OnClose(bool isShutdown, object userData)
+        // {
+        //     base.OnClose(isShutdown, userData);
+        //     HomeButtonStopAnim();
+        // }
+
+        private void HomeButtonPlayAnim()
+        {
+            if (UserDataManager.Instance.AdventureState == 1)
+            {
+                _breathTween = back.transform
+                    .DOScale(1.1f, 0.8f)
+                    .SetEase(Ease.InOutSine)  // 平滑过渡
+                    .SetLoops(-1, LoopType.Yoyo); // 无限往返
+            }
+        }
+        
+        private void HomeButtonStopAnim()
+        {
+            _breathTween?.Kill();
         }
 
         private void RestorePurchase()

@@ -113,8 +113,6 @@ namespace BlockPuzzleGameToolkit.Scripts.System
 
         public static void SetGameMode(EGameMode gameMode)
         {
-            // PlayerPrefs.SetInt("GameMode", (int)gameMode);
-            // PlayerPrefs.Save();
             UserDataManager.Instance.SetGameMode((int)gameMode);
         }
 

@@ -14,6 +14,7 @@ using System;
 using System.Collections;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
+using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using BlockPuzzleGameToolkit.Scripts.Gameplay.Pool;
 using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.GUI.Labels;
@@ -39,6 +40,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         public TextMeshProUGUI remainingTimeText;
         public GameObject adventureLock;
         public TextMeshProUGUI lockedText;
+        public GameObject adventureRedPoint;
+        public GameObject settingsRedPoint;
+        public GameObject gameSettingBtn;
         
         private bool _enableTimer;
         private WaitForSeconds _waitForSeconds = new (1f);
@@ -74,7 +78,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 timedMode.gameObject.SetActive(false);
             }
 
-            _adventureUnlocked = UserDataManager.Instance.AdventureUnlocked;
+            _adventureUnlocked = UserDataManager.Instance.AdventureState > 0;
             lockedText.text = GameEntry.Localization.GetString("#unlock_adventure", 700);
             adventureLock.SetActive(!_adventureUnlocked);
             seasonTimeObject.SetActive(_adventureUnlocked);
@@ -87,7 +91,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             
             if (!_adventureUnlocked)
             {
-                if (UserDataManager.Instance.AdventureUnlocked)
+                if (UserDataManager.Instance.AdventureState == 1)
                 {
                     _adventureUnlocked = true;
                     DOVirtual.DelayedCall(1f, () =>
@@ -106,6 +110,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                     });
                 }
             }
+        }
+
+        public void RefreshUI()
+        {
+            gameSettingBtn.SetActive(!GameManager.instance.IsTutorialMode());
+            adventureRedPoint.SetActive(UserDataManager.Instance.AdventureState == 1);
+            settingsRedPoint.SetActive(UserDataManager.Instance.AdventureState == 1 && StateManager.instance.CurrentState == EScreenStates.Game);
         }
 
         private void PlayAdventureButtonAnim()
@@ -171,6 +182,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             StopAdventureButtonAnim();
             GameManager.instance.SetGameMode(EGameMode.Adventure);
             GameManager.instance.OpenMap();
+            adventureRedPoint.SetActive(false);
+            UserDataManager.Instance.SetAdventureState(2);
         }
 
         private void PlayTimedMode()

@@ -13,7 +13,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public int rewardStreak;
         public int gameMode;
         public bool tutorialCompleted;
-        public bool adventureUnlocked;
+        public int adventureState;
         public string dailyBonusDay;
         public string lastPlayedMode;
         public int winStreak;

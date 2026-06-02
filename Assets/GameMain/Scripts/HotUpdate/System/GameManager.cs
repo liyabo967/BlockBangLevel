@@ -66,7 +66,6 @@ namespace BlockPuzzleGameToolkit.Scripts.System
 
         private void OnEnable()
         {
-            IAPManager.SubscribeToPurchaseEvent(PurchaseSucceeded);
             if (StateManager.instance.CurrentState == EScreenStates.MainMenu)
             {
                 if (!GameDataManager.isTestPlay && CheckDailyBonusConditions() && GameSettings.enableInApps)
@@ -83,7 +82,6 @@ namespace BlockPuzzleGameToolkit.Scripts.System
 
         private void OnDisable()
         {
-            IAPManager.UnsubscribeFromPurchaseEvent(PurchaseSucceeded);
             if (mainMenu != null)
             {
                 mainMenu.OnAnimationEnded -= OnMainMenuAnimationEnded;
@@ -121,21 +119,11 @@ namespace BlockPuzzleGameToolkit.Scripts.System
                 GameDataManager.SetLevel(GameDataManager.GetLevel());
             }
             
-            if (!UserDataManager.Instance.AdventureUnlocked)
+            if (UserDataManager.Instance.AdventureState == 0)
             {
                 blockButtons = false;
                 OpenClassicMode();
             }
-        }
-
-        private void OnInitializeSuccess()
-        {
-            Debug.Log("Gaming services initialized successfully");
-        }
-
-        private void OnInitializeError(string errorMessage)
-        {
-            Debug.LogError($"Failed to initialize gaming services: {errorMessage}");
         }
 
         private void HandleDailyBonus()
@@ -144,14 +132,7 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             {
                 return;
             }
-
-            // No DailyBonus For First Season
-            if (UserDataManager.Instance.FirstSeason == UserDataManager.Instance.CurrentSeason)
-            {
-                return;
-            }
             
-
             var shouldShowDailyBonus = CheckDailyBonusConditions();
 
             if (shouldShowDailyBonus)
@@ -167,6 +148,11 @@ namespace BlockPuzzleGameToolkit.Scripts.System
 
         private bool CheckDailyBonusConditions()
         {
+            // No DailyBonus For First Season
+            if (UserDataManager.Instance.FirstSeason == UserDataManager.Instance.CurrentSeason)
+            {
+                return false;
+            }
             var today = DateTime.Today;
             var lastRewardDate = DateTime.ParseExact(UserDataManager.Instance.DailyBonusDay, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
             return today.Date > lastRewardDate.Date && dailyBonusSettings.dailyBonusEnabled;
@@ -177,6 +163,11 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             DOTween.KillAll();
             MenuManager.instance.CloseAllPopups();
             EventManager.GetEvent(EGameEvent.RestartLevel).Invoke();
+        }
+
+        public void RefreshUI()
+        {
+            mainMenu.RefreshUI();
         }
 
         public void RemoveAds()
@@ -234,10 +225,10 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             SceneLoader.instance.StartGameScene();
         }
 
-        public void PurchaseSucceeded(string id)
-        {
-            purchaseSucceded?.Invoke(id);
-        }
+        // public void PurchaseSucceeded(string id)
+        // {
+        //     purchaseSucceded?.Invoke(id);
+        // }
 
         public bool IsNoAdsPurchased()
         {
