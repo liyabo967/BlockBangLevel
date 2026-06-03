@@ -28,6 +28,8 @@ namespace Quester
                     OnClickStar(index);
                 });
             }
+
+            OnClickStar(starBtnList.Count - 1);
         }
 
         private void OnClickStar(int index)
