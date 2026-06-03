@@ -26,10 +26,10 @@ public class LoadingForm : UGuiForm
     // 不同阶段的进度条占比
     private Dictionary<ProgressEventArgs.ProgressKey, float> _progressWeightDict = new()
     {
-        { ProgressEventArgs.ProgressKey.HotUpdate , 0.2f},
+        { ProgressEventArgs.ProgressKey.HotUpdate , 0.3f},
         { ProgressEventArgs.ProgressKey.PreLoadDataTable , 0.3f},
         { ProgressEventArgs.ProgressKey.UpdateResource , 0.2f},
-        { ProgressEventArgs.ProgressKey.InitSdk , 0.2f},
+        { ProgressEventArgs.ProgressKey.InitSdk , 0.1f},
         { ProgressEventArgs.ProgressKey.Preload , 0.1f}
     };
 
@@ -39,11 +39,12 @@ public class LoadingForm : UGuiForm
     private void Awake()
     {
         Instance = this;
+        SetCanvas();
+        SetProgress(_progressWeightDict[ProgressEventArgs.ProgressKey.HotUpdate]);
     }
 
     private void Start()
     {
-        SetCanvas();
         SetTips(LocalLanguage.Instance.GetString("#loading"));
         GameEntry.Event.Subscribe(ProgressEventArgs.EventId, OnProgressEventArgs);
     }
@@ -143,7 +144,7 @@ public class LoadingForm : UGuiForm
                 progressText.text = $"{Mathf.RoundToInt(x * 100)}%";;
             },
             progress,
-            0.5f
+            1f
         );
         _progressTween.onComplete = () =>
         {

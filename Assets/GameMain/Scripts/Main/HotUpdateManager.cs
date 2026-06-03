@@ -68,8 +68,8 @@ namespace GameMain
                     yield break;
                 }
                 // check dll hash
-                var hashMatched = string.Equals(_remoteVersion.hotUpdateDll.hash, GetHotUpdateDllHash());
-                if (!hashMatched)
+                var sameHash = string.Equals(_remoteVersion.hotUpdateDll.hash, GetHotUpdateDllHash());
+                if (!sameHash)
                 {
                     yield return DownloadHotUpdateDll(_remoteVersion);
                     if (_downloadError)
@@ -100,7 +100,7 @@ namespace GameMain
         private IEnumerator DownloadHotUpdateDll(VersionInfo version)
         {
             string dllUrl = string.IsNullOrEmpty(version.hotUpdateDll.url) ? $"{_serverUrl}/HotUpdate/{HotUpdateDllName}" : version.hotUpdateDll.url;
-            SetTipsByKey("#download_update");
+            SetTipsByKey("#loading");
             yield return FileDownloader.Instance.Download(dllUrl, $"{_hotUpdateDir}/{HotUpdateDllName}", s =>
             {
                 _downloadError = false;
@@ -323,7 +323,7 @@ namespace GameMain
             {
                 var downloadSizeStr = Util.FormatSize(downloadSize);
                 Log.Info($"需要下载资源大小: {downloadSizeStr}");
-                SetTipsByKey("#download_update", downloadSizeStr);
+                SetTipsByKey("#loading");
                 yield return Addressables.DownloadDependenciesAsync(prefabKey);
                 Log.Info("资源下载完成");
             }

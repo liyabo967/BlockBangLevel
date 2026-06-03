@@ -14,6 +14,7 @@ public class LoadingAotUI : MonoBehaviour
 
     private int _progress;
     private string _loadingStr;
+    private Tween _tween;
 
     private void Awake()
     {
@@ -32,6 +33,11 @@ public class LoadingAotUI : MonoBehaviour
 
     public void SetProgress(float progress)
     {
+        if (progress < 0.1f)
+        {
+            return;
+        }
+        _tween?.Kill();
         progressBar.value = progress;
         int p = Mathf.RoundToInt(progress * 100);
         progressText.text = $"{p}%";
@@ -39,7 +45,7 @@ public class LoadingAotUI : MonoBehaviour
 
     private void PlayAnim()
     {
-        DOTween.To(
+        _tween = DOTween.To(
             () => 0f,
             x =>
             {
@@ -47,7 +53,7 @@ public class LoadingAotUI : MonoBehaviour
                 progressText.text = $"{Mathf.RoundToInt(x * 100)}%";;
             },
             0.1f,
-            0.5f
+            1f
         );
     }
 }

@@ -528,6 +528,20 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             yield return null;
         }
 
+        public float GetLevelProgress()
+        {
+            if (_levelData.levelType.elevelType == ELevelType.Score)
+            {
+                
+            }
+            return 1f;
+        }
+
+        public float GetFilledRate()
+        {
+            return 1f;
+        }
+
         private void SetWin()
         {
             UserDataManager.Instance.AddWinStreak();
