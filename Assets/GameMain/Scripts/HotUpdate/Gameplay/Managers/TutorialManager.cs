@@ -18,6 +18,7 @@ using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.Settings;
 using BlockPuzzleGameToolkit.Scripts.System;
 using BlockPuzzleGameToolkit.Scripts.Utils;
+using GameAnalyticsSDK;
 using UnityEngine;
 
 namespace BlockPuzzleGameToolkit.Scripts.Gameplay.Managers
@@ -96,6 +97,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay.Managers
 
         public void EndTutorial()
         {
+            GameAnalyticsManager.SendUserProgression(UserStage.Tutorial, GAProgressionStatus.Complete);
             IsTutorialActive = false;
             GameManager.instance.SetTutorialCompleted();
             StopHandAnimation();

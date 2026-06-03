@@ -311,12 +311,23 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             if (GameManager.instance.IsTutorialMode())
             {
                 _levelData = tutorialManager.GetLevelForPhase();
+                GameAnalyticsManager.SendUserProgression(UserStage.Tutorial, GAProgressionStatus.Start);
             }
             else
             {
                 gameMode = GameDataManager.GetGameMode();
                 _levelData = GameDataManager.GetLevel();
                 currentLevel = _levelData.Number;
+
+                if (gameMode == EGameMode.Classic)
+                {
+                    GameAnalyticsManager.SendUserProgression(UserStage.Classic, GAProgressionStatus.Start);
+                }
+                else if (gameMode == EGameMode.Adventure)
+                {
+                    var season = $"{TimeManager.SeasonTime.year}_{TimeManager.SeasonTime.week}";
+                    GameAnalyticsManager.SendUserProgression(UserStage.Adventure, GAProgressionStatus.Start, season, currentLevel);
+                }
             }
             if(_levelData == null)
             {
@@ -546,7 +557,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         {
             UserDataManager.Instance.AddWinStreak();
             UserDataManager.Instance.ResetFailStreak();
-            GameAnalyticsManager.SendLevelProgression(currentLevel, GAProgressionStatus.Complete);
+            // level complete event
+            if (gameMode == EGameMode.Adventure)
+            {
+                var season = $"{TimeManager.SeasonTime.year}_{TimeManager.SeasonTime.week}";
+                GameAnalyticsManager.SendUserProgression(UserStage.Adventure, GAProgressionStatus.Complete, season, currentLevel);
+            }
             
             GameDataManager.UnlockLevel(currentLevel + 1);
             EventManager.GameStatus = EGameState.PreWin;

@@ -10,7 +10,9 @@
 // // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // // THE SOFTWARE.
 
+using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
+using GameAnalyticsSDK;
 using TMPro;
 using UnityEngine;
 
@@ -44,6 +46,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 failedStuff.SetActive(true);
                 bestScoreStuff.SetActive(false);
             }
+            
+            GameAnalyticsManager.SendUserProgression(UserStage.Classic, GAProgressionStatus.Complete, bestScore.ToString(), score);
         }
     }
 }
