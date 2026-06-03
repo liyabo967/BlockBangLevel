@@ -1421,11 +1421,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5041282917274058349, guid: 052b9e4fcb1a84d0b87a7acfd8df7539, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -260
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 5041282917274058349, guid: 052b9e4fcb1a84d0b87a7acfd8df7539, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5041282917274058349, guid: 052b9e4fcb1a84d0b87a7acfd8df7539, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -17153,7 +17153,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6325133707767703771}
-  - component: {fileID: 6325133707767703772}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -18358,7 +18357,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2641415422639433246}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -18369,52 +18368,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -263}
+  m_AnchoredPosition: {x: 0, y: -320.41736}
   m_SizeDelta: {x: 0, y: 405.781}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6325133707767703772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2641415422639433246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785a4e7afc4484cd382bac1273e0b622, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  registerOnEnable: 1
-  landscapeConfig:
-    name: Landscape
-    position: {x: -1.1440965, y: 4.580674, z: 90}
-    rotationEuler: {x: -0, y: 0, z: 0}
-    scale: {x: 1, y: 1, z: 1}
-    anchorMin: {x: 0.5, y: 1}
-    anchorMax: {x: 0.5, y: 1}
-    pivot: {x: 0.5, y: 0.5}
-    sizeDelta: {x: 1710, y: 405.781}
-    anchoredPosition: {x: -212, y: -262.99976}
-    fillParent: 0
-    width: 1710
-    height: 405.781
-  portraitConfig:
-    name: Portrait
-    position: {x: 0.0026007423, y: 4.84659, z: 90}
-    rotationEuler: {x: -0, y: 0, z: 0}
-    scale: {x: 1, y: 1, z: 1}
-    anchorMin: {x: 0.5, y: 1}
-    anchorMax: {x: 0.5, y: 1}
-    pivot: {x: 0.5, y: 0.5}
-    sizeDelta: {x: 1710, y: 405.781}
-    anchoredPosition: {x: 0.59302, y: -263}
-    fillParent: 0
-    width: 1710
-    height: 405.781
-  showGizmos: 1
-  landscapeGizmoColor: {r: 0, g: 0, b: 1, a: 1}
-  portraitGizmoColor: {r: 1, g: 0, b: 0, a: 1}
-  gizmoSize: 0.1
 --- !u!114 &6340373652800463972
 MonoBehaviour:
   m_ObjectHideFlags: 0
