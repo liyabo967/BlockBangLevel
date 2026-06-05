@@ -16,8 +16,10 @@ namespace GameMain
     public class HotUpdateManager : MonoBehaviour
     {
         private const string Server = "https://assets-1301567094.cos.ap-beijing.myqcloud.com/block-bang";
+        private const string CheckNetworkServer = "https://www.apple.com";
         
         private const string HotUpdateDllName = "HotUpdate.dll.bytes";
+        private const string LaunchPrefabKey = "Assets/GameMain/Prefabs/UnityGameFramework.prefab";
         
         private string _serverUrl;
         private string _platform;
@@ -28,6 +30,7 @@ namespace GameMain
         private VersionInfo _remoteVersion;
         private Assembly _hotUpdateAssembly;
 
+        private bool _networkConnected;
         private bool _downloadError;
         
         private void Awake()
@@ -40,7 +43,6 @@ namespace GameMain
             _aotStreamingDir = Path.Combine(_hotUpdateStreamingDir, "AOT");
             
             CreateDirectory(_aotDir);
-            CreateDirectory(_aotStreamingDir);
         }
 
         private void Start()
@@ -56,10 +58,40 @@ namespace GameMain
                 Directory.CreateDirectory(path);
             }
         }
+
+        private IEnumerator CheckNetwork(Action<bool> callback)
+        {
+            if (Application.internetReachability == NetworkReachability.NotReachable)
+            {
+                callback?.Invoke(false);
+                yield break;
+            }
+            using var request = UnityWebRequest.Get(CheckNetworkServer);
+            request.timeout = 5;
+            yield return request.SendWebRequest();
+            bool success = request.result == UnityWebRequest.Result.Success;
+            callback?.Invoke(success);
+        } 
         
         private IEnumerator HotUpdateProcess()
         {
-            yield return StartCoroutine(CheckVersion());
+            yield return StartCoroutine(CheckNetwork(result =>
+            {
+                _networkConnected = result;
+                Debug.Log($"Network result: {_networkConnected}");
+            }));
+            
+            if (!_networkConnected && PlayerPrefs.GetString("LaunchVersion") != Application.version)
+            {
+                // 第一次启动，如果网络没有连接，直接弹窗提示
+                ShowNetworkError();
+                yield break;
+            }
+            
+            if (_networkConnected)
+            {
+                yield return StartCoroutine(CheckVersion());
+            }
             if (_remoteVersion != null)
             {
                 if (_remoteVersion.forceUpdate)
@@ -68,7 +100,12 @@ namespace GameMain
                     yield break;
                 }
                 // check dll hash
-                var sameHash = string.Equals(_remoteVersion.hotUpdateDll.hash, GetHotUpdateDllHash());
+                var localHash = "";
+                yield return StartCoroutine(GetHotUpdateDllHash(result =>
+                {
+                    localHash = result;
+                }));
+                var sameHash = string.Equals(_remoteVersion.hotUpdateDll.hash, localHash);
                 if (!sameHash)
                 {
                     yield return DownloadHotUpdateDll(_remoteVersion);
@@ -80,7 +117,7 @@ namespace GameMain
                 }
                 else
                 {
-                    Debug.Log("HotUpdate is already the latest version");
+                    // Debug.Log("HotUpdate is already the latest version");
                 }
                 
                 yield return DownloadMetadataDll(_remoteVersion);
@@ -93,8 +130,9 @@ namespace GameMain
             {
                 Debug.Log("remote check failed, load from local");
             }
-            LoadDlls();
-            StartCoroutine(LoadLaunchPrefab());
+            yield return StartCoroutine(LoadDlls());
+            yield return StartCoroutine(UpdateCatalog());
+            yield return StartCoroutine(LoadLaunchPrefab());
         }
 
         private IEnumerator DownloadHotUpdateDll(VersionInfo version)
@@ -126,7 +164,13 @@ namespace GameMain
             {
                 if (version.aotDllDict.TryGetValue(aotDll, out var aotDllInfo))
                 {
-                    if (!string.Equals(aotDllInfo.hash, GetAOTDllHash(aotDll)))
+                    var aotHash = string.Empty;
+                    yield return GetAOTDllHash(aotDll, result =>
+                    {
+                        aotHash = result;
+                    });
+                    
+                    if (!string.Equals(aotDllInfo.hash, aotHash))
                     {
                         string dllUrl = string.IsNullOrEmpty(aotDllInfo.url) ? $"{_serverUrl}/HotUpdate/AOT/{aotDll}.bytes" : aotDllInfo.url;
                         yield return FileDownloader.Instance.Download(dllUrl, $"{_aotDir}/{aotDll}.bytes", s =>
@@ -148,7 +192,7 @@ namespace GameMain
                     }
                     else
                     {
-                        Debug.Log($"AOT is already the latest version, {aotDll}");
+                        // Debug.Log($"AOT is already the latest version, {aotDll}");
                     }
                 }
 
@@ -163,17 +207,12 @@ namespace GameMain
             var detail = $"{LocalLanguage.Instance.GetString("#download_fail")}: {fileName}";
             errorMsg += "\n" + detail;
             ShowDialog(errorMsg);
-            Debug.LogError($"download fail: {errorMsg}");
         }
-
-        private string GetAOTDllHash(string dllName)
+        
+        private void ShowNetworkError()
         {
-            var dllPath = Path.Combine(_aotDir, $"{dllName}.bytes");
-            if (!File.Exists(dllPath))
-            {
-                dllPath = Path.Combine(_aotStreamingDir, $"{dllName}.bytes");
-            }
-            return Util.CalculateMD5(dllPath);
+            var errorMsg = LocalLanguage.Instance.GetString("#check_network");
+            ShowDialog(errorMsg);
         }
         
         private void SetProgress(LoadingKey key, float progress)
@@ -204,19 +243,18 @@ namespace GameMain
                 message = updateTips,
                 confirmText = LocalLanguage.Instance.GetString("#update"),
                 callback = () => {
-                    Debug.Log("OpenStore");
                     AppStoreUtil.OpenStore();
                 }
             });
         }
 
-        private void LoadDlls()
+        private IEnumerator LoadDlls()
         {
-            LoadMetadataDll();
-            LoadHotUpdateDll();
+            yield return StartCoroutine(LoadMetadataDll());
+            yield return StartCoroutine(LoadHotUpdateDll());
         }
 
-        private void LoadMetadataDll()
+        private IEnumerator LoadMetadataDll()
         {
             // 需要加载的 AOT DLL 列表
             string[] aotDlls = new string[]
@@ -236,50 +274,71 @@ namespace GameMain
             foreach (string dllName in aotDlls)
             {
                 string dllPath = Path.Combine(aotDir, $"{dllName}.bytes");
-                
-                if (File.Exists(dllPath))
+
+                yield return StartCoroutine(FileLoader.LoadFile(dllPath, bytes =>
                 {
-                    byte[] dllBytes = File.ReadAllBytes(dllPath);
-                    LoadImageErrorCode err = RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, mode);
-                    if (err != LoadImageErrorCode.OK)
+                    if (bytes == null)
                     {
-                        Log.Error($"AOT metadata loaded failed: {dllName}, errorCode: {err}");
+                        Debug.LogError($"AOT dll loaded failed: {dllPath}");
                     }
-                }
-                else
-                {
-                    Debug.LogError($"AOT dll not exist: {dllPath}");
-                }
+                    else
+                    {
+                        LoadImageErrorCode err = RuntimeApi.LoadMetadataForAOTAssembly(bytes, mode);
+                        if (err != LoadImageErrorCode.OK)
+                        {
+                            Log.Error($"AOT metadata loaded failed: {dllName}, errorCode: {err}");
+                        }
+                    }
+                }));
             }
         }
         
-        private void LoadHotUpdateDll()
+        private IEnumerator LoadHotUpdateDll()
         {
-            try
+            string dllPath = Path.Combine(_hotUpdateDir, HotUpdateDllName);
+            if (!File.Exists(dllPath))
             {
-                string dllPath = Path.Combine(_hotUpdateDir, HotUpdateDllName);
-                if (!File.Exists(dllPath))
+                dllPath = Path.Combine(_hotUpdateStreamingDir, HotUpdateDllName);
+            }
+
+            yield return StartCoroutine(FileLoader.LoadFile(dllPath, bytes =>
+            {
+                if (bytes == null)
                 {
-                    dllPath = Path.Combine(_hotUpdateStreamingDir, HotUpdateDllName);
+                    Debug.LogError($"HotUpdate dll loaded failed: {dllPath}");
                 }
-                byte[] dllBytes = File.ReadAllBytes(dllPath);
-                _hotUpdateAssembly = Assembly.Load(dllBytes);
-                Debug.Log($"HotUpdate dll loaded success: {_hotUpdateAssembly.FullName}");
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"HotUpdate dll loaded failed: {e.Message}\n{e.StackTrace}");
-            }
+                else
+                {
+                    _hotUpdateAssembly = Assembly.Load(bytes);
+                    // Debug.Log($"HotUpdate dll loaded success: {_hotUpdateAssembly.FullName}");
+                }
+            }));
         }
 
-        private string GetHotUpdateDllHash()
+        private IEnumerator GetHotUpdateDllHash(Action<string> callback)
         {
             string dllPath = Path.Combine(_hotUpdateDir, HotUpdateDllName);
             if (!File.Exists(dllPath))
             {
                 dllPath =  Path.Combine(_hotUpdateStreamingDir, HotUpdateDllName);
             }
-            return Util.CalculateMD5(dllPath);
+            return FileLoader.LoadFile(dllPath, bytes =>
+            {
+                callback?.Invoke(Util.CalculateMD5(bytes));
+            });
+        }
+        
+        private IEnumerator GetAOTDllHash(string dllName, Action<string> callback)
+        {
+            var dllPath = Path.Combine(_aotDir, $"{dllName}.bytes");
+            if (!File.Exists(dllPath))
+            {
+                dllPath = Path.Combine(_aotStreamingDir, $"{dllName}.bytes");
+            }
+            return FileLoader.LoadFile(dllPath, bytes =>
+            {
+                callback?.Invoke(Util.CalculateMD5(bytes));
+            });
         }
 
         private bool CheckMetadata(string dir, string[] dllNames)
@@ -293,12 +352,21 @@ namespace GameMain
             }
             return true;
         }
-        
-        private IEnumerator LoadLaunchPrefab()
+
+        private IEnumerator UpdateCatalog()
         {
             yield return InitAddressables();
+            if (!_networkConnected)
+            {
+                yield break;
+            }
             var checkHandle = Addressables.CheckForCatalogUpdates(false);
             yield return checkHandle;
+            if (checkHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.Log($"CheckForCatalogUpdates failed: {checkHandle.Status}");
+                yield break;
+            }
 
             List<string> catalogs = checkHandle.Result;
             checkHandle.Release();
@@ -314,8 +382,7 @@ namespace GameMain
                 Log.Info("Catalog 没有更新");
             }
             
-            var prefabKey = "Assets/GameMain/Prefabs/UnityGameFramework.prefab";
-            var sizeHandle = Addressables.GetDownloadSizeAsync(prefabKey);
+            var sizeHandle = Addressables.GetDownloadSizeAsync(LaunchPrefabKey);
             yield return sizeHandle;
 
             long downloadSize = sizeHandle.Result;
@@ -324,18 +391,22 @@ namespace GameMain
                 var downloadSizeStr = Util.FormatSize(downloadSize);
                 Log.Info($"需要下载资源大小: {downloadSizeStr}");
                 SetTipsByKey("#loading");
-                yield return Addressables.DownloadDependenciesAsync(prefabKey);
+                var downloadHandle = Addressables.DownloadDependenciesAsync(LaunchPrefabKey);
+                yield return downloadHandle;
                 Log.Info("资源下载完成");
             }
             else
             {
-                Log.Info("没有需要下载的资源");
+                Debug.Log("没有需要下载的资源");
             }
-            
+        } 
+        
+        private IEnumerator LoadLaunchPrefab()
+        {
             // 加载启动预制体
-            AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(prefabKey);
+            Debug.Log("LoadLaunchPrefab");
+            AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(LaunchPrefabKey);
             yield return new WaitUntil(() => handle.IsDone);
-
             if (handle.Status != AsyncOperationStatus.Succeeded)
             {
                 var msg = LocalLanguage.Instance.GetString("#download_fail");
@@ -381,7 +452,7 @@ namespace GameMain
             SetTipsByKey("#check_update");
             using (UnityWebRequest request = UnityWebRequest.Get(versionUrl))
             {
-                request.timeout = 10;
+                request.timeout = 5;
                 yield return request.SendWebRequest();
                 
                 if (request.result == UnityWebRequest.Result.Success)
@@ -392,7 +463,7 @@ namespace GameMain
                 }
                 else
                 {
-                    Debug.LogError($"CheckVersion Error: {request.error}");
+                    Debug.Log($"CheckVersion Error: {request.error}");
                 }
             }
         }

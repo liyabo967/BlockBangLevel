@@ -280,13 +280,5 @@ namespace BlockPuzzleGameToolkit.Scripts.System
                 HandleDailyBonus();
             }
         }
-
-        internal void RestorePurchases(Action<bool, List<string>> OnPurchasesRestored)
-        {
-            if (!GameSettings.enableInApps) return;
-            
-            this.OnPurchasesRestored = OnPurchasesRestored;
-            IAPManager.instance?.RestorePurchases(OnPurchasesRestored);
-        }
     }
 }

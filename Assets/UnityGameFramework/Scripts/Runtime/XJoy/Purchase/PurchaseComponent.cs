@@ -141,6 +141,10 @@ namespace UnityGameFramework.Scripts.Runtime.Purchase
 
         async void ConnectToStore()
         {
+            _storeService.OnStoreConnected += () =>
+            {
+                Log.Info($"Store OnStoreConnected");
+            };
             _storeService.OnStoreDisconnected += description =>
             {
                 Log.Error($"Store disconnected: {description}");

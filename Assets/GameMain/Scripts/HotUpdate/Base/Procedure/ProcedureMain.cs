@@ -28,22 +28,12 @@ namespace Quester
             
             GameEntry.Event.Subscribe(PurchaseResultEventArgs.EventId, OnPurchaseResult);
             InitPurchase();
-            // var fromLaunch = procedureOwner.GetData<VarBoolean>("FromLaunch");
-            // if (fromLaunch)
-            // {
-            //     GameEntry.UI.OpenUIForm(UIFormId.MainUI);
-            //     LoadingForm.Instance.CloseSelf();
-            // }
-            // else
-            // {
-            //     GameEntry.UI.CloseAllLoadedUIForms();
-            //     GameEntry.UI.OpenUIForm(UIFormId.MainUI);
-            // }
             
-            // if (UserDataManager.Instance.GetService().MusicEnabled)
-            // {
-            //     GameEntry.Sound.PlayMusic(MusicId.BGM01);
-            // }
+            // 设置第一次启动标志
+            if (PlayerPrefs.GetString("LaunchVersion") != Application.version)
+            {
+                PlayerPrefs.SetString("LaunchVersion", Application.version);
+            }
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)

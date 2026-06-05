@@ -128,7 +128,14 @@ namespace GameMain.Editor
 
             AssetDatabase.Refresh();
         }
-        
+
+        [MenuItem("HybridCLR/Build Helper/PrintHash")]
+        static void PrintHash()
+        {
+            string path = Path.Combine(Application.streamingAssetsPath, "HotUpdate/HotUpdate.dll.bytes");
+            Debug.Log(Util.CalculateMD5(path));
+        }
+
         #region 数据结构
 
         [Serializable]
