@@ -28,6 +28,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private Dictionary<int, ShapeTemplate> shapesDict;
         private List<ShapeTemplate> smallShapeList;
         protected ItemTemplate[] items;
+        protected Dictionary<int, ItemTemplate> itemDict;
+        
         private Level level;
         private Dictionary<BonusItemTemplate, int> predictedTargets;
         public bool _oneColorMode;
@@ -72,6 +74,16 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             
             var itemHandle = Addressables.LoadAssetsAsync<ItemTemplate>("items", null).WaitForCompletion();
             items = itemHandle.ToArray();
+            itemDict = new();
+            foreach (var itemTemplate in items)
+            {
+                itemDict[itemTemplate.templateId] = itemTemplate;
+            }
+        }
+
+        public ItemTemplate GetTemplateByID(int templateId)
+        {
+            return itemDict[templateId];
         }
 
         private ShapeTemplate GetNonRepeatedShapeTemplate(HashSet<ShapeTemplate> usedShapeTemplates)

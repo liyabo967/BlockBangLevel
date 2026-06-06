@@ -52,11 +52,28 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData.Editor
                 }
             }
         }
+        
+        private static int GetLastNumber(string str)
+        {
+            int index = str.Length - 1;
+            while (index >= 0 && char.IsDigit(str[index]))
+            {
+                index--;
+            }
+            return int.TryParse(str.Substring(index + 1), out int result) ? result : -1;
+        }
 
         public override VisualElement CreateInspectorGUI()
         {
             var root = new VisualElement();
-
+            if (_target.templateId == -1)
+            {
+                _target.templateId = GetLastNumber(_target.name);
+                EditorUtility.SetDirty(_target);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+            }
+            
             // Create navigation container with arrows
             var navContainer = new VisualElement();
             navContainer.style.flexDirection = FlexDirection.Row;

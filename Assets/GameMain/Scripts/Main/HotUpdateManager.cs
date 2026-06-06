@@ -117,7 +117,7 @@ namespace GameMain
                 }
                 else
                 {
-                    // Debug.Log("HotUpdate is already the latest version");
+                    Debug.Log("HotUpdate is already the latest version");
                 }
                 
                 yield return DownloadMetadataDll(_remoteVersion);
@@ -192,7 +192,7 @@ namespace GameMain
                     }
                     else
                     {
-                        // Debug.Log($"AOT is already the latest version, {aotDll}");
+                        Debug.Log($"AOT is already the latest version, {aotDll}");
                     }
                 }
 
@@ -454,7 +454,7 @@ namespace GameMain
             {
                 request.timeout = 5;
                 yield return request.SendWebRequest();
-                
+                Debug.Log($"CheckVersion result: {request.result}");
                 if (request.result == UnityWebRequest.Result.Success)
                 {
                     string json = request.downloadHandler.text;

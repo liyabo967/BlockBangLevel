@@ -142,9 +142,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             );
             RestartLevel();
             if (gameMode == EGameMode.Classic)
+            {
                 RestoreGameState();
+            }
             else if (gameMode == EGameMode.Timed)
+            {
                 RestoreTimedGameState();
+            }
         }
 
         private void RestoreGameState()

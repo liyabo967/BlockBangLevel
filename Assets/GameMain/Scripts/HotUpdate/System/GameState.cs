@@ -1,8 +1,10 @@
 using System;
+using System.IO;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace BlockPuzzleGameToolkit.Scripts.System
@@ -11,10 +13,9 @@ namespace BlockPuzzleGameToolkit.Scripts.System
     public abstract class GameState
     {
         public EGameState gameStatus;
-        public int currentLevel;
         public EGameMode gameMode;
         public int score;
-        public LevelRow[] levelRows;
+        public LevelRowSaveData[] levelRows;
         public DateTime quitTime;
         public int bestScore;
 
@@ -25,18 +26,26 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             if (field != null)
             {
                 var cells = field.GetAllCells();
-                state.levelRows = new LevelRow[cells.GetLength(0)];
+                state.levelRows = new LevelRowSaveData[cells.GetLength(0)];
                 
                 for (var i = 0; i < cells.GetLength(0); i++)
                 {
-                    state.levelRows[i] = new LevelRow(cells.GetLength(1));
-                    for (var j = 0; j < cells.GetLength(1); j++) 
+                    state.levelRows[i] = new LevelRowSaveData(cells.GetLength(1));
+                    for (var j = 0; j < cells.GetLength(1); j++)
                     {
                         if (cells[i, j].item != null && !cells[i, j].IsEmpty())
                         {
-                            state.levelRows[i].cells[j] = cells[i, j].item?.itemTemplate;
-                            state.levelRows[i].bonusItems[j] = cells[i, j].HasBonusItem();
-                            state.levelRows[i].disabled[j] = cells[i, j].IsDisabled();
+                            if (cells[i, j].item.itemTemplate == null)
+                            {
+                                Debug.LogError($"GameState SaveData: {i},{j}, null template");
+                                continue;
+                            }
+                            var cellData = new CellSaveData();
+                            state.levelRows[i].cells[j] = cellData;
+                            cellData.isFilled = true;
+                            cellData.itemTemplateId = cells[i, j].item.itemTemplate.templateId;
+                            cellData.hasBonusItem = cells[i, j].HasBonusItem();
+                            cellData.isDisabled = cells[i, j].IsDisabled();
                         }
                     }
                 }
@@ -46,6 +55,10 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             
             // GameStateManager.Instance.SaveState(state.gameMode, state);
             var json = JsonUtility.ToJson(state);
+            // string path = Path.Combine(Application.persistentDataPath, "classic.json");
+            // Debug.Log("jsonPath: " + path);
+            // File.WriteAllText(path, json);
+            
             string key = "GameState_" + state.gameMode;
             PlayerPrefs.SetString(key, json);
             UserDataManager.Instance.SetLastPlayedMode(state.gameMode.ToString());
@@ -101,11 +114,11 @@ namespace BlockPuzzleGameToolkit.Scripts.System
                 {
                     case EGameMode.Classic:
                         var classicState = new ClassicGameState();
-                        CopyBaseProperties(tempState, classicState);
+                        // CopyBaseProperties(tempState, classicState);
                         return classicState;
                     case EGameMode.Timed:
                         var timedState = new TimedGameState();
-                        CopyBaseProperties(tempState, timedState);
+                        // CopyBaseProperties(tempState, timedState);
                         timedState.remainingTime = tempState.remainingTime;
                         return timedState;
                     default:
@@ -115,16 +128,16 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             return null;
         }
 
-        private static void CopyBaseProperties(LegacyGameState source, GameState target)
-        {
-            target.gameStatus = source.gameStatus;
-            target.currentLevel = source.currentLevel;
-            target.gameMode = source.gameMode;
-            target.score = source.score;
-            target.levelRows = source.levelRows;
-            target.quitTime = source.quitTime;
-            target.bestScore = source.bestScore;
-        }
+        // private static void CopyBaseProperties(LegacyGameState source, GameState target)
+        // {
+        //     target.gameStatus = source.gameStatus;
+        //     target.currentLevel = source.currentLevel;
+        //     target.gameMode = source.gameMode;
+        //     target.score = source.score;
+        //     target.levelRows = source.levelRows;
+        //     target.quitTime = source.quitTime;
+        //     target.bestScore = source.bestScore;
+        // }
 
         public static void Delete(EGameMode gameMode)
         {
@@ -146,6 +159,26 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             
             PlayerPrefs.Save();
         }
+    }
+
+    [Serializable]
+    public class LevelRowSaveData
+    {
+        public CellSaveData[] cells;
+        public LevelRowSaveData(int size)
+        {
+            cells = new CellSaveData[size];
+        }
+    }
+
+    [Serializable]
+    public class CellSaveData
+    {
+        public bool isFilled;
+        public int itemTemplateId;
+        public bool hasBonusItem;
+        public bool isDisabled;
+        public bool isHighlighted;
     }
 
     [Serializable]

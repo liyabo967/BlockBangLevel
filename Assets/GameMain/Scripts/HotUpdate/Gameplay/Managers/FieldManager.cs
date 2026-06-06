@@ -14,6 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
+using BlockPuzzleGameToolkit.Scripts.System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -147,7 +148,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
         }
 
-        public void RestoreFromState(LevelRow[] levelRows)
+        public void RestoreFromState(LevelRowSaveData[] levelRows)
         {
             //restore score
             if (levelRows == null) return;
@@ -157,14 +158,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 for (var j = 0; j < levelRows[i].cells.Length; j++)
                 {
                     var item = levelRows[i].cells[j];
-                    if (item != null)
+                    if (item != null && item.isFilled)
                     {
-                        cells[i,j].FillCell(item);
-                    }
-
-                    if (levelRows[i].disabled[j])
-                    {
-                        cells[i,j].DisableCell();
+                        cells[i,j].FillCell(itemFactory.GetTemplateByID(item.itemTemplateId));
+                        if (item.isDisabled)
+                        {
+                            cells[i,j].DisableCell();
+                        }
                     }
                 }
             }

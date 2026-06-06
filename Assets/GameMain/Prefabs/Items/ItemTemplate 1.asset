@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ItemTemplate 1
   m_EditorClassIdentifier: 
   prefab: {fileID: 8863438563086167043, guid: 9732692a1bd4a4271b12a0ba65cdc4e0, type: 3}
+  templateId: 1
   backgroundColor: {r: 0.11372549, g: 0.16470589, b: 0.35686275, a: 1}
   underlayColor: {r: 0.7843138, g: 0.13333334, b: 0.08627451, a: 1}
   bottomColor: {r: 0.6313726, g: 0.10980392, b: 0.050980393, a: 1}

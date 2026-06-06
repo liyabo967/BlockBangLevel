@@ -18,6 +18,8 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData
     [CreateAssetMenu(fileName = "ItemTemplate", menuName = "BlockPuzzleGameToolkit/Items/ItemTemplate", order = 1)]
     public class ItemTemplate : ScriptableData
     {
+        public int templateId = -1;
+            
         public Color backgroundColor;
         public Color underlayColor;
         public Color bottomColor;
