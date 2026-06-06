@@ -146,7 +146,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
             // Don't delete game state - this preserves best score and other important data
             // Instead, save the current state with reset score
-            SaveGameState();
+            // SaveGameState();
         }
 
         protected abstract void LoadScores();

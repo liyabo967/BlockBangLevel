@@ -89,8 +89,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay.Managers
                 return;
             }
 
-            tutorialShapesQueue = tutorialSettings.tutorialShapes
-                .Skip(currentPhase * 3).Take(3).ToArray();
+            tutorialShapesQueue = tutorialSettings.tutorialShapes;
             cellDeckManager.ClearCellDecks();
             cellDeckManager.FillCellDecksWithShape(tutorialShapesQueue[0], 1);
         }
@@ -121,6 +120,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay.Managers
         private void OnLineDestroyed(Shape obj)
         {
             currentPhase++;
+            outline.gameObject.SetActive(false);
             StartCoroutine(DelayedNextPhase());
         }
 

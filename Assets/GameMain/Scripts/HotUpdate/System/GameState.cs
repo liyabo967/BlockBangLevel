@@ -5,6 +5,7 @@ using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using Newtonsoft.Json;
+using Quester;
 using UnityEngine;
 
 namespace BlockPuzzleGameToolkit.Scripts.System
@@ -54,51 +55,26 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             state.quitTime = DateTime.Now;
             
             // GameStateManager.Instance.SaveState(state.gameMode, state);
-            var json = JsonUtility.ToJson(state);
-            // string path = Path.Combine(Application.persistentDataPath, "classic.json");
-            // Debug.Log("jsonPath: " + path);
-            // File.WriteAllText(path, json);
-            
-            string key = "GameState_" + state.gameMode;
-            PlayerPrefs.SetString(key, json);
+            // var json = JsonConvert.SerializeObject(state);
+            string key = state.gameMode.ToString();
+            GameEntry.Storage.Save(key, state);
             UserDataManager.Instance.SetLastPlayedMode(state.gameMode.ToString());
         }
 
         public static GameState Load(EGameMode gameMode)
         {
-            string key = "GameState_" + gameMode;
-            if (PlayerPrefs.HasKey(key))
+            string key = gameMode.ToString();
+            GameState state = null;
+            switch (gameMode)
             {
-                var json = PlayerPrefs.GetString(key);
-                GameState state = null;
-                
-                try
-                {
-                    switch (gameMode)
-                    {
-                        case EGameMode.Classic:
-                            state = JsonUtility.FromJson<ClassicGameState>(json);
-                            break;
-                        case EGameMode.Timed:
-                            state = JsonUtility.FromJson<TimedGameState>(json);
-                            break;
-                    }
-                    
-                    // Validate loaded state
-                    if (state != null && state.gameMode != gameMode)
-                    {
-                        return null;
-                    }
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Error loading game state: {e.Message}");
-                    return null;
-                }
-                
-                return state;
+                case EGameMode.Classic:
+                    state = GameEntry.Storage.Load<ClassicGameState>(key);
+                    break;
+                case EGameMode.Timed:
+                    state = GameEntry.Storage.Load<TimedGameState>(key);
+                    break;
             }
-            return null;
+            return state;
         }
 
         public static GameState Load()
