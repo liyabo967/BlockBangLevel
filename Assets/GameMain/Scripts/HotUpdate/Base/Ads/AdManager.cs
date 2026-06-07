@@ -177,7 +177,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             }
             else
             {
-                _adapter.LoadAd(AdType.Interstitial);
+                _adapter?.LoadAd(AdType.Interstitial);
             }
         }
 

@@ -136,17 +136,19 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             closeButton.onClick.RemoveAllListeners();
             closeButton.onClick.AddListener(BackToGame);
             restorePurchase.onClick.AddListener(RestorePurchase);
-            if(restorePurchase.gameObject.activeSelf)
+            if (restorePurchase.gameObject.activeSelf)
+            {
                 restorePurchase.gameObject.SetActive(GameManager.instance.GameSettings.enableInApps);
+            }
             shop.gameObject.SetActive(GameManager.instance.GameSettings.enableInApps);
             
             // Show privacy consent button only if UMP is available and privacy options are required
-            if( privacyConsent.gameObject.activeSelf)
+            if(privacyConsent.gameObject.activeSelf)
             {
                 privacyConsent.gameObject.SetActive(GameManager.instance.GameSettings.enableAds &&
                                                  AdManager.Instance.IsPrivacyOptionsRequired());
             }
-
+            
             // HomeButtonPlayAnim();
         }
 
