@@ -99,8 +99,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         
         private void TryToUnlockAdventure()
         {
-            Debug.Log("TryToUnlockAdventure, _adventureUnlocked: " + _adventureUnlocked);
-            Debug.Log("TryToUnlockAdventure: " + UserDataManager.Instance.AdventureState);
             if (!_adventureUnlocked)
             {
                 if (UserDataManager.Instance.AdventureState == 1)

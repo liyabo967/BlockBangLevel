@@ -1,10 +1,73 @@
 using GoogleMobileAds.Api;
+using Quester;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BlockPuzzleGameToolkit.Scripts.GUI
 {
     public class GM : MonoSingleton<GM>
     {
+        [SerializeField]
+        private LongPressButton longPressButton;
+        [Header("Login")]
+        [SerializeField]
+        private GameObject loginDlg;
+        [SerializeField]
+        private Button loginBtn;
+        [SerializeField]
+        private Button closeLoginBtn;
+        [SerializeField]
+        private TMP_InputField passwordInput;
+        [Header("GM")]
+        [SerializeField]
+        private Button gmCloseBtn;
+        [SerializeField]
+        private GameObject gmDlg;
+
+        protected override void OnSingletonAwake()
+        {
+            base.OnSingletonAwake();
+            longPressButton.onLongPress.AddListener(ShowLoginDialog);
+            loginBtn.onClick.AddListener(CheckPassword);
+            closeLoginBtn.onClick.AddListener(CloseLoginDialog);
+            gmCloseBtn.onClick.AddListener(CloseGm);
+        }
+
+        private void ShowLoginDialog()
+        {
+            loginDlg.SetActive(true);
+        }
+
+        private void CheckPassword()
+        {
+            if (passwordInput.text == "010101")
+            {
+                loginDlg.SetActive(false);
+                gmDlg.SetActive(true);
+            }
+        }
+
+        private void CloseLoginDialog()
+        {
+            loginDlg.SetActive(false);
+        }
+
+        private void CloseGm()
+        {
+            gmDlg.SetActive(false);
+        }
+
+        public void PauseMusic()
+        {
+            GameEntry.Sound.PauseMusic();
+        }
+
+        public void ResumeMusic()
+        {
+            GameEntry.Sound.ResumeMusic();
+        }
+        
         public void OpenAdInspector()
         {
             // MobileAds.OpenAdInspector((AdInspectorError error) =>

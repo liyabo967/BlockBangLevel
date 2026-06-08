@@ -8,6 +8,7 @@
 using GameFramework;
 using GameFramework.DataTable;
 using GameFramework.Sound;
+using UnityEngine;
 using UnityGameFramework.Runtime;
 
 namespace Quester
@@ -53,6 +54,24 @@ namespace Quester
 
             soundComponent.StopSound(s_MusicSerialId.Value, FadeVolumeDuration);
             s_MusicSerialId = null;
+        }
+        
+        public static void PauseMusic(this SoundComponent soundComponent)
+        {
+            if (!s_MusicSerialId.HasValue)
+            {
+                return;
+            }
+            soundComponent.PauseSound(s_MusicSerialId.Value);
+        }
+        
+        public static void ResumeMusic(this SoundComponent soundComponent)
+        {
+            if (!s_MusicSerialId.HasValue)
+            {
+                return;
+            }
+            soundComponent.ResumeSound(s_MusicSerialId.Value);
         }
 
         public static int? PlaySound(this SoundComponent soundComponent, SoundId soundId)

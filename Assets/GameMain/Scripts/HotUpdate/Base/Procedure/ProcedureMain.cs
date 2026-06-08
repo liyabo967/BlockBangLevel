@@ -34,6 +34,24 @@ namespace Quester
             {
                 PlayerPrefs.SetString("LaunchVersion", Application.version);
             }
+            
+            AdManager.Instance.OnShown += result =>
+            {
+                // Debug.Log("Procedure OnAdShown：" + result.AdType);
+                if (result.AdType == AdType.Interstitial || result.AdType == AdType.RewardedVideo)
+                {
+                    GameEntry.Sound.PauseMusic();
+                }
+            };
+            
+            AdManager.Instance.OnAdClosed += result =>
+            {
+                // Debug.Log("Procedure OnAdClosed：" + result.AdType);
+                if (result.AdType == AdType.Interstitial || result.AdType == AdType.RewardedVideo)
+                {
+                    GameEntry.Sound.ResumeMusic();
+                }
+            };
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
@@ -58,9 +76,9 @@ namespace Quester
                         }
                     }
 
-#if UNITY_IPHONE
-                    GameEntry.UI.OpenUIForm(UIFormId.Tips, GameEntry.Localization.GetString("#restore_purchase_success"));
-#endif
+// #if UNITY_IPHONE
+//                     GameEntry.UI.OpenUIForm(UIFormId.Tips, GameEntry.Localization.GetString("#restore_purchase_success"));
+// #endif
                 }
             }
         }

@@ -517,6 +517,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3519584564352214544}
+  - component: {fileID: 7183470878796579592}
   m_Layer: 0
   m_Name: ApplicationController
   m_TagString: Untagged
@@ -539,6 +540,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3036067627383023671}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7183470878796579592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8671196335826845785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb03ae2f9d0e34d8ca7014b91176b8d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8741534910728232880
 GameObject:
   m_ObjectHideFlags: 0
