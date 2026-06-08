@@ -11,6 +11,7 @@
 // // THE SOFTWARE.
 
 using BlockPuzzleGameToolkit.Scripts.Data;
+using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.System;
 using GameAnalyticsSDK;
@@ -33,8 +34,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            UserDataManager.Instance.AddFailStreak();
-            GameAnalyticsManager.SendLevelProgression(UserDataManager.Instance.Level, GAProgressionStatus.Fail);
+            if (GameDataManager.GetGameMode() == EGameMode.Adventure)
+            {
+                UserDataManager.Instance.AddFailStreak();
+                GameAnalyticsManager.SendLevelProgression(UserDataManager.Instance.Level, GAProgressionStatus.Fail);
+            }
         }
 
         private void Retry()

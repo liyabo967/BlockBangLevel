@@ -21,6 +21,7 @@ using BlockPuzzleGameToolkit.Scripts.GUI.Labels;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.System;
 using DG.Tweening;
+using Firebase.Analytics;
 using Quester;
 using TMPro;
 using UnityEngine;
@@ -186,6 +187,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             GameManager.instance.SetGameMode(EGameMode.Adventure);
             GameManager.instance.OpenMap();
             adventureRedPoint.SetActive(false);
+            if (UserDataManager.Instance.AdventureState == 1)
+            {
+                FirebaseAnalytics.LogEvent("adventure_start");
+            }
             UserDataManager.Instance.SetAdventureState(2);
         }
 

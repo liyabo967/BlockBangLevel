@@ -564,8 +564,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             // level complete event
             if (gameMode == EGameMode.Adventure)
             {
-                var season = $"{TimeManager.SeasonTime.year}_{TimeManager.SeasonTime.week}";
-                GameAnalyticsManager.SendUserProgression(UserStage.Adventure, GAProgressionStatus.Complete, season, currentLevel);
+                GameAnalyticsManager.SendLevelProgression(currentLevel, GAProgressionStatus.Complete);
             }
             
             GameDataManager.UnlockLevel(currentLevel + 1);
