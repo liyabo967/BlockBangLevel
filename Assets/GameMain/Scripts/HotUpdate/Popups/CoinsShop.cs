@@ -23,6 +23,7 @@ using GameFramework.Event;
 using Quester;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
 using UnityGameFramework.Scripts.Runtime.Purchase;
 
 namespace BlockPuzzleGameToolkit.Scripts.Popups
@@ -31,6 +32,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
     {
         public ItemPurchase[] packs;
         // private CoinsShopSettings shopSettings;
+        
+        [SerializeField]
+        private ScrollRect scrollRect;
 
         [SerializeField]
         private ItemPurchase watchAd;
@@ -40,6 +44,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         private void OnEnable()
         {
             GameEntry.Event.Subscribe(PurchaseResultEventArgs.EventId, OnPurchaseResult);
+            if (UserDataManager.Instance.NoAdsPurchased)
+            {
+                RectTransform viewport = scrollRect.viewport;
+                viewport.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 1100f);
+            }
         }
 
         private void OnDisable()

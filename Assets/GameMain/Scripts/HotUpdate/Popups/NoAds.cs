@@ -87,7 +87,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 UserDataManager.Instance.SetNoAds();
                 UserDataManager.Instance.SetPurchasedProductId(productId);
                 AdManager.Instance.RemoveAds();
-                Close();
+                Close(true);
             }
         }
 
