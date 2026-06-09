@@ -1,3 +1,5 @@
+using System;
+using BlockPuzzleGameToolkit.Scripts.Data;
 using GoogleMobileAds.Api;
 using Quester;
 using TMPro;
@@ -24,7 +26,11 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
         private Button gmCloseBtn;
         [SerializeField]
         private GameObject gmDlg;
-
+        [SerializeField]
+        private TMP_InputField levelInput;
+        [SerializeField]
+        private Button levelOkBtn;
+        
         protected override void OnSingletonAwake()
         {
             base.OnSingletonAwake();
@@ -32,6 +38,7 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
             loginBtn.onClick.AddListener(CheckPassword);
             closeLoginBtn.onClick.AddListener(CloseLoginDialog);
             gmCloseBtn.onClick.AddListener(CloseGm);
+            levelOkBtn.onClick.AddListener(EditLevel);
         }
 
         private void ShowLoginDialog()
@@ -66,6 +73,14 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
         public void ResumeMusic()
         {
             GameEntry.Sound.ResumeMusic();
+        }
+
+        private void EditLevel()
+        {
+            if (int.TryParse(levelInput.text, out int level))
+            {
+                UserDataManager.Instance.SetLevel(level);
+            }
         }
         
         public void OpenAdInspector()

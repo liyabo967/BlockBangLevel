@@ -26,6 +26,7 @@ using BlockPuzzleGameToolkit.Scripts.Services;
 using BlockPuzzleGameToolkit.Scripts.Services.IAP;
 using BlockPuzzleGameToolkit.Scripts.Settings;
 using DG.Tweening;
+using Facebook.Unity;
 using GameAnalyticsSDK;
 using GameMain.Scripts.HotUpdate.Base.Ads;
 using Quester;
@@ -123,6 +124,15 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             {
                 blockButtons = false;
                 OpenClassicMode();
+            }
+            
+            if (FB.IsInitialized) {
+                FB.ActivateApp();
+            } else {
+                //Handle FB.Init
+                FB.Init( () => {
+                    FB.ActivateApp();
+                });
             }
         }
 
