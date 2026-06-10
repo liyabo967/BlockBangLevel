@@ -34,10 +34,11 @@ namespace Quester
             Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task => {
                 var dependencyStatus = task.Result;
                 if (dependencyStatus == Firebase.DependencyStatus.Available) {
+                    Debug.Log("Firebase.FirebaseApp is available.");
                     // Create and hold a reference to your FirebaseApp,
                     // where app is a Firebase.FirebaseApp property of your application class.
                     var app = Firebase.FirebaseApp.DefaultInstance;
-
+                    Firebase.Analytics.FirebaseAnalytics.LogEvent("game_start");
                     // Set a flag here to indicate whether Firebase is ready to use by your app.
                 } else {
                     UnityEngine.Debug.LogError(System.String.Format(

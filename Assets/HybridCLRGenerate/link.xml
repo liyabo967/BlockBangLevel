@@ -26,6 +26,14 @@
   <assembly fullname="DOTween.Modules">
     <type fullname="DG.Tweening.DOTweenModuleUI" preserve="all" />
   </assembly>
+  <assembly fullname="Facebook.Unity">
+    <type fullname="Facebook.Unity.FB" preserve="all" />
+    <type fullname="Facebook.Unity.HideUnityDelegate" preserve="all" />
+    <type fullname="Facebook.Unity.InitDelegate" preserve="all" />
+  </assembly>
+  <assembly fullname="Firebase.Analytics">
+    <type fullname="Firebase.Analytics.FirebaseAnalytics" preserve="all" />
+  </assembly>
   <assembly fullname="Firebase.App">
     <type fullname="Firebase.DependencyStatus" preserve="all" />
     <type fullname="Firebase.FirebaseApp" preserve="all" />
@@ -33,8 +41,10 @@
   <assembly fullname="Firebase.TaskExtension">
     <type fullname="Firebase.Extensions.TaskExtension" preserve="all" />
   </assembly>
+
   <assembly fullname="GameAnalyticsAsmdef">
     <type fullname="GameAnalyticsSDK.GAAdAction" preserve="all" />
+    <type fullname="GameAnalyticsSDK.GAAdError" preserve="all" />
     <type fullname="GameAnalyticsSDK.GAAdType" preserve="all" />
     <type fullname="GameAnalyticsSDK.GAProgressionStatus" preserve="all" />
     <type fullname="GameAnalyticsSDK.GameAnalytics" preserve="all" />
@@ -56,7 +66,6 @@
     <type fullname="GameFramework.Utility/Text" preserve="all" />
   </assembly>
   <assembly fullname="GameIAP">
-    <type fullname="BlockPuzzleGameToolkit.Scripts.Services.IAP.IAPManager" preserve="all" />
     <type fullname="BlockPuzzleGameToolkit.Scripts.Services.IAP.ProductID" preserve="all" />
     <type fullname="BlockPuzzleGameToolkit.Scripts.Services.IAP.ProductTypeWrapper" preserve="all" />
     <type fullname="BlockPuzzleGameToolkit.Scripts.Services.IAP.ProductTypeWrapper/ProductType" preserve="all" />
@@ -97,6 +106,7 @@
     <type fullname="BlockPuzzleGameToolkit.Scripts.System.Haptic.HapticFeedback/HapticForce" preserve="all" />
     <type fullname="FileDownloader" preserve="all" />
     <type fullname="GameMain.LocalLanguage" preserve="all" />
+    <type fullname="GameMain.Util" preserve="all" />
     <type fullname="MonoSingleton`1" preserve="all" />
   </assembly>
   <assembly fullname="Reordable">
@@ -157,6 +167,7 @@
   <assembly fullname="Unity.TextMeshPro">
     <type fullname="TMPro.TMP_Dropdown" preserve="all" />
     <type fullname="TMPro.TMP_Dropdown/OptionData" preserve="all" />
+    <type fullname="TMPro.TMP_InputField" preserve="all" />
     <type fullname="TMPro.TMP_Text" preserve="all" />
     <type fullname="TMPro.TextAlignmentOptions" preserve="all" />
     <type fullname="TMPro.TextMeshProUGUI" preserve="all" />
@@ -283,6 +294,9 @@
     <type fullname="UnityEngine.TextAnchor" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.UI">
+    <type fullname="UnityEngine.EventSystems.IEventSystemHandler" preserve="all" />
+    <type fullname="UnityEngine.EventSystems.IPointerDownHandler" preserve="all" />
+    <type fullname="UnityEngine.EventSystems.IPointerUpHandler" preserve="all" />
     <type fullname="UnityEngine.EventSystems.PointerEventData" preserve="all" />
     <type fullname="UnityEngine.UI.Button" preserve="all" />
     <type fullname="UnityEngine.UI.Button/ButtonClickedEvent" preserve="all" />
@@ -442,7 +456,6 @@
     <type fullname="System.Reflection.DefaultMemberAttribute" preserve="all" />
     <type fullname="System.Reflection.MemberInfo" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.AsyncStateMachineAttribute" preserve="all" />
-    <type fullname="System.Runtime.CompilerServices.AsyncTaskMethodBuilder" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.AsyncVoidMethodBuilder" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.CompilationRelaxationsAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.CompilerGeneratedAttribute" preserve="all" />
@@ -451,7 +464,6 @@
     <type fullname="System.Runtime.CompilerServices.IteratorStateMachineAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.RuntimeHelpers" preserve="all" />
-    <type fullname="System.Runtime.CompilerServices.TaskAwaiter" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.TaskAwaiter`1" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.TupleElementNamesAttribute" preserve="all" />
     <type fullname="System.Runtime.InteropServices.InAttribute" preserve="all" />
