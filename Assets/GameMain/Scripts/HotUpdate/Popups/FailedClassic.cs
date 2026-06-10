@@ -13,6 +13,7 @@
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using GameAnalyticsSDK;
+using Quester;
 using TMPro;
 using UnityEngine;
 
@@ -38,11 +39,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             bestScoreText.text = bestScore.ToString();
             if (score > bestScore)
             {
+                GameEntry.Sound.PlaySound(SoundId.SeasonSuccess);
                 bestScoreStuff.SetActive(true);
                 failedStuff.SetActive(false);
             }
             else
             {
+                GameEntry.Sound.PlaySound(SoundId.Win);
                 failedStuff.SetActive(true);
                 bestScoreStuff.SetActive(false);
             }

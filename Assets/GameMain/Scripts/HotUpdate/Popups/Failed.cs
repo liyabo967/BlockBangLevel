@@ -36,6 +36,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             base.OnOpen(userData);
             if (GameDataManager.GetGameMode() == EGameMode.Adventure)
             {
+                GameEntry.Sound.PlaySound(SoundId.Lose);
                 UserDataManager.Instance.AddFailStreak();
                 GameAnalyticsManager.SendLevelProgression(UserDataManager.Instance.Level, GAProgressionStatus.Fail);
             }

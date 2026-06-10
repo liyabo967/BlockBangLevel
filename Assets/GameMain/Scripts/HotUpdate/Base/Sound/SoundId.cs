@@ -33,6 +33,14 @@ namespace Quester
         
         SpinBonus,
         
-        Stack
+        Stack,
+        // 游戏成功
+        Win,
+        // 游戏失败
+        Lose,
+        // 收集到拼图碎片
+        Fragment,
+        // 赛季完成
+        SeasonSuccess
     }
 }

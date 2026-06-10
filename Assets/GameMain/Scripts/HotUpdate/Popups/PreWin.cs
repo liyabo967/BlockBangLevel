@@ -29,6 +29,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         protected virtual void OnEnable()
         {
             messageText.transform.localScale = Vector3.zero;
+            GameEntry.Sound.PlaySound(SoundId.Win);
             if (UserDataManager.Instance.Level > PictureComponent.MaxLevel)
             {
                 UserDataManager.Instance.AddPicture($"{TimeManager.SeasonTime.year}_{TimeManager.SeasonTime.week}");

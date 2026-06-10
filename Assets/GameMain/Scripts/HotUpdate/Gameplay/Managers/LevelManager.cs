@@ -559,6 +559,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private void SetWin()
         {
+            GameEntry.Sound.PauseMusic();
             UserDataManager.Instance.AddWinStreak();
             UserDataManager.Instance.ResetFailStreak();
             // level complete event
@@ -573,6 +574,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private void SetLose()
         {
+            GameEntry.Sound.PauseMusic();
             if (gameMode == EGameMode.Classic)
                 GameState.Delete(EGameMode.Classic);
             else if (gameMode == EGameMode.Timed)

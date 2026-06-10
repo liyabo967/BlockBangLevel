@@ -173,6 +173,7 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             DOTween.KillAll();
             MenuManager.instance.CloseAllPopups();
             EventManager.GetEvent(EGameEvent.RestartLevel).Invoke();
+            GameEntry.Sound.PlayMusic(MusicId.Game);
         }
 
         public void RefreshUI()
@@ -193,10 +194,12 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             if (StateManager.instance.CurrentState == EScreenStates.Game && GameDataManager.GetGameMode() == EGameMode.Classic)
             {
                 SceneLoader.instance.GoMain();
+                GameEntry.Sound.PlayMusic(MusicId.Main);
             }
             else if (StateManager.instance.CurrentState == EScreenStates.Game && GameDataManager.GetGameMode() == EGameMode.Adventure)
             {
                 SceneLoader.instance.StartMapScene();
+                GameEntry.Sound.PlayMusic(MusicId.Main);
             }
             else if (StateManager.instance.CurrentState == EScreenStates.Map)
             {

@@ -88,6 +88,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
                 {
                     img.gameObject.SetActive(false);
                 };
+                GameEntry.Sound.PlaySound(SoundId.SeasonSuccess);
             }
 
             var isIntervalReady =  UserDataManager.Instance.LastRateTimestamp == 0;

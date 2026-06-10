@@ -24,7 +24,7 @@ namespace Quester
             _procedureOwner = procedureOwner;
             Debug.Log("ProcedureMain OnEnter.");
             LoadingForm.Instance.CloseSelf();
-            GameEntry.Sound.PlayMusic(MusicId.BGM01);
+            GameEntry.Sound.PlayMusic(MusicId.Main);
             
             GameEntry.Event.Subscribe(PurchaseResultEventArgs.EventId, OnPurchaseResult);
             InitPurchase();

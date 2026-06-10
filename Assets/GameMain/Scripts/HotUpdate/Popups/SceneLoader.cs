@@ -17,6 +17,7 @@ using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.System;
 using GameAnalyticsSDK;
+using Quester;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
@@ -43,6 +44,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         public void StartGameSceneClassic()
         {
+            GameEntry.Sound.PlayMusic(MusicId.Game);
             GameDataManager.SetGameMode(EGameMode.Classic);
             var levelPath = $"Assets/GameMain/Settings/Misc/ClassicLevel.asset";
             Addressables.LoadAssetAsync<Level>(levelPath).Completed += handle =>
@@ -54,6 +56,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         public void StartGameScene(int levelNumber = 1)
         {
+            GameEntry.Sound.PlayMusic(MusicId.Game);
             GameDataManager.SetGameMode(EGameMode.Adventure);
             GameAnalyticsManager.SendLevelProgression(UserDataManager.Instance.Level, GAProgressionStatus.Start);
             // var levelNum = levelNumber * 2;
