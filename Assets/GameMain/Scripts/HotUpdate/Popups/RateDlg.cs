@@ -11,6 +11,7 @@ namespace Quester
     {
         public Button rateBtn;
         public Button feedbackBtn;
+        public Button disableBtn;
         public List<Button> starBtnList;
         public TextMeshProUGUI rateTips;
         public TextMeshProUGUI feedbackTips;
@@ -29,11 +30,12 @@ namespace Quester
                 });
             }
 
-            OnClickStar(starBtnList.Count - 1);
+            // OnClickStar(starBtnList.Count - 1);
         }
 
         private void OnClickStar(int index)
         {
+            disableBtn.gameObject.SetActive(false);
             for (var i = 0; i < starBtnList.Count; i++)
             {
                 var star =  starBtnList[i];

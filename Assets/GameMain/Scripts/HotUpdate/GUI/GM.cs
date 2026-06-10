@@ -31,6 +31,14 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
         [SerializeField]
         private Button levelOkBtn;
         
+        [SerializeField]
+        private TMP_InputField scoreInput;
+        [SerializeField]
+        private Button scoreOkBtn;
+        
+        [SerializeField]
+        private Button unlockAdventureBtn;
+        
         protected override void OnSingletonAwake()
         {
             base.OnSingletonAwake();
@@ -39,6 +47,8 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
             closeLoginBtn.onClick.AddListener(CloseLoginDialog);
             gmCloseBtn.onClick.AddListener(CloseGm);
             levelOkBtn.onClick.AddListener(EditLevel);
+            scoreOkBtn.onClick.AddListener(EditScore);
+            unlockAdventureBtn.onClick.AddListener(UnlockAdventure);
         }
 
         private void ShowLoginDialog()
@@ -81,6 +91,19 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
             {
                 UserDataManager.Instance.SetLevel(level);
             }
+        }
+
+        private void EditScore()
+        {
+            if (int.TryParse(scoreInput.text, out int score))
+            {
+                UserDataManager.Instance.SetClassicBestScore(score);
+            }
+        }
+
+        public void UnlockAdventure()
+        {
+            UserDataManager.Instance.SetAdventureState(1);
         }
         
         public void OpenAdInspector()

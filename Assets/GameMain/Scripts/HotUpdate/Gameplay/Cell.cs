@@ -227,7 +227,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         public void HighlightCellTutorial()
         {
-            image.color = new Color(43f / 255f, 59f / 255f, 120f / 255f, 1f);
+            // image.color = new Color(43f / 255f, 59f / 255f, 120f / 255f, 1f);
         }
 
         public void HighlightCellFill(ItemTemplate itemTemplate)
