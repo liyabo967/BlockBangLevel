@@ -183,6 +183,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         private void PlayAdventureMode()
         {
+            if (UserDataManager.Instance.AdventureState == 0)
+            {
+                return;
+            }
             StopAdventureButtonAnim();
             GameManager.instance.SetGameMode(EGameMode.Adventure);
             GameManager.instance.OpenMap();
