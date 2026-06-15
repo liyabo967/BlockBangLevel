@@ -155,10 +155,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                     result = 0.9f;
                     break;
                 case 2:
-                    result = 0.9f;
+                    result = 0.8f;
                     break;
                 case 3:
-                    result = 0.8f;
+                    result = 0.7f;
                     break;
                 case 4:
                     result = 0.6f;
@@ -182,19 +182,19 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private int GetClassicDifficulty()
         {
-            if (_levelManager.ClassicModeHandler.score < 500)
+            if (_levelManager.ClassicModeHandler.score < 100)
             {
                 return 1;
             }
-            else if (_levelManager.ClassicModeHandler.score < 600)
+            if (_levelManager.ClassicModeHandler.score < 200)
             {
                 return 2;
             }
-            else if (_levelManager.ClassicModeHandler.score < 700)
+            else if (_levelManager.ClassicModeHandler.score < 500)
             {
                 return 3;
             }
-            else if (_levelManager.ClassicModeHandler.score < 800)
+            else if (_levelManager.ClassicModeHandler.score < 700)
             {
                 return 4;
             }
