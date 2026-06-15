@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Facebook.Unity;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 using Firebase.Extensions;
 using GameAnalyticsSDK;
@@ -15,6 +16,7 @@ namespace Quester
         {
             base.OnEnter(procedureOwner);
             InitFirebase();
+            InitFacebook();
             InitATT();
         }
 
@@ -47,6 +49,16 @@ namespace Quester
                 }
             });
 #endif
+        }
+
+        private void InitFacebook()
+        {
+            if (FB.IsInitialized) {
+                FB.ActivateApp();
+            } else {
+                //Handle FB.Init
+                FB.Init(FB.ActivateApp);
+            }
         }
 
         private void InitATT()

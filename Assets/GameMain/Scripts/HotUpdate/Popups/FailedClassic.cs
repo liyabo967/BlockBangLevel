@@ -49,7 +49,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 failedStuff.SetActive(true);
                 bestScoreStuff.SetActive(false);
             }
-            
+            closeButton.gameObject.SetActive(true);
             GameAnalyticsManager.SendUserProgression(UserStage.Classic, GAProgressionStatus.Complete, bestScore.ToString(), score);
         }
     }

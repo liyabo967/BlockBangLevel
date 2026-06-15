@@ -125,15 +125,6 @@ namespace BlockPuzzleGameToolkit.Scripts.System
                 blockButtons = false;
                 OpenClassicMode();
             }
-            
-            if (FB.IsInitialized) {
-                FB.ActivateApp();
-            } else {
-                //Handle FB.Init
-                FB.Init( () => {
-                    FB.ActivateApp();
-                });
-            }
         }
 
         private void HandleDailyBonus()

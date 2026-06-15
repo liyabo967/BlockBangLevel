@@ -91,6 +91,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private Vector3 cachedFieldCenter;
         private bool isFieldCenterCached;
 
+        public ClassicModeHandler ClassicModeHandler => classicModeHandler;
+
         private void OnEnable()
         {
             StateManager.instance.CurrentState = EScreenStates.Game;

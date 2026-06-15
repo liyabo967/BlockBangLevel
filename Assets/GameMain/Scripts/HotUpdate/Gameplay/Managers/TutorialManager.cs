@@ -18,6 +18,7 @@ using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.Settings;
 using BlockPuzzleGameToolkit.Scripts.System;
 using BlockPuzzleGameToolkit.Scripts.Utils;
+using Facebook.Unity;
 using Firebase.Analytics;
 using GameAnalyticsSDK;
 using UnityEngine;
@@ -97,6 +98,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay.Managers
 
         public void EndTutorial()
         {
+            FBEventManager.SendAppEvent(AppEventName.CompletedTutorial);
             FirebaseAnalytics.LogEvent("tutorial_complete");
             GameAnalyticsManager.SendUserProgression(UserStage.Tutorial, GAProgressionStatus.Complete);
             IsTutorialActive = false;

@@ -39,6 +39,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         public Shape shapePrefab;
 
         private HashSet<ShapeTemplate> usedShapes = new HashSet<ShapeTemplate>();
+        private LevelManager _levelManager;
+
+        private void Start()
+        {
+            _levelManager =  FindFirstObjectByType<LevelManager>();
+        }
 
         private void OnEnable()
         {
@@ -103,7 +109,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             var shapeTemplates = itemFactory.GetPerfectShape();
             var shapeTemplateIndex = 0;
             var perfectRatio = GetPerfectRatio(GetDifficulty());
-            // Log.Info("perfectRatio: " + perfectRatio);
+            // Debug.Log("FillPerfectShape, perfectRatio:" + perfectRatio);
             try
             {
                 for (var index = 0; index < cellDecks.Length; index++)
@@ -142,7 +148,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private float GetPerfectRatio(int difficulty)
         {
-            var result = 0.1f;
+            var result = 0.9f;
             switch (difficulty)
             {
                 case 1:
@@ -165,6 +171,37 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         }
 
         private int GetDifficulty()
+        {
+            if (GameDataManager.GetGameMode() == EGameMode.Classic)
+            {
+                return GetClassicDifficulty();
+            }
+
+            return GetAdventureDifficulty();
+        }
+
+        private int GetClassicDifficulty()
+        {
+            if (_levelManager.ClassicModeHandler.score < 500)
+            {
+                return 1;
+            }
+            else if (_levelManager.ClassicModeHandler.score < 600)
+            {
+                return 2;
+            }
+            else if (_levelManager.ClassicModeHandler.score < 700)
+            {
+                return 3;
+            }
+            else if (_levelManager.ClassicModeHandler.score < 800)
+            {
+                return 4;
+            }
+            return 5;
+        }
+
+        private int GetAdventureDifficulty()
         {
             int difficulty = 1;
             int level = UserDataManager.Instance.Level;
