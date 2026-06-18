@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using AppsFlyerSDK;
 using Facebook.Unity;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 using Firebase.Extensions;
@@ -84,8 +86,33 @@ namespace Quester
             AdManager.Instance.Init((success) =>
             {
                 _completed = true;
+                InitAppsFlyer();
                 GameEntry.Event.Fire(this, ProgressEventArgs.Create(ProgressEventArgs.ProgressKey.InitSdk, 1f));
             });
+        }
+
+        private void InitAppsFlyer()
+        {
+            string devKey = "kq7EtcBRk5FyRBA86KTvPa";
+            string appID = "com.quester.game.blockbang";
+#if UNITY_ANDROID
+            appID = "com.quester.game.blockbang";
+#elif UNITY_IOS
+            appID = "6749655294";
+#endif
+            AppsFlyer.initSDK(devKey, appID);
+            AppsFlyer.OnRequestResponse += AppsFlyerOnRequestResponse;
+            AppsFlyerConsent consent = AppsFlyerConsent.ForGDPRUser(true, true);
+            AppsFlyer.setConsentData(consent);
+            AppsFlyer.setIsDebug(true);
+            AppsFlyer.startSDK();
+        }
+        
+        private void AppsFlyerOnRequestResponse(object sender, EventArgs e)
+        {
+            var args = e as AppsFlyerRequestEventArgs;
+            Debug.Log("AppsFlyerOnRequestResponse, status code " + args.statusCode);
+            AppsFlyer.AFLog("AppsFlyerOnRequestResponse", " status code " + args.statusCode);
         }
 
         private void SubscribeAdEvent()

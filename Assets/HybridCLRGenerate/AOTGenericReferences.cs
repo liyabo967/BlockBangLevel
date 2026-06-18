@@ -52,7 +52,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Action<UnityEngine.SceneManagement.Scene>
 	// System.Action<UnityEngine.Vector2>
 	// System.Action<UnityEngine.Vector3>
-	// System.Action<byte,object>
 	// System.Action<byte>
 	// System.Action<float>
 	// System.Action<int>
@@ -270,7 +269,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Func<BlockPuzzleGameToolkit.Scripts.Localization.CurtureTuple,object>
 	// System.Func<System.Collections.Generic.KeyValuePair<object,int>,byte>
 	// System.Func<System.Collections.Generic.KeyValuePair<object,object>,byte>
-	// System.Func<System.Threading.Tasks.VoidTaskResult>
 	// System.Func<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>>
 	// System.Func<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
 	// System.Func<UnityEngine.Vector3,byte>
@@ -279,7 +277,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Func<float,byte>
 	// System.Func<int>
 	// System.Func<long>
-	// System.Func<object,System.Threading.Tasks.VoidTaskResult>
 	// System.Func<object,UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
 	// System.Func<object,UnityEngine.Vector3>
 	// System.Func<object,byte>
@@ -295,8 +292,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Linq.Buffer<ushort>
 	// System.Linq.Enumerable.<CastIterator>d__99<object>
 	// System.Linq.Enumerable.<OfTypeIterator>d__97<object>
-	// System.Linq.Enumerable.<SkipIterator>d__31<object>
-	// System.Linq.Enumerable.<TakeIterator>d__25<object>
 	// System.Linq.Enumerable.Iterator<BlockPuzzleGameToolkit.Scripts.Localization.CurtureTuple>
 	// System.Linq.Enumerable.Iterator<UnityEngine.Vector3>
 	// System.Linq.Enumerable.Iterator<float>
@@ -333,6 +328,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Linq.OrderedEnumerable<object,int>
 	// System.Linq.OrderedEnumerable<object>
 	// System.Nullable<UnityEngine.Vector2>
+	// System.Nullable<float>
 	// System.Nullable<int>
 	// System.Predicate<BlockPuzzleGameToolkit.Scripts.Localization.CurtureTuple>
 	// System.Predicate<BlockPuzzleGameToolkit.Scripts.Map.MapTypeBinding>
@@ -343,33 +339,27 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Predicate<int>
 	// System.Predicate<object>
 	// System.Predicate<ushort>
-	// System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.Threading.Tasks.VoidTaskResult>
-	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<System.Threading.Tasks.VoidTaskResult>
 	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
 	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<byte>
 	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<int>
 	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<long>
 	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<object>
-	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<System.Threading.Tasks.VoidTaskResult>
 	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
 	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<byte>
 	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<int>
 	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<long>
 	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<object>
-	// System.Runtime.CompilerServices.TaskAwaiter<System.Threading.Tasks.VoidTaskResult>
 	// System.Runtime.CompilerServices.TaskAwaiter<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
 	// System.Runtime.CompilerServices.TaskAwaiter<byte>
 	// System.Runtime.CompilerServices.TaskAwaiter<int>
 	// System.Runtime.CompilerServices.TaskAwaiter<long>
 	// System.Runtime.CompilerServices.TaskAwaiter<object>
 	// System.Threading.Tasks.ContinuationResultTaskFromResultTask<int,object>
-	// System.Threading.Tasks.ContinuationTaskFromResultTask<System.Threading.Tasks.VoidTaskResult>
 	// System.Threading.Tasks.ContinuationTaskFromResultTask<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
 	// System.Threading.Tasks.ContinuationTaskFromResultTask<byte>
 	// System.Threading.Tasks.ContinuationTaskFromResultTask<int>
 	// System.Threading.Tasks.ContinuationTaskFromResultTask<long>
 	// System.Threading.Tasks.ContinuationTaskFromResultTask<object>
-	// System.Threading.Tasks.Task<System.Threading.Tasks.VoidTaskResult>
 	// System.Threading.Tasks.Task<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
 	// System.Threading.Tasks.Task<byte>
 	// System.Threading.Tasks.Task<int>
@@ -378,13 +368,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Threading.Tasks.TaskCompletionSource<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
 	// System.Threading.Tasks.TaskCompletionSource<long>
 	// System.Threading.Tasks.TaskCompletionSource<object>
-	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<System.Threading.Tasks.VoidTaskResult>
 	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
 	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<byte>
 	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<int>
 	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<long>
 	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<object>
-	// System.Threading.Tasks.TaskFactory<System.Threading.Tasks.VoidTaskResult>
 	// System.Threading.Tasks.TaskFactory<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
 	// System.Threading.Tasks.TaskFactory<byte>
 	// System.Threading.Tasks.TaskFactory<int>
@@ -489,11 +477,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Collections.Generic.IEnumerable<float> System.Linq.Enumerable.Select<object,float>(System.Collections.Generic.IEnumerable<object>,System.Func<object,float>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<BlockPuzzleGameToolkit.Scripts.Localization.CurtureTuple,object>(System.Collections.Generic.IEnumerable<BlockPuzzleGameToolkit.Scripts.Localization.CurtureTuple>,System.Func<BlockPuzzleGameToolkit.Scripts.Localization.CurtureTuple,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Select<object,object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,object>)
-		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Skip<object>(System.Collections.Generic.IEnumerable<object>,int)
-		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.SkipIterator<object>(System.Collections.Generic.IEnumerable<object>,int)
 		// float System.Linq.Enumerable.Sum<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,float>)
-		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Take<object>(System.Collections.Generic.IEnumerable<object>,int)
-		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.TakeIterator<object>(System.Collections.Generic.IEnumerable<object>,int)
 		// UnityEngine.Vector3[] System.Linq.Enumerable.ToArray<UnityEngine.Vector3>(System.Collections.Generic.IEnumerable<UnityEngine.Vector3>)
 		// object[] System.Linq.Enumerable.ToArray<object>(System.Collections.Generic.IEnumerable<object>)
 		// ushort[] System.Linq.Enumerable.ToArray<ushort>(System.Collections.Generic.IEnumerable<ushort>)
@@ -505,11 +489,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Collections.Generic.IEnumerable<float> System.Linq.Enumerable.Iterator<object>.Select<float>(System.Func<object,float>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Iterator<BlockPuzzleGameToolkit.Scripts.Localization.CurtureTuple>.Select<object>(System.Func<BlockPuzzleGameToolkit.Scripts.Localization.CurtureTuple,object>)
 		// System.Collections.Generic.IEnumerable<object> System.Linq.Enumerable.Iterator<object>.Select<object>(System.Func<object,object>)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,BlockPuzzleGameToolkit.Scripts.Data.ResourceObject.<<OnEnable>b__11_0>d>(System.Runtime.CompilerServices.TaskAwaiter&,BlockPuzzleGameToolkit.Scripts.Data.ResourceObject.<<OnEnable>b__11_0>d&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.Threading.Tasks.VoidTaskResult>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,BlockPuzzleGameToolkit.Scripts.Data.ResourceObject.<<OnEnable>b__11_0>d>(System.Runtime.CompilerServices.TaskAwaiter&,BlockPuzzleGameToolkit.Scripts.Data.ResourceObject.<<OnEnable>b__11_0>d&)
-		// System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.Start<BlockPuzzleGameToolkit.Scripts.Data.ResourceObject.<<OnEnable>b__11_0>d>(BlockPuzzleGameToolkit.Scripts.Data.ResourceObject.<<OnEnable>b__11_0>d&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,Quester.ProcedureChangeScene.<LoadScene>d__6>(System.Runtime.CompilerServices.TaskAwaiter<object>&,Quester.ProcedureChangeScene.<LoadScene>d__6&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<BlockPuzzleGameToolkit.Scripts.System.GameManager.<Start>d__21>(BlockPuzzleGameToolkit.Scripts.System.GameManager.<Start>d__21&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<BlockPuzzleGameToolkit.Scripts.System.GameManager.<Start>d__19>(BlockPuzzleGameToolkit.Scripts.System.GameManager.<Start>d__19&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<Quester.ProcedureChangeScene.<LoadScene>d__6>(Quester.ProcedureChangeScene.<LoadScene>d__6&)
 		// object& System.Runtime.CompilerServices.Unsafe.As<object,object>(object&)
 		// System.Void* System.Runtime.CompilerServices.Unsafe.AsPointer<object>(object&)
@@ -546,6 +527,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void UnityEngine.InputSystem.LowLevel.InputState.Change<UnityEngine.Vector2>(UnityEngine.InputSystem.InputControl,UnityEngine.Vector2,UnityEngine.InputSystem.LowLevel.InputUpdateType,UnityEngine.InputSystem.LowLevel.InputEventPtr)
 		// object UnityEngine.JsonUtility.FromJson<object>(string)
 		// object UnityEngine.Object.FindAnyObjectByType<object>()
+		// object UnityEngine.Object.FindFirstObjectByType<object>()
 		// object UnityEngine.Object.FindObjectOfType<object>()
 		// object UnityEngine.Object.FindObjectOfType<object>(bool)
 		// object[] UnityEngine.Object.FindObjectsByType<object>(UnityEngine.FindObjectsSortMode)

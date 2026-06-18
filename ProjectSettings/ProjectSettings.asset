@@ -144,7 +144,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.0.7
+  bundleVersion: 0.0.8
   preloadedAssets:
   - {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   metroInputSource: 0
@@ -271,7 +271,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: /Users/liyabo/XJoy/Files/xjoy.keystore
+  AndroidKeystoreName: /Users/liyabo/XJoy/GameFiles/xjoy.keystore
   AndroidKeyaliasName: xjoy
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidEnableArm64MTE: 0
