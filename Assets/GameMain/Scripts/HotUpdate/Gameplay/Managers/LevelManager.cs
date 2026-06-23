@@ -400,8 +400,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             if (lines.Count > 0)
             {
                 comboCounter++;
+                missCounter = 0;
                 shakeCanvas.DOShakePosition(0.2f, 35f, 50);
-                StartCoroutine(AfterMoveProcessing(obj, lines));
+                
                 if (comboCounter > 1)
                 {
                     field.ShowOutline(true);
@@ -412,13 +413,15 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 missCounter++;
                 if (missCounter > GameManager.instance.GameSettings.ResetComboAfterMoves)
                 {
+                    Debug.Log($"Reset combo, missCounter: {missCounter}, {GameManager.instance.GameSettings.ResetComboAfterMoves}");
                     field.ShowOutline(false);
                     missCounter = 0;
                     comboCounter = 0;
                 }
 
-                StartCoroutine(CheckLose());
+                // StartCoroutine(CheckLose());
             }
+            StartCoroutine(AfterMoveProcessing(obj, lines));
         }
 
         private Vector3 GetFieldCenter()
@@ -480,6 +483,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             yield return StartCoroutine(DestroyLines(lines, shape));
 
             var scoreTarget = shape.shapeTemplate.filled;
+            // Debug.Log("print filled, " + shape.shapeTemplate.id + ", " + shape.shapeTemplate.filled);
             scoreTarget += CalculateScore(lines.Count, comboCounter);
             OnScored?.Invoke(scoreTarget, comboCounter);
             if (gameMode == EGameMode.Adventure)
@@ -488,35 +492,36 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             }
             
             // Show combo first if active
-            if (comboCounter > 1)
+            // Debug.Log($"comboCounter: {comboCounter}, missCounter: {missCounter}");
+            if (comboCounter > 1 && lines.Count > 0)
             {
                 ShowComboText(comboCounter);
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.4f);
             }
 
             // Then show score at higher position
             var scoreText = scoreTextPool.Get();
             scoreText.transform.position = scorePosition;
             scoreText.ShowScore(scoreTarget, scorePosition);
-            DOVirtual.DelayedCall(0.75f, () => { scoreTextPool.Release(scoreText); }); // Halved from 1.5f to match faster animation
+            DOVirtual.DelayedCall(0.7f, () => { scoreTextPool.Release(scoreText); }); // Halved from 1.5f to match faster animation
 
             // Show congratulatory words below score
-            // if (Random.Range(0, 3) == 0)
-            // {
-            //     var txt = wordsPool.Get();
-            //     txt.transform.position = gratzPosition;
-            //
-            //     // Ensure txt is within the bounds of the gameCanvas
-            //     var canvasCorners = new Vector3[4];
-            //     gameCanvas.GetWorldCorners(canvasCorners);
-            //
-            //     var txtPosition = txt.transform.position;
-            //     txtPosition.x = Mathf.Clamp(txtPosition.x, canvasCorners[0].x, canvasCorners[2].x);
-            //     txtPosition.y = Mathf.Clamp(txtPosition.y, canvasCorners[0].y, canvasCorners[2].y);
-            //     txt.transform.position = txtPosition;
-            //
-            //     DOVirtual.DelayedCall(1.5f, () => { wordsPool.Release(txt); });
-            // }
+            if (lines.Count > 0 && comboCounter > 5)
+            {
+                var txt = wordsPool.Get();
+                txt.transform.position = gratzPosition;
+            
+                // Ensure txt is within the bounds of the gameCanvas
+                var canvasCorners = new Vector3[4];
+                gameCanvas.GetWorldCorners(canvasCorners);
+            
+                var txtPosition = txt.transform.position;
+                txtPosition.x = Mathf.Clamp(txtPosition.x, canvasCorners[0].x, canvasCorners[2].x);
+                txtPosition.y = Mathf.Clamp(txtPosition.y, canvasCorners[0].y, canvasCorners[2].y);
+                txt.transform.position = txtPosition;
+            
+                DOVirtual.DelayedCall(1.1f, () => { wordsPool.Release(txt); });
+            }
 
             if (EventManager.GameStatus == EGameState.Playing && !GameManager.instance.IsTutorialMode())
                 yield return StartCoroutine(CheckLose());
@@ -635,6 +640,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private IEnumerator DestroyLines(List<List<Cell>> lines, Shape shape)
         {
+            if (lines.Count == 0)
+            {
+                yield break;
+            }
             // SoundBase.instance.PlayLimitSound(SoundBase.instance.combo[Mathf.Min(comboCounter, SoundBase.instance.combo.Length - 1)]);
             if (_soundCombo == null)
             {

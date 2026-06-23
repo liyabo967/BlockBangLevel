@@ -78,8 +78,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             originalItems.Clear();
         }
 
-        public void UpdateShape(ShapeTemplate shapeTemplate)
+        public void UpdateShape(ShapeTemplate template)
         {
+            shapeTemplate = template;
             activeItems.Clear();
             for (var i = 0; i < row.Length; i++)
             {

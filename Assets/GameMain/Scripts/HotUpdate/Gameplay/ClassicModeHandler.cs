@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.System;
 using BlockPuzzleGameToolkit.Scripts.Enums;
+using BlockPuzzleGameToolkit.Scripts.GUI;
 using Quester;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,8 +13,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 {
     public class ClassicModeHandler : BaseModeHandler
     {
+        private BackgroundChanger  _backgroundChanger;
         private bool _newRecordShown = false;
-
         private int _betterIndex = -1;
         private List<BetterItem> _betterList = new()
         {
@@ -33,7 +35,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             new BetterItem(500000, 99),
             new BetterItem(1000000, 100)
         };
-        
+
+        private void Start()
+        {
+            _backgroundChanger = FindFirstObjectByType<BackgroundChanger>();
+        }
+
         protected override void LoadScores()
         {
             // Load current score from game state using the proper mode-specific loading
@@ -115,6 +122,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 // 每局游戏只显示一次新纪录
                 _newRecordShown = true;
                 GameEntry.UI.OpenUIForm(UIFormId.NewRecordBanner);
+                _backgroundChanger?.ChangeBackground();
                 return true;
             }
             return false;
@@ -127,6 +135,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             {
                 _betterIndex = index;
                 GameEntry.UI.OpenUIForm(UIFormId.BetterBanner, _betterList[index].Percent);
+                _backgroundChanger?.ChangeBackground();
             }
         }
 

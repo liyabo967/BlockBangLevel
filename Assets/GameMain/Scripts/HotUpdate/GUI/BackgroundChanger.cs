@@ -10,19 +10,33 @@
 // // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // // THE SOFTWARE.
 
+using System;
 using BlockPuzzleGameToolkit.Scripts.Gameplay.Managers;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.System;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace BlockPuzzleGameToolkit.Scripts.GUI
 {
     public class BackgroundChanger : MonoBehaviour, ILevelLoadable
     {
         public Sprite[] backgrounds;
+        
+        private Image _background;
+
+        private void Awake()
+        {
+            _background = GetComponent<Image>();
+        }
 
         public void OnLevelLoaded(Level level)
+        {
+            ChangeBackground();
+        }
+
+        public void ChangeBackground()
         {
             var lastBackgroundIndex = GameManager.instance.GetLastBackgroundIndex();
             int newBackgroundIndex;
@@ -32,7 +46,7 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
             } while (newBackgroundIndex == lastBackgroundIndex);
 
             GameManager.instance.SetLastBackgroundIndex(newBackgroundIndex);
-            GetComponent<Image>().sprite = backgrounds[newBackgroundIndex];
+            _background.sprite = backgrounds[newBackgroundIndex];
         }
     }
 }

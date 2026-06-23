@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: 100_Z_3
   m_EditorClassIdentifier: 
   id: 100
-  rowCount: 2
-  columnCount: 3
-  filled: 4
-  boolValues: 010101010000
+  rowCount: 3
+  columnCount: 5
+  filled: 7
+  boolValues: 000001000000000100000101010101
   isRect: 0
   rows:
-  - cells: 0000000000
-  - cells: 0000000000
-  - cells: 0000010101
   - cells: 0000010000
+  - cells: 0000010000
+  - cells: 0101010101
+  - cells: 0000000000
   - cells: 0000000000
   scoreForSpawn: 0
   chanceForSpawn: 1

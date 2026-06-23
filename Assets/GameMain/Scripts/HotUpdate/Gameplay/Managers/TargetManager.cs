@@ -145,6 +145,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         public IEnumerator AnimateTarget(List<List<Cell>> lines)
         {
+            if (lines == null || lines.Count == 0)
+            {
+                yield break;
+            }
             var bonusItems = new Dictionary<BonusItemTemplate, List<Vector3>>();
             foreach (var cells in lines)
             {
