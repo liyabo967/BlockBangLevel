@@ -93,12 +93,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             GameState.Delete(EGameMode.Timed);
         }
 
-        public override void OnScored(int scoreToAdd)
-        {
-            base.OnScored(scoreToAdd);
-            // AddBonusTime(scoreToAdd);
-        }
-
         private void AddBonusTime(int scoreValue)
         {
             // Add 1 second for every 10 points scored

@@ -11,7 +11,6 @@ namespace GameMain.Editor
         [PostProcessBuild]
         public static void OnPostprocessBuild(BuildTarget target, string pathToBuiltProject)
         {
-
             if (target == BuildTarget.iOS)
             {
                 string plistPath = pathToBuiltProject + "/Info.plist";

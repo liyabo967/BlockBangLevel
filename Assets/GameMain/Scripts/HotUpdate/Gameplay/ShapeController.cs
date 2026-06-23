@@ -154,7 +154,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                     score += around;
                     if (item.rowCount == 1 && item.columnCount == 1)
                     {
-                        score = 5;
+                        score = Mathf.Min(score, 10);
                     }
                     
                     Log.Info($"PerfectInfo, id: {item.id}, GetAround: {i}, {j}, around: {around}, score: {score}");

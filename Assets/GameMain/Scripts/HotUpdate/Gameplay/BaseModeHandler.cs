@@ -4,6 +4,7 @@ using BlockPuzzleGameToolkit.Scripts.Enums;
 using TMPro;
 using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 {
@@ -66,7 +67,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             }
         }
 
-        public virtual void OnScored(int scoreToAdd)
+        public virtual void OnScored(int scoreToAdd, int combo)
         {
             int previousScore = this.score;
             this.score += scoreToAdd;
@@ -79,12 +80,40 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 StopCoroutine(_counterCoroutine);
             }
             _counterCoroutine = StartCoroutine(CountScore(previousScore, this.score));
+
+            PlayScoreTextAnim(combo);
+        }
+
+        private void PlayScoreTextAnim(int combo)
+        {
+            bool shouldPlayAnim;
+            Vector3 targetScale;
+            if (combo > 1)
+            {
+                targetScale = new Vector3(1.5f, 1.5f, 1.5f);
+                shouldPlayAnim = Mathf.Approximately(scoreText.transform.localScale.x, 1);
+            }
+            else
+            {
+                targetScale = Vector3.one;
+                shouldPlayAnim = Mathf.Approximately(scoreText.transform.localScale.x, 1.5f);
+            }
+
+            if (shouldPlayAnim)
+            {
+                scoreText.transform.DOScale(targetScale, 0.3f);
+            }
         }
 
         protected IEnumerator CountScore(int startValue, int endValue)
         {
             _displayedScore = startValue;
             bool newBestScore = endValue > UserDataManager.Instance.ClassicBestScore;
+            if (newBestScore)
+            {
+                bestScore = endValue;
+            }
+            ShowBanner(endValue, newBestScore);
 
             float actualSpeed = counterSpeed;
             if (endValue - startValue > 100)
@@ -147,6 +176,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             // Don't delete game state - this preserves best score and other important data
             // Instead, save the current state with reset score
             // SaveGameState();
+        }
+
+        protected virtual void ShowBanner(int newScore, bool isNewRecord)
+        {
+            
         }
 
         protected abstract void LoadScores();

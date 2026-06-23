@@ -182,23 +182,23 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private int GetClassicDifficulty()
         {
-            if (_levelManager.ClassicModeHandler.score < 100)
-            {
-                return 1;
-            }
-            if (_levelManager.ClassicModeHandler.score < 200)
-            {
-                return 2;
-            }
-            else if (_levelManager.ClassicModeHandler.score < 500)
-            {
-                return 3;
-            }
-            else if (_levelManager.ClassicModeHandler.score < 700)
-            {
-                return 4;
-            }
-            return 5;
+            // if (_levelManager.ClassicModeHandler.score < 100)
+            // {
+            //     return 1;
+            // }
+            // if (_levelManager.ClassicModeHandler.score < 200)
+            // {
+            //     return 2;
+            // }
+            // else if (_levelManager.ClassicModeHandler.score < 500)
+            // {
+            //     return 3;
+            // }
+            // else if (_levelManager.ClassicModeHandler.score < 700)
+            // {
+            //     return 4;
+            // }
+            return 2;
         }
 
         private int GetAdventureDifficulty()

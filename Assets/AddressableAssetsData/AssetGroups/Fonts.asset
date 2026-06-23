@@ -110,12 +110,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8b918ef29eb0548ab815890a16211f8e
-    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Outline BlueDark Best
-      Score.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8d8936c9320ff401ebf82697670f3c0d
     m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Main Menu 3.mat
     m_ReadOnly: 0

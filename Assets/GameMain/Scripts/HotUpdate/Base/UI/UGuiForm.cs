@@ -278,6 +278,11 @@ namespace Quester
             
         }
 
+        public virtual void AfterHideAnimation()
+        {
+            
+        }
+
         public virtual void CloseAnimationSound()
         {
             

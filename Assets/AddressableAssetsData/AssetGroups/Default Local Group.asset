@@ -26,6 +26,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - shapes
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ab00982ca0ab43ca9bf5fd565bb08de
+    m_Address: Assets/GameMain/Prefabs/GUI/Popups/NewRecordBanner.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - remote
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 508345d7738c84507bd957bb8f0904df
+    m_Address: Assets/GameMain/Prefabs/GUI/Popups/BetterBanner.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - remote
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 56c562ce2518045ba85b5e21f2caac8f
     m_Address: Assets/GameMain/Configs/LanguageConfig.txt
     m_ReadOnly: 0
@@ -33,6 +45,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7bec41ac40d4840d3b16f53720d99762
     m_Address: Assets/GameMain/Configs/PresetLanguage.txt
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b918ef29eb0548ab815890a16211f8e
+    m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Outline Golden Best Score.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

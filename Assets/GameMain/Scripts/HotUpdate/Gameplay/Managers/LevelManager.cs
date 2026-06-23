@@ -71,7 +71,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private Cell[] emptyCells;
 
         public UnityEvent<Level> OnLevelLoaded;
-        public Action<int> OnScored;
+        public Action<int, int> OnScored;
         public Action OnLose;
         private FieldManager field;
         public CellDeckManager cellDeck;
@@ -410,7 +410,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             else
             {
                 missCounter++;
-                if (missCounter >= GameManager.instance.GameSettings.ResetComboAfterMoves)
+                if (missCounter > GameManager.instance.GameSettings.ResetComboAfterMoves)
                 {
                     field.ShowOutline(false);
                     missCounter = 0;
@@ -453,6 +453,17 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             comboText.Show(comboCount);
             DOVirtual.DelayedCall(0.75f, () => { comboTextPool.Release(comboText); }); // Adjusted to match faster animation
         }
+        
+        private int CalculateScore(int lines, int combo)
+        {
+            int score = GameManager.instance.GameSettings.ScorePerLine * lines;
+            if (combo > 0)
+            {
+                double power = Math.Pow(1.5f, Math.Max(1, combo / 5));
+                score *= (int)(combo * power);
+            }
+            return score;
+        }
 
         private IEnumerator AfterMoveProcessing(Shape shape, List<List<Cell>> lines)
         {
@@ -468,8 +479,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
             yield return StartCoroutine(DestroyLines(lines, shape));
 
-            var scoreTarget = GameManager.instance.GameSettings.ScorePerLine * lines.Count * comboCounter;
-            OnScored?.Invoke(scoreTarget);
+            var scoreTarget = shape.shapeTemplate.filled;
+            scoreTarget += CalculateScore(lines.Count, comboCounter);
+            OnScored?.Invoke(scoreTarget, comboCounter);
             if (gameMode == EGameMode.Adventure)
             {
                 targetManager.UpdateScoreTarget(scoreTarget);
@@ -489,22 +501,22 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             DOVirtual.DelayedCall(0.75f, () => { scoreTextPool.Release(scoreText); }); // Halved from 1.5f to match faster animation
 
             // Show congratulatory words below score
-            if (Random.Range(0, 3) == 0)
-            {
-                var txt = wordsPool.Get();
-                txt.transform.position = gratzPosition;
-
-                // Ensure txt is within the bounds of the gameCanvas
-                var canvasCorners = new Vector3[4];
-                gameCanvas.GetWorldCorners(canvasCorners);
-
-                var txtPosition = txt.transform.position;
-                txtPosition.x = Mathf.Clamp(txtPosition.x, canvasCorners[0].x, canvasCorners[2].x);
-                txtPosition.y = Mathf.Clamp(txtPosition.y, canvasCorners[0].y, canvasCorners[2].y);
-                txt.transform.position = txtPosition;
-
-                DOVirtual.DelayedCall(1.5f, () => { wordsPool.Release(txt); });
-            }
+            // if (Random.Range(0, 3) == 0)
+            // {
+            //     var txt = wordsPool.Get();
+            //     txt.transform.position = gratzPosition;
+            //
+            //     // Ensure txt is within the bounds of the gameCanvas
+            //     var canvasCorners = new Vector3[4];
+            //     gameCanvas.GetWorldCorners(canvasCorners);
+            //
+            //     var txtPosition = txt.transform.position;
+            //     txtPosition.x = Mathf.Clamp(txtPosition.x, canvasCorners[0].x, canvasCorners[2].x);
+            //     txtPosition.y = Mathf.Clamp(txtPosition.y, canvasCorners[0].y, canvasCorners[2].y);
+            //     txt.transform.position = txtPosition;
+            //
+            //     DOVirtual.DelayedCall(1.5f, () => { wordsPool.Release(txt); });
+            // }
 
             if (EventManager.GameStatus == EGameState.Playing && !GameManager.instance.IsTutorialMode())
                 yield return StartCoroutine(CheckLose());

@@ -18,6 +18,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 {
     public class Banner : UGuiForm
     {
+        protected float bannerDuration = 1.0f;
+        
         public override void AfterShowAnimation()
         {
             base.AfterShowAnimation();
@@ -26,7 +28,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         private IEnumerator Wait()
         {
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(bannerDuration);
             Close();
         }
     }
