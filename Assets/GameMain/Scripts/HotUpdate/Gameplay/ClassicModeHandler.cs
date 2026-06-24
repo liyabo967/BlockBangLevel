@@ -19,21 +19,21 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private List<BetterItem> _betterList = new()
         {
             new BetterItem(200, 50),
-            new BetterItem(300, 60),
-            new BetterItem(500, 70),
-            new BetterItem(800, 80),
-            new BetterItem(1500, 85),
-            new BetterItem(3000, 90),
-            new BetterItem(5000, 91),
-            new BetterItem(8000, 92),
-            new BetterItem(10000, 93),
-            new BetterItem(15000, 94),
-            new BetterItem(20000, 95),
-            new BetterItem(50000, 96),
-            new BetterItem(100000, 97),
-            new BetterItem(200000, 98),
-            new BetterItem(500000, 99),
-            new BetterItem(1000000, 100)
+            new BetterItem(500, 60),
+            new BetterItem(1000, 70),
+            new BetterItem(1500, 80),
+            new BetterItem(3000, 85),
+            new BetterItem(5000, 90),
+            new BetterItem(8000, 91),
+            new BetterItem(10000, 92),
+            new BetterItem(15000, 93),
+            new BetterItem(20000, 94),
+            new BetterItem(50000, 95),
+            new BetterItem(100000, 96),
+            new BetterItem(200000, 97),
+            new BetterItem(500000, 98),
+            new BetterItem(1000000, 99),
+            new BetterItem(5000000, 100)
         };
 
         private void Start()
@@ -84,10 +84,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         public override void OnLose()
         {
-            if (score > bestScore)
+            // Debug.Log($"OnLose, score: {score}, bestScore: {bestScore}");
+            if (score > UserDataManager.Instance.ClassicBestScore)
             {
                 UserDataManager.Instance.SetClassicBestScore(score);
-                if (score >= 700)
+                if (score >= 1000)
                 {
                     UserDataManager.Instance.SetAdventureState(1);
                 }

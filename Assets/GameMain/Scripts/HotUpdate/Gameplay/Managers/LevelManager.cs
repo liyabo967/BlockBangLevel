@@ -411,9 +411,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             else
             {
                 missCounter++;
-                if (missCounter > GameManager.instance.GameSettings.ResetComboAfterMoves)
+                if (missCounter >= GameManager.instance.GameSettings.ResetComboAfterMoves)
                 {
-                    Debug.Log($"Reset combo, missCounter: {missCounter}, {GameManager.instance.GameSettings.ResetComboAfterMoves}");
+                    // Debug.Log($"Reset combo, missCounter: {missCounter}, {GameManager.instance.GameSettings.ResetComboAfterMoves}");
                     field.ShowOutline(false);
                     missCounter = 0;
                     comboCounter = 0;

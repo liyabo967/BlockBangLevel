@@ -49,11 +49,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 .SetLoops(-1, LoopType.Incremental);
             
             contentBg.transform.localScale = new Vector3(0, 1, 1);
-            contentBg.transform.DOScaleX(1, 0.5f)
+            contentBg.transform.DOScaleX(1, 0.3f)
                 .SetEase(Ease.OutCubic);
 
             percentText.transform.localScale = new Vector3(3, 3, 3);
-            percentText.transform.DOScale(1, 0.5f);
+            percentText.transform.DOScale(1, 0.3f);
         }
         
         private void StopAnim()

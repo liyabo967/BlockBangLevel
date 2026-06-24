@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Platform: 0
   Android:
-    AppId: 25f0d9d6d
-    BannerId: a0kfn7wreh1kzget
-    InterstitialId: uxu8w4l4j9u9eflw
-    RewardedId: adk2kv9aiwd5jc3j
+    AppId: ca-app-pub-1495494109347043~8132411239
+    BannerId: ca-app-pub-1495494109347043/9680782577
+    InterstitialId: ca-app-pub-1495494109347043/9266620774
+    RewardedId: ca-app-pub-1495494109347043/3630947767
   iOS:
-    AppId: 
-    BannerId: 
-    InterstitialId: 
-    RewardedId: 
+    AppId: ca-app-pub-1495494109347043~9970644385
+    BannerId: ca-app-pub-1495494109347043/7004288082
+    InterstitialId: ca-app-pub-1495494109347043/2145178220
+    RewardedId: ca-app-pub-1495494109347043/9230996179
   TestMode: 0

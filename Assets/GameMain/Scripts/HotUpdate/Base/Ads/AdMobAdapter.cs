@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using GoogleMobileAds.Api;
+using GoogleMobileAds.Common;
 using UnityEngine;
 
 namespace GameMain.Scripts.HotUpdate.Base.Ads
@@ -16,16 +17,6 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         public override void Initialize(AdConfig config, Action<bool> onComplete)
         {
             Config = config;
-            
-            // List<string> testDeviceIds = new List<string>()
-            // {
-            //     "41770E7F-5BC6-4322-8B86-98B4F6E5D1DD"
-            // };
-            //
-            // RequestConfiguration requestConfiguration = new RequestConfiguration();
-            // requestConfiguration.TestDeviceIds = testDeviceIds;
-            // MobileAds.SetRequestConfiguration(requestConfiguration);
-            // Debug.Log("AdMobAdapter Initialize, " + testDeviceIds[0]);
             MobileAds.Initialize(initStatus =>
             {
                 IsInitialized = true;
@@ -36,10 +27,30 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                     Debug.Log("Adapter, " + keyValuePair.Key + ":" + keyValuePair.Value.InitializationState);
                 }
             });
+            // SetTestDevice();
+        }
+
+        private void SetTestDevice()
+        {
+            List<string> testDeviceIds = new List<string>()
+            {
+                "41770E7F-5BC6-4322-8B86-98B4F6E5D1DD",
+                "355611113022474"
+            };
+            
+            RequestConfiguration requestConfiguration = new RequestConfiguration();
+            requestConfiguration.TestDeviceIds = testDeviceIds;
+            MobileAds.SetRequestConfiguration(requestConfiguration);
+            // Debug.Log("AdMobAdapter Initialize, " + testDeviceIds[0]);
         }
 
         public override void LoadAd(AdType type, string placementId = null)
         {
+            RaiseRequest(new AdResult()
+            {
+                AdType = type,
+                PlacementId = placementId
+            });
             switch (type)
             {
                 case AdType.Banner:
@@ -57,11 +68,19 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         private void LoadBanner()
         {
             bannerView = new BannerView(Config.BannerId, AdSize.Banner, AdPosition.Bottom);
+            bannerView.OnAdPaid += value =>
+            {
+                RaiseRevenuePaid(new AdResult()
+                {
+                    AdType = AdType.Banner,
+                    Revenue = value.Value / 1000000.0,
+                });
+            };
             bannerView.OnBannerAdLoaded += () => RaiseLoaded(new AdResult
             {
                 Success = true, 
                 AdType = AdType.Banner,
-                AdNetwork = bannerView.GetResponseInfo().GetMediationAdapterClassName()
+                AdNetwork = bannerView.GetResponseInfo()?.GetMediationAdapterClassName()
             });
             bannerView.OnBannerAdLoadFailed += (error) =>
             {
@@ -70,6 +89,24 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                     Success = false,
                     AdType = AdType.Banner,
                     Message = error.GetMessage()
+                });
+            };
+            bannerView.OnAdImpressionRecorded += () =>
+            {
+                RaiseShown(new AdResult()
+                {
+                    Success = true,
+                    AdType = AdType.Banner,
+                    AdNetwork = bannerView.GetResponseInfo()?.GetMediationAdapterClassName()
+                });
+            };
+            bannerView.OnAdClicked += () =>
+            {
+                RaiseClicked(new AdResult()
+                {
+                    Success = true,
+                    AdType = AdType.Banner,
+                    AdNetwork = bannerView.GetResponseInfo()?.GetMediationAdapterClassName()
                 });
             };
             bannerView.LoadAd(new AdRequest());
@@ -91,15 +128,41 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 }
 
                 interstitial = ad;
+                interstitial.OnAdPaid += value =>
+                {
+                    RaiseRevenuePaid(new AdResult
+                    {
+                        AdType = AdType.Interstitial,
+                        Revenue = value.Value / 1000000.0
+                    });
+                };
                 interstitial.OnAdFullScreenContentClosed += () =>
                 {
                     RaiseClosed(new AdResult() { Success = true, AdType = AdType.Interstitial });
+                };
+                interstitial.OnAdImpressionRecorded += () =>
+                {
+                    RaiseShown(new AdResult()
+                    {
+                        Success = true,
+                        AdType = AdType.Interstitial,
+                        AdNetwork = interstitial.GetResponseInfo()?.GetMediationAdapterClassName()
+                    });
+                };
+                interstitial.OnAdClicked += () =>
+                {
+                    RaiseClicked(new AdResult()
+                    {
+                        Success = true,
+                        AdType = AdType.Interstitial,
+                        AdNetwork = interstitial.GetResponseInfo()?.GetMediationAdapterClassName()
+                    });
                 };
                 RaiseLoaded(new AdResult
                 {
                     Success = true, 
                     AdType = AdType.Interstitial,
-                    AdNetwork = interstitial.GetResponseInfo().GetMediationAdapterClassName()
+                    AdNetwork = interstitial.GetResponseInfo()?.GetMediationAdapterClassName()
                 });
             });
         }
@@ -122,18 +185,39 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 rewardedAd = ad;
                 rewardedAd.OnAdPaid += (val) => RaiseRevenuePaid(new AdResult
                 {
-                    Revenue = val.Value / 1000000.0,
-                    AdType = AdType.RewardedVideo
+                    AdType = AdType.RewardedVideo,
+                    Revenue = val.Value / 1000000.0
                 });
                 rewardedAd.OnAdFullScreenContentClosed += () =>
                 {
-                    RaiseClosed(new AdResult { Success = true, AdType = AdType.RewardedVideo });
+                    MobileAdsEventExecutor.ExecuteInUpdate(() =>
+                    {
+                        RaiseClosed(new AdResult { Success = true, AdType = AdType.RewardedVideo });
+                    });
+                };
+                rewardedAd.OnAdImpressionRecorded += () =>
+                {
+                    RaiseShown(new AdResult
+                    {
+                        Success = true,
+                        AdType = AdType.RewardedVideo,
+                        AdNetwork = rewardedAd.GetResponseInfo()?.GetMediationAdapterClassName()
+                    });
+                };
+                rewardedAd.OnAdClicked += () =>
+                {
+                    RaiseClicked(new  AdResult()
+                    {
+                        Success = true,
+                        AdType = AdType.RewardedVideo,
+                        AdNetwork = rewardedAd.GetResponseInfo()?.GetMediationAdapterClassName()
+                    });
                 };
                 RaiseLoaded(new AdResult
                 {
                     Success = true, 
                     AdType = AdType.RewardedVideo,
-                    AdNetwork = rewardedAd.GetResponseInfo().GetMediationAdapterClassName()
+                    AdNetwork = rewardedAd.GetResponseInfo()?.GetMediationAdapterClassName()
                 });
             });
         }
@@ -154,7 +238,6 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             {
                 case AdType.Banner:
                     bannerView?.Show();
-                    RaiseShown(new AdResult { Success = true, AdType = AdType.Banner });
                     break;
                 case AdType.Interstitial:
                     interstitial?.Show();

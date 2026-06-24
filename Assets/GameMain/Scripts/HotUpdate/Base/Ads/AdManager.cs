@@ -45,7 +45,8 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
         private void Initialize(Action<bool> onComplete = null)
         {
-            var adSettingsPath = "Assets/GameMain/Settings/AdSettings/LevelPlay.asset";
+            // var adSettingsPath = "Assets/GameMain/Settings/AdSettings/LevelPlay.asset";
+            var adSettingsPath = "Assets/GameMain/Settings/AdSettings/AdMob.asset";
             Addressables.LoadAssetAsync<AdSettings>(adSettingsPath).Completed += handle =>
             {
                 var adSettings = handle.Result;
@@ -126,7 +127,10 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             yield return delay;
             _adapter.LoadAd(AdType.RewardedVideo);
             yield return delay;
-            _adapter.LoadAd(AdType.Banner);
+            if (_adapter is not AdMobAdapter)
+            {
+                _adapter.LoadAd(AdType.Banner);
+            }
         }
 
         public bool IsReady(AdType type) => _adapter?.IsAdReady(type) ?? false;
