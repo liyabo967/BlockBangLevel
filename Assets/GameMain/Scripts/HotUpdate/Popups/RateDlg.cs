@@ -43,7 +43,7 @@ namespace Quester
                 starIcon.gameObject.SetActive(i <= index);
             }
 
-            var positive = index >= 3;
+            var positive = index >= 4;
             rateBtn.gameObject.SetActive(positive);
             rateTips.gameObject.SetActive(positive);
             feedbackBtn.gameObject.SetActive(!positive);

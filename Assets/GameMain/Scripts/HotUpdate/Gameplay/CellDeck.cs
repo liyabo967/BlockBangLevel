@@ -26,23 +26,23 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         public bool IsEmpty => shape == null;
 
-        private void Update()
-        {
-            if (shape != null)
-            {
-                if (field != null)
-                {
-                    if (field.CanPlaceShape(shape))
-                    {
-                        SetShapeTransparency(shape, 1.0f); // Fully opaque
-                    }
-                    else
-                    {
-                        SetShapeTransparency(shape, 0.1f); // Semi-transparent
-                    }
-                }
-            }
-        }
+        // private void Update()
+        // {
+        //     if (shape != null)
+        //     {
+        //         if (field != null)
+        //         {
+        //             if (field.CanPlaceShape(shape))
+        //             {
+        //                 SetShapeTransparency(shape, 1.0f); // Fully opaque
+        //             }
+        //             else
+        //             {
+        //                 SetShapeTransparency(shape, 0.1f); // Semi-transparent
+        //             }
+        //         }
+        //     }
+        // }
 
         public void FillCell(Shape randomShape)
         {
