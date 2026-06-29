@@ -10,6 +10,7 @@
 // // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // // THE SOFTWARE.
 
+using AppsFlyerSDK;
 using BlockPuzzleGameToolkit.Scripts.GUI;
 using GameMain.Scripts.HotUpdate.Base.Ads;
 using Quester;
@@ -46,6 +47,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups.Reward
                         onRewardedAdComplete?.Invoke();
                     }
                 });
+                
+                // AppsFlyer
+                AppsFlyer.sendEvent("af_rewarded", null);
             }
             else
             {

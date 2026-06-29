@@ -82,6 +82,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         {
             if (productId == productID.ID)
             {
+                CoinsShop.SendPurchaseEvent(productId);
                 // PlayerPrefs.SetInt("Purchased_" + productId, 1);
                 // PlayerPrefs.Save();
                 UserDataManager.Instance.SetNoAds();

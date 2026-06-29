@@ -10,6 +10,8 @@
 // // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // // THE SOFTWARE.
 
+using System.Collections.Generic;
+using AppsFlyerSDK;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.System;
@@ -25,6 +27,15 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
     public class PreWin : Banner
     {
         [SerializeField] private TextMeshProUGUI messageText;
+
+        protected override void OnOpen(object userData)
+        {
+            base.OnOpen(userData);
+            // AppsFlyer
+            Dictionary<string, string> eventValues = new Dictionary<string, string>();
+            eventValues.Add(AFInAppEvents.LEVEL, (UserDataManager.Instance.Level - 1).ToString());
+            AppsFlyer.sendEvent(AFInAppEvents.LEVEL_ACHIEVED, eventValues);
+        }
 
         protected virtual void OnEnable()
         {

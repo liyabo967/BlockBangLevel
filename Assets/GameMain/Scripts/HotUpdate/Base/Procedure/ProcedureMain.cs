@@ -3,6 +3,8 @@ using GameFramework;
 using GameFramework.Event;
 using GameFramework.Resource;
 using System.Collections.Generic;
+using System.Globalization;
+using AppsFlyerSDK;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using GameFramework.Procedure;
 using GameMain.Scripts.HotUpdate.Base.Ads;
@@ -51,6 +53,18 @@ namespace Quester
                 {
                     GameEntry.Sound.ResumeMusic();
                 }
+            };
+
+            AdManager.Instance.OnRevenuePaid += result =>
+            {
+                Dictionary<string, string> additionalParams = new Dictionary<string, string>();
+                additionalParams.Add(AdRevenueScheme.COUNTRY, RegionInfo.CurrentRegion.ThreeLetterISORegionName);
+                additionalParams.Add(AdRevenueScheme.AD_UNIT, result.AdUnitId);
+                additionalParams.Add(AdRevenueScheme.AD_TYPE, result.AdType.ToString());
+                additionalParams.Add(AdRevenueScheme.PLACEMENT, result.PlacementId);
+                var logRevenue =
+                    new AFAdRevenueData(result.AdNetwork, MediationNetwork.GoogleAdMob, result.Currency, result.Revenue);
+                AppsFlyer.logAdRevenue(logRevenue, additionalParams);
             };
         }
 

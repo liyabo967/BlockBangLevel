@@ -12,7 +12,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using AppsFlyerSDK;
 using BlockPuzzleGameToolkit.Scripts.Audio;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.GUI.Labels;
@@ -39,7 +41,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         [SerializeField]
         private ItemPurchase watchAd;
 
-        private Dictionary<string, DRShopProduct> _shopProductDict = new ();
+        private static Dictionary<string, DRShopProduct> _shopProductDict = new ();
         
         private void OnEnable()
         {
@@ -161,10 +163,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             }
         }
 
-        private void PurchaseSuccess(string id)
+        private void PurchaseSuccess(string productId)
         {
-            GameEntry.Purchase.ConfirmPendingPurchaseForId(id);
-            var shopItem = packs.First(i => i.productID == id);
+            GameEntry.Purchase.ConfirmPendingPurchaseForId(productId);
+            var shopItem = packs.First(i => i.productID == productId);
             if (shopItem)
             {
                 var count = int.Parse(shopItem.count.text);
@@ -174,11 +176,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 });
 
                 // If the item is non-consumable, mark it as purchased
-                if (_shopProductDict[id].ProductType == nameof(ProductTypeWrapper.ProductType.NonConsumable))
+                if (_shopProductDict[productId].ProductType == nameof(ProductTypeWrapper.ProductType.NonConsumable))
                 {
                     // PlayerPrefs.SetInt("Purchased_" + id, 1);
                     // PlayerPrefs.Save();
-                    UserDataManager.Instance.SetPurchasedProductId(id);
+                    UserDataManager.Instance.SetPurchasedProductId(productId);
 
                     // Disable the button for this item
                     var pack = shopItem;
@@ -187,12 +189,26 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                         pack.buyButton.interactable = false;
                     }
                 }
+
+                SendPurchaseEvent(productId);
             }
             else
             {
-                Debug.LogError($"not found shop item: {id}");
+                Debug.LogError($"not found shop item: {productId}");
             }
             
+        }
+
+        public static void SendPurchaseEvent(string productId)
+        {
+            if (_shopProductDict.TryGetValue(productId, out DRShopProduct shopProduct))
+            {
+                Dictionary<string, string> eventValues = new Dictionary<string, string>();
+                eventValues.Add(AFInAppEvents.CURRENCY, "USD");
+                eventValues.Add(AFInAppEvents.REVENUE, shopProduct.Price.ToString(CultureInfo.InvariantCulture));
+                eventValues.Add("af_quantity", "1");
+                AppsFlyer.sendEvent(AFInAppEvents.PURCHASE, eventValues);
+            }
         }
 
         public void BuyCoins(string id)

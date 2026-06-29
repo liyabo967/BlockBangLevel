@@ -38,6 +38,8 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
         
         [SerializeField]
         private Button unlockAdventureBtn;
+        [SerializeField]
+        private Button testAdMobBtn;
         
         protected override void OnSingletonAwake()
         {
@@ -49,6 +51,7 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
             levelOkBtn.onClick.AddListener(EditLevel);
             scoreOkBtn.onClick.AddListener(EditScore);
             unlockAdventureBtn.onClick.AddListener(UnlockAdventure);
+            testAdMobBtn.onClick.AddListener(OpenAdMobInspector);
         }
 
         private void ShowLoginDialog()
@@ -106,17 +109,17 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
             UserDataManager.Instance.SetAdventureState(1);
         }
         
-        public void OpenAdInspector()
+        public void OpenAdMobInspector()
         {
-            // MobileAds.OpenAdInspector((AdInspectorError error) =>
-            // {
-            //     if (error != null)
-            //     {
-            //         Debug.LogError($"code: {error.GetCode()}");
-            //         Debug.LogError(error.GetCause().GetMessage());
-            //         Debug.LogError(error.GetMessage());
-            //     }
-            // });
+            MobileAds.OpenAdInspector((AdInspectorError error) =>
+            {
+                if (error != null)
+                {
+                    Debug.LogError($"code: {error.GetCode()}");
+                    Debug.LogError(error.GetCause()?.GetMessage());
+                    Debug.LogError(error.GetMessage());
+                }
+            });
         }
     }
 }

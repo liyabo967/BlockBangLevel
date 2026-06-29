@@ -35,7 +35,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             List<string> testDeviceIds = new List<string>()
             {
                 "41770E7F-5BC6-4322-8B86-98B4F6E5D1DD",
-                "355611113022474"
+                "5A06EEBC6D31320624812D71DF656B47"
             };
             
             RequestConfiguration requestConfiguration = new RequestConfiguration();
@@ -68,19 +68,22 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         private void LoadBanner()
         {
             bannerView = new BannerView(Config.BannerId, AdSize.Banner, AdPosition.Bottom);
-            bannerView.OnAdPaid += value =>
+            bannerView.OnAdPaid += adValue =>
             {
                 RaiseRevenuePaid(new AdResult()
                 {
                     AdType = AdType.Banner,
-                    Revenue = value.Value / 1000000.0,
+                    Revenue = adValue.Value / 1000000.0,
+                    AdNetwork = GetAdNetworkName(bannerView.GetResponseInfo()?.GetMediationAdapterClassName()),
+                    AdUnitId = Config.BannerId,
+                    Currency = adValue.CurrencyCode
                 });
             };
             bannerView.OnBannerAdLoaded += () => RaiseLoaded(new AdResult
             {
                 Success = true, 
                 AdType = AdType.Banner,
-                AdNetwork = bannerView.GetResponseInfo()?.GetMediationAdapterClassName()
+                AdNetwork = GetAdNetworkName(bannerView.GetResponseInfo()?.GetMediationAdapterClassName()),
             });
             bannerView.OnBannerAdLoadFailed += (error) =>
             {
@@ -97,7 +100,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 {
                     Success = true,
                     AdType = AdType.Banner,
-                    AdNetwork = bannerView.GetResponseInfo()?.GetMediationAdapterClassName()
+                    AdNetwork = GetAdNetworkName(bannerView.GetResponseInfo()?.GetMediationAdapterClassName()),
                 });
             };
             bannerView.OnAdClicked += () =>
@@ -106,7 +109,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 {
                     Success = true,
                     AdType = AdType.Banner,
-                    AdNetwork = bannerView.GetResponseInfo()?.GetMediationAdapterClassName()
+                    AdNetwork = GetAdNetworkName(bannerView.GetResponseInfo()?.GetMediationAdapterClassName()),
                 });
             };
             bannerView.LoadAd(new AdRequest());
@@ -128,12 +131,15 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 }
 
                 interstitial = ad;
-                interstitial.OnAdPaid += value =>
+                interstitial.OnAdPaid += adValue =>
                 {
                     RaiseRevenuePaid(new AdResult
                     {
                         AdType = AdType.Interstitial,
-                        Revenue = value.Value / 1000000.0
+                        Revenue = adValue.Value / 1000000.0,
+                        AdNetwork = GetAdNetworkName(interstitial.GetResponseInfo()?.GetMediationAdapterClassName()),
+                        AdUnitId = Config.InterstitialId,
+                        Currency = adValue.CurrencyCode
                     });
                 };
                 interstitial.OnAdFullScreenContentClosed += () =>
@@ -146,7 +152,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                     {
                         Success = true,
                         AdType = AdType.Interstitial,
-                        AdNetwork = interstitial.GetResponseInfo()?.GetMediationAdapterClassName()
+                        AdNetwork = GetAdNetworkName(interstitial.GetResponseInfo()?.GetMediationAdapterClassName()),
                     });
                 };
                 interstitial.OnAdClicked += () =>
@@ -155,14 +161,14 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                     {
                         Success = true,
                         AdType = AdType.Interstitial,
-                        AdNetwork = interstitial.GetResponseInfo()?.GetMediationAdapterClassName()
+                        AdNetwork = GetAdNetworkName(interstitial.GetResponseInfo()?.GetMediationAdapterClassName()),
                     });
                 };
                 RaiseLoaded(new AdResult
                 {
                     Success = true, 
                     AdType = AdType.Interstitial,
-                    AdNetwork = interstitial.GetResponseInfo()?.GetMediationAdapterClassName()
+                    AdNetwork = GetAdNetworkName(interstitial.GetResponseInfo()?.GetMediationAdapterClassName()),
                 });
             });
         }
@@ -183,10 +189,14 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 }
 
                 rewardedAd = ad;
-                rewardedAd.OnAdPaid += (val) => RaiseRevenuePaid(new AdResult
+                rewardedAd.OnAdPaid += (adValue) => RaiseRevenuePaid(new AdResult
                 {
                     AdType = AdType.RewardedVideo,
-                    Revenue = val.Value / 1000000.0
+                    Revenue = adValue.Value / 1000000.0,
+                    AdNetwork = GetAdNetworkName(rewardedAd.GetResponseInfo()?.GetMediationAdapterClassName()),
+                    AdUnitId = Config.RewardedId,
+                    Currency = adValue.CurrencyCode
+                    
                 });
                 rewardedAd.OnAdFullScreenContentClosed += () =>
                 {
@@ -201,7 +211,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                     {
                         Success = true,
                         AdType = AdType.RewardedVideo,
-                        AdNetwork = rewardedAd.GetResponseInfo()?.GetMediationAdapterClassName()
+                        AdNetwork = GetAdNetworkName(rewardedAd.GetResponseInfo()?.GetMediationAdapterClassName()),
                     });
                 };
                 rewardedAd.OnAdClicked += () =>
@@ -210,14 +220,14 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                     {
                         Success = true,
                         AdType = AdType.RewardedVideo,
-                        AdNetwork = rewardedAd.GetResponseInfo()?.GetMediationAdapterClassName()
+                        AdNetwork = GetAdNetworkName(rewardedAd.GetResponseInfo()?.GetMediationAdapterClassName()),
                     });
                 };
                 RaiseLoaded(new AdResult
                 {
                     Success = true, 
                     AdType = AdType.RewardedVideo,
-                    AdNetwork = rewardedAd.GetResponseInfo()?.GetMediationAdapterClassName()
+                    AdNetwork = GetAdNetworkName(rewardedAd.GetResponseInfo()?.GetMediationAdapterClassName()),
                 });
             });
         }
@@ -254,6 +264,19 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         public override void HideBanner()
         {
             bannerView?.Hide();
+        }
+        
+        private static string GetAdNetworkName(string adapterName)
+        {
+            Debug.Log("GetAdNetworkName: " + adapterName);
+            if (string.IsNullOrEmpty(adapterName))
+                return "";
+
+            int index = adapterName.LastIndexOf('.');
+
+            return index >= 0 
+                ? adapterName.Substring(index + 1) 
+                : adapterName;
         }
     }
 }
