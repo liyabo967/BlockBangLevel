@@ -25,5 +25,5 @@ MonoBehaviour:
   - cells: 0001010100
   - cells: 0000000000
   scoreForSpawn: 0
-  chanceForSpawn: 0.1
+  chanceForSpawn: 0.6
   spawnFromLevel: 1
