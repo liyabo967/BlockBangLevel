@@ -77,7 +77,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            back.gameObject.SetActive(StateManager.instance.CurrentState == EScreenStates.Game && UserDataManager.Instance.AdventureState > 0);
+            back.gameObject.SetActive(StateManager.instance.CurrentState == EScreenStates.Game);
             var fieldManager = FindObjectOfType<FieldManager>();
             // Save current game state when settings is opened
             if (StateManager.instance.CurrentState == EScreenStates.Game)
@@ -250,8 +250,21 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         private void BackToMain()
         {
+            RecordScore();
             Close();
             GameManager.instance.MainMenu();
+        }
+
+        private void RecordScore()
+        {
+            var classicHandler = FindAnyObjectByType<ClassicModeHandler>();
+            if (classicHandler != null)
+            {
+                if (classicHandler.bestScore > UserDataManager.Instance.ClassicBestScore)
+                {
+                    UserDataManager.Instance.SetClassicBestScore(classicHandler.bestScore);
+                }
+            }
         }
     }
 }

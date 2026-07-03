@@ -95,7 +95,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         {
             gameSettingBtn.SetActive(!GameManager.instance.IsTutorialMode());
             adventureRedPoint.SetActive(UserDataManager.Instance.AdventureState == 1);
-            settingsRedPoint.SetActive(UserDataManager.Instance.AdventureState == 1 && StateManager.instance.CurrentState == EScreenStates.Game);
+            // settingsRedPoint.SetActive(UserDataManager.Instance.AdventureState == 1 && StateManager.instance.CurrentState == EScreenStates.Game);
         }
         
         private void TryToUnlockAdventure()
