@@ -10,6 +10,7 @@
 // // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // // THE SOFTWARE.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BlockPuzzleGameToolkit.Scripts.Enums;
@@ -17,6 +18,7 @@ using BlockPuzzleGameToolkit.Scripts.Gameplay.Pool;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Random = UnityEngine.Random;
 
 namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 {
@@ -148,11 +150,49 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             return 0;
         }
 
-        public Shape CreateRandomShape(HashSet<ShapeTemplate> usedShapeTemplates, GameObject shapeObject)
+        public Shape CreateRandomShape(GameObject shapeObject, HashSet<ShapeTemplate> usedShapeTemplates)
         {
             var shape = shapeObject.GetComponent<Shape>();
             shape.transform.localScale = Vector3.one;
             shape.UpdateShape(GetNonRepeatedShapeTemplate(usedShapeTemplates));
+
+            var currentTargets = targetManager.GetTargets();
+            if (currentTargets != null && currentTargets.Any(i => i.targetScriptable.bonusItem != null))
+            {
+                GenerateBonus(shape, currentTargets);
+            }
+
+            shape.UpdateColor(GetColor());
+
+            return shape;
+        }
+        
+        public Shape CreateNonFitShape(GameObject shapeObject)
+        {
+            var shape = shapeObject.GetComponent<Shape>();
+            shape.transform.localScale = Vector3.one;
+            
+            ShapeTemplate shapeTemplate = null;
+            var shapesToConsider = levelManager.GetGameMode() == EGameMode.Adventure
+                ? shapes.Where(x => x.spawnFromLevel <= levelManager.currentLevel).ToArray()
+                : shapes.Where(x => x.scoreForSpawn <= GetClassicScore()).ToArray();
+            shapesToConsider = shapesToConsider.Where(x => x.filled >= 5).OrderBy(x => Random.value).ToArray();
+            
+            for (var i = 0; i < shapesToConsider.Length; i++)
+            {
+                shape.UpdateShape(shapesToConsider[i]);
+                if (!field.CanPlaceShape(shape))
+                {
+                    shapeTemplate = shapesToConsider[i];
+                    break;
+                }
+            }
+
+            if (shapeTemplate == null)
+            {
+                // 没有 NonFit
+                return null;
+            }
 
             var currentTargets = targetManager.GetTargets();
             if (currentTargets != null && currentTargets.Any(i => i.targetScriptable.bonusItem != null))

@@ -43,7 +43,7 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
         [SerializeField]
         private Button debugModeBtn;
 
-        private bool _isDebugMode = true;
+        private bool _isDebugMode = false;
 
         public bool IsDebugMode => _isDebugMode;
 

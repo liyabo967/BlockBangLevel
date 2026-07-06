@@ -102,11 +102,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             //     }
             // }
 
-            FillCellDecksWithPerfectShape();
+            StartCoroutine(FillCellDecksWithPerfectShape());
         }
 
-        private void FillCellDecksWithPerfectShape()
+        private IEnumerator FillCellDecksWithPerfectShape()
         {
+            yield return new WaitForSeconds(0.2f);
             usedShapes.Clear();
             var shapeTemplates = itemFactory.GetPerfectShape();
             var shapeTemplateIndex = 0;
@@ -122,7 +123,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                     {
                         var shapeObject = PoolObject.GetObject(shapePrefab.gameObject);
                         var isPerfect = Random.Range(0, 1f) <= perfectRatio;
-                        Shape resultShape;
+                        Shape resultShape = null;
                         if (isPerfect)
                         {
                             if (shapeTemplateIndex  < shapeTemplates.Count)
@@ -132,15 +133,39 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                             }
                             else
                             {
-                                debugInfo.Append("R0, ");
+                                debugInfo.Append("Random_Warn, ");
                                 Debug.LogWarning($"perfect shapes not enough, count: {shapeTemplates.Count}, index: {shapeTemplateIndex}");
-                                resultShape = itemFactory.CreateRandomShape(usedShapes, shapeObject);
+                                resultShape = itemFactory.CreateRandomShapeFits(shapeObject, usedShapes);
                             }
                         }
                         else
                         {
-                            debugInfo.Append("R1, ");
-                            resultShape = itemFactory.CreateRandomShape(usedShapes, shapeObject);
+                            var randomInt = Random.Range(0, 100) % 2;
+                            if (randomInt == 0)
+                            {
+                                resultShape = itemFactory.CreateNonFitShape(shapeObject);
+                                if (resultShape != null)
+                                {
+                                    debugInfo.Append("NonFit, ");
+                                }
+                                else
+                                {
+                                    debugInfo.Append("Random_FB, ");
+                                    if (index > 0)
+                                    {
+                                        resultShape = itemFactory.CreateRandomShape(shapeObject, usedShapes);
+                                    }
+                                    else
+                                    {
+                                        resultShape = itemFactory.CreateRandomShapeFits(shapeObject, usedShapes);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                debugInfo.Append("Random, ");
+                                resultShape = itemFactory.CreateRandomShapeFits(shapeObject, usedShapes);
+                            }
                         }
                         cellDeck.FillCell(resultShape);
                     }
@@ -171,7 +196,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                     result = 0.6f;
                     break;
                 case 5:
-                    result = 0.4f;
+                    result = 0.5f;
                     break;
             }
             return result;
@@ -189,7 +214,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private int GetClassicDifficulty()
         {
-            return 1;
             if (_levelManager.ClassicModeHandler.score < 1000)
             {
                 return 1;
@@ -355,7 +379,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 {
                     // If no fitting shape was found, create a regular random shape as fallback
                     shapeObject = PoolObject.GetObject(shapePrefab.gameObject);
-                    shape = itemFactory.CreateRandomShape(usedShapes, shapeObject);
+                    shape = itemFactory.CreateRandomShape(shapeObject, usedShapes);
                     cellDeck.FillCell(shape);
                     if (shape.shapeTemplate != null)
                     {

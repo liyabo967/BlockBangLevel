@@ -529,7 +529,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             }
 
             if (EventManager.GameStatus == EGameState.Playing && !GameManager.instance.IsTutorialMode())
+            {
                 yield return StartCoroutine(CheckLose());
+            }
         }
 
         private IEnumerator CheckLose()
@@ -771,7 +773,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                     }
 
                     // Create a dummy shape for the animation position
-                    var dummyShape = itemFactory.CreateRandomShape(null, PoolObject.GetObject(cellDeck.shapePrefab.gameObject));
+                    var dummyShape = itemFactory.CreateRandomShape(PoolObject.GetObject(cellDeck.shapePrefab.gameObject), null);
                     dummyShape.transform.position = rowCells[0].transform.position;
                     
                     // Screen shake effect

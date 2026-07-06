@@ -13,6 +13,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.System;
 using UnityEngine;
@@ -242,6 +243,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 return false;
             }
 
+            // PrintBoard();
             var activeItems = shape.GetActiveItems();
             int minX = int.MaxValue, minY = int.MaxValue;
             int maxX = int.MinValue, maxY = int.MinValue;
@@ -264,7 +266,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             {
                 for (var fieldX = 0; fieldX <= cells.GetLength(1) - shapeWidth; fieldX++)
                 {
-                    if (CanPlaceShapeAt(activeItems, fieldX - minX, fieldY - minY))
+                    if (CanPlaceShapeAt(shape, activeItems, fieldX - minX, fieldY - minY))
                     {
                         return true;
                     }
@@ -281,7 +283,21 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             return cells[y, x];
         }
 
-        private bool CanPlaceShapeAt(List<Item> items, int offsetX, int offsetY)
+        private void PrintBoard()
+        {
+            Debug.Log("PrintBoard ---------------");
+            for (int i = 0; i < cells.GetLength(0); i++)
+            {
+                StringBuilder  sb = new StringBuilder();
+                for (int j = 0; j < cells.GetLength(1); j++)
+                {
+                    sb.Append(cells[i, j].busy + ", ");
+                }
+                Debug.Log(sb.ToString());
+            }
+        }
+
+        private bool CanPlaceShapeAt(Shape shape, List<Item> items, int offsetX, int offsetY)
         {
             foreach (var item in items)
             {
