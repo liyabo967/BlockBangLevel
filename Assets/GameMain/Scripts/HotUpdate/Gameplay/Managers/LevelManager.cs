@@ -56,6 +56,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         [SerializeField]
         private GameObject scorePrefab;
+        
+        [SerializeField]
+        private GameObject noSpaceLeft;
 
         [SerializeField]
         private GameObject[] words;
@@ -392,6 +395,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private void LoadLevel(Level levelData)
         {
+            noSpaceLeft.SetActive(false);
             field.Generate(levelData);
             // Reset field center cache when loading new level
             isFieldCenterCached = false;
@@ -600,6 +604,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private void SetLose()
         {
+            noSpaceLeft.SetActive(true);
             GameEntry.Sound.PauseMusic();
             if (gameMode == EGameMode.Classic)
                 GameState.Delete(EGameMode.Classic);
