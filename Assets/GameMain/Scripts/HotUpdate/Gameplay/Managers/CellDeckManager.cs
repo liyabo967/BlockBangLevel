@@ -164,7 +164,14 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                             else
                             {
                                 debugInfo.Append("Random, ");
-                                resultShape = itemFactory.CreateRandomShapeFits(shapeObject, usedShapes);
+                                if (index > 0)
+                                {
+                                    resultShape = itemFactory.CreateRandomShape(shapeObject, usedShapes);
+                                }
+                                else
+                                {
+                                    resultShape = itemFactory.CreateRandomShapeFits(shapeObject, usedShapes);
+                                }
                             }
                         }
                         cellDeck.FillCell(resultShape);
