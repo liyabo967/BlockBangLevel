@@ -12,6 +12,7 @@
 
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
+using BlockPuzzleGameToolkit.Scripts.System;
 using GameAnalyticsSDK;
 using Quester;
 using TMPro;
@@ -50,12 +51,14 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 failedStuff.SetActive(true);
                 bestScoreStuff.SetActive(false);
             }
+            // closeButton.gameObject.SetActive(true);
             GameAnalyticsManager.SendUserProgression(UserStage.Classic, GAProgressionStatus.Complete, bestScore.ToString(), score);
         }
 
         public void BackToHome()
         {
-            Close();
+            Close(true);
+            GameManager.instance.MainMenu();
         }
     }
 }

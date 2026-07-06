@@ -40,7 +40,13 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
         private Button unlockAdventureBtn;
         [SerializeField]
         private Button testAdMobBtn;
-        
+        [SerializeField]
+        private Button debugModeBtn;
+
+        private bool _isDebugMode = true;
+
+        public bool IsDebugMode => _isDebugMode;
+
         protected override void OnSingletonAwake()
         {
             base.OnSingletonAwake();
@@ -52,6 +58,7 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
             scoreOkBtn.onClick.AddListener(EditScore);
             unlockAdventureBtn.onClick.AddListener(UnlockAdventure);
             testAdMobBtn.onClick.AddListener(OpenAdMobInspector);
+            debugModeBtn.onClick.AddListener(ToggleDebugMode);
         }
 
         private void ShowLoginDialog()
@@ -120,6 +127,12 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
                     Debug.LogError(error.GetMessage());
                 }
             });
+        }
+
+        private void ToggleDebugMode()
+        {
+            _isDebugMode = !_isDebugMode;
+            debugModeBtn.GetComponentInChildren<TextMeshProUGUI>().text = _isDebugMode ? "DebugMode" : "StandardMode";
         }
     }
 }

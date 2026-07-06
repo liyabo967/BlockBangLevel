@@ -14,6 +14,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay.Pool;
@@ -106,10 +107,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private void FillCellDecksWithPerfectShape()
         {
+            usedShapes.Clear();
             var shapeTemplates = itemFactory.GetPerfectShape();
             var shapeTemplateIndex = 0;
             var perfectRatio = GetPerfectRatio(GetDifficulty());
             // Debug.Log("FillPerfectShape, perfectRatio:" + perfectRatio);
+            StringBuilder debugInfo = new StringBuilder();
             try
             {
                 for (var index = 0; index < cellDecks.Length; index++)
@@ -124,21 +127,25 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                         {
                             if (shapeTemplateIndex  < shapeTemplates.Count)
                             {
+                                debugInfo.Append("Perfect, ");
                                 resultShape = itemFactory.CreatePerfectShape(shapeObject, shapeTemplates[shapeTemplateIndex++]);
                             }
                             else
                             {
+                                debugInfo.Append("R0, ");
                                 Debug.LogWarning($"perfect shapes not enough, count: {shapeTemplates.Count}, index: {shapeTemplateIndex}");
-                                resultShape = itemFactory.CreateRandomShapeFits(shapeObject);
+                                resultShape = itemFactory.CreateRandomShape(usedShapes, shapeObject);
                             }
                         }
                         else
                         {
-                            resultShape = itemFactory.CreateRandomShapeFits(shapeObject);
+                            debugInfo.Append("R1, ");
+                            resultShape = itemFactory.CreateRandomShape(usedShapes, shapeObject);
                         }
                         cellDeck.FillCell(resultShape);
                     }
                 }
+                _levelManager.SetDebugInfo(debugInfo.ToString());
             }
             catch (Exception e)
             {
@@ -182,6 +189,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private int GetClassicDifficulty()
         {
+            return 1;
             if (_levelManager.ClassicModeHandler.score < 1000)
             {
                 return 1;

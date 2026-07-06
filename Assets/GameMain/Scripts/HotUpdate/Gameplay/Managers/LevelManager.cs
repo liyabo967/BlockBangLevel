@@ -20,6 +20,7 @@ using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay.FX;
 using BlockPuzzleGameToolkit.Scripts.Gameplay.Managers;
 using BlockPuzzleGameToolkit.Scripts.Gameplay.Pool;
+using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.System;
 using BlockPuzzleGameToolkit.Scripts.Utils;
@@ -64,6 +65,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         [SerializeField]
         private GameObject timerPanel;
+        
+        [SerializeField]
+        private TextMeshProUGUI debugText;
 
         public EGameMode gameMode;
         public Level _levelData;
@@ -95,6 +99,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private void OnEnable()
         {
+            debugText.gameObject.SetActive(GM.Instance.IsDebugMode);
             StateManager.instance.CurrentState = EScreenStates.Game;
             EventManager.GetEvent(EGameEvent.RestartLevel).Subscribe(RestartLevel);
             EventManager.GetEvent<Shape>(EGameEvent.ShapePlaced).Subscribe(CheckLines);
@@ -819,6 +824,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             {
                 timerManager.PauseTimer(pause);
             }
+        }
+
+        public void SetDebugInfo(string debugInfo)
+        {
+            debugText.text = debugInfo;
         }
     }
 }
