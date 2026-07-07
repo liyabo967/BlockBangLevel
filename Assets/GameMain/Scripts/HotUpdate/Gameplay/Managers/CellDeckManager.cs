@@ -108,6 +108,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private IEnumerator FillCellDecksWithPerfectShape()
         {
             yield return new WaitForSeconds(0.2f);
+            // Debug.Log("GetLevelProgress: " + _levelManager.GetLevelProgress());
             usedShapes.Clear();
             var shapeTemplates = itemFactory.GetPerfectShape();
             var shapeTemplateIndex = 0;
@@ -140,36 +141,38 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                         }
                         else
                         {
-                            var randomInt = Random.Range(0, 100) % 2;
-                            if (randomInt == 0)
+                            var notFit = Random.Range(0, 1f) <= GetNotFitRatio(GetDifficulty());
+                            if (notFit)
                             {
-                                resultShape = itemFactory.CreateNonFitShape(shapeObject);
-                                if (resultShape != null)
+                                if (index > 0)
                                 {
-                                    debugInfo.Append("NonFit, ");
-                                }
-                                else
-                                {
-                                    debugInfo.Append("Random_FB, ");
-                                    if (index > 0)
+                                    resultShape = itemFactory.CreateNotFitShape(shapeObject);
+                                    if (resultShape != null)
                                     {
-                                        resultShape = itemFactory.CreateRandomShape(shapeObject, usedShapes);
+                                        debugInfo.Append("NotFit, ");
                                     }
                                     else
                                     {
-                                        resultShape = itemFactory.CreateRandomShapeFits(shapeObject, usedShapes);
+                                        debugInfo.Append("RandomFallback, ");
+                                        resultShape = itemFactory.CreateRandomShape(shapeObject, usedShapes);
                                     }
+                                }
+                                else
+                                {
+                                    debugInfo.Append("RandomFit, ");
+                                    resultShape = itemFactory.CreateRandomShapeFits(shapeObject, usedShapes);
                                 }
                             }
                             else
                             {
-                                debugInfo.Append("Random, ");
                                 if (index > 0)
                                 {
+                                    debugInfo.Append("Random, ");
                                     resultShape = itemFactory.CreateRandomShape(shapeObject, usedShapes);
                                 }
                                 else
                                 {
+                                    debugInfo.Append("RandomFit, ");
                                     resultShape = itemFactory.CreateRandomShapeFits(shapeObject, usedShapes);
                                 }
                             }
@@ -197,10 +200,34 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                     result = 0.8f;
                     break;
                 case 3:
-                    result = 0.7f;
+                    result = 0.8f;
                     break;
                 case 4:
+                    result = 0.7f;
+                    break;
+                case 5:
                     result = 0.6f;
+                    break;
+            }
+            return result;
+        }
+
+        private float GetNotFitRatio(int difficulty)
+        {
+            var result = 0.2f;
+            switch (difficulty)
+            {
+                case 1:
+                    result = 0.2f;
+                    break;
+                case 2:
+                    result = 0.3f;
+                    break;
+                case 3:
+                    result = 0.35f;
+                    break;
+                case 4:
+                    result = 0.4f;
                     break;
                 case 5:
                     result = 0.5f;
@@ -221,19 +248,23 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private int GetClassicDifficulty()
         {
-            if (_levelManager.ClassicModeHandler.score < 1000)
+            if (_levelManager.ClassicModeHandler.score < 100)
             {
                 return 1;
             }
-            if (_levelManager.ClassicModeHandler.score < 5000)
+            if (_levelManager.ClassicModeHandler.score < 200)
             {
                 return 2;
             }
-            if (_levelManager.ClassicModeHandler.score < 10000)
+            if (_levelManager.ClassicModeHandler.score < 500)
             {
                 return 3;
             }
-            return 4;
+            if (_levelManager.ClassicModeHandler.score < 10000)
+            {
+                return 4;
+            }
+            return 5;
         }
 
         private int GetAdventureDifficulty()

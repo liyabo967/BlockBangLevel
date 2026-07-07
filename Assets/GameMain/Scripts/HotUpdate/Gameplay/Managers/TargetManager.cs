@@ -241,5 +241,34 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         {
             return _bonusAnimations != null && _bonusAnimations.Count > 0;
         }
+
+        public float GetLevelProgress()
+        {
+            if (level.levelType.elevelType == ELevelType.Score)
+            {
+                var targetScriptable = _levelTargetInstance.Find(t => t.targetScriptable.GetType() == typeof(ScoreTargetScriptable));
+                var targetAmount = level.targetInstance.Find(t=> t.targetScriptable.GetType() == typeof(ScoreTargetScriptable)).amount;
+                // Debug.Log($"score amount: {targetScriptable.amount}, {targetAmount}");
+                return 1 - targetScriptable.amount * 1.0f / targetAmount;
+            }
+            else if(level.levelType.elevelType == ELevelType.CollectItems)
+            {
+                var bonusTarget = _levelTargetInstance.FindAll(t => t.targetScriptable.GetType() == typeof(BonusItemTargetScriptable));
+                var leftBonus = 0;
+                foreach (var target in bonusTarget)
+                {
+                    leftBonus += target.amount;
+                }
+
+                var targetAmount = 0;
+                foreach (var target in level.targetInstance)
+                {
+                    targetAmount +=  target.amount;
+                }
+                // Debug.Log($"bonus amount: {leftBonus}, {targetAmount}");
+                return 1 - leftBonus * 1.0f / targetAmount;
+            }
+            return 0;
+        }
     }
 }

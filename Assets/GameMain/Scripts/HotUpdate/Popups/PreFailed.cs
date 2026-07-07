@@ -141,6 +141,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             else
             {
                 PauseTimer();
+                GameEntry.UI.OpenUIForm(UIFormId.CoinsShop);
             }
         }
 
@@ -167,7 +168,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             {
                 if (_userData is ClassicLevelStateHandler)
                 {
-                    levelManager.cellDeck.UpdateCellDeckAfterFail();
+                    levelManager.UpdateCellDeckAfterFail();
                     EventManager.GameStatus = EGameState.Playing;
                 }
                 else if (_userData is AdventureLevelStateHandler)
@@ -177,12 +178,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                         float newTime = levelManager.timerManager.RemainingTime + _extraSeconds;
                         levelManager.timerManager.InitializeTimer(newTime);
                     }
-                    levelManager.cellDeck.UpdateCellDeckAfterFail();
+                    levelManager.UpdateCellDeckAfterFail();
                     EventManager.GameStatus = EGameState.Playing;
                 }
                 else if (userData is TimedLevelStateHandler)
                 {
-                    levelManager.cellDeck.UpdateCellDeckAfterFail();
+                    levelManager.UpdateCellDeckAfterFail();
                     levelManager.timerManager?.InitializeTimer(levelManager.timerManager.RemainingTime );
                     EventManager.GameStatus = EGameState.Playing;
                 }

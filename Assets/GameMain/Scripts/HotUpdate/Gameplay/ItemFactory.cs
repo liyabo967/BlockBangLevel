@@ -167,7 +167,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             return shape;
         }
         
-        public Shape CreateNonFitShape(GameObject shapeObject)
+        public Shape CreateNotFitShape(GameObject shapeObject)
         {
             var shape = shapeObject.GetComponent<Shape>();
             shape.transform.localScale = Vector3.one;
@@ -190,7 +190,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
             if (shapeTemplate == null)
             {
-                // 没有 NonFit
+                // 没有 NotFit 的形状
                 return null;
             }
 

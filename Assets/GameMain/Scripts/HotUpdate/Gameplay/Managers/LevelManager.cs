@@ -403,6 +403,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             OnLevelLoaded?.Invoke(levelData);
         }
 
+        public void UpdateCellDeckAfterFail()
+        {
+            noSpaceLeft.SetActive(false);
+            cellDeck.UpdateCellDeckAfterFail();
+        }
+
         private void CheckLines(Shape obj)
         {
             var lines = field.GetFilledLines(false, false);
@@ -575,11 +581,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         public float GetLevelProgress()
         {
-            if (_levelData.levelType.elevelType == ELevelType.Score)
-            {
-                
-            }
-            return 1f;
+            return targetManager.GetLevelProgress();
         }
 
         public float GetFilledRate()
@@ -637,7 +639,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             foreach (var cell in emptyCells)
             {
                 cell.FillCellFailed(template);
-                yield return new WaitForSeconds(0.01f);
+                yield return new WaitForSeconds(0.02f);
             }
             field.Clear();
         }
