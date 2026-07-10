@@ -540,21 +540,24 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
             if (EventManager.GameStatus == EGameState.Playing && !GameManager.instance.IsTutorialMode())
             {
-                yield return StartCoroutine(CheckLose());
+                yield return StartCoroutine(CheckLoseCo());
             }
         }
 
-        private IEnumerator CheckLose()
+        private IEnumerator CheckLoseCo()
         {
-            
             if (gameMode != EGameMode.Classic && targetManager != null && targetManager.WillLevelBeComplete())
             {
                 EventManager.GameStatus = EGameState.WinWaiting;
             }
 
-            yield return new WaitForSeconds(0.5f); // Keep a small delay for game flow
+            // yield return new WaitForSeconds(0.7f); // Keep a small delay for game flow, waiting for new shapes generation
             var lose = true;
             var availableShapes = cellDeck.GetShapes();
+            if (availableShapes.Length == 0)
+            {
+                lose = false;
+            }
             foreach (var shape in availableShapes)
             {
                 if (field.CanPlaceShape(shape))
@@ -577,6 +580,14 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             }
 
             yield return null;
+        }
+
+        public void CheckLose()
+        {
+            if (EventManager.GameStatus == EGameState.Playing && !GameManager.instance.IsTutorialMode())
+            {
+                StartCoroutine(CheckLoseCo());
+            }
         }
 
         public float GetLevelProgress()
@@ -802,7 +813,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
                 if (Keyboard.current.aKey.wasPressedThisFrame)
                 {
-                    StartCoroutine(CheckLose());
+                    StartCoroutine(CheckLoseCo());
                 }
 
                 if (Keyboard.current.rKey.wasPressedThisFrame)

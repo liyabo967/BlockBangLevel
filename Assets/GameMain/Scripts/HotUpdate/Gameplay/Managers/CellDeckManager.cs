@@ -186,6 +186,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             {
                 Debug.LogError($"FillPerfectShape Error: shapeTemplates length: {shapeTemplates.Count}, index: {shapeTemplateIndex}, error: " + e.Message);
             }
+            
+            if (EventManager.GameStatus == EGameState.Playing && !GameManager.instance.IsTutorialMode())
+            {
+                _levelManager.CheckLose();
+            }
         }
 
         private float GetPerfectRatio(int difficulty)
