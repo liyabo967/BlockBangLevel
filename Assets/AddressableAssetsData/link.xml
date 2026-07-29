@@ -1,0 +1,345 @@
+<linker>
+  <assembly fullname="GameIAP, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Services.IAP.ProductID" preserve="all" />
+  </assembly>
+  <assembly fullname="HotUpdate, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="ApplicationController" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.AnimationBehaviours.CallButtonMethod" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.AnimationBehaviours.CallPopupMethod" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Audio.MusicBase" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Audio.SoundBase" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Data.Coins" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Data.ResourceItem" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Data.ResourceManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.Cell" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.CellDeck" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.CellDeckManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.ClassicModeHandler" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.ComboHandlerUI" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.ComboText" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.FieldManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.FX.BonusAnimation" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.FX.LineExplosion" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.FX.Outline" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.HighlightManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.Item" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.ItemFactoryAdventure" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.LevelManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.Managers.TimerManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.Managers.TutorialManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.Pool.AutoReturnToPool" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.Pool.InitialAmountPool" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.Pool.PoolObject" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.ScoreText" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.Shape" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.ShapeDraggable" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.StateManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.TargetManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.TimedModeHandler" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.VirtualMouse" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.AnimateTransform" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.AspectFitImage" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.BackgroundChanger" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.CustomButton" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.FXCanvas" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.GM" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.Labels.LabelAnim" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.Labels.ResourceLabel" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.Labels.TargetScoreGUIElement" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.NoAdsButton" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.Orientation.OrientationManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.Orientation.OrientationTransformableObject" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.OutlineField" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.SafeArea" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.TargetBonusGUIElement" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.TargetPanel" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.TargetPanelInPopup" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.TargetsUIHandler" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.UIManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.LevelsData.AdventureLevelStateHandler" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.LevelsData.Bonus" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.LevelsData.BonusItemTargetScriptable" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.LevelsData.BonusItemTemplate" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.LevelsData.ClassicLevelStateHandler" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.LevelsData.ItemTemplate" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.LevelsData.Level" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.LevelsData.LevelTypeScriptable" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.LevelsData.ScoreTargetScriptable" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.LevelsData.ShapeTemplate" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.LevelsData.TimedLevelStateHandler" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Localization.LocalizationManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Localization.LocalizedTextMeshProUGUI" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Map.MapField" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Map.MapTypeManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Map.PictureMap" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Map.ScrollableMap.LevelPin" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Map.ScrollableMap.ScrollableMapManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Map.ScrollableMap.ScrollMap" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.AudioSettingsUI" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.BetterThan" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.CoinsShop" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.Daily.DailyBonus" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.Daily.DayHandle" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.Fader" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.Failed" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.FailedClassic" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.FailedScore" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.FailedTimed" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.GDPR" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.ItemPurchase" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.Loading" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.LuckySpin" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.MainMenu" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.MenuManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.NewRecord" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.NoAds" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.PreFailed" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.PreFailedTitleManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.PrePlay" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.PrePlayScore" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.PreWinBonus" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.PreWinScore" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.Quit" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.Reward.RewardedButton" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.Reward.RewardedButtonHandler" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.Reward.RewardPopup" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.Reward.RewardVisual" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.SceneLoader" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.SettingsDlg" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.Tips" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.UIPanel" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.Win" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Popups.WinScore" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Services.GDPR.GDPRPopupManager" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Settings.AdsSettings" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Settings.ClearDirectorBindingsAfterStop" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Settings.CoinsShopSettings" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Settings.DailyBonusSettings" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Settings.DebugSettings" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Settings.GameSettings" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Settings.InterstitialSettings" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Settings.SpinSettings" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Settings.TutorialSettings" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.System.GameManager" preserve="all" />
+    <type fullname="ContentStretchController" preserve="all" />
+    <type fullname="GameMain.Scripts.HotUpdate.Base.Ads.AdSettings" preserve="all" />
+    <type fullname="GameMain.Scripts.HotUpdate.UI.UIRoot" preserve="all" />
+    <type fullname="LoadingForm" preserve="all" />
+    <type fullname="LongPressButton" preserve="all" />
+    <type fullname="Quester.DialogForm" preserve="all" />
+    <type fullname="Quester.GameEntry" preserve="all" />
+    <type fullname="Quester.PictureComponent" preserve="all" />
+    <type fullname="Quester.Processing" preserve="all" />
+    <type fullname="Quester.PurchaseResultUI" preserve="all" />
+    <type fullname="Quester.RateDlg" preserve="all" />
+    <type fullname="Quester.UI.CollectionDlg" preserve="all" />
+    <type fullname="Quester.UI.CollectionItem" preserve="all" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.Orientation.OrientationTransformableObject/OrientationPreset" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Gameplay.ShapeRow" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Map.MapTypeBinding" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Data.ResourceValue" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.LevelsData.LevelRow" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.LevelsData.Target" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Settings.AdElement" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Settings.AdSetting" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Settings.InterstitialAdElement" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Settings.RewardSetting" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Settings.RewardSettingSpin" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Settings.ShopItem" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.Utils.SerializableDictionary`2" preserve="nothing" serialized="true" />
+    <type fullname="GameMain.Scripts.HotUpdate.Base.Ads.AdConfig" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.LevelsData.ShapeRow" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.Move" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.Rotate" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.Scale" preserve="nothing" serialized="true" />
+    <type fullname="BlockPuzzleGameToolkit.Scripts.GUI.Size" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Main, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="BlockPuzzleGameToolkit.Scripts.System.Haptic.HapticFeedback" preserve="all" />
+  </assembly>
+  <assembly fullname="Unity.Addressables, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
+    <type fullname="UnityEngine.AddressableAssets.Addressables" preserve="all" />
+  </assembly>
+  <assembly fullname="Unity.InputSystem, Version=1.14.2.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.InputSystem.InputActionAsset" preserve="all" />
+    <type fullname="UnityEngine.InputSystem.InputActionReference" preserve="all" />
+    <type fullname="UnityEngine.InputSystem.UI.InputSystemUIInputModule" preserve="all" />
+    <type fullname="UnityEngine.InputSystem.UI.VirtualMouseInput" preserve="all" />
+    <type fullname="UnityEngine.InputSystem.InputAction" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.InputSystem.InputActionMap" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.InputSystem.InputActionProperty" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.InputSystem.InputBinding" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.InputSystem.InputControlScheme" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Rendering.Universal.UniversalAdditionalCameraData" preserve="all" />
+    <type fullname="UnityEngine.Rendering.Universal.TemporalAA/Settings" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.BundledAssetProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.InstanceProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.SceneProvider" preserve="all" />
+  </assembly>
+  <assembly fullname="Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="TMPro.TextMeshProUGUI" preserve="all" />
+    <type fullname="TMPro.TMP_FontAsset" preserve="all" />
+    <type fullname="TMPro.TMP_InputField" preserve="all" />
+    <type fullname="TMPro.TMP_SpriteAsset" preserve="all" />
+    <type fullname="TMPro.VertexGradient" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_InputField/OnChangeEvent" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_InputField/SelectionEvent" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_InputField/SubmitEvent" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_InputField/TextSelectionEvent" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_InputField/TouchScreenKeyboardEvent" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.FaceInfo_Legacy" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.FontAssetCreationSettings" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.KerningTable" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.LigatureSubstitutionRecord" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_Character" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_FontFeatureTable" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_FontWeightPair" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_SpriteCharacter" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_SpriteGlyph" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Unity.Timeline, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Timeline.ActivationPlayableAsset" preserve="all" />
+    <type fullname="UnityEngine.Timeline.ActivationTrack" preserve="all" />
+    <type fullname="UnityEngine.Timeline.AnimationPlayableAsset" preserve="all" />
+    <type fullname="UnityEngine.Timeline.AnimationTrack" preserve="all" />
+    <type fullname="UnityEngine.Timeline.SignalAsset" preserve="all" />
+    <type fullname="UnityEngine.Timeline.SignalEmitter" preserve="all" />
+    <type fullname="UnityEngine.Timeline.SignalReceiver" preserve="all" />
+    <type fullname="UnityEngine.Timeline.SignalTrack" preserve="all" />
+    <type fullname="UnityEngine.Timeline.TimelineAsset" preserve="all" />
+    <type fullname="UnityEngine.Timeline.MarkerList" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Timeline.SignalReceiver/EventKeyValue" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Timeline.TimelineAsset/EditorSettings" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Timeline.TimelineClip" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="UnityEditor.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEditor.Audio.AudioMixerSnapshotController" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.AnimationClip" preserve="all" />
+    <type fullname="UnityEngine.Animator" preserve="all" />
+    <type fullname="UnityEngine.RuntimeAnimatorController" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Audio.AudioMixer" preserve="all" />
+    <type fullname="UnityEngine.Audio.AudioMixerGroup" preserve="all" />
+    <type fullname="UnityEngine.AudioClip" preserve="all" />
+    <type fullname="UnityEngine.AudioListener" preserve="all" />
+    <type fullname="UnityEngine.AudioSource" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Camera" preserve="all" />
+    <type fullname="UnityEngine.Cubemap" preserve="all" />
+    <type fullname="UnityEngine.GameObject" preserve="all" />
+    <type fullname="UnityEngine.LightmapSettings" preserve="all" />
+    <type fullname="UnityEngine.Material" preserve="all" />
+    <type fullname="UnityEngine.Object" preserve="all" />
+    <type fullname="UnityEngine.RectTransform" preserve="all" />
+    <type fullname="UnityEngine.RenderSettings" preserve="all" />
+    <type fullname="UnityEngine.Shader" preserve="all" />
+    <type fullname="UnityEngine.Sprite" preserve="all" />
+    <type fullname="UnityEngine.TextAsset" preserve="all" />
+    <type fullname="UnityEngine.Texture2D" preserve="all" />
+    <type fullname="UnityEngine.Transform" preserve="all" />
+    <type fullname="UnityEngine.U2D.SpriteAtlas" preserve="all" />
+    <type fullname="UnityEngine.Events.PersistentCallGroup" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Events.ArgumentCache" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Events.PersistentListenerMode" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Events.UnityEvent" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Events.UnityEvent`1" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.RectOffset" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="UnityEngine.DirectorModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Playables.PlayableDirector" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.ParticleSystemModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.ParticleSystem" preserve="all" />
+    <type fullname="UnityEngine.ParticleSystemRenderer" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.Physics2DModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.BoxCollider2D" preserve="all" />
+    <type fullname="UnityEngine.Rigidbody2D" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Font" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.EventSystems.EventSystem" preserve="all" />
+    <type fullname="UnityEngine.UI.Button" preserve="all" />
+    <type fullname="UnityEngine.UI.CanvasScaler" preserve="all" />
+    <type fullname="UnityEngine.UI.ContentSizeFitter" preserve="all" />
+    <type fullname="UnityEngine.UI.GraphicRaycaster" preserve="all" />
+    <type fullname="UnityEngine.UI.GridLayoutGroup" preserve="all" />
+    <type fullname="UnityEngine.UI.HorizontalLayoutGroup" preserve="all" />
+    <type fullname="UnityEngine.UI.Image" preserve="all" />
+    <type fullname="UnityEngine.UI.LayoutElement" preserve="all" />
+    <type fullname="UnityEngine.UI.Mask" preserve="all" />
+    <type fullname="UnityEngine.UI.RectMask2D" preserve="all" />
+    <type fullname="UnityEngine.UI.Scrollbar" preserve="all" />
+    <type fullname="UnityEngine.UI.ScrollRect" preserve="all" />
+    <type fullname="UnityEngine.UI.Shadow" preserve="all" />
+    <type fullname="UnityEngine.UI.Slider" preserve="all" />
+    <type fullname="UnityEngine.UI.Text" preserve="all" />
+    <type fullname="UnityEngine.UI.VerticalLayoutGroup" preserve="all" />
+    <type fullname="UnityEngine.UI.AnimationTriggers" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UI.ColorBlock" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UI.MaskableGraphic/CullStateChangedEvent" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UI.Navigation" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UI.Slider/SliderEvent" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UI.SpriteState" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UI.Button/ButtonClickedEvent" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UI.FontData" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UI.ScrollRect/ScrollRectEvent" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UI.Scrollbar/ScrollEvent" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Canvas" preserve="all" />
+    <type fullname="UnityEngine.CanvasGroup" preserve="all" />
+    <type fullname="UnityEngine.CanvasRenderer" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityGameFramework.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="HttpComponent" preserve="all" />
+    <type fullname="NetworkConfig" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.AddressablesResourceManager" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.BaseComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.ConfigComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.DataNodeComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.DataStorageComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.DataTableComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.DebuggerComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.DownloadComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.EntityComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.EventComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.FileSystemComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.FsmComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.LocalizationComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.NetworkComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.ObjectPoolComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.ProcedureComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.ReferencePoolComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.ResourceComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.SceneComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.SettingComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.SoundComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.UIComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.WebRequestComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Scripts.Runtime.Purchase.PurchaseComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.DebuggerComponent/ConsoleWindow" preserve="nothing" serialized="true" />
+    <type fullname="UnityGameFramework.Runtime.SoundComponent/SoundGroup" preserve="nothing" serialized="true" />
+    <type fullname="UnityGameFramework.Runtime.UIComponent/UIGroup" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="UnityEngine.TextCoreFontEngineModule">
+    <type fullname="UnityEngine.TextCore.FaceInfo" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.TextCore.Glyph" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.TextCore.GlyphMetrics" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.TextCore.GlyphRect" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.TextCore.LowLevel.GlyphAdjustmentRecord" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.TextCore.LowLevel.GlyphPairAdjustmentRecord" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.TextCore.LowLevel.GlyphValueRecord" preserve="nothing" serialized="true" />
+  </assembly>
+</linker>
