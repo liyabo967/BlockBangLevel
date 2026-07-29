@@ -57,13 +57,13 @@ namespace Quester
 #elif UNITY_IPHONE
             Application.OpenURL("itms-apps://itunes.apple.com/app/id6749655294");
 #endif
-            Close();
+            // Close();
         }
 
         private void OnClickFeedback()
         {
             EmailUtils.SendEMail(UserDataManager.Instance.Level);
-            Close();
+            // Close();
         }
     }
 }

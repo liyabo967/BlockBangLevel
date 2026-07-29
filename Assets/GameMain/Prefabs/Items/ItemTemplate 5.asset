@@ -16,11 +16,11 @@ MonoBehaviour:
   templateId: 5
   backgroundColor: {r: 0.11372549, g: 0.16470589, b: 0.35686275, a: 1}
   underlayColor: {r: 1, g: 0.5647059, b: 1, a: 1}
-  bottomColor: {r: 0.59607846, g: 0.17254902, b: 0.88235295, a: 1}
-  topColor: {r: 1, g: 0.6556604, b: 1, a: 1}
-  leftColor: {r: 0.6784314, g: 0.2509804, b: 0.90588236, a: 1}
-  rightColor: {r: 0.93333334, g: 0.49803922, b: 0.98039216, a: 1}
-  overlayColor: {r: 0.78431374, g: 0.3529412, b: 0.9372549, a: 1}
+  bottomColor: {r: 0.32156864, g: 0.14117648, b: 0.48235294, a: 1}
+  topColor: {r: 0.8392157, g: 0.6039216, b: 0.93333334, a: 1}
+  leftColor: {r: 0.5803922, g: 0.3647059, b: 0.87058824, a: 1}
+  rightColor: {r: 0.4509804, g: 0.21960784, b: 0.6117647, a: 1}
+  overlayColor: {r: 0.48235294, g: 0.28627452, b: 0.8039216, a: 1}
   backgroundSprite: {fileID: 21300000, guid: 693867bdddcc14d63946cba63dfc26b3, type: 3}
   underlaySprite: {fileID: 21300000, guid: 693867bdddcc14d63946cba63dfc26b3, type: 3}
   bottomSprite: {fileID: 21300000, guid: 6f4dbcb19b18242d18475fe36587b892, type: 3}

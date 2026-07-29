@@ -205,13 +205,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                     result = 0.8f;
                     break;
                 case 3:
-                    result = 0.8f;
+                    result = 0.75f;
                     break;
                 case 4:
                     result = 0.7f;
                     break;
                 case 5:
-                    result = 0.6f;
+                    result = 0.65f;
                     break;
             }
             return result;
@@ -223,19 +223,19 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             switch (difficulty)
             {
                 case 1:
-                    result = 0.2f;
+                    result = 0.1f;
                     break;
                 case 2:
-                    result = 0.3f;
+                    result = 0.2f;
                     break;
                 case 3:
-                    result = 0.35f;
+                    result = 0.3f;
                     break;
                 case 4:
-                    result = 0.4f;
+                    result = 0.35f;
                     break;
                 case 5:
-                    result = 0.5f;
+                    result = 0.45f;
                     break;
             }
             return result;
@@ -253,21 +253,21 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private int GetClassicDifficulty()
         {
-            if (_levelManager.ClassicModeHandler.score < 100)
+            if (_levelManager.ClassicModeHandler.score < 500)
             {
                 return 1;
             }
-            if (_levelManager.ClassicModeHandler.score < 200)
+            if (_levelManager.ClassicModeHandler.score < 1000)
             {
                 return 2;
             }
-            if (_levelManager.ClassicModeHandler.score < 500)
+            if (_levelManager.ClassicModeHandler.score < 5000)
             {
                 return 3;
             }
-            if (_levelManager.ClassicModeHandler.score < 10000)
+            if (_levelManager.ClassicModeHandler.score < 20000)
             {
-                return 4;
+                return 3;
             }
             return 5;
         }

@@ -416,7 +416,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             {
                 comboCounter++;
                 missCounter = 0;
-                shakeCanvas.DOShakePosition(0.2f, 35f, 50);
+                shakeCanvas.DOShakePosition(0.2f, 65f, 50);
                 
                 if (comboCounter > 1)
                 {
