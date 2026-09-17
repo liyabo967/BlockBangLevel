@@ -10,6 +10,7 @@
 // // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // // THE SOFTWARE.
 
+using System.Collections;
 using BlockPuzzleGameToolkit.Scripts.Audio;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
@@ -18,6 +19,7 @@ using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.System;
 using DG.Tweening;
+using GameMain.Scripts.HotUpdate.Base.Ads;
 using Quester;
 using TMPro;
 using UnityEngine;
@@ -31,6 +33,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         public CustomButton continueButton;
         public CustomButton rewardButton;
         public TextMeshProUGUI timeLeftText;
+        public TextMeshProUGUI noThanksText;
         protected int timer;
         protected int price;
         protected bool hasContinued = false;
@@ -81,14 +84,34 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             continueButton.interactable = true;
             rewardButton.interactable = true;
             hasContinued = false;
-            // Start the timer only after the popup animation is complete
+            noThanksText.gameObject.SetActive(false);
         }
 
         protected override void OnResume()
         {
             base.OnResume();
-            InvokeRepeating(nameof(UpdateTimer), 1, 1);
+            StartCoroutine(ShowNoThanks(1f));
         }
+
+        public void ClickNoThanks()
+        {
+            Close(true);
+            EventManager.GameStatus = EGameState.Failed;
+        }
+
+        private IEnumerator ShowNoThanks(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            noThanksText.gameObject.SetActive(true);
+            // noThanksText.transform.localScale = Vector3.zero;
+            // noThanksText.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
+        }
+
+        // protected override void OnResume()
+        // {
+        //     base.OnResume();
+        //     InvokeRepeating(nameof(UpdateTimer), 1, 1);
+        // }
 
         protected virtual void UpdateTimer()
         {
@@ -186,6 +209,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                     levelManager.UpdateCellDeckAfterFail();
                     levelManager.timerManager?.InitializeTimer(levelManager.timerManager.RemainingTime );
                     EventManager.GameStatus = EGameState.Playing;
+                }
+            }
+            else
+            {
+                if (!UserDataManager.Instance.NoAdsPurchased)
+                {
+                    AdManager.Instance.ShowInterstitial();
                 }
             }
         }

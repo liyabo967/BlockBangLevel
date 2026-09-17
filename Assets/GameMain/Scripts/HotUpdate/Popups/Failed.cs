@@ -47,14 +47,5 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             GameManager.instance.RestartLevel();
             Close();
         }
-
-        protected override void OnClose(bool isShutdown, object userData)
-        {
-            base.OnClose(isShutdown, userData);
-            if (!UserDataManager.Instance.NoAdsPurchased)
-            {
-                AdManager.Instance.ShowInterstitial();
-            }
-        }
     }
 }
