@@ -45,6 +45,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private bool wasVirtualMousePressed = false;
         private TimerManager timerManager;
 
+        private Vector2Int _lastHighlightCell = new (99, 99);
+
         private void OnEnable()
         {
             itemFactory ??= FindObjectOfType<ItemFactory>();
@@ -335,15 +337,29 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private void UpdateCellHighlights()
         {
+            
             highlightManager.ClearAllHighlights();
 
+            Vector2Int current = new (99, 99);
             foreach (var item in _items)
             {
                 var cell = GetCellUnderShape(item);
                 if (cell != null)
                 {
-                    highlightManager.HighlightCell(cell, item);
+                    var cellComponent = cell?.GetComponent<Cell>();
+                    highlightManager.HighlightCell(cellComponent, item);
+                    var cellPosition = cellComponent.GetCellPosition();
+                    if (cellPosition.x < current.x || cellPosition.y < current.y)
+                    {
+                        current = cellPosition;
+                    }
                 }
+            }
+
+            if (_lastHighlightCell != current)
+            {
+                _lastHighlightCell = current;
+                HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Light);
             }
 
             if (itemFactory._oneColorMode)

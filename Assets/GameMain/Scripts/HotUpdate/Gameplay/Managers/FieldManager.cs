@@ -123,7 +123,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                     var cell = Instantiate(prefab, field);
                     cells[i, j] = cell;
                     cell.name = $"Cell {i}, {j}";
-                    cell.InitItem();
+                    cell.InitItem(i, j);
                 }
             }
 

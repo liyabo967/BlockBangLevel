@@ -11,6 +11,7 @@
 // // THE SOFTWARE.
 
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
+using BlockPuzzleGameToolkit.Scripts.System.Haptic;
 using UnityEngine;
 
 namespace BlockPuzzleGameToolkit.Scripts.GUI
@@ -24,6 +25,7 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
         {
             bonus.FillIcon(bonusItemTemplate);
             countText.text = targetAmount.ToString();
+            HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Light);
         }
 
         public override void UpdateCount(int newCount, bool isTargetCompleted)

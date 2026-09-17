@@ -36,6 +36,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private bool isEmpty => !busy;
         private bool IsEmptyPreview => group.alpha == 0;
+        private int _row;
+        private int _column;
 
         private void Awake()
         {
@@ -258,10 +260,17 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             return _boxCollider2D.bounds;
         }
 
-        public void InitItem()
+        public void InitItem(int row, int column)
         {
+            _row = row;
+            _column = column;
             item.name = "Item " + name;
             StartCoroutine(UpdateItem());
+        }
+
+        public Vector2Int GetCellPosition()
+        {
+            return new  Vector2Int(_row, _column);
         }
 
         private IEnumerator UpdateItem()

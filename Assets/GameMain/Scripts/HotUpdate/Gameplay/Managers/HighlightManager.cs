@@ -80,9 +80,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             customPrefabHighlights.Clear();
         }
 
-        public void HighlightCell(Transform cell, Item item)
+        public void HighlightCell(Cell cell, Item item)
         {
-            var cellComponent = cell.GetComponent<Cell>();
+            var cellComponent = cell;
             if (cellComponent == null || !highlightedCells.TryAdd(cellComponent, item))
                 return;
 
