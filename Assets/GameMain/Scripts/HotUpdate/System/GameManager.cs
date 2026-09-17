@@ -281,7 +281,7 @@ namespace BlockPuzzleGameToolkit.Scripts.System
         {
             if (StateManager.instance.CurrentState == EScreenStates.MainMenu)
             {
-                HandleDailyBonus();
+                // HandleDailyBonus();
             }
         }
     }
