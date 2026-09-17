@@ -14,13 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Remote_UI
   m_GUID: ffe977da827cd48bcb54fa87e240c8d6
-  m_SerializeEntries:
-  - m_GUID: cec53005cf02f43eabe7bcefa3664f81
-    m_Address: Assets/GameMain/Prefabs/GUI
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - remote
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5aa5987ddff844dc2b314d17fdb11a2d, type: 2}
   m_SchemaSet:

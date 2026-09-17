@@ -48,6 +48,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 88c9f51e8542e47d28fa27d5846353d5
+    m_Address: Assets/GameMain/Scenes/Main.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 89d89093ba94c42a1a30003202766560
+    m_Address: Assets/GameMain/Scenes/Game.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8b918ef29eb0548ab815890a16211f8e
     m_Address: Assets/GameMain/Font/FredokaOne-Regular SDF Outline Golden Best Score.mat
     m_ReadOnly: 0
@@ -66,6 +76,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bd2e45949530e4069b8c5629368fed36
     m_Address: Assets/GameMain/Audio
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cec53005cf02f43eabe7bcefa3664f81
+    m_Address: Assets/GameMain/Prefabs/GUI
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

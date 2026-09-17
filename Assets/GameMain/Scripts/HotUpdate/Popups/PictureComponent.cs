@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -47,6 +48,7 @@ namespace Quester
 
         private void Awake()
         {
+            itemPrefab.gameObject.SetActive(false);
             _maxLevel = _rows * _columns;
             focusImage.gameObject.SetActive(false);
             ColorUtility.TryParseHtmlString("#44499A", out _itemOriginColor);
@@ -84,7 +86,7 @@ namespace Quester
             _yOffset = _cellHeight * 0.5f - pictureHeight * 0.5f;
             focusImage.GetComponent<RectTransform>().sizeDelta = new Vector2(_cellWidth, _cellHeight);
             // 根据 prefab 大小为 60 的情况进行字体大小调整
-            itemPrefab.GetComponentInChildren<Text>().fontSize = (int)(_cellWidth * 1.0f / 60 * 25);
+            // itemPrefab.GetComponentInChildren<TextMeshProUGUI>().fontSize = (int)(_cellWidth * 1.0f / 60 * 25);
         }
 
         private void CalcOffset()
@@ -128,7 +130,7 @@ namespace Quester
                         item.gameObject.SetActive(true);
                         item.transform.localPosition = GetCellPosition(i, j);
                         item.GetComponent<RectTransform>().sizeDelta = new Vector2(_cellWidth - padding, _cellHeight - padding);
-                        item.transform.GetChild(0).GetComponent<Text>().text = (i * _columns + j + 1).ToString();
+                        item.transform.GetComponentInChildren<TextMeshProUGUI>().text = (i * _columns + j + 1).ToString();
                         item.transform.name = $"item_{index}";
                         _items[i, j] = item;
                         index++;
@@ -241,7 +243,7 @@ namespace Quester
                         {
                             item.color = Color.white;
                             item.sprite = GetSprite(i, j);
-                            item.transform.GetChild(0).GetComponent<Text>().text = "";
+                            item.transform.GetComponentInChildren<TextMeshProUGUI>().text = "";
                             if (fullImage)
                             {
                                 item.rectTransform.sizeDelta = new Vector2(_cellWidth, _cellHeight);
