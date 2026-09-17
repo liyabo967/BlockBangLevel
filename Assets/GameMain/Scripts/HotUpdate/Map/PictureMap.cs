@@ -3,6 +3,7 @@ using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.Popups;
 using DG.Tweening;
+using GameMain;
 using Quester;
 using TMPro;
 using UnityEngine;
@@ -103,7 +104,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
         {
             CoroutineRunner.Instance.Delay(delay, () =>
             {
-                GameEntry.UI.OpenUIForm(UIFormId.RateDlg);
+                MobileReview.Instance.RequestReview();
+                // GameEntry.UI.OpenUIForm(UIFormId.RateDlg);
             });
         }
     }
