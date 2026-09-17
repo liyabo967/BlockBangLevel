@@ -174,7 +174,7 @@ namespace Quester
                 sequence.Append(currentItem.transform.DOScale(Vector3.zero, 0.5f));
                 sequence.AppendCallback(() =>
                 {
-                    currentItem.transform.GetChild(0).GetComponent<Text>().text = "";
+                    currentItem.transform.GetComponentInChildren<TextMeshProUGUI>().text = "";
                     currentItem.sprite = GetSprite(focusRow, focusColumn);
                     currentItem.color = Color.white;
                     GameEntry.Sound.PlaySound(SoundId.Fragment);
