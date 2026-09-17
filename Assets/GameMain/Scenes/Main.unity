@@ -529,7 +529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4641059037314894576, guid: e81bbbc218b73d345bfb5f45c5fa7c66, type: 3}
       propertyPath: instanceID
-      value: '#challenge'
+      value: '#adventure'
       objectReference: {fileID: 0}
     - target: {fileID: 4641059037314894576, guid: e81bbbc218b73d345bfb5f45c5fa7c66, type: 3}
       propertyPath: m_fontSize

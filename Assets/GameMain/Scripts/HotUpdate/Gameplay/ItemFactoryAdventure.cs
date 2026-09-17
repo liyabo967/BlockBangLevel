@@ -21,6 +21,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         public void OnLevelLoaded(Level level)
         {
             _oneColorMode = level.levelType.singleColorMode;
+            _oneColorMode = false;
             if (_oneColorMode)
             {
                 _oneColor = Random.Range(1, items.Length);
