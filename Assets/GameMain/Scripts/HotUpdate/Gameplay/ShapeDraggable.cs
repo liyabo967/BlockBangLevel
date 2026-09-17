@@ -256,17 +256,20 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
             transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
 
+            var canvasRect = canvas.GetComponent<RectTransform>();
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
                     rectTransform.parent as RectTransform, position, eventCamera, out var localPoint))
             {
-                var canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
-                var normalizedX = localPoint.x / canvasWidth;
-                var scaleFactorY = rectTransform.rect.height / canvas.GetComponent<RectTransform>().rect.height * 2.5f;
+                // var canvasWidth = canvasRect.rect.width;
+                // var normalizedX = localPoint.x / canvasWidth;
+                // var scaleFactorY = rectTransform.rect.height / canvasRect.rect.height * 2.5f;
 
+                // Debug.LogError($"width: {canvasWidth}, normalizedX: {normalizedX}");
                 rectTransform.anchoredPosition = new Vector2(
-                    normalizedX * canvasWidth,
-                    localPoint.y / scaleFactorY + verticalOffset + scaleFactorY
+                    localPoint.x * 1.5f,
+                    localPoint.y * 1.5f + verticalOffset
                 );
+                // localPoint.y / scaleFactorY + verticalOffset + scaleFactorY;
             }
 
             if (AnyBusyCellsOrNoneCells())

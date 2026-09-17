@@ -1,20 +1,28 @@
-using System.Collections;
-using Google.Play.Review;
 using UnityEngine;
+#if UNITY_IOS
 using UnityEngine.iOS;
+#elif  UNITY_ANDROID
+using Google.Play.Review;
+#endif
 
 namespace GameMain
 {
     public class MobileReview : MonoSingleton<MobileReview>
     {
+        private bool _reviewRequested;
+#if UNITY_ANDROID
         private ReviewManager _reviewManager;
         private PlayReviewInfo _playReviewInfo;
-        private bool _reviewRequested;
+        
+#endif
+        
 
         protected override void OnSingletonAwake()
         {
             base.OnSingletonAwake();
+#if UNITY_ANDROID
             _reviewManager = new ReviewManager();
+#endif
         }
 
         public void RequestReview()
@@ -30,6 +38,7 @@ namespace GameMain
 #endif
         }
         
+#if UNITY_IOS
         private void RequestIOSReview()
         {
             if (_reviewRequested == false)
@@ -49,7 +58,7 @@ namespace GameMain
                 }
             }
         }
-
+#elif UNITY_ANDROID
         private IEnumerator RequestAndroidReview()
         {
             var requestFlowOperation = _reviewManager.RequestReviewFlow();
@@ -73,5 +82,6 @@ namespace GameMain
             // reviewed or not, or even whether the review dialog was shown. Thus, no
             // matter the result, we continue our app flow.
         }
+#endif
     }
 }
