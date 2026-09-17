@@ -474,12 +474,21 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         
         private int CalculateScore(int lines, int combo)
         {
-            int score = GameManager.instance.GameSettings.ScorePerLine * lines;
-            if (combo > 0)
+            int score = 0;
+            if (gameMode == EGameMode.Classic)
             {
-                double power = Math.Pow(1.5f, Math.Max(1, combo / 5));
-                score *= (int)(combo * power);
+                score = GameManager.instance.GameSettings.ScorePerLine * lines;
+                if (combo > 0)
+                {
+                    double power = Math.Pow(1.5f, Math.Max(1, combo / 5));
+                    score *= (int)(combo * power);
+                }
             }
+            else
+            {
+                score = GameManager.instance.GameSettings.ScorePerLine * combo * lines;
+            }
+            // Debug.LogError($"combo: {combo}, score: {score}");
             return score;
         }
 
