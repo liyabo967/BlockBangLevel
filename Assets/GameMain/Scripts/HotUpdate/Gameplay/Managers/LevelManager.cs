@@ -23,6 +23,7 @@ using BlockPuzzleGameToolkit.Scripts.Gameplay.Pool;
 using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.System;
+using BlockPuzzleGameToolkit.Scripts.System.Haptic;
 using BlockPuzzleGameToolkit.Scripts.Utils;
 using DG.Tweening;
 using GameAnalyticsSDK;
@@ -695,6 +696,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             GameEntry.Sound.PlaySound(_soundCombo[Mathf.Min(comboCounter, _soundCombo.Count - 1)]);
             
             EventManager.GetEvent<Shape>(EGameEvent.LineDestroyed).Invoke(shape);
+            if (lines.Count > 1)
+            {
+                HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Heavy);
+            }
 
             // Mark cells as destroying immediately at the start
             foreach (var line in lines)

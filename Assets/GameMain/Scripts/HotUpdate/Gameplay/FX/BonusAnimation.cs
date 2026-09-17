@@ -48,7 +48,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay.FX
             
             Sequence sequence = DOTween.Sequence();
             sequence.Append(transform.DOMove(backwardPos, 0.2f).SetEase(Ease.OutQuad));
-            sequence.Join(transform.DOScale(new Vector3(5f, 5f, 5f), 0.2f));
+            sequence.Join(transform.DOScale(new Vector3(3f, 3f, 3f), 0.2f));
             sequence.AppendInterval(0.1f + index * 0.05f);
             sequence.Append(transform.DOMove(new Vector3(targetPos.x, targetPos.y, transform.position.z), 0.2f).SetEase(Ease.Linear));
             // sequence.Join(transform.DORotate(new Vector3(0, 0, 90), 0.3f));

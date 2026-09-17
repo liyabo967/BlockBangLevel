@@ -203,9 +203,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         private void LoadVibrationLevel()
         {
-            if (PlayerPrefs.HasKey(VibrationPrefKey))
+            if (PlayerPrefs.HasKey(VibrationPrefKey) && PlayerPrefs.GetFloat(VibrationPrefKey) <= 0)
             {
-                vibrationSlider.value = PlayerPrefs.GetFloat(VibrationPrefKey);
+                vibrationSlider.value = 0f;
             }
             else
             {

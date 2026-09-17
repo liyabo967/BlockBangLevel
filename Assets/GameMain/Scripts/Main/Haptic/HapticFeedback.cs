@@ -69,7 +69,7 @@ namespace BlockPuzzleGameToolkit.Scripts.System.Haptic
 
         public static void TriggerHapticFeedback(HapticForce force)
         {
-            if (!IsVibrationEnabled())
+            if (IsVibrationDisabled())
                 return;
 
             #if UNITY_EDITOR
@@ -78,9 +78,9 @@ namespace BlockPuzzleGameToolkit.Scripts.System.Haptic
             TryHapticFeedback(force);
         }
 
-        private static bool IsVibrationEnabled()
+        private static bool IsVibrationDisabled()
         {
-            return PlayerPrefs.HasKey(VibrationPrefKey) && PlayerPrefs.GetFloat(VibrationPrefKey) > 0;
+            return PlayerPrefs.HasKey(VibrationPrefKey) && PlayerPrefs.GetFloat(VibrationPrefKey) <= 0;
         }
     }
 }
