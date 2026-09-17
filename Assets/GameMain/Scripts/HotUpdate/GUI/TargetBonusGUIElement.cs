@@ -25,12 +25,12 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
         {
             bonus.FillIcon(bonusItemTemplate);
             countText.text = targetAmount.ToString();
-            HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Light);
         }
 
         public override void UpdateCount(int newCount, bool isTargetCompleted)
         {
             base.UpdateCount(newCount, isTargetCompleted);
+            HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Light);
             if (isTargetCompleted || newCount == 0)
             {
                 TargetCheck();

@@ -197,10 +197,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                                 target.amount = Mathf.Max(0, target.amount);
                                 
                                 var targetTransform = _targetGuiElements[target.targetScriptable].transform;
-                                targetTransform.DOScale(Vector3.one * 1.2f, 0.1f)
+                                targetTransform.DOScale(Vector3.one * 1.5f, 0.2f)
                                     .SetEase(Ease.OutQuad)
                                     .OnComplete(() => {
-                                        targetTransform.DOScale(Vector3.one, 0.1f)
+                                        targetTransform.DOScale(Vector3.one, 0.2f)
                                             .SetEase(Ease.InQuad);
                                     });
                                     
@@ -214,11 +214,14 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
             yield return new WaitForSeconds(.1f);
             var bonusAnimationsCopy = new List<BonusAnimation>(_bonusAnimations);
+            Dictionary<TargetScriptable, int> countDict = new();
             foreach (var bonusAnimation in bonusAnimationsCopy)
             {
                 if(_activeAnimationTargets.ContainsKey(bonusAnimation))
                 {
-                    bonusAnimation.MoveTo();
+                    countDict.TryGetValue(_activeAnimationTargets[bonusAnimation], out var count);
+                    bonusAnimation.MoveTo(count);
+                    countDict[_activeAnimationTargets[bonusAnimation]] = count + 1;
                     yield return new WaitForSeconds(0.04f);
                 }
             }
