@@ -698,7 +698,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             EventManager.GetEvent<Shape>(EGameEvent.LineDestroyed).Invoke(shape);
             if (lines.Count > 1)
             {
-                HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Heavy);
+                HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Continuous);
             }
 
             // Mark cells as destroying immediately at the start

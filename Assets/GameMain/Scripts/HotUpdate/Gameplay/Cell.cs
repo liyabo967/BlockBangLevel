@@ -253,6 +253,21 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 ClearCell();
                 item.ClearBonus();
             });
+            
+            // Sequence sequence = DOTween.Sequence();
+            // var upPosition = item.transform.position + Vector3.up * 1f;
+            // sequence.Append(item.transform.DOMove(upPosition, 0.2f).SetEase(Ease.OutQuad));
+            // sequence.Join(item.transform.DOScale(new Vector3(2f, 2f, 2f), 0.2f));
+            // sequence.Join(item.transform.DORotate(new Vector3(0f, 0f, Random.Range(45, 90)), 0.2f));
+            // sequence.AppendInterval(0.1f);
+            // sequence.Append(item.transform.DOMove(new Vector3(item.transform.position.x, -1000, 0), 2f).SetEase(Ease.Linear));
+            // // sequence.Join(transform.DORotate(new Vector3(0, 0, 90), 0.3f));
+            // sequence.OnComplete(() =>
+            // {
+            //     isDestroying = false;
+            //     ClearCell();
+            //     item.ClearBonus();
+            // });
         }
 
         public Bounds GetBounds()

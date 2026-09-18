@@ -11,19 +11,21 @@
 // // THE SOFTWARE.
 
 using System;
+using System.Collections;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Android;
 
 namespace BlockPuzzleGameToolkit.Scripts.System.Haptic
 {
-    public class HapticFeedback : MonoBehaviour
+    public class HapticFeedback : MonoSingleton<HapticFeedback>
     {
         public enum HapticForce
         {
             Light,
             Medium,
-            Heavy
+            Heavy,
+            Continuous
         }
 
         private const string VibrationPrefKey = "VibrationLevel";
@@ -39,6 +41,21 @@ namespace BlockPuzzleGameToolkit.Scripts.System.Haptic
             #endif
         }
 
+        // private void HapticContinuous()
+        // {
+        //     StartCoroutine(HapticContinuousCoroutine());
+        // }
+        //
+        // private IEnumerator HapticContinuousCoroutine()
+        // {
+        //     var delay = new WaitForEndOfFrame();
+        //     for (int i = 0; i < 30; i++)
+        //     {
+        //         VibrationBridge.TriggerHapticFeedback(0);
+        //         yield return delay;
+        //     }
+        // }
+
         private static bool TryHapticFeedback(HapticForce force)
         {
             if (!IsSystemSupported())
@@ -47,7 +64,14 @@ namespace BlockPuzzleGameToolkit.Scripts.System.Haptic
             try
             {
                 #if UNITY_IOS
-                VibrationBridge.TriggerHapticFeedback((int)force);
+                if (force == HapticForce.Continuous)
+                {
+                    VibrationBridge.ContinuousVibration();
+                }
+                else
+                {
+                    VibrationBridge.TriggerHapticFeedback((int)force);
+                }
                 #elif UNITY_ANDROID
                 long[] pattern = force switch
                 {
@@ -72,9 +96,9 @@ namespace BlockPuzzleGameToolkit.Scripts.System.Haptic
             if (IsVibrationDisabled())
                 return;
 
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             return;
-            #endif
+#endif
             TryHapticFeedback(force);
         }
 

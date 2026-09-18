@@ -149,6 +149,7 @@ namespace BlockPuzzleGameToolkit.Scripts.System
 
         private bool CheckDailyBonusConditions()
         {
+            return false;
             // No DailyBonus For First Season
             if (UserDataManager.Instance.FirstSeason == UserDataManager.Instance.CurrentSeason)
             {
