@@ -25,6 +25,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public int FailStreak => _userData.failStreak;
         public int CurrentSeason => _userData.currentSeason;
         public int FirstSeason => _userData.firstSeason;
+        public long LastLaunchTimestamp => _userData.lastLaunchTimestamp;
         public long LastRateTimestamp => _userData.lastRateTimestamp;
         public bool NoAdsPurchased => _userData.noAdsPurchased;
         public List<string> PictureList => _userData.pictureList;
@@ -130,6 +131,16 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             _userData.firstSeason = firstSeason;
         }
 
+        public bool IsFirstSeason()
+        {
+            return _userData.firstSeason == _userData.currentSeason;
+        }
+
+        public void SetLastLaunchTimestamp(long timestamp)
+        {
+            _userData.lastLaunchTimestamp = timestamp;
+        }
+
         public void SetLastRateTimestamp(long lastRateTimestamp)
         {
             _userData.lastRateTimestamp = lastRateTimestamp;
@@ -192,6 +203,16 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public void ResetWinStreak()
         {
             _userData.winStreak = 0;
+        }
+
+        public void AddWinCount()
+        {
+            _userData.winCount++;
+        }
+
+        public void AddFailCount()
+        {
+            _userData.failCount++;
         }
 
         public void AddFailStreak()

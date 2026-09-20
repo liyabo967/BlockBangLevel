@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.System;
 using GoogleMobileAds.Ump.Api;
 using UnityEngine;
@@ -116,7 +117,23 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                     onComplete?.Invoke(success);
                 });
             };
-            
+        }
+
+        private void RetryInitializeAds()
+        {
+            _adapter.Initialize(_adConfig, success =>
+            {
+                _initialized = success;
+                _initializeCallback?.Invoke(success);
+                if (success)
+                {
+                    // 预加载常用广告
+                    // _adapter.LoadAd(AdType.Banner);
+                    // _adapter.LoadAd(AdType.Interstitial);
+                    // _adapter.LoadAd(AdType.RewardedVideo);
+                    StartCoroutine(DelayLoadAd());
+                }
+            });
         }
 
         private IEnumerator DelayLoadAd()
@@ -148,13 +165,18 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 #if UNITY_EDITOR
             return false;
 #endif
-            
-            if (GameDataManager.GetLevelNum() < 10)
+
+            if (Time.realtimeSinceStartup < 60)
             {
                 return false;
             }
 
-            if (Time.time - _lastAdTime < 180f)
+            if (UserDataManager.Instance.IsFirstSeason() && GameDataManager.GetLevelNum() < 10)
+            {
+                return false;
+            }
+
+            if (Time.time - _lastAdTime < 60f)
             {
                 return false;
             }
@@ -169,19 +191,19 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         {
             if (!_initialized)
             {
+                RetryInitializeAds();
                 return;
             }
-            if (IsReady(AdType.Interstitial))
-            {
-                if (CanShowInterstitial())
-                {
-                    _adapter.ShowAd(AdType.Interstitial);
-                    _lastAdTime = Time.time;
-                }
-            }
-            else
+
+            if (!IsReady(AdType.Interstitial))
             {
                 _adapter?.LoadAd(AdType.Interstitial);
+                return;
+            }
+            if (CanShowInterstitial())
+            {
+                _adapter.ShowAd(AdType.Interstitial);
+                _lastAdTime = Time.time;
             }
         }
 

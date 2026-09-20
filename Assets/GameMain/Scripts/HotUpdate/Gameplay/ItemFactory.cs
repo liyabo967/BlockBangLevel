@@ -108,9 +108,18 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private ShapeTemplate GetRandomShape()
         {
             ShapeTemplate shapeTemplate = null;
-            var shapesToConsider = levelManager.GetGameMode() == EGameMode.Adventure
-                ? shapes.Where(shape => shape.spawnFromLevel <= levelManager.currentLevel).ToArray()
-                : shapes.Where(shape => shape.scoreForSpawn <= GetClassicScore()).ToArray();
+            ShapeTemplate[] shapesToConsider;
+            if (levelManager.GetGameMode() == EGameMode.Adventure)
+            {
+                shapesToConsider = shapes.Where(shape => shape.spawnFromLevel <= levelManager.currentLevel && shape.filled >= 4).ToArray();
+            }
+            else
+            {
+                shapesToConsider = shapes.Where(shape => shape.scoreForSpawn <= GetClassicScore()).ToArray();;
+            }
+            // var shapesToConsider = levelManager.GetGameMode() == EGameMode.Adventure
+            //     ? shapes.Where(shape => shape.spawnFromLevel <= levelManager.currentLevel).ToArray()
+            //     : shapes.Where(shape => shape.scoreForSpawn <= GetClassicScore()).ToArray();
 
             var totalWeight = shapesToConsider.Sum(shape => shape.chanceForSpawn);
             var randomWeight = Random.Range(0, totalWeight);
@@ -224,19 +233,38 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         public List<ShapeTemplate> GetPerfectShape()
         {
-            var shapesToConsider = levelManager.GetGameMode() == EGameMode.Adventure
-                ? shapes.Where(shape => shape.spawnFromLevel <= levelManager.currentLevel).ToArray()
-                : shapes.Where(shape => shape.scoreForSpawn <= GetClassicScore()).ToArray();
+            ShapeTemplate[] shapesToConsider;
+            if (levelManager.GetGameMode() == EGameMode.Adventure)
+            {
+                shapesToConsider = shapes.Where(shape => shape.spawnFromLevel <= levelManager.currentLevel && shape.filled >= 3).ToArray();
+            }
+            else
+            {
+                shapesToConsider = shapes.Where(shape => shape.scoreForSpawn <= GetClassicScore()).ToArray();
+            }
             return ShapeController.GetPerfectShapeList(field, shapesToConsider);
         }
 
-        public Shape CreateRandomShapeFits(GameObject shapeObject, HashSet<ShapeTemplate> usedShapes = null)
+        public Shape CreateRandomShapeFits(GameObject shapeObject, HashSet<ShapeTemplate> usedShapes = null, int blocksLimit = 1)
         {
             var shape = shapeObject.GetComponent<Shape>();
-            
-            var eligibleShapes = levelManager.GetGameMode() == EGameMode.Adventure
-                ? shapes.Where(s => s.spawnFromLevel <= levelManager.currentLevel && (usedShapes == null || !usedShapes.Contains(s))).ToArray()
-                : shapes.Where(s => s.scoreForSpawn <= GetClassicScore() && (usedShapes == null || !usedShapes.Contains(s))).ToArray();
+
+            ShapeTemplate[] eligibleShapes;
+            if (levelManager.GetGameMode() == EGameMode.Adventure)
+            {
+                eligibleShapes = shapes.Where(s =>
+                        s.spawnFromLevel <= levelManager.currentLevel &&
+                        s.filled >= blocksLimit &&
+                        (usedShapes == null || !usedShapes.Contains(s)))
+                    .ToArray();
+            }
+            else
+            {
+                eligibleShapes = shapes.Where(s => s.scoreForSpawn <= GetClassicScore() && (usedShapes == null || !usedShapes.Contains(s))).ToArray();
+            }
+            // var eligibleShapes = levelManager.GetGameMode() == EGameMode.Adventure
+            //     ? shapes.Where(s => s.spawnFromLevel <= levelManager.currentLevel && (usedShapes == null || !usedShapes.Contains(s))).ToArray()
+            //     : shapes.Where(s => s.scoreForSpawn <= GetClassicScore() && (usedShapes == null || !usedShapes.Contains(s))).ToArray();
             
             // If no unused shapes are available, allow reusing shapes
             if (eligibleShapes.Length == 0)
@@ -299,50 +327,50 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             }
 
             // Count the amount of targets already on the field cells
-            var fieldCells = field.GetAllCells();
-            foreach (var cell in fieldCells)
-            {
-                if (cell.HasBonusItem())
-                {
-                    var bonusItem = cell.GetBonusItem();
-                    if (predictedTargets.ContainsKey(bonusItem))
-                    {
-                        predictedTargets[bonusItem]--;
-                        if (predictedTargets[bonusItem] <= 0)
-                        {
-                            predictedTargets.Remove(bonusItem);
-                        }
-                    }
-                }
-            }
+            // var fieldCells = field.GetAllCells();
+            // foreach (var cell in fieldCells)
+            // {
+            //     if (cell.HasBonusItem())
+            //     {
+            //         var bonusItem = cell.GetBonusItem();
+            //         if (predictedTargets.ContainsKey(bonusItem))
+            //         {
+            //             predictedTargets[bonusItem]--;
+            //             if (predictedTargets[bonusItem] <= 0)
+            //             {
+            //                 predictedTargets.Remove(bonusItem);
+            //             }
+            //         }
+            //     }
+            // }
 
             // get bonuses on deck
-            var shapesOnDeck = cellDeck.GetShapes();
-            foreach (var shape in shapesOnDeck)
-            {
-                foreach (var item in shape.GetActiveItems())
-                {
-                    if (item.HasBonusItem())
-                    {
-                        var bonusItem = item.bonusItemTemplate;
-                        if (predictedTargets.ContainsKey(bonusItem))
-                        {
-                            predictedTargets[bonusItem]--;
-                            if (predictedTargets[bonusItem] <= 0)
-                            {
-                                predictedTargets.Remove(bonusItem);
-                            }
-                        }
-                    }
-                }
-            }
+            // var shapesOnDeck = cellDeck.GetShapes();
+            // foreach (var shape in shapesOnDeck)
+            // {
+            //     foreach (var item in shape.GetActiveItems())
+            //     {
+            //         if (item.HasBonusItem())
+            //         {
+            //             var bonusItem = item.bonusItemTemplate;
+            //             if (predictedTargets.ContainsKey(bonusItem))
+            //             {
+            //                 predictedTargets[bonusItem]--;
+            //                 if (predictedTargets[bonusItem] <= 0)
+            //                 {
+            //                     predictedTargets.Remove(bonusItem);
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
 
             var keys = predictedTargets.Keys.ToList();
             keys = keys.OrderBy(x => Random.value).ToList();
 
             foreach (var key in keys)
             {
-                if (predictedTargets[key] > 0 && Random.Range(0, 3) == 0)
+                if (predictedTargets[key] > 0)
                 {
                     shapeObject.SetBonus(key, predictedTargets[key]);
                     return;

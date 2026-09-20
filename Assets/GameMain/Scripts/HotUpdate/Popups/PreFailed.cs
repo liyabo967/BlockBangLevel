@@ -213,6 +213,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             }
             else
             {
+                UserDataManager.Instance.AddFailCount();
                 if (!UserDataManager.Instance.NoAdsPurchased)
                 {
                     AdManager.Instance.ShowInterstitial();

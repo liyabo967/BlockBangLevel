@@ -54,6 +54,7 @@ namespace Quester
         public void InitUserData()
         {
             UserDataManager.Instance.Load();
+            UserDataManager.Instance.SetLastLaunchTimestamp(DateTimeOffset.Now.ToUnixTimeSeconds());
         }
 
         private void InitSeasonTime()

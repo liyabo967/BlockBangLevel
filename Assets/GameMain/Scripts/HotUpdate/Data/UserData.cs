@@ -17,10 +17,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public int adventureState;
         public string dailyBonusDay;
         public string lastPlayedMode;
+        public int winCount;
+        public int failCount;
         public int winStreak;
         public int failStreak;
         public int firstSeason;
         public int currentSeason;
+        public long lastLaunchTimestamp;
         public long lastRateTimestamp;
         public bool noAdsPurchased;
         public List<string> pictureList = new ();

@@ -41,6 +41,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private HashSet<ShapeTemplate> usedShapes = new HashSet<ShapeTemplate>();
         private LevelManager _levelManager;
+        private int _refreshCount;
 
         private void Start()
         {
@@ -107,12 +108,14 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private IEnumerator FillCellDecksWithPerfectShape()
         {
+            _refreshCount++;
             yield return new WaitForSeconds(0.2f);
             // Debug.Log("GetLevelProgress: " + _levelManager.GetLevelProgress());
             usedShapes.Clear();
             var shapeTemplates = itemFactory.GetPerfectShape();
             var shapeTemplateIndex = 0;
-            var perfectRatio = GetPerfectRatio(GetDifficulty());
+            var difficulty = GetDifficulty();
+            var perfectRatio = GetPerfectRatio(difficulty);
             // Debug.Log("FillPerfectShape, perfectRatio:" + perfectRatio);
             StringBuilder debugInfo = new StringBuilder();
             try
@@ -123,57 +126,75 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                     if (cellDeck.IsEmpty)
                     {
                         var shapeObject = PoolObject.GetObject(shapePrefab.gameObject);
-                        var isPerfect = Random.Range(0, 1f) <= perfectRatio;
+                        
                         Shape resultShape = null;
-                        if (isPerfect)
+                        if (_refreshCount % 4 == 0)
                         {
-                            if (shapeTemplateIndex  < shapeTemplates.Count)
+                            var notFit = GetNotFitRatio(difficulty);
+                            if (Random.Range(0, 1f) <= notFit)
                             {
-                                debugInfo.Append("Perfect, ");
-                                resultShape = itemFactory.CreatePerfectShape(shapeObject, shapeTemplates[shapeTemplateIndex++]);
-                            }
-                            else
-                            {
-                                debugInfo.Append("Random_Warn, ");
-                                Debug.LogWarning($"perfect shapes not enough, count: {shapeTemplates.Count}, index: {shapeTemplateIndex}");
-                                resultShape = itemFactory.CreateRandomShapeFits(shapeObject, usedShapes);
-                            }
-                        }
-                        else
-                        {
-                            var notFit = Random.Range(0, 1f) <= GetNotFitRatio(GetDifficulty());
-                            if (notFit)
-                            {
-                                if (index > 0)
+                                resultShape = itemFactory.CreateNotFitShape(shapeObject);
+                                if (resultShape == null)
                                 {
-                                    resultShape = itemFactory.CreateNotFitShape(shapeObject);
-                                    if (resultShape != null)
-                                    {
-                                        debugInfo.Append("NotFit, ");
-                                    }
-                                    else
-                                    {
-                                        debugInfo.Append("RandomFallback, ");
-                                        resultShape = itemFactory.CreateRandomShape(shapeObject, usedShapes);
-                                    }
-                                }
-                                else
-                                {
-                                    debugInfo.Append("RandomFit, ");
-                                    resultShape = itemFactory.CreateRandomShapeFits(shapeObject, usedShapes);
-                                }
-                            }
-                            else
-                            {
-                                if (index > 0)
-                                {
-                                    debugInfo.Append("Random, ");
+                                    debugInfo.Append("NonFit_S, ");
                                     resultShape = itemFactory.CreateRandomShape(shapeObject, usedShapes);
                                 }
                                 else
                                 {
-                                    debugInfo.Append("RandomFit, ");
+                                    debugInfo.Append("NonFit, ");
+                                }
+                            }
+                            else
+                            {
+                                var isPerfect = Random.Range(0, 1f) <= perfectRatio;
+                                if (isPerfect)
+                                {
+                                    debugInfo.Append("NonFit_P, ");
+                                    resultShape = itemFactory.CreatePerfectShape(shapeObject, shapeTemplates[shapeTemplateIndex++]);
+                                }
+                                else
+                                {
+                                    debugInfo.Append("NonFit_R, ");
+                                    resultShape = itemFactory.CreateRandomShape(shapeObject, usedShapes);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            var isPerfect = Random.Range(0, 1f) <= perfectRatio;
+                            if (isPerfect)
+                            {
+                                if (shapeTemplateIndex  < shapeTemplates.Count)
+                                {
+                                    debugInfo.Append("Perfect, ");
+                                    resultShape = itemFactory.CreatePerfectShape(shapeObject, shapeTemplates[shapeTemplateIndex++]);
+                                }
+                                else
+                                {
+                                    debugInfo.Append("Random_Warn, ");
+                                    Debug.LogWarning($"perfect shapes not enough, count: {shapeTemplates.Count}, index: {shapeTemplateIndex}");
                                     resultShape = itemFactory.CreateRandomShapeFits(shapeObject, usedShapes);
+                                }
+                            }
+                            else
+                            {
+                                if (index == 0)
+                                {
+                                    resultShape = itemFactory.CreateRandomShapeFits(shapeObject, usedShapes, 4);
+                                    if (resultShape == null)
+                                    {
+                                        debugInfo.Append("Random_Fit_1, ");
+                                        itemFactory.CreateRandomShapeFits(shapeObject, usedShapes);
+                                    }
+                                    else
+                                    {
+                                        debugInfo.Append("Random_Fit_4, ");
+                                    }
+                                }
+                                else
+                                {
+                                    debugInfo.Append("Random, ");
+                                    resultShape = itemFactory.CreateRandomShape(shapeObject, usedShapes);
                                 }
                             }
                         }
@@ -199,19 +220,19 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             switch (difficulty)
             {
                 case 1:
-                    result = 0.9f;
-                    break;
-                case 2:
                     result = 0.8f;
                     break;
-                case 3:
-                    result = 0.75f;
-                    break;
-                case 4:
+                case 2:
                     result = 0.7f;
                     break;
+                case 3:
+                    result = 0.6f;
+                    break;
+                case 4:
+                    result = 0.5f;
+                    break;
                 case 5:
-                    result = 0.65f;
+                    result = 0.33f;
                     break;
             }
             return result;
@@ -226,16 +247,16 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                     result = 0.1f;
                     break;
                 case 2:
-                    result = 0.2f;
+                    result = 0.1f;
                     break;
                 case 3:
-                    result = 0.3f;
+                    result = 0.1f;
                     break;
                 case 4:
-                    result = 0.35f;
+                    result = 0.2f;
                     break;
                 case 5:
-                    result = 0.45f;
+                    result = 0.4f;
                     break;
             }
             return result;
@@ -248,7 +269,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 return GetClassicDifficulty();
             }
 
-            return GetAdventureDifficulty();
+            return GetAdventureDifficulty(UserDataManager.Instance.Level);
         }
 
         private int GetClassicDifficulty()
@@ -269,13 +290,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             {
                 return 3;
             }
-            return 5;
+            return 3;
         }
 
-        private int GetAdventureDifficulty()
+        private int GetAdventureDifficulty(int level)
         {
             int difficulty = 1;
-            int level = UserDataManager.Instance.Level;
             if (level >= 87)
             {
                 difficulty = 5;
@@ -291,7 +311,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 difficulty = Mathf.Min(3, difficulty);
             }
 
-            var decreaseDifficulty = UserDataManager.Instance.FailStreak / 2;
+            var decreaseDifficulty = UserDataManager.Instance.FailStreak / 4;
             difficulty -= decreaseDifficulty;
             difficulty = Mathf.Max(1, difficulty);
             return difficulty;
@@ -395,19 +415,22 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private void FillFitShapesOnly()
         {
+            _refreshCount = 1;
             // Clear used shapes if all cell decks are empty to allow reusing shapes in next round
             if (cellDecks.All(x => x.IsEmpty))
             {
                 usedShapes.Clear();
             }
-
+            
+            var shapeTemplates = itemFactory.GetPerfectShape();
+            var shapeTemplateIndex = 0;
             for (var index = 0; index < cellDecks.Length; index++)
             {
                 var cellDeck = cellDecks[index];
                 cellDeck.ClearCell();
                 
                 var shapeObject = PoolObject.GetObject(shapePrefab.gameObject);
-                var shape = itemFactory.CreateRandomShapeFits(shapeObject, usedShapes);
+                var shape = itemFactory.CreatePerfectShape(shapeObject, shapeTemplates[shapeTemplateIndex++]);
                 
                 // Use the shape if one was found
                 if (shape != null)

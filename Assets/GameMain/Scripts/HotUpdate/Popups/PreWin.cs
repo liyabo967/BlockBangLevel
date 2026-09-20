@@ -35,6 +35,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             Dictionary<string, string> eventValues = new Dictionary<string, string>();
             eventValues.Add(AFInAppEvents.LEVEL, (UserDataManager.Instance.Level - 1).ToString());
             AppsFlyer.sendEvent(AFInAppEvents.LEVEL_ACHIEVED, eventValues);
+            UserDataManager.Instance.AddWinCount();
         }
 
         protected virtual void OnEnable()
