@@ -304,7 +304,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 return;
             }
 
-            HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Light);
+            HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Medium);
             // SoundBase.instance.PlaySound(SoundBase.instance.placeShape);
             GameEntry.Sound.PlaySound(SoundId.Stack);
 
@@ -362,7 +362,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             if (_lastHighlightCell != current)
             {
                 _lastHighlightCell = current;
-                HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Light);
+                HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Medium);
             }
 
             if (itemFactory._oneColorMode)

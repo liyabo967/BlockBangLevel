@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-public class VibrationBridge
+public class VibrationIOS
 {
         
 #if UNITY_IOS
@@ -19,6 +19,8 @@ public class VibrationBridge
 
     public static void ContinuousVibration()
     {
+#if UNITY_IOS
         _PlayImpactNative(0.5f, 0.5f, 0.5f);
+#endif
     }
 }

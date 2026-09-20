@@ -58,7 +58,7 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
             isClicked = true;
             GameEntry.Sound.PlaySound(SoundId.Click);
             // SoundBase.instance.PlaySound(overrideClickSound ? overrideClickSound : SoundBase.instance.click);
-            HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Light);
+            HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Medium);
             // Start cooldown
             if (gameObject.activeInHierarchy)
             {
