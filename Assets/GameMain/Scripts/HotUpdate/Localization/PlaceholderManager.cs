@@ -50,6 +50,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Localization
 
         public static string ReplacePlaceholders(string input)
         {
+            if (string.IsNullOrEmpty(input))
+            {
+                return input;
+            }
             return Regex.Replace(input, @"\{(\w+)\}", match =>
             {
                 var placeholderKey = match.Groups[1].Value;

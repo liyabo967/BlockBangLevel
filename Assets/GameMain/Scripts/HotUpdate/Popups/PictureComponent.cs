@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using BlockPuzzleGameToolkit.Scripts;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using DG.Tweening;
 using TMPro;
@@ -15,31 +16,38 @@ namespace Quester
 {
     public class PictureComponent : MonoBehaviour
     {
-        public Image parent;
-        public Image itemPrefab;
+        public RectTransform scrollView;
+        public PicturePiece itemPrefab;
         public Image focusImage;
+        public Image fullImage;
+        public Sprite redHighlight;
 
+        private RectTransform _parent;
+        private SeasonShape _seasonShape;
         private Action<bool> _callback;
         private Sprite _sourceSprite;
         private Texture2D _sourceTexture;
-        private static int _rows = 11;
-        private static int _columns = 8;
+        private static int _rows = 15;
+        private static int _columns = 11;
         private static int _maxLevel = _rows * _columns;
         
         private int _cellWidth = 60;
         private int _cellHeight = 60;
         
         private int _currentLevel = 1;
-        private Image[,] _items;
+        private PicturePiece[,] _items;
         private float _xOffset;
         private float _yOffset;
-        private Color _itemOriginColor;
+        private int _focusRow;
+        private int _focusColumn;
+        private Color _fullImageColor = new Color32(70, 70, 70, 255);
+        
         
         // 原始图片大小
         private int _imgWidth = 420;
         private int _imgHeight = 780;
-        private int _imgOffsetX = 0;
         private int _imgOffsetY = 0;
+        
         private int _imageItemSize = 0;
 
         public Sprite SourceSprite => _sourceSprite;
@@ -48,62 +56,53 @@ namespace Quester
 
         private void Awake()
         {
+            _parent = GetComponent<RectTransform>();
             itemPrefab.gameObject.SetActive(false);
             _maxLevel = _rows * _columns;
             focusImage.gameObject.SetActive(false);
-            ColorUtility.TryParseHtmlString("#44499A", out _itemOriginColor);
         }
 
         private void Start()
         {
+            LoadSeasonShape();
             InitSize();
+        }
+
+        private void LoadSeasonShape()
+        {
+            var shapeIndex = UserDataManager.Instance.CurrentSeasonShape.ToString("D3");
+            shapeIndex = "001";
+            _seasonShape = Addressables.LoadAssetAsync<SeasonShape>($"Assets/GameMain/SeasonShapes/SeasonShape_{shapeIndex}.asset").WaitForCompletion();
+            _rows = _seasonShape.Matrix.rows.GetLength(0);
+            _columns = _seasonShape.Matrix.rows[0].columns.GetLength(0);
         }
 
         private void InitSize()
         {
-            var padding = 50;
-            var rootRect = GetComponent<RectTransform>().rect;
-            var ratio = _columns * 1.0f / _rows;
-            if (rootRect.width / rootRect.height > ratio)
-            {
-                // 以高度为准
-                var size = (rootRect.height - padding * 2) / _rows;
-                _cellWidth = (int)size;
-                _cellHeight = _cellWidth;
-            }
-            else
-            {
-                var size = (rootRect.width - padding * 2) / _columns;
-                _cellWidth = (int)size;
-                _cellHeight = _cellWidth;
-            }
+            var size = _parent.rect.width / _columns;
+            _cellWidth = (int)size;
+            _cellHeight = _cellWidth;
             
-            var pictureWidth = _columns * _cellWidth;
-            var pictureHeight = _rows * _cellHeight;
-            RectTransform rt = parent.GetComponent<RectTransform>();
-            rt.sizeDelta = new Vector2(pictureWidth, pictureHeight);
-            _xOffset = _cellWidth * 0.5f - pictureWidth * 0.5f;
-            _yOffset = _cellHeight * 0.5f - pictureHeight * 0.5f;
-            focusImage.GetComponent<RectTransform>().sizeDelta = new Vector2(_cellWidth, _cellHeight);
-            // 根据 prefab 大小为 60 的情况进行字体大小调整
-            // itemPrefab.GetComponentInChildren<TextMeshProUGUI>().fontSize = (int)(_cellWidth * 1.0f / 60 * 25);
-        }
-
-        private void CalcOffset()
-        {
-            var ratio = _columns * 1.0f / _rows;
-            // 计算图片偏移
-            if (_imgWidth * 1.0f / _imgHeight > ratio)
+            // Debug.LogError("rootRect.width: " + rootRect.width);
+            // Debug.LogError("rootRect.height: " + rootRect.height);
+            // Debug.LogError("_cellWidth: " + _cellWidth);
+            // Debug.LogError("_cellHeight: " + _cellHeight);
+            
+            // var pictureWidth = _columns * _cellWidth;
+            // var pictureHeight = _rows * _cellHeight;
+            // RectTransform rt = parent;
+            // rt.sizeDelta = new Vector2(pictureWidth, pictureHeight);
+            _xOffset = _cellWidth * 0.5f;
+            _yOffset = _cellHeight * 0.5f;
+            focusImage.GetComponent<RectTransform>().sizeDelta = new Vector2(_cellWidth * 1.0f, _cellHeight * 1.0f);
+            
+            _parent.sizeDelta = new Vector2(_parent.sizeDelta.x, _cellHeight * _rows);
+            if (scrollView.rect.height > _parent.rect.height)
             {
-                _imgOffsetX = (int)((_imgWidth - _imgHeight * ratio) / 2);
-                _imgOffsetY = 0;
-                _imageItemSize = _imgHeight / _rows;
-            }
-            else
-            {
-                _imgOffsetY = (int)((_imgHeight - _imgWidth / ratio) / 2);
-                _imgOffsetX = 0;
-                _imageItemSize = _imgWidth / _columns;
+                // 这里使用的 300 是 prefab 中顶部底部 UI 使用的尺寸，50 是左右边界
+                var offset = (scrollView.rect.height - _parent.rect.height) / 2;
+                scrollView.offsetMin = new Vector2(50, 300 + offset);
+                scrollView.offsetMax = new Vector2(-50, -300 - offset);
             }
         }
 
@@ -119,18 +118,23 @@ namespace Quester
             if (_items == null)
             {
                 yield return null;
-                _items =  new Image[_rows, _columns];
+                _items =  new PicturePiece[_rows, _columns];
                 var index = 1;
                 var padding = _cellWidth * 0.1f;
+                padding = 0;
                 for (int i = 0; i < _rows; i++)
                 {
                     for (int j = 0; j < _columns; j++)
                     {
-                        var item = Instantiate(itemPrefab, parent.transform);
+                        if (!_seasonShape.Matrix.rows[i].columns[j])
+                        {
+                            continue;
+                        }
+                        var item = Instantiate(itemPrefab, _parent);
                         item.gameObject.SetActive(true);
                         item.transform.localPosition = GetCellPosition(i, j);
+                        
                         item.GetComponent<RectTransform>().sizeDelta = new Vector2(_cellWidth - padding, _cellHeight - padding);
-                        item.transform.GetComponentInChildren<TextMeshProUGUI>().text = (i * _columns + j + 1).ToString();
                         item.transform.name = $"item_{index}";
                         _items[i, j] = item;
                         index++;
@@ -138,7 +142,6 @@ namespace Quester
 
                     yield return null;
                 }
-                
                 LoadImage();
             }
             else
@@ -150,9 +153,8 @@ namespace Quester
 
         private void UpdateFocusPosition()
         {
-            var focusRow = (_currentLevel - 1) / _columns;
-            focusRow = Mathf.Min(focusRow, _rows - 1);
-            var focusColumn = (_currentLevel - 1) % _columns;
+            var focusRow = _focusRow;
+            var focusColumn = _focusColumn;
             focusImage.transform.localPosition = GetCellPosition(focusRow, focusColumn);
             focusImage.transform.SetAsLastSibling();
             focusImage.gameObject.SetActive(true);
@@ -160,13 +162,13 @@ namespace Quester
             if (UserDataManager.Instance.Level > _currentLevel)
             {
                 var currentItem = _items[focusRow, focusColumn];
-                var nextRow = focusRow ;
-                var nextColumn = focusColumn + 1 >= _columns ? 0 : focusColumn + 1;
-                if (nextColumn == 0)
-                {
-                    nextRow =  focusRow + 1;
-                }
-                var nextLocalPosition = GetCellPosition(nextRow, nextColumn);
+                // var nextRow = focusRow ;
+                // var nextColumn = focusColumn + 1 >= _columns ? 0 : focusColumn + 1;
+                // if (nextColumn == 0)
+                // {
+                //     nextRow =  focusRow + 1;
+                // }
+                var nextLocalPosition = GetNextLevelPosition(_currentLevel);
                 focusImage.gameObject.SetActive(false);
                 
                 Sequence sequence = DOTween.Sequence();
@@ -174,14 +176,12 @@ namespace Quester
                 sequence.Append(currentItem.transform.DOScale(Vector3.zero, 0.5f));
                 sequence.AppendCallback(() =>
                 {
-                    currentItem.transform.GetComponentInChildren<TextMeshProUGUI>().text = "";
-                    currentItem.sprite = GetSprite(focusRow, focusColumn);
-                    currentItem.color = Color.white;
+                    currentItem.SetSprite(GetSprite(GetCroppedX(focusColumn), GetCroppedY(focusRow), _imageItemSize, _imageItemSize));
                     GameEntry.Sound.PlaySound(SoundId.Fragment);
                 });
                 sequence.Append(currentItem.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.5f));
                 sequence.Append(currentItem.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f));
-                if (_currentLevel < _rows * _columns)
+                if (_currentLevel < _seasonShape.MaxLevel)
                 {
                     sequence.AppendCallback(() =>
                     {
@@ -196,6 +196,32 @@ namespace Quester
                 focusImage.gameObject.SetActive(UserDataManager.Instance.Level <= _maxLevel);
             }
         }
+
+        private Vector3 GetNextLevelPosition(int currentLevel)
+        {
+            if (currentLevel == _seasonShape.MaxLevel)
+            {
+                return Vector3.zero;
+            }
+
+            int levelIndex = 0;
+            for (int i = 0; i < _rows; i++)
+            {
+                for (int j = 0; j < _columns; j++)
+                {
+                    if (_seasonShape.Matrix.rows[i].columns[j])
+                    {
+                        levelIndex++;
+                    }
+
+                    if (levelIndex > currentLevel)
+                    {
+                        return GetCellPosition(i, j);
+                    }
+                }
+            }
+            return Vector3.zero;
+        }
         
 
         private void PlayFullPictureAnim()
@@ -208,8 +234,7 @@ namespace Quester
                     for (int j = 0; j < _columns; j++)
                     {
                         var item = _items[i, j];
-                        RectTransform rt = item.rectTransform;
-                        rt.DOSizeDelta(new Vector2(_cellWidth, _cellHeight), Random.Range(0.5f, maxDuration));
+                        item.FullImage(_cellWidth, _cellHeight);
                     }
                 }
 
@@ -226,27 +251,42 @@ namespace Quester
 
         private Vector3 GetCellPosition(int row, int column)
         {
-            return new Vector3(column * _cellWidth + _xOffset, row * _cellHeight + _yOffset, 0);
+            return new Vector3(column * _cellWidth + _xOffset, -row * _cellHeight - _yOffset, 0);
         }
 
         private void UpdateSprite()
         {
             if (_items != null)
             {
-                var fullImage = _currentLevel > _maxLevel;
+                int levelIndex = 0;
+                
                 for (int i = 0; i < _rows; i++)
                 {
                     for (int j = 0; j < _columns; j++)
                     {
                         var item = _items[i, j];
-                        if (i * _columns + j + 1 < _currentLevel)
+                        if (!_seasonShape.Matrix.rows[i].columns[j])
                         {
-                            item.color = Color.white;
-                            item.sprite = GetSprite(i, j);
-                            item.transform.GetComponentInChildren<TextMeshProUGUI>().text = "";
-                            if (fullImage)
+                            continue;
+                        }
+                        levelIndex++;
+                        if (levelIndex < _currentLevel)
+                        {
+                            item.SetSprite(GetSprite(GetCroppedX(j), GetCroppedY(i), _imageItemSize, _imageItemSize));
+                        }
+                        else
+                        {
+                            if (levelIndex == _currentLevel)
                             {
-                                item.rectTransform.sizeDelta = new Vector2(_cellWidth, _cellHeight);
+                                _focusRow = i;
+                                _focusColumn = j;
+                            }
+                            else
+                            {
+                                if (levelIndex % 5 == 0)
+                                {
+                                    item.SetSprite(redHighlight);
+                                }
                             }
                         }
                     }
@@ -258,7 +298,7 @@ namespace Quester
         {
             var filePath = $"{Application.persistentDataPath}/Pictures/{TimeManager.SeasonTime.year}/{TimeManager.SeasonTime.week}.jpg";
             // Debug.Log(filePath);
-            if (File.Exists(filePath))
+            if (false)
             {
                 // 异步加载
                 StartCoroutine(SpriteLoader.LoadFromFileAsync(filePath, (sprite) =>
@@ -295,25 +335,32 @@ namespace Quester
             _sourceTexture = _sourceSprite.texture;
             _imgWidth =  _sourceSprite.texture.width;
             _imgHeight = _sourceSprite.texture.height;
+            _imageItemSize = _sourceSprite.texture.width / _columns;
+            _imgOffsetY = (_imgHeight - (int)(_imgWidth * _rows * 1.0f / _columns)) / 2;
             // Debug.Log($"LoadImageCompleted: {_imgWidth}");
             // Debug.Log($"LoadImageCompleted: {_imgHeight}");
-            CalcOffset();
+            fullImage.sprite = GetSprite(0, _imgOffsetY, _imageItemSize * _columns, _imageItemSize * _rows);
+            fullImage.color = _fullImageColor;
             UpdateSprite();
             UpdateFocusPosition();
         }
 
-        private Sprite GetSprite(int row, int column)
+        private int GetCroppedX(int column)
+        {
+            return column * _imageItemSize;
+        }
+        
+        private int GetCroppedY(int row)
+        {
+            return _sourceTexture.height - (row + 1) * _imageItemSize - _imgOffsetY;
+        }
+
+        private Sprite GetSprite(int x, int y, int blockWidth, int blockHeight)
         {
             // 2️⃣ 从原纹理中取像素
-            Color[] pixels = _sourceTexture.GetPixels(
-                column * _imageItemSize + _imgOffsetX,
-                row * _imageItemSize + _imgOffsetY,
-                _imageItemSize,
-                _imageItemSize
-            );
-
+            Color[] pixels = _sourceTexture.GetPixels(x, y, blockWidth, blockHeight);
             // 3️⃣ 创建一个新的 Texture2D 并写入像素
-            Texture2D croppedTexture = new Texture2D(_imageItemSize, _imageItemSize);
+            Texture2D croppedTexture = new Texture2D(blockWidth, blockHeight);
             croppedTexture.SetPixels(pixels);
             croppedTexture.filterMode = FilterMode.Point;
             croppedTexture.wrapMode = TextureWrapMode.Clamp;

@@ -24,6 +24,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public int GameMode => _userData.gameMode;
         public int FailStreak => _userData.failStreak;
         public int CurrentSeason => _userData.currentSeason;
+        public int CurrentSeasonShape => _userData.currentSeasonShape;
         public int FirstSeason => _userData.firstSeason;
         public long LastLaunchTimestamp => _userData.lastLaunchTimestamp;
         public long LastRateTimestamp => _userData.lastRateTimestamp;
@@ -124,6 +125,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public void SetSeason(int season)
         {
             _userData.currentSeason = season;
+        }
+
+        public void SetSeasonShape(int seasonShape)
+        {
+            _userData.currentSeasonShape = seasonShape;
         }
 
         public void SetFirstSeason(int firstSeason)

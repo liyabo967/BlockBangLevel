@@ -89,6 +89,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f5b528df666bf4f66a956010a8f3d2c0
+    m_Address: Assets/GameMain/SeasonShapes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5aa5987ddff844dc2b314d17fdb11a2d, type: 2}
   m_SchemaSet:

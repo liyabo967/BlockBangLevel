@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace BlockPuzzleGameToolkit.Scripts.Editor.SeasonShapeEditor
+namespace BlockPuzzleGameToolkit.Scripts
 {
     [CustomEditor(typeof(SeasonShape))]
     public class SeasonShapeEditor : UnityEditor.Editor
@@ -21,10 +21,16 @@ namespace BlockPuzzleGameToolkit.Scripts.Editor.SeasonShapeEditor
         private void OnEnable()
         {
             _seasonShape = (SeasonShape)target;
+            _seasonShape.InitializeIfNeeded();
         }
 
         public override VisualElement CreateInspectorGUI()
         {
+            // Debug.LogError("CreateInspectorGUI rows length: " + _seasonShape.Matrix.rows.Length);
+            // if (_seasonShape.Matrix.rows.Length == 0)
+            // {
+            //     _seasonShape.InitializeIfNeeded();
+            // }
             _root = new VisualElement();
 
             // Load and apply USS
@@ -33,6 +39,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Editor.SeasonShapeEditor
             _root.styleSheets.Add(styleSheet);
             _countlabel = new Label("0/88") { name = "title" };
             _msglabel = new Label("") { name = "msg" };
+            _msglabel.style.backgroundColor = new StyleColor(new Color(1f, 0.3f, 0.3f));
             _root.Add(_countlabel);
             _root.Add(_msglabel);
             
@@ -98,26 +105,26 @@ namespace BlockPuzzleGameToolkit.Scripts.Editor.SeasonShapeEditor
             _matrixContainer.Clear();
 
             _activeCount = 0;
-            for (var i = 0; i < _seasonShape.rows; i++)
+            for (var i = 0; i < _seasonShape.Rows; i++)
             {
                 var row = new VisualElement();
                 row.AddToClassList("grid-row");
                 _matrixContainer.Add(row);
 
-                for (var j = 0; j < _seasonShape.columns; j++)
+                for (var j = 0; j < _seasonShape.Columns; j++)
                 {
                     int rowIndex = i;
                     int columnIndex = j;
                     var cell = new Button();
                     cell.AddToClassList("grid-cell");
-                    var active = _seasonShape.Matrix[i, j];
+                    var active = _seasonShape.Matrix.rows[i].columns[j];
                     cell.style.backgroundColor = active ? _activeColor : _defaultColor;
                     _activeCount += active ? 1 : 0;
                     cell.clicked += () =>
                     {
-                        if (!active && _activeCount >= _seasonShape.seasonLength)
+                        if (!active && _activeCount >= _seasonShape.MaxLevel)
                         {
-                            _msglabel.text = $"最多 {_seasonShape.seasonLength} 个";
+                            _msglabel.text = $"最多 {_seasonShape.MaxLevel} 个";
                             return;
                         }
 
@@ -138,12 +145,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Editor.SeasonShapeEditor
 
         private void UpdateCountText()
         {
-            _countlabel.text = $"{_activeCount}/{_seasonShape.seasonLength}";
+            _countlabel.text = $"{_activeCount}/{_seasonShape.MaxLevel}";
         }
         
         private void Save()
         {
             EditorUtility.SetDirty(target);
+            AssetDatabase.SaveAssets();
         }
     }
 }

@@ -1,52 +1,78 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-namespace BlockPuzzleGameToolkit.Scripts.Editor.SeasonShapeEditor
+namespace BlockPuzzleGameToolkit.Scripts
 {
     [CreateAssetMenu(fileName = "SeasonShape", menuName = "GameMain/SeasonShapes", order = 1)]
     public class SeasonShape : ScriptableObject
     {
-        public readonly int rows = 15;
-        public readonly int columns = 11;
-        public readonly int seasonLength = 99;
-        private bool[,] _matrix;
+        public readonly int Rows = 15;
+        public readonly int Columns = 11;
+        public readonly int MaxLevel = 99;
+        
+        [SerializeField]
+        private SeasonShapeMatrix _matrix;
+        
+        [Serializable]
+        public class SeasonShapeMatrix
+        {
+            public SeasonShapeRow[] rows;
+        }
 
-        public bool[,] Matrix => _matrix;
+        [Serializable]
+        public class SeasonShapeRow
+        {
+            public bool[] columns;
+        }
+
+        public SeasonShapeMatrix Matrix => _matrix;
 
         private void OnEnable()
         {
             InitializeIfNeeded();
         }
 
-        private void InitializeIfNeeded()
+        public void InitializeIfNeeded()
         {
-            _matrix ??= new bool[rows, columns];
+            if (_matrix == null)
+            {
+                Debug.LogError("Initialize Matrix");
+                _matrix = new SeasonShapeMatrix();
+                _matrix.rows = new SeasonShapeRow[Rows];
+                for (int i = 0; i < Rows; i++)
+                {
+                    var row = new SeasonShapeRow()
+                    {
+                        columns = new bool[Columns]
+                    };
+                    _matrix.rows[i] = row;
+                }
+            }
+            
         }
 
         public void UpdateMatrix(int row, int column, bool value)
         {
-            _matrix[row, column] = value;
-        }
-
-        public int GetCount()
-        {
-            int count = 0;
-            for (int i = 0; i < _matrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < _matrix.GetLength(1); j++)
-                {
-                    if (_matrix[i, j])
-                    {
-                        count++;
-                    }
-                }
-            }
-            return count;
+            _matrix.rows[row].columns[column] = value;
         }
 
         public void RegenerateMatrix()
         {
-            _matrix = Generate(rows, columns, seasonLength);
+            var arr = Generate(Rows, Columns, MaxLevel);
+            ApplyByArr(arr);
+        }
+
+        public void ApplyByArr(bool[,] arr)
+        {
+            for (int i = 0; i < arr.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr.GetLength(1); j++)
+                {
+                    _matrix.rows[i].columns[j] = arr[i, j];
+                }
+            }
         }
 
         public void MoveToLeft()
@@ -69,10 +95,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Editor.SeasonShapeEditor
             _matrix = MoveBoolArray(_matrix, 1, 0);
         }
         
-        public bool[,] MoveBoolArray(bool[,] source, int offsetX, int offsetY)
+        public SeasonShapeMatrix MoveBoolArray(SeasonShapeMatrix matrix, int offsetX, int offsetY)
         {
-            int width = source.GetLength(0);
-            int height = source.GetLength(1);
+            int width = matrix.rows.GetLength(0);
+            int height = matrix.rows[0].columns.GetLength(0);
 
             bool[,] result = new bool[width, height];
 
@@ -80,7 +106,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Editor.SeasonShapeEditor
             {
                 for (int y = 0; y < height; y++)
                 {
-                    if (!source[x, y])
+                    if (!matrix.rows[x].columns[y])
                         continue;
 
                     int newX = x + offsetX;
@@ -97,7 +123,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Editor.SeasonShapeEditor
                 }
             }
 
-            return result;
+            ApplyByArr(result);
+            return _matrix;
         }
         
 
