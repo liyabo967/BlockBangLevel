@@ -23,7 +23,7 @@ MonoBehaviour:
   prePlayPopup: 14
   preFailedPopup: 18
   failedPopup: 19
-  preWinPopup: 16
+  preWinPopup: 17
   winPopup: 0
   selectable: 1
   singleColorMode: 1

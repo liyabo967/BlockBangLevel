@@ -50,7 +50,7 @@ namespace Quester
         PrePlayBonus,
         PrePlayScore,
         PreWinBonus,
-        PreWinScore,
+        LevelWin,
         PreFailed,
         FailedBonus,
         FailedScore,

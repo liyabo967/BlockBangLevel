@@ -16,6 +16,8 @@ namespace Quester
 {
     public class PictureComponent : MonoBehaviour
     {
+        public Transform unlockedPieceParent;
+        public Image unlockedPiece;
         public RectTransform scrollView;
         public PicturePiece itemPrefab;
         public Image focusImage;
@@ -38,8 +40,7 @@ namespace Quester
         private PicturePiece[,] _items;
         private float _xOffset;
         private float _yOffset;
-        private int _focusRow;
-        private int _focusColumn;
+        private Vector2Int _focusPosition;
         private Color _fullImageColor = new Color32(70, 70, 70, 255);
         
         
@@ -118,30 +119,7 @@ namespace Quester
             if (_items == null)
             {
                 yield return null;
-                _items =  new PicturePiece[_rows, _columns];
-                var index = 1;
-                var padding = _cellWidth * 0.1f;
-                padding = 0;
-                for (int i = 0; i < _rows; i++)
-                {
-                    for (int j = 0; j < _columns; j++)
-                    {
-                        if (!_seasonShape.Matrix.rows[i].columns[j])
-                        {
-                            continue;
-                        }
-                        var item = Instantiate(itemPrefab, _parent);
-                        item.gameObject.SetActive(true);
-                        item.transform.localPosition = GetCellPosition(i, j);
-                        
-                        item.GetComponent<RectTransform>().sizeDelta = new Vector2(_cellWidth - padding, _cellHeight - padding);
-                        item.transform.name = $"item_{index}";
-                        _items[i, j] = item;
-                        index++;
-                    }
-
-                    yield return null;
-                }
+                yield return StartCoroutine(InitPicture());
                 LoadImage();
             }
             else
@@ -151,10 +129,38 @@ namespace Quester
             }
         }
 
+        private IEnumerator InitPicture()
+        {
+            _items =  new PicturePiece[_rows, _columns];
+            var index = 1;
+            var padding = _cellWidth * 0.1f;
+            padding = 0;
+            for (int i = 0; i < _rows; i++)
+            {
+                for (int j = 0; j < _columns; j++)
+                {
+                    if (!_seasonShape.Matrix.rows[i].columns[j])
+                    {
+                        continue;
+                    }
+                    var item = Instantiate(itemPrefab, _parent);
+                    item.gameObject.SetActive(true);
+                    item.transform.localPosition = GetCellPosition(i, j);
+                        
+                    item.GetComponent<RectTransform>().sizeDelta = new Vector2(_cellWidth - padding, _cellHeight - padding);
+                    item.transform.name = $"item_{index}";
+                    _items[i, j] = item;
+                    index++;
+                }
+
+                yield return null;
+            }
+        }
+
         private void UpdateFocusPosition()
         {
-            var focusRow = _focusRow;
-            var focusColumn = _focusColumn;
+            var focusRow = _focusPosition.x;
+            var focusColumn = _focusPosition.y;
             focusImage.transform.localPosition = GetCellPosition(focusRow, focusColumn);
             focusImage.transform.SetAsLastSibling();
             focusImage.gameObject.SetActive(true);
@@ -176,6 +182,7 @@ namespace Quester
                 sequence.Append(currentItem.transform.DOScale(Vector3.zero, 0.5f));
                 sequence.AppendCallback(() =>
                 {
+                    PlayPieceAnim(GetCellPosition(_focusPosition.x, _focusPosition.y));
                     currentItem.SetSprite(GetSprite(GetCroppedX(focusColumn), GetCroppedY(focusRow), _imageItemSize, _imageItemSize));
                     GameEntry.Sound.PlaySound(SoundId.Fragment);
                 });
@@ -195,6 +202,22 @@ namespace Quester
             {
                 focusImage.gameObject.SetActive(UserDataManager.Instance.Level <= _maxLevel);
             }
+        }
+
+        private void PlayPieceAnim(Vector3 targetPos)
+        {
+            unlockedPiece.gameObject.SetActive(true);
+            unlockedPiece.transform.SetParent(transform);
+            Sequence sequence = DOTween.Sequence();
+            sequence.AppendInterval(0.5f);
+            sequence.Append(unlockedPiece.transform.DOLocalMove(targetPos, 0.5f));
+            sequence.Join(unlockedPiece.transform.DOScale(new Vector3(0.3f, 0.3f, 0.3f), 0.5f));
+            sequence.AppendCallback(() =>
+            {
+                unlockedPiece.gameObject.SetActive(false);
+                unlockedPiece.transform.SetParent(unlockedPieceParent);
+                unlockedPiece.transform.localPosition = Vector3.zero;
+            });
         }
 
         private Vector3 GetNextLevelPosition(int currentLevel)
@@ -278,8 +301,7 @@ namespace Quester
                         {
                             if (levelIndex == _currentLevel)
                             {
-                                _focusRow = i;
-                                _focusColumn = j;
+                                _focusPosition = new Vector2Int(i, j);
                             }
                             else
                             {
@@ -353,6 +375,11 @@ namespace Quester
         private int GetCroppedY(int row)
         {
             return _sourceTexture.height - (row + 1) * _imageItemSize - _imgOffsetY;
+        }
+
+        public Sprite GetCurrentLevelSprite()
+        {
+            return GetSprite(GetCroppedX(_focusPosition.y), GetCroppedY(_focusPosition.x), _imageItemSize, _imageItemSize);
         }
 
         private Sprite GetSprite(int x, int y, int blockWidth, int blockHeight)
