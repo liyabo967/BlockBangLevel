@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <linker>
+  <assembly fullname="AppsFlyer">
+    <type fullname="AppsFlyerSDK.AFAdRevenueData" preserve="all" />
+    <type fullname="AppsFlyerSDK.AppsFlyer" preserve="all" />
+    <type fullname="AppsFlyerSDK.AppsFlyerConsent" preserve="all" />
+    <type fullname="AppsFlyerSDK.AppsFlyerRequestEventArgs" preserve="all" />
+    <type fullname="AppsFlyerSDK.MediationNetwork" preserve="all" />
+  </assembly>
   <assembly fullname="DOTween">
     <type fullname="DG.Tweening.Core.DOGetter`1" preserve="all" />
     <type fullname="DG.Tweening.Core.DOSetter`1" preserve="all" />
@@ -41,7 +48,6 @@
   <assembly fullname="Firebase.TaskExtension">
     <type fullname="Firebase.Extensions.TaskExtension" preserve="all" />
   </assembly>
-
   <assembly fullname="GameAnalyticsAsmdef">
     <type fullname="GameAnalyticsSDK.GAAdAction" preserve="all" />
     <type fullname="GameAnalyticsSDK.GAAdError" preserve="all" />
@@ -72,6 +78,8 @@
   </assembly>
   <assembly fullname="GoogleMobileAds">
     <type fullname="GoogleMobileAds.Api.AdError" preserve="all" />
+    <type fullname="GoogleMobileAds.Api.AdInspectorError" preserve="all" />
+    <type fullname="GoogleMobileAds.Api.AdInspectorError/AdInspectorErrorCode" preserve="all" />
     <type fullname="GoogleMobileAds.Api.BannerView" preserve="all" />
     <type fullname="GoogleMobileAds.Api.InitializationStatus" preserve="all" />
     <type fullname="GoogleMobileAds.Api.InterstitialAd" preserve="all" />
@@ -80,6 +88,9 @@
     <type fullname="GoogleMobileAds.Api.ResponseInfo" preserve="all" />
     <type fullname="GoogleMobileAds.Api.RewardedAd" preserve="all" />
   </assembly>
+  <assembly fullname="GoogleMobileAds.Common">
+    <type fullname="GoogleMobileAds.Common.MobileAdsEventExecutor" preserve="all" />
+  </assembly>
   <assembly fullname="GoogleMobileAds.Core">
     <type fullname="GoogleMobileAds.Api.AdPosition" preserve="all" />
     <type fullname="GoogleMobileAds.Api.AdRequest" preserve="all" />
@@ -87,6 +98,7 @@
     <type fullname="GoogleMobileAds.Api.AdValue" preserve="all" />
     <type fullname="GoogleMobileAds.Api.AdapterState" preserve="all" />
     <type fullname="GoogleMobileAds.Api.AdapterStatus" preserve="all" />
+    <type fullname="GoogleMobileAds.Api.RequestConfiguration" preserve="all" />
     <type fullname="GoogleMobileAds.Api.Reward" preserve="all" />
   </assembly>
   <assembly fullname="GoogleMobileAds.Ump">
@@ -94,7 +106,6 @@
     <type fullname="GoogleMobileAds.Ump.Api.ConsentForm" preserve="all" />
     <type fullname="GoogleMobileAds.Ump.Api.ConsentInformation" preserve="all" />
     <type fullname="GoogleMobileAds.Ump.Api.ConsentRequestParameters" preserve="all" />
-    <type fullname="GoogleMobileAds.Ump.Api.ConsentStatus" preserve="all" />
     <type fullname="GoogleMobileAds.Ump.Api.DebugGeography" preserve="all" />
     <type fullname="GoogleMobileAds.Ump.Api.FormError" preserve="all" />
     <type fullname="GoogleMobileAds.Ump.Api.PrivacyOptionsRequirementStatus" preserve="all" />
@@ -106,12 +117,19 @@
     <type fullname="BlockPuzzleGameToolkit.Scripts.System.Haptic.HapticFeedback/HapticForce" preserve="all" />
     <type fullname="FileDownloader" preserve="all" />
     <type fullname="GameMain.LocalLanguage" preserve="all" />
+    <type fullname="GameMain.MobileReview" preserve="all" />
     <type fullname="GameMain.Util" preserve="all" />
     <type fullname="MonoSingleton`1" preserve="all" />
   </assembly>
   <assembly fullname="Reordable">
     <type fullname="BlockPuzzleGameToolkit.Scripts.Unity_Reorderable_List_master.List.Attributes.ReorderableAttribute" preserve="all" />
     <type fullname="BlockPuzzleGameToolkit.Scripts.Unity_Reorderable_List_master.List.ReorderableArray`1" preserve="all" />
+  </assembly>
+  <assembly fullname="UniTask">
+    <type fullname="Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder" preserve="all" />
+    <type fullname="Cysharp.Threading.Tasks.UniTask" preserve="all" />
+    <type fullname="Cysharp.Threading.Tasks.YieldAwaitable" preserve="all" />
+    <type fullname="Cysharp.Threading.Tasks.YieldAwaitable/Awaiter" preserve="all" />
   </assembly>
   <assembly fullname="Unity.Addressables">
     <type fullname="UnityEngine.AddressableAssets.Addressables" preserve="all" />
@@ -203,8 +221,10 @@
     <type fullname="UnityEngine.Events.UnityEvent" preserve="all" />
     <type fullname="UnityEngine.Events.UnityEventBase" preserve="all" />
     <type fullname="UnityEngine.Events.UnityEvent`1" preserve="all" />
+    <type fullname="UnityEngine.ExecuteAlways" preserve="all" />
     <type fullname="UnityEngine.ExecuteInEditMode" preserve="all" />
     <type fullname="UnityEngine.FilterMode" preserve="all" />
+    <type fullname="UnityEngine.FindObjectsInactive" preserve="all" />
     <type fullname="UnityEngine.FindObjectsSortMode" preserve="all" />
     <type fullname="UnityEngine.GameObject" preserve="all" />
     <type fullname="UnityEngine.HeaderAttribute" preserve="all" />
@@ -255,6 +275,7 @@
     <type fullname="UnityEngine.WaitForFixedUpdate" preserve="all" />
     <type fullname="UnityEngine.WaitForSeconds" preserve="all" />
     <type fullname="UnityEngine.WaitForSecondsRealtime" preserve="all" />
+    <type fullname="UnityEngine.WaitUntil" preserve="all" />
     <type fullname="UnityEngine.WaitWhile" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.DirectorModule">
@@ -424,6 +445,7 @@
     <type fullname="System.Diagnostics.Stopwatch" preserve="all" />
     <type fullname="System.Enum" preserve="all" />
     <type fullname="System.EventArgs" preserve="all" />
+    <type fullname="System.EventHandler" preserve="all" />
     <type fullname="System.EventHandler`1" preserve="all" />
     <type fullname="System.Exception" preserve="all" />
     <type fullname="System.Func`1" preserve="all" />

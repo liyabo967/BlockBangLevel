@@ -32,7 +32,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         [SerializeField] private ParticleSystem particleSystem;
 
         private PictureComponent _pictureComponent;
-        private Sprite _targetSprite;
+        private Sprite _originalSprite;
+
+        protected override void OnInit(object userData)
+        {
+            base.OnInit(userData);
+            _originalSprite = pieceImage.sprite;
+        }
 
         protected override void OnOpen(object userData)
         {
@@ -46,6 +52,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             eventValues.Add(AFInAppEvents.LEVEL, (UserDataManager.Instance.Level - 1).ToString());
             AppsFlyer.sendEvent(AFInAppEvents.LEVEL_ACHIEVED, eventValues);
             UserDataManager.Instance.AddWinCount();
+            pieceImage.sprite = _originalSprite;
             PlayImageAnim();
         }
 
@@ -75,7 +82,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             {
                 // particleSystem.gameObject.SetActive(true);
                 // particleSystem.Play();
-                pieceImage.sprite = _pictureComponent.GetCurrentLevelSprite();
+                pieceImage.sprite = _pictureComponent.GetFocusedSprite();
             });
             // sequence.AppendInterval(0.5f);
             sequence.Append(pieceImage.transform.DOScale(

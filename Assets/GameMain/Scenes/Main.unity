@@ -5821,7 +5821,7 @@ MonoBehaviour:
   mainMenus:
   - {fileID: 1519999581}
   maps:
-  - {fileID: 1652444415}
+  - {fileID: 2432509050953591857}
   games:
   - {fileID: 1526455489042436528}
   - {fileID: 2021583143456060800}
@@ -11684,7 +11684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1652444416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15913,11 +15913,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: PictureMap
       objectReference: {fileID: 0}
+    - target: {fileID: 6525252459823004273, guid: 6da5bfd904ea94ad78a8286206d0c9dd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6da5bfd904ea94ad78a8286206d0c9dd, type: 3}
+--- !u!1 &2432509050953591857 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6525252459823004273, guid: 6da5bfd904ea94ad78a8286206d0c9dd, type: 3}
+  m_PrefabInstance: {fileID: 2432509050953591856}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2482682205917493757 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8685266728053284553, guid: 7b57f6baca8664e2c892e9527f5091ec, type: 3}

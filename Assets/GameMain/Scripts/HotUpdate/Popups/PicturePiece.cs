@@ -27,7 +27,12 @@ namespace Quester
 
         public void FullImage(int width, int height)
         {
-            image.rectTransform.DOSizeDelta(new Vector2(width, height), Random.Range(0.5f, 1f));
+            transform.gameObject.SetActive(false);
+            // transform.DOScale(Vector3.zero, Random.Range(0.2f, 0.5f)).OnComplete(() =>
+            // {
+            //     transform.localScale = Vector3.one;
+            //     transform.gameObject.SetActive(false);
+            // });
         }
     }
 }

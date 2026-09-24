@@ -13,6 +13,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		"Reordable.dll",
 		"System.Core.dll",
 		"System.dll",
+		"UniTask.dll",
 		"Unity.Addressables.dll",
 		"Unity.InputSystem.dll",
 		"Unity.ResourceManager.dll",
@@ -28,6 +29,10 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 
 	// {{ AOT generic types
 	// BlockPuzzleGameToolkit.Scripts.Unity_Reorderable_List_master.List.ReorderableArray<object>
+	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<Quester.PictureComponent.<InitItems>d__38>
+	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<Quester.PictureComponent.<InitItems>d__38>
+	// Cysharp.Threading.Tasks.ITaskPoolNode<object>
+	// Cysharp.Threading.Tasks.UniTaskCompletionSourceCore<Cysharp.Threading.Tasks.AsyncUnit>
 	// DG.Tweening.Core.DOGetter<float>
 	// DG.Tweening.Core.DOSetter<float>
 	// DG.Tweening.TweenCallback<object>
@@ -51,9 +56,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Action<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// System.Action<UnityEngine.SceneManagement.Scene>
 	// System.Action<UnityEngine.Vector2>
+	// System.Action<UnityEngine.Vector2Int>
 	// System.Action<UnityEngine.Vector3>
 	// System.Action<byte>
 	// System.Action<float>
+	// System.Action<int,int>
 	// System.Action<int>
 	// System.Action<object,object>
 	// System.Action<object>
@@ -62,6 +69,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ArraySortHelper<BlockPuzzleGameToolkit.Scripts.Map.MapTypeBinding>
 	// System.Collections.Generic.ArraySortHelper<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// System.Collections.Generic.ArraySortHelper<UnityEngine.Vector2>
+	// System.Collections.Generic.ArraySortHelper<UnityEngine.Vector2Int>
 	// System.Collections.Generic.ArraySortHelper<UnityEngine.Vector3>
 	// System.Collections.Generic.ArraySortHelper<byte>
 	// System.Collections.Generic.ArraySortHelper<int>
@@ -71,6 +79,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Comparer<BlockPuzzleGameToolkit.Scripts.Map.MapTypeBinding>
 	// System.Collections.Generic.Comparer<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// System.Collections.Generic.Comparer<UnityEngine.Vector2>
+	// System.Collections.Generic.Comparer<UnityEngine.Vector2Int>
 	// System.Collections.Generic.Comparer<UnityEngine.Vector3>
 	// System.Collections.Generic.Comparer<byte>
 	// System.Collections.Generic.Comparer<float>
@@ -136,6 +145,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.ICollection<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// System.Collections.Generic.ICollection<UnityEngine.Vector2>
+	// System.Collections.Generic.ICollection<UnityEngine.Vector2Int>
 	// System.Collections.Generic.ICollection<UnityEngine.Vector3>
 	// System.Collections.Generic.ICollection<byte>
 	// System.Collections.Generic.ICollection<int>
@@ -145,6 +155,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IComparer<BlockPuzzleGameToolkit.Scripts.Map.MapTypeBinding>
 	// System.Collections.Generic.IComparer<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// System.Collections.Generic.IComparer<UnityEngine.Vector2>
+	// System.Collections.Generic.IComparer<UnityEngine.Vector2Int>
 	// System.Collections.Generic.IComparer<UnityEngine.Vector3>
 	// System.Collections.Generic.IComparer<byte>
 	// System.Collections.Generic.IComparer<float>
@@ -161,6 +172,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.IEnumerable<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// System.Collections.Generic.IEnumerable<UnityEngine.Vector2>
+	// System.Collections.Generic.IEnumerable<UnityEngine.Vector2Int>
 	// System.Collections.Generic.IEnumerable<UnityEngine.Vector3>
 	// System.Collections.Generic.IEnumerable<byte>
 	// System.Collections.Generic.IEnumerable<float>
@@ -177,6 +189,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.IEnumerator<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// System.Collections.Generic.IEnumerator<UnityEngine.Vector2>
+	// System.Collections.Generic.IEnumerator<UnityEngine.Vector2Int>
 	// System.Collections.Generic.IEnumerator<UnityEngine.Vector3>
 	// System.Collections.Generic.IEnumerator<byte>
 	// System.Collections.Generic.IEnumerator<float>
@@ -191,6 +204,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.IList<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// System.Collections.Generic.IList<UnityEngine.Vector2>
+	// System.Collections.Generic.IList<UnityEngine.Vector2Int>
 	// System.Collections.Generic.IList<UnityEngine.Vector3>
 	// System.Collections.Generic.IList<byte>
 	// System.Collections.Generic.IList<int>
@@ -211,6 +225,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List.Enumerator<BlockPuzzleGameToolkit.Scripts.Map.MapTypeBinding>
 	// System.Collections.Generic.List.Enumerator<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// System.Collections.Generic.List.Enumerator<UnityEngine.Vector2>
+	// System.Collections.Generic.List.Enumerator<UnityEngine.Vector2Int>
 	// System.Collections.Generic.List.Enumerator<UnityEngine.Vector3>
 	// System.Collections.Generic.List.Enumerator<byte>
 	// System.Collections.Generic.List.Enumerator<int>
@@ -220,6 +235,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List<BlockPuzzleGameToolkit.Scripts.Map.MapTypeBinding>
 	// System.Collections.Generic.List<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// System.Collections.Generic.List<UnityEngine.Vector2>
+	// System.Collections.Generic.List<UnityEngine.Vector2Int>
 	// System.Collections.Generic.List<UnityEngine.Vector3>
 	// System.Collections.Generic.List<byte>
 	// System.Collections.Generic.List<int>
@@ -229,6 +245,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectComparer<BlockPuzzleGameToolkit.Scripts.Map.MapTypeBinding>
 	// System.Collections.Generic.ObjectComparer<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// System.Collections.Generic.ObjectComparer<UnityEngine.Vector2>
+	// System.Collections.Generic.ObjectComparer<UnityEngine.Vector2Int>
 	// System.Collections.Generic.ObjectComparer<UnityEngine.Vector3>
 	// System.Collections.Generic.ObjectComparer<byte>
 	// System.Collections.Generic.ObjectComparer<float>
@@ -250,6 +267,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.ObjectModel.ReadOnlyCollection<BlockPuzzleGameToolkit.Scripts.Map.MapTypeBinding>
 	// System.Collections.ObjectModel.ReadOnlyCollection<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// System.Collections.ObjectModel.ReadOnlyCollection<UnityEngine.Vector2>
+	// System.Collections.ObjectModel.ReadOnlyCollection<UnityEngine.Vector2Int>
 	// System.Collections.ObjectModel.ReadOnlyCollection<UnityEngine.Vector3>
 	// System.Collections.ObjectModel.ReadOnlyCollection<byte>
 	// System.Collections.ObjectModel.ReadOnlyCollection<int>
@@ -259,6 +277,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Comparison<BlockPuzzleGameToolkit.Scripts.Map.MapTypeBinding>
 	// System.Comparison<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// System.Comparison<UnityEngine.Vector2>
+	// System.Comparison<UnityEngine.Vector2Int>
 	// System.Comparison<UnityEngine.Vector3>
 	// System.Comparison<byte>
 	// System.Comparison<int>
@@ -334,6 +353,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Predicate<BlockPuzzleGameToolkit.Scripts.Map.MapTypeBinding>
 	// System.Predicate<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// System.Predicate<UnityEngine.Vector2>
+	// System.Predicate<UnityEngine.Vector2Int>
 	// System.Predicate<UnityEngine.Vector3>
 	// System.Predicate<byte>
 	// System.Predicate<int>
@@ -423,6 +443,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 
 	public void RefMethods()
 	{
+		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.YieldAwaitable.Awaiter,Quester.PictureComponent.<InitItems>d__38>(Cysharp.Threading.Tasks.YieldAwaitable.Awaiter&,Quester.PictureComponent.<InitItems>d__38&)
+		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder.Start<Quester.PictureComponent.<InitItems>d__38>(Quester.PictureComponent.<InitItems>d__38&)
 		// object DG.Tweening.TweenExtensions.Pause<object>(object)
 		// object DG.Tweening.TweenExtensions.Play<object>(object)
 		// object DG.Tweening.TweenSettingsExtensions.OnComplete<object>(object,DG.Tweening.TweenCallback)
@@ -528,6 +550,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object UnityEngine.JsonUtility.FromJson<object>(string)
 		// object UnityEngine.Object.FindAnyObjectByType<object>()
 		// object UnityEngine.Object.FindFirstObjectByType<object>()
+		// object UnityEngine.Object.FindFirstObjectByType<object>(UnityEngine.FindObjectsInactive)
 		// object UnityEngine.Object.FindObjectOfType<object>()
 		// object UnityEngine.Object.FindObjectOfType<object>(bool)
 		// object[] UnityEngine.Object.FindObjectsByType<object>(UnityEngine.FindObjectsSortMode)

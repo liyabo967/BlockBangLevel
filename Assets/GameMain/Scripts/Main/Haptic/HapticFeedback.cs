@@ -39,11 +39,11 @@ namespace BlockPuzzleGameToolkit.Scripts.System.Haptic
                 #if UNITY_IOS
                 if (force == HapticForce.Continuous)
                 {
-                    VibrationBridge.ContinuousVibration();
+                    VibrationIOS.ContinuousVibration();
                 }
                 else
                 {
-                    VibrationBridge.TriggerHapticFeedback((int)force);
+                    VibrationIOS.TriggerHapticFeedback((int)force);
                 }
                 #elif UNITY_ANDROID
                 long[] pattern = force switch

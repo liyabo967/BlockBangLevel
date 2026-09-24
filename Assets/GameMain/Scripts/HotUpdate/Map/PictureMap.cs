@@ -7,6 +7,7 @@ using GameMain;
 using Quester;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 namespace BlockPuzzleGameToolkit.Scripts.Map
@@ -18,12 +19,19 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
         public CustomButton backButton;
         public CustomButton collectionButton;
         public TextMeshProUGUI completedText;
+
+        [SerializeField] private Sprite red;
+        [SerializeField] private Sprite green;
         
         private PictureComponent _pictureComponent;
+        private SeasonShape _seasonShape;
         private int _currentLevel = 0;
+
+        public SeasonShape SeasonShape => _seasonShape;
 
         private void Awake()
         {
+            LoadSeasonShape();
             _pictureComponent = GetComponentInChildren<PictureComponent>();
             backButton.onClick.AddListener(Back);
             levelButton.onClick.AddListener(PlayGame);
@@ -32,24 +40,37 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
             collectionButton.gameObject.SetActive(UserDataManager.Instance.PictureList.Count > 0);
         }
 
+        private void LoadSeasonShape()
+        {
+            var shapeIndex = UserDataManager.Instance.CurrentSeasonShape.ToString("D3");
+            _seasonShape = Addressables.LoadAssetAsync<SeasonShape>($"Assets/GameMain/SeasonShapes/SeasonShape_{shapeIndex}.asset").WaitForCompletion();
+        }
+
         private void OnEnable()
         {
             levelText.text = GameEntry.Localization.GetString("#level_n", UserDataManager.Instance.Level);
-            var seasonCompleted = UserDataManager.Instance.Level > PictureComponent.MaxLevel;
+            var seasonCompleted = UserDataManager.Instance.Level > _seasonShape.MaxLevel;
             levelButton.gameObject.SetActive(!seasonCompleted);
             completedText.gameObject.SetActive(seasonCompleted);
+            levelButton.GetComponent<Image>().sprite = IsHardLevel(UserDataManager.Instance.Level) ? red : green;
             if (UserDataManager.Instance.Level > _currentLevel)
             {
                 backButton.gameObject.SetActive(false);
                 levelButton.gameObject.SetActive(false);
-                _pictureComponent.ShowPicture(_currentLevel, PictureCompleted);
+                completedText.gameObject.SetActive(false);
+                _pictureComponent.ShowNextLevel(UserDataManager.Instance.Level, PictureCompleted);
                 _currentLevel = UserDataManager.Instance.Level;
             }
         }
 
         private void Start()
         {
-            _pictureComponent.ShowPicture(UserDataManager.Instance.Level);
+            _pictureComponent.ShowLevel(UserDataManager.Instance.Level);
+        }
+        
+        public bool IsHardLevel(int level)
+        {
+            return level % 5 == 0 || level == _seasonShape.MaxLevel;;
         }
 
         private void PlayGame()
@@ -71,8 +92,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
         {
             backButton.gameObject.SetActive(true);
             levelButton.gameObject.SetActive(!completed);
-            completedText.gameObject.SetActive(completed);
-
+            
             if (completed)
             {
                 collectionButton.gameObject.SetActive(true);
@@ -88,6 +108,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
                 img.transform.DOMove(collectionButton.transform.position, 1f).onComplete += () =>
                 {
                     img.gameObject.SetActive(false);
+                    completedText.gameObject.SetActive(true);
                 };
                 GameEntry.Sound.PlaySound(SoundId.SeasonSuccess);
             }
