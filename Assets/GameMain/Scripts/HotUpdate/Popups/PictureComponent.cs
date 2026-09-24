@@ -4,6 +4,7 @@ using System.IO;
 using BlockPuzzleGameToolkit.Scripts;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Map;
+using BlockPuzzleGameToolkit.Scripts.System.Haptic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
@@ -20,6 +21,13 @@ namespace Quester
     {
         [SerializeField]
         private PictureMap pictureMap;
+        [SerializeField]
+        private Image pictureFrame;
+        [SerializeField]
+        private RectTransform itemParent;
+        [SerializeField]
+        private RectTransform scrollContent;
+        
         public Transform unlockedPieceParent;
         public Image unlockedPiece;
         public RectTransform scrollView;
@@ -27,7 +35,7 @@ namespace Quester
         public Image focusImage;
         public Image fullImage;
         public Sprite redHighlight;
-        public RectTransform pictureParent;
+        
         
         private SeasonShape _seasonShape;
         // private Action<bool> _callback;
@@ -87,7 +95,7 @@ namespace Quester
 
         private void CalcItemSize()
         {
-            var size = pictureParent.rect.width / _columns;
+            var size = scrollContent.rect.width / _columns;
             _cellWidth = (int)size;
             _cellHeight = _cellWidth;
             
@@ -104,11 +112,12 @@ namespace Quester
             _yOffset = _cellHeight * 0.5f;
             focusImage.GetComponent<RectTransform>().sizeDelta = new Vector2(_cellWidth * 1.0f, _cellHeight * 1.0f);
             
-            pictureParent.sizeDelta = new Vector2(pictureParent.sizeDelta.x, _cellHeight * _rows);
-            if (scrollView.rect.height > pictureParent.rect.height)
+            scrollContent.sizeDelta = new Vector2(scrollContent.sizeDelta.x, _cellHeight * _rows);
+            itemParent.sizeDelta = scrollContent.sizeDelta;
+            if (scrollView.rect.height > scrollContent.rect.height)
             {
                 // 这里使用的 300 是 prefab 中顶部底部 UI 使用的尺寸，50 是左右边界
-                var offset = (scrollView.rect.height - pictureParent.rect.height) / 2;
+                var offset = (scrollView.rect.height - scrollContent.rect.height) / 2;
                 scrollView.offsetMin = new Vector2(50, 300 + offset);
                 scrollView.offsetMax = new Vector2(-50, -300 - offset);
             }
@@ -141,7 +150,7 @@ namespace Quester
                     if (!_seasonShape.Matrix.rows[i].columns[j])
                         continue;
 
-                    var item = Instantiate(itemPrefab, pictureParent);
+                    var item = Instantiate(itemPrefab, itemParent);
                     item.gameObject.SetActive(true);
                     item.transform.localPosition = GetCellPosition(i, j);
 
@@ -165,7 +174,7 @@ namespace Quester
                     }
                 }
             }
-
+            // pictureFrame.transform.SetAsLastSibling();
             _initialized = true;
         }
 
@@ -203,6 +212,7 @@ namespace Quester
                 unlockedPiece.transform.localPosition = Vector3.zero;
                 currentItem.SetSprite(GetFocusedSprite());
                 GameEntry.Sound.PlaySound(SoundId.Fragment);
+                HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Heavy);
                 Shake();
             });
             // sequence.Append(currentItem.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.5f));

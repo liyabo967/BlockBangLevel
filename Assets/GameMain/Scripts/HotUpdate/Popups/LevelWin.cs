@@ -22,22 +22,38 @@ using GameAnalyticsSDK;
 using GameMain.Scripts.HotUpdate.Base.Ads;
 using Quester;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 namespace BlockPuzzleGameToolkit.Scripts.Popups
 {
     public class LevelWin : UGuiForm
     {
-        [SerializeField] private TextMeshProUGUI messageText;
+        [SerializeField] private GameObject title;
         [SerializeField] private Image pieceImage;
-        [SerializeField] private ParticleSystem particleSystem;
-
+        [SerializeField] private Image pieceFrame;
+        [SerializeField] private ParticleSystem winParticle;
+        [SerializeField] private ParticleSystem unlockParticle;
+        
         private PictureComponent _pictureComponent;
         private Sprite _originalSprite;
+        private Canvas _canvas;
+        private ParticleSystemRenderer _winParticleRenderer;
+        private ParticleSystemRenderer _unlockParticleRenderer;
 
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
             _originalSprite = pieceImage.sprite;
+            _canvas = GetComponent<Canvas>(); 
+            _winParticleRenderer = winParticle.GetComponent<ParticleSystemRenderer>();
+            _unlockParticleRenderer = unlockParticle.GetComponent<ParticleSystemRenderer>();
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            _winParticleRenderer.sortingOrder = _canvas.sortingOrder;
+            _unlockParticleRenderer.sortingOrder = _canvas.sortingOrder;
         }
 
         protected override void OnOpen(object userData)
@@ -53,12 +69,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             AppsFlyer.sendEvent(AFInAppEvents.LEVEL_ACHIEVED, eventValues);
             UserDataManager.Instance.AddWinCount();
             pieceImage.sprite = _originalSprite;
+            pieceFrame.gameObject.SetActive(false);
             PlayImageAnim();
         }
 
         protected virtual void OnEnable()
         {
-            messageText.transform.localScale = Vector3.zero;
             GameEntry.Sound.PlaySound(SoundId.Win);
             if (UserDataManager.Instance.Level > PictureComponent.MaxLevel)
             {
@@ -82,13 +98,16 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             {
                 // particleSystem.gameObject.SetActive(true);
                 // particleSystem.Play();
+                unlockParticle.gameObject.SetActive(true);
                 pieceImage.sprite = _pictureComponent.GetFocusedSprite();
+                pieceFrame.gameObject.SetActive(true);
             });
             // sequence.AppendInterval(0.5f);
             sequence.Append(pieceImage.transform.DOScale(
                 new Vector3(1, 1, 1),
                 0.5f
-            )).OnComplete(OnPieceAnimationFinished);
+            ));
+            sequence.AppendInterval(0.5f).OnComplete(OnPieceAnimationFinished);
         }
 
         private void OnPieceAnimationFinished()
@@ -99,11 +118,30 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         
         public override void AfterShowAnimation()
         {
-            if (messageText != null)
-            {
-                messageText.transform.DOScale(Vector3.one, 0.2f);
-            }
             base.AfterShowAnimation();
+            PlayTextAnim();
+        }
+
+        private void PlayTextAnim()
+        {
+            title.transform.localScale = Vector3.zero;
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(title.transform.DOScale(
+                new Vector3(1.1f, 1.1f, 1.1f),
+                0.3f
+            ));
+            sequence.Append(title.transform.DOScale(
+                Vector3.one,
+                0.3f
+            ));
+            sequence.Append(title.transform.DOScale(
+                new Vector3(1.05f, 1.05f, 1.05f),
+                0.3f
+            ));
+            sequence.Append(title.transform.DOScale(
+                Vector3.one,
+                0.3f
+            ));
         }
 
         protected override void OnClose(bool isShutdown, object userData)
