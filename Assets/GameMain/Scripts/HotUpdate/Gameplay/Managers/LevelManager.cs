@@ -104,7 +104,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private void OnEnable()
         {
             debugText.gameObject.SetActive(GM.Instance.IsDebugMode);
-            debugText.gameObject.SetActive(true);
+            // debugText.gameObject.SetActive(true);
             StateManager.instance.CurrentState = EScreenStates.Game;
             EventManager.GetEvent(EGameEvent.RestartLevel).Subscribe(RestartLevel);
             EventManager.GetEvent<Shape>(EGameEvent.ShapePlaced).Subscribe(CheckLines);

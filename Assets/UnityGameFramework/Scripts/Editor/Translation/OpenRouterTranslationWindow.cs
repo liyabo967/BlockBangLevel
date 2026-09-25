@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEditor;
@@ -16,8 +17,9 @@ namespace UnityGameFramework.Scripts.Editor.Translation
 {
     public class OpenRouterTranslationWindow : EditorWindow
     {
-        private const int TranslatedLineColumns = 19;
+        private const int TranslatedLineColumns = 42;
         
+        private CancellationTokenSource _cts;
         private string _key = "";
         private string _originalContent = "";
         private string _tips = "";
@@ -27,6 +29,7 @@ namespace UnityGameFramework.Scripts.Editor.Translation
         
         private bool _translating = false;
         private float _errorLines = 0;
+        private float _timeoutLines = 0;
         
         private const string API_URL = "https://openrouter.ai/api/v1/chat/completions";
         private string API_KEY = "";
@@ -104,14 +107,19 @@ namespace UnityGameFramework.Scripts.Editor.Translation
                 }
                 if (!_translating)
                 {
-                    _errorLines = 0;
-                    _translating = true;
-                    TranslateAll();
+                    _cts = new CancellationTokenSource();
+                    TranslateAll(_cts.Token);
                 }
                 else
                 {
                     EditorUtility.DisplayDialog("提示", "正在翻译，请稍等...", "确定");
                 }
+            }
+            
+            if (_translating && GUILayout.Button("停止翻译"))
+            {
+                _translating = false; 
+                _cts?.Cancel();
             }
         }
 
@@ -149,61 +157,86 @@ namespace UnityGameFramework.Scripts.Editor.Translation
             }
         }
         
-        private async void TranslateAll()
+        private async void TranslateAll(CancellationToken token)
         {
-            var index = 0;
-            StringBuilder builder = new StringBuilder();
-            foreach (var line in File.ReadLines(_filePath))
+            _timeoutLines = 0;
+            _errorLines = 0;
+            _translating = true;
+            string tempPath = _filePath + ".tmp";
+
+            using (var reader = new StreamReader(_filePath, Encoding.UTF8))
+            using (var writer = new StreamWriter(tempPath, false, Encoding.UTF8))
             {
-                index++;
-                if (line.StartsWith("#"))
-                {
-                    builder.AppendLine(line);
-                    continue;
-                }
-                var startMilli = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-                var values = line.Split('\t');
-                if (values.Length < 3)
-                {
-                    Debug.LogWarning($"skip line: {index}");
-                    continue;
-                }
+                long lineNumber = 1;
 
-                // Debug.Log($"line[{index}]: {values[1]}");
-                if (_skipTranslatedLine && IsTranslated(values))
+                while (!reader.EndOfStream)
                 {
-                    builder.AppendLine(line);
-                    continue;
-                }
-
-                var content = "";
-                try
-                { 
-                    content = await Translation(values[1], values[2]);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogException(e);
-                }
-                // Debug.Log(content);
-                // Debug.Log($"{values[1]}, elapsed: {DateTimeOffset.Now.ToUnixTimeMilliseconds() - startMilli}");
-                if (!string.IsNullOrEmpty(content) && content.Split('\t').Length >= TranslatedLineColumns)
-                {
-                    builder.AppendLine(content);
-                }
-                else
-                {
-                    _errorLines++;
-                    Debug.LogWarning($"Translate Fail: {values[1]}");
-                    builder.AppendLine(line);
+                    string line = reader.ReadLine();
+                    if (string.IsNullOrEmpty(line) || line.StartsWith("#") || token.IsCancellationRequested)
+                    {
+                        writer.WriteLine(line);
+                        continue;
+                    }
+                    
+                    var values = line.Split('\t');
+                    if (values.Length < 3 || values.Length > TranslatedLineColumns)
+                    {
+                        SetTips($"翻译异常， line: {lineNumber}, length: {values.Length}");
+                        _translating = false;
+                        return;
+                    }
+                    
+                    if (_skipTranslatedLine && IsTranslated(values))
+                    {
+                        writer.WriteLine(line);
+                        continue;
+                    }
+                    
+                    string originalContent = values[2];
+                    if (values.Length >= 5 && !string.IsNullOrEmpty(values[4]))
+                    {
+                        originalContent = values[4];
+                    }
+                    var content = await Translation(values[1], originalContent);
+                    if (string.IsNullOrEmpty(content))
+                    {
+                        _timeoutLines++;
+                        Debug.Log($"{values[1]} Timeout");
+                        writer.WriteLine(line);
+                    }
+                    else if (content.Split('\t').Length != TranslatedLineColumns)
+                    {
+                        _errorLines++;
+                        writer.WriteLine(content);
+                        Debug.LogWarning($"Translate Fail: {values[1]}");
+                        // Debug.LogWarning($"Translate content: {content}");
+                    }
+                    else
+                    {
+                        writer.WriteLine(content);
+                    }
+                    lineNumber++;
                 }
             }
-            // RemoveOldLines();
-            var start = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-            WriteToFile(builder.ToString(), false);
-            Debug.Log($"write Elapsed: {DateTimeOffset.Now.ToUnixTimeMilliseconds() - start}, errors: {_errorLines}");
+            // 替换原文件
+            File.Delete(_filePath);
+            File.Move(tempPath, _filePath);
+            
+            Debug.Log($"Translate completed, Timeout: {_timeoutLines}, errors: {_errorLines}");
+            SetTips($"翻译完成，已写入文件, Timeout: {_timeoutLines}, Errors: {_errorLines}");
             _translating = false;
-            SetTips($"翻译完成，已写入文件, Errors: {_errorLines}");
+
+            if (_timeoutLines > 0 && !_cts.IsCancellationRequested)
+            {
+                RetryTranslateAll();
+            }
+        }
+
+        private void RetryTranslateAll()
+        {
+            Debug.LogError("RetryTranslateAll ------------------------");
+            _cts = new CancellationTokenSource();
+            TranslateAll(_cts.Token);
         }
 
         private bool IsTranslated(string[] values)
@@ -227,6 +260,10 @@ namespace UnityGameFramework.Scripts.Editor.Translation
         {
             SetTips($"正在翻译：{key}, {originalContent}");
             string result = await Translate(originalContent);
+            if (string.IsNullOrEmpty(result))
+            {
+                return null;
+            }
             var response = JsonConvert.DeserializeObject<OpenRouterResponse>(result);
             var originContent = response.choices[0].message.content;
             // Debug.Log($"originContent: {originContent.Trim()}");
@@ -242,7 +279,7 @@ namespace UnityGameFramework.Scripts.Editor.Translation
         
         private async Task<string> Translate(string message)
         {
-            var prompt = $"翻译一下\"{message}\"，分别使用简体中文，繁体中文，英语，日语，韩语，法语，德语，西班牙语，葡萄语语，俄语，意大利语，泰语，越南语，印尼语，阿拉伯语，土耳其语，印地语进行翻译，翻译结果直接使用'\t'分隔";
+            var prompt = $"翻译一下\"{message}\"，分别使用简体中文，繁体中文，英语，南非荷兰语，阿拉伯语，巴斯克语，白俄罗斯语，保加利亚语，加泰罗尼亚语，捷克语，丹麦语，荷兰语，爱沙尼亚语，法罗语，芬兰语，法语，德语，希腊语，匈牙利语，冰岛语，印尼语，意大利语，日语，韩语，拉脱维亚语，立陶宛语，挪威语，波兰语，葡萄牙语，罗马尼亚语，俄语，斯洛伐克语，斯洛文尼亚语，西班牙语，瑞典语，泰语，土耳其语，乌克兰语，越南语，印地语，进行翻译，首字母大写，翻译结果直接使用'\t'分隔";
             return await AskAsync(prompt);
         }
 
@@ -287,7 +324,7 @@ namespace UnityGameFramework.Scripts.Editor.Translation
             {
                 var error = $"Error: {request.responseCode}, {request.error}";
                 Debug.LogError(error);
-                throw new Exception(error);
+                return null;
             }
             return Encoding.UTF8.GetString(request.downloadHandler.data);
         }

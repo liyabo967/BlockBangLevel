@@ -15,10 +15,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
     public class PictureMap : MonoBehaviour
     {
         public TextMeshProUGUI levelText;
+        public TextMeshProUGUI tipsText;
         public CustomButton levelButton;
         public CustomButton backButton;
         public CustomButton collectionButton;
         public TextMeshProUGUI completedText;
+        public ParticleSystem starParticle;
 
         [SerializeField] private Sprite red;
         [SerializeField] private Sprite green;
@@ -52,7 +54,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
             var seasonCompleted = UserDataManager.Instance.Level > _seasonShape.MaxLevel;
             levelButton.gameObject.SetActive(!seasonCompleted);
             completedText.gameObject.SetActive(seasonCompleted);
+            tipsText.gameObject.SetActive(!seasonCompleted);
             levelButton.GetComponent<Image>().sprite = IsHardLevel(UserDataManager.Instance.Level) ? red : green;
+            starParticle.gameObject.SetActive(seasonCompleted);
             if (UserDataManager.Instance.Level > _currentLevel)
             {
                 backButton.gameObject.SetActive(false);

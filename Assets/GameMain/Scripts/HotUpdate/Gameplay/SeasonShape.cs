@@ -10,7 +10,7 @@ namespace BlockPuzzleGameToolkit.Scripts
     {
         public readonly int Rows = 15;
         public readonly int Columns = 11;
-        public readonly int MaxLevel = 99;
+        public readonly int MaxLevel = 88;
         
         [SerializeField]
         private SeasonShapeMatrix _matrix;

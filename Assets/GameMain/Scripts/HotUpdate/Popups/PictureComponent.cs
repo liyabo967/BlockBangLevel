@@ -54,7 +54,7 @@ namespace Quester
         private float _yOffset;
         private Vector2Int _focusedPosition;
         private Sprite _focusedSprite;
-        private Color _fullImageColor = new Color32(70, 70, 70, 255);
+        private Color _fullImageColor = new Color32(110, 110, 110, 255);
         
         // 原始图片大小
         private int _imgWidth = 420;
@@ -73,10 +73,16 @@ namespace Quester
             itemPrefab.gameObject.SetActive(false);
             focusImage.gameObject.SetActive(false);
             _currentLevel = UserDataManager.Instance.Level;
-            SetSeasonShape(pictureMap.SeasonShape);
+
+            SetSeasonShape(LoadSeasonShape());
             Init();
         }
         
+        private SeasonShape LoadSeasonShape()
+        {
+            var shapeIndex = UserDataManager.Instance.CurrentSeasonShape.ToString("D3");
+            return Addressables.LoadAssetAsync<SeasonShape>($"Assets/GameMain/SeasonShapes/SeasonShape_{shapeIndex}.asset").WaitForCompletion();
+        }
 
         private void Init()
         {
@@ -132,8 +138,15 @@ namespace Quester
         {
             _currentLevel = level;
             yield return new WaitUntil(() => _initialized);
-            UpdateSprite();
-            UpdateFocusPosition();
+            if (_currentLevel <= _seasonShape.MaxLevel)
+            {
+                UpdateSprite();
+                UpdateFocusPosition();
+            }
+            else
+            {
+                focusImage.gameObject.SetActive(false);
+            }
         }
         
         private async UniTask InitItems()
@@ -151,7 +164,7 @@ namespace Quester
                         continue;
 
                     var item = Instantiate(itemPrefab, itemParent);
-                    item.gameObject.SetActive(true);
+                    item.gameObject.SetActive(false);
                     item.transform.localPosition = GetCellPosition(i, j);
 
                     var rect = item.GetComponent<RectTransform>();
@@ -308,6 +321,7 @@ namespace Quester
                             continue;
                         }
                         levelIndex++;
+                        item.gameObject.SetActive(true);
                         if (levelIndex < _currentLevel)
                         {
                             item.SetSprite(GetSprite(GetCroppedX(j), GetCroppedY(i), _imageItemSize, _imageItemSize));
@@ -377,9 +391,7 @@ namespace Quester
             // Debug.Log($"LoadImageCompleted: {_imgWidth}");
             // Debug.Log($"LoadImageCompleted: {_imgHeight}");
             fullImage.sprite = GetSprite(0, _imgOffsetY, _imageItemSize * _columns, _imageItemSize * _rows);
-            fullImage.color = _fullImageColor;
-            // UpdateSprite();
-            // UpdateFocusPosition();
+            fullImage.DOColor(_fullImageColor, 2f);
         }
 
         private int GetCroppedX(int column)
