@@ -46,15 +46,30 @@ namespace BlockPuzzleGameToolkit.Scripts.System.Haptic
                     VibrationIOS.TriggerHapticFeedback((int)force);
                 }
                 #elif UNITY_ANDROID
-                long[] pattern = force switch
+                switch (force)
                 {
-                    HapticForce.Light => new long[] { 0, 10 },
-                    HapticForce.Medium => new long[] { 0, 30 },
-                    HapticForce.Heavy => new long[] { 0, 100 },
-                    HapticForce.Continuous => new long[] { 0, 500 },
-                    _ => new long[] { 0, 10 }
-                };
-                VibrationAndroid.Vibrate(pattern, -1);
+                    case HapticForce.Light:
+                        VibrationAndroid.Vibrate(10, 120);
+                        break;
+                    case HapticForce.Medium:
+                        VibrationAndroid.Vibrate(10, 160);
+                        break;
+                    case HapticForce.Heavy:
+                        VibrationAndroid.Vibrate(10, 255);
+                        break;
+                    case HapticForce.Continuous:
+                        VibrationAndroid.Vibrate(300, 80);
+                        break;
+                }
+                // long[] pattern = force switch
+                // {
+                //     HapticForce.Light => new long[] { 0, 10 },
+                //     HapticForce.Medium => new long[] { 0, 10 },
+                //     HapticForce.Heavy => new long[] { 0, 50 },
+                //     HapticForce.Continuous => new long[] { 0, 100 },
+                //     _ => new long[] { 0, 10 }
+                // };
+                // VibrationAndroid.Vibrate(pattern, -1);
                 #endif
                 return true;
             }

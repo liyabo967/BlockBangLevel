@@ -4,6 +4,7 @@ using System.Collections;
 public static class VibrationAndroid
 {
 
+    public static int SdkVersion = -1;
 #if UNITY_ANDROID && !UNITY_EDITOR
     public static AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
     public static AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
@@ -28,6 +29,33 @@ public static class VibrationAndroid
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
         vibrator.Call("vibrate", pattern, repeat);
+#endif
+    }
+
+    public static void Vibrate(long milliseconds, int amplitude)
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        if (SdkVersion == -1)
+        {
+            using (AndroidJavaClass buildVersion = new AndroidJavaClass("android.os.Build$VERSION"))
+            {
+                SdkVersion = buildVersion.GetStatic<int>("SDK_INT");
+            }
+        }
+
+        if (SdkVersion >= 26) // VERSION_CODES.O
+        {
+            using (AndroidJavaClass vibrationEffectClass = new AndroidJavaClass("android.os.VibrationEffect"))
+            {
+                AndroidJavaObject effect = vibrationEffectClass.CallStatic<AndroidJavaObject>("createOneShot", milliseconds, amplitude);
+                vibrator.Call("vibrate", effect);
+            }
+        }
+        else
+        {
+            // 低版本直接调用旧版震动（不支持强度调节）
+            vibrator.Call("vibrate", milliseconds);
+        }
 #endif
     }
 

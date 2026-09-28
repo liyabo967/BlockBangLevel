@@ -17,6 +17,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         public override void Initialize(AdConfig config, Action<bool> onComplete)
         {
             Config = config;
+            // SetTestDevice();
             MobileAds.Initialize(initStatus =>
             {
                 IsInitialized = true;
@@ -24,10 +25,10 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 Log("MobileAds Initialized");
                 foreach (var keyValuePair in initStatus.getAdapterStatusMap())
                 {
-                    Debug.Log("Adapter, " + keyValuePair.Key + ":" + keyValuePair.Value.InitializationState);
+                    
+                    Debug.Log("AdMob Adapter, " + keyValuePair.Key + ":" + keyValuePair.Value.InitializationState + ", desc: " + keyValuePair.Value.Description);
                 }
             });
-            // SetTestDevice();
         }
 
         private void SetTestDevice()
