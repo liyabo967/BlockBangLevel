@@ -26,7 +26,7 @@ namespace BlockPuzzleGameToolkit.Scripts.AnimationBehaviours
             var component = animator.gameObject.GetComponent<CustomButton>();
             if (component != null)
             {
-                component.Invoke(exitMethod, 0.3f);
+                component.Invoke(exitMethod, 0.15f);
             }
         }
     }

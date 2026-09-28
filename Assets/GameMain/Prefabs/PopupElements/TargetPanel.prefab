@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 270.86002, y: 139.54637}
-  m_SizeDelta: {x: 117, y: 114}
+  m_SizeDelta: {x: 117, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &737172309721929903
 CanvasRenderer:
@@ -490,7 +490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.46666667, g: 0.8627451, b: 1, a: 1}
+  m_Color: {r: 0.07450981, g: 0.6039216, b: 0.91764706, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -603,7 +603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.46666667, g: 0.8627451, b: 1, a: 1}
+  m_Color: {r: 0.07450981, g: 0.6039216, b: 0.91764706, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -926,7 +926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.21568628, g: 0.69411767, b: 0.85882354, a: 1}
+  m_Color: {r: 0.07338022, g: 0.60178906, b: 0.9150943, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1001,7 +1001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.46666667, g: 0.8627451, b: 1, a: 1}
+  m_Color: {r: 0.07450981, g: 0.6039216, b: 0.91764706, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1630,6 +1630,10 @@ PrefabInstance:
     - target: {fileID: 5803801920757813952, guid: 9c0e5a4352f8d492f9a786233d28672b, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861690707108323481, guid: 9c0e5a4352f8d492f9a786233d28672b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 6388372456051424465, guid: 9c0e5a4352f8d492f9a786233d28672b, type: 3}
       propertyPath: m_Pivot.x

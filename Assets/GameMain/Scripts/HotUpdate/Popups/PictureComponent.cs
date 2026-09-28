@@ -54,7 +54,7 @@ namespace Quester
         private float _yOffset;
         private Vector2Int _focusedPosition;
         private Sprite _focusedSprite;
-        private Color _fullImageColor = new Color32(110, 110, 110, 255);
+        private Color _fullImageColor = new Color32(160, 160, 160, 255);
         
         // 原始图片大小
         private int _imgWidth = 420;
@@ -72,6 +72,7 @@ namespace Quester
         {
             itemPrefab.gameObject.SetActive(false);
             focusImage.gameObject.SetActive(false);
+            fullImage.gameObject.SetActive(false);
             _currentLevel = UserDataManager.Instance.Level;
 
             SetSeasonShape(LoadSeasonShape());
@@ -188,6 +189,7 @@ namespace Quester
                 }
             }
             // pictureFrame.transform.SetAsLastSibling();
+            fullImage.gameObject.SetActive(true);
             _initialized = true;
         }
 
@@ -391,7 +393,7 @@ namespace Quester
             // Debug.Log($"LoadImageCompleted: {_imgWidth}");
             // Debug.Log($"LoadImageCompleted: {_imgHeight}");
             fullImage.sprite = GetSprite(0, _imgOffsetY, _imageItemSize * _columns, _imageItemSize * _rows);
-            fullImage.DOColor(_fullImageColor, 2f);
+            fullImage.DOColor(_fullImageColor, 3f);
         }
 
         private int GetCroppedX(int column)
