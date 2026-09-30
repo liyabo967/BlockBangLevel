@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GameAnalyticsSDK;
 using GoogleMobileAds.Api;
 using GoogleMobileAds.Common;
 using UnityEngine;
@@ -69,6 +70,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         private void LoadBanner()
         {
             bannerView = new BannerView(Config.BannerId, AdSize.Banner, AdPosition.Bottom);
+            GameAnalyticsILRD.SubscribeAdMobImpressions(Config.BannerId, bannerView);
             bannerView.OnAdPaid += adValue =>
             {
                 RaiseRevenuePaid(new AdResult()
@@ -131,6 +133,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                     return;
                 }
 
+                GameAnalyticsILRD.SubscribeAdMobImpressions(Config.InterstitialId, ad);
                 interstitial = ad;
                 interstitial.OnAdPaid += adValue =>
                 {
@@ -188,7 +191,8 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                     });
                     return;
                 }
-
+                
+                GameAnalyticsILRD.SubscribeAdMobImpressions(Config.RewardedId, ad);
                 rewardedAd = ad;
                 rewardedAd.OnAdPaid += (adValue) => RaiseRevenuePaid(new AdResult
                 {

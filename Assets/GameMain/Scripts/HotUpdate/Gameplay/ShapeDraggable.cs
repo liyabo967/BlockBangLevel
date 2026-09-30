@@ -362,7 +362,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             if (_lastHighlightCell != current)
             {
                 _lastHighlightCell = current;
-                HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Medium);
+                HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Light);
             }
 
             if (itemFactory._oneColorMode)

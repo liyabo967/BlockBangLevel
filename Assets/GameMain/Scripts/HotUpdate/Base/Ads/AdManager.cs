@@ -176,10 +176,10 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 return false;
             }
 
-            if (Time.time - _lastAdTime < 60f)
-            {
-                return false;
-            }
+            // if (Time.time - _lastAdTime < 30f)
+            // {
+            //     return false;
+            // }
 
             // if (failCount >= 3)
             //     return false;

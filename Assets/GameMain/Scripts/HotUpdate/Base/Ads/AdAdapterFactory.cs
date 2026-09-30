@@ -7,7 +7,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             return platform switch
             {
                 AdPlatform.AdMob => new AdMobAdapter(),
-                AdPlatform.LevelPlay => new LevelPlayAdapter(),
+                // AdPlatform.LevelPlay => new LevelPlayAdapter(),
                 // AdPlatform.IronSource => new IronSourceAdapter(),
                 // AdPlatform.TopOn => new TopOnAdapter(),
                 // AdPlatform.Max => new MaxAdapter(),

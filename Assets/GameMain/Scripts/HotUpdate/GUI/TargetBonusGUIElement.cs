@@ -30,7 +30,7 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
         public override void UpdateCount(int newCount, bool isTargetCompleted)
         {
             base.UpdateCount(newCount, isTargetCompleted);
-            HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Light);
+            HapticFeedback.TriggerHapticFeedback(HapticFeedback.HapticForce.Medium);
             if (isTargetCompleted || newCount == 0)
             {
                 TargetCheck();
