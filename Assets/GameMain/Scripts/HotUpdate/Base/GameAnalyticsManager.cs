@@ -24,4 +24,9 @@ public class GameAnalyticsManager
         }
         GameAnalytics.NewAdEvent(action, adType, adNetwork, "default", error);
     }
+
+    public static void SendDesignEvent(string eventName)
+    {
+        GameAnalytics.NewDesignEvent(eventName);
+    }
 }

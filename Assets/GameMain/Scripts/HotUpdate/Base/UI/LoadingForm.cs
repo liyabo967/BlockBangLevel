@@ -60,7 +60,7 @@ public class LoadingForm : UGuiForm
         }
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         GameEntry.Event.Unsubscribe(ProgressEventArgs.EventId, OnProgressEventArgs);
     }

@@ -150,7 +150,10 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             }
         }
 
-        public bool IsReady(AdType type) => _adapter?.IsAdReady(type) ?? false;
+        public bool IsReady(AdType type)
+        {
+            return _adapter.IsAdReady(type);
+        }
 
         public void LoadAd(AdType type)
         {
@@ -176,10 +179,10 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 return false;
             }
 
-            // if (Time.time - _lastAdTime < 30f)
-            // {
-            //     return false;
-            // }
+            if (Time.time - _lastAdTime < 30f)
+            {
+                return false;
+            }
 
             // if (failCount >= 3)
             //     return false;
@@ -189,21 +192,29 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         
         public void ShowInterstitial()
         {
+            GameAnalyticsManager.SendDesignEvent("interstitial:tryShow");
             if (!_initialized)
             {
+                GameAnalyticsManager.SendDesignEvent("interstitial:notInitialized");
                 RetryInitializeAds();
                 return;
             }
 
             if (!IsReady(AdType.Interstitial))
             {
+                GameAnalyticsManager.SendDesignEvent("interstitial:notReady");
                 _adapter?.LoadAd(AdType.Interstitial);
                 return;
             }
             if (CanShowInterstitial())
             {
+                GameAnalyticsManager.SendDesignEvent("interstitial:shown");
                 _adapter.ShowAd(AdType.Interstitial);
                 _lastAdTime = Time.time;
+            }
+            else
+            {
+                GameAnalyticsManager.SendDesignEvent("interstitial:notMet");
             }
         }
 
@@ -211,6 +222,8 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         {
             if (!_initialized)
             {
+                GameAnalyticsManager.SendDesignEvent("rewarded:notInitialized");
+                RetryInitializeAds();
                 return;
             }
             if (!IsReady(AdType.RewardedVideo))
@@ -220,6 +233,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 return;
             }
 
+            GameAnalyticsManager.SendDesignEvent("rewarded:shown");
             _isRewarded = false;
             _isRewardedClosed = false;
             _onRewardedCallback = onResult;

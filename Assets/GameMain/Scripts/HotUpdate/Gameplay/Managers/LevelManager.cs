@@ -716,7 +716,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 if (line.Count == 0) continue;
                 
                 var lineExplosion = lineExplosionPool.Get();
-                lineExplosion.Play(line, shape, RectTransformUtils.GetMinMaxAndSizeForCanvas(line, gameCanvas.GetComponent<Canvas>()), GetExplosionColor(shape));
+                var explosionColor = shape.GetActiveItems()[0].itemTemplate.topColor;
+                lineExplosion.SetColor(explosionColor);
+                lineExplosion.Play(line, shape, RectTransformUtils.GetMinMaxAndSizeForCanvas(line, gameCanvas.GetComponent<Canvas>()), explosionColor);
                 DOVirtual.DelayedCall(1.5f, () => { lineExplosionPool.Release(lineExplosion); });
                 foreach (var cell in line)
                 {

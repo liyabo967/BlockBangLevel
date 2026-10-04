@@ -37,6 +37,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups.Reward
 
         public void ShowRewardedAd()
         {
+            GameAnalyticsManager.SendDesignEvent("rewarded:tryShow");
             if (AdManager.Instance.IsReady(AdType.RewardedVideo))
             {
                 onRewardedShow?.Invoke();
@@ -53,6 +54,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups.Reward
             }
             else
             {
+                GameAnalyticsManager.SendDesignEvent("rewarded:notReady");
                 AdManager.Instance.LoadAd(AdType.RewardedVideo);
                 GameEntry.UI.OpenUIForm(UIFormId.Tips, GameEntry.Localization.GetString("#rewarded_ad_not_ready"));
             }

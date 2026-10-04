@@ -37,8 +37,14 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             if (GameDataManager.GetGameMode() == EGameMode.Adventure)
             {
                 GameEntry.Sound.PlaySound(SoundId.Lose);
+                UserDataManager.Instance.AddFailCount();
                 UserDataManager.Instance.AddFailStreak();
                 GameAnalyticsManager.SendLevelProgression(UserDataManager.Instance.Level, GAProgressionStatus.Fail);
+                
+                if (!UserDataManager.Instance.NoAdsPurchased)
+                {
+                    AdManager.Instance.ShowInterstitial();
+                }
             }
         }
 

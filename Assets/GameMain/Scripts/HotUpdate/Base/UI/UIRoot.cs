@@ -25,15 +25,15 @@ namespace GameMain.Scripts.HotUpdate.UI
             }
         }
 
-        private void Start()
-        {
-            GameEntry.Event.Subscribe(SceneLoadedSuccessEventArgs.EventId, OnSceneLoadedSuccess);
-        }
-
-        private void OnDestroy()
-        {
-            GameEntry.Event.Unsubscribe(SceneLoadedSuccessEventArgs.EventId, OnSceneLoadedSuccess);
-        }
+        // private void Start()
+        // {
+        //     GameEntry.Event.Subscribe(SceneLoadedSuccessEventArgs.EventId, OnSceneLoadedSuccess);
+        // }
+        //
+        // private void OnDestroy()
+        // {
+        //     GameEntry.Event.Unsubscribe(SceneLoadedSuccessEventArgs.EventId, OnSceneLoadedSuccess);
+        // }
 
         private void OnSceneLoadedSuccess(object sender, EventArgs eventArgs)
         {

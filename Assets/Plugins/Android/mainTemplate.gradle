@@ -26,7 +26,6 @@ dependencies {
     implementation 'com.google.ads.mediation:pangle:8.0.0.4.0' // Assets/GoogleMobileAds/Mediation/Pangle/Editor/PangleMediationDependencies.xml:25
     implementation 'com.google.ads.mediation:unity:4.19.0.0' // Assets/GoogleMobileAds/Mediation/UnityAds/Editor/UnityMediationDependencies.xml:25
     implementation 'com.google.android.gms:play-services-ads:25.3.0' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:7
-    implementation 'com.google.android.gms:play-services-ads-identifier:18.1.0' // Assets/LevelPlay/Editor/IronSourceSDKDependencies.xml:12
     implementation 'com.google.android.gms:play-services-appset:16.0.2' // Assets/GameAnalytics/Editor/Android/Dependencies.xml:4
     implementation 'com.google.android.gms:play-services-base:18.10.0' // Assets/Firebase/Editor/AppDependencies.xml:20
     implementation 'com.google.android.instantapps:instantapps:1.1.0' // Assets/GameAnalytics/Editor/Android/Dependencies.xml:3
@@ -41,7 +40,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-unity:13.10.0' // Assets/Firebase/Editor/CrashlyticsDependencies.xml:23
     implementation 'com.parse.bolts:bolts-android:1.4.0' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:4
     implementation 'com.unity3d.ads:unity-ads:4.19.0' // Assets/GoogleMobileAds/Mediation/UnityAds/Editor/UnityMediationDependencies.xml:33
-    implementation 'com.unity3d.ads-mediation:mediation-sdk:9.4.2' // Assets/LevelPlay/Editor/IronSourceSDKDependencies.xml:5
 // Android Resolver Dependencies End
 **DEPS**}
 

@@ -216,8 +216,7 @@ namespace Quester
             focusImage.gameObject.SetActive(false);
                 
             Sequence sequence = DOTween.Sequence();
-            sequence.AppendInterval(0.5f);
-            sequence.AppendInterval(0.5f);
+            sequence.AppendInterval(1f);
             var targetPos = GetCellPosition(_focusedPosition.x, _focusedPosition.y);
             sequence.Append(unlockedPiece.transform.DOLocalMove(targetPos, 0.3f));
             sequence.Join(unlockedPiece.transform.DOScale(new Vector3(0.3f, 0.3f, 0.3f), 0.3f));
@@ -234,6 +233,7 @@ namespace Quester
             // sequence.Append(currentItem.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f));
             if (nextLevel <= _seasonShape.MaxLevel)
             {
+                sequence.AppendInterval(0.5f);
                 sequence.AppendCallback(() =>
                 {
                     focusImage.gameObject.SetActive(true);
@@ -241,10 +241,11 @@ namespace Quester
                     focusImage.transform.localPosition = GetCellPosition(nextFocused.x, nextFocused.y);
                     focusImage.transform.localScale = Vector3.zero;
                     _focusedPosition = nextFocused;
+                    GameEntry.Sound.PlaySound(SoundId.Alert);
                 });
                 
-                sequence.Append(focusImage.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.5f));
-                sequence.Append(focusImage.transform.DOScale(Vector3.one, 0.2f));
+                sequence.Append(focusImage.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.5f));
+                sequence.Append(focusImage.transform.DOScale(Vector3.one, 0.5f));
             }
             sequence.OnComplete(() =>
             {

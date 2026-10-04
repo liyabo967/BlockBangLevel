@@ -29,8 +29,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 
 	// {{ AOT generic types
 	// BlockPuzzleGameToolkit.Scripts.Unity_Reorderable_List_master.List.ReorderableArray<object>
-	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<Quester.PictureComponent.<InitItems>d__38>
-	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<Quester.PictureComponent.<InitItems>d__38>
+	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<Quester.PictureComponent.<InitItems>d__42>
+	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<Quester.PictureComponent.<InitItems>d__42>
 	// Cysharp.Threading.Tasks.ITaskPoolNode<object>
 	// Cysharp.Threading.Tasks.UniTaskCompletionSourceCore<Cysharp.Threading.Tasks.AsyncUnit>
 	// DG.Tweening.Core.DOGetter<float>
@@ -443,8 +443,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 
 	public void RefMethods()
 	{
-		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.YieldAwaitable.Awaiter,Quester.PictureComponent.<InitItems>d__38>(Cysharp.Threading.Tasks.YieldAwaitable.Awaiter&,Quester.PictureComponent.<InitItems>d__38&)
-		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder.Start<Quester.PictureComponent.<InitItems>d__38>(Quester.PictureComponent.<InitItems>d__38&)
+		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.YieldAwaitable.Awaiter,Quester.PictureComponent.<InitItems>d__42>(Cysharp.Threading.Tasks.YieldAwaitable.Awaiter&,Quester.PictureComponent.<InitItems>d__42&)
+		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder.Start<Quester.PictureComponent.<InitItems>d__42>(Quester.PictureComponent.<InitItems>d__42&)
 		// object DG.Tweening.TweenExtensions.Pause<object>(object)
 		// object DG.Tweening.TweenExtensions.Play<object>(object)
 		// object DG.Tweening.TweenSettingsExtensions.OnComplete<object>(object,DG.Tweening.TweenCallback)

@@ -116,5 +116,15 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay.FX
 
             Init(centerLocalPoint, sizeInLocalSpace, itemTemplateTopColor);
         }
+
+        public void SetColor(Color newColor)
+        {
+            foreach (var ps in _particleSystem)
+            {
+                var colorOverLifetime = ps.colorOverLifetime;
+                colorOverLifetime.enabled = true;
+                colorOverLifetime.color = new ParticleSystem.MinMaxGradient(newColor);
+            }
+        }
     }
 }

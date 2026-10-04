@@ -11,7 +11,6 @@
 // // THE SOFTWARE.
 
 using System.Collections;
-using BlockPuzzleGameToolkit.Scripts.Audio;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
@@ -19,7 +18,6 @@ using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.System;
 using DG.Tweening;
-using GameMain.Scripts.HotUpdate.Base.Ads;
 using Quester;
 using TMPro;
 using UnityEngine;
@@ -209,14 +207,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                     levelManager.UpdateCellDeckAfterFail();
                     levelManager.timerManager?.InitializeTimer(levelManager.timerManager.RemainingTime );
                     EventManager.GameStatus = EGameState.Playing;
-                }
-            }
-            else
-            {
-                UserDataManager.Instance.AddFailCount();
-                if (!UserDataManager.Instance.NoAdsPurchased)
-                {
-                    AdManager.Instance.ShowInterstitial();
                 }
             }
         }

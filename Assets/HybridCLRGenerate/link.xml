@@ -54,6 +54,7 @@
     <type fullname="GameAnalyticsSDK.GAAdType" preserve="all" />
     <type fullname="GameAnalyticsSDK.GAProgressionStatus" preserve="all" />
     <type fullname="GameAnalyticsSDK.GameAnalytics" preserve="all" />
+    <type fullname="GameAnalyticsSDK.GameAnalyticsILRD" preserve="all" />
   </assembly>
   <assembly fullname="GameFramework">
     <type fullname="GameFramework.DataTable.DataTableBase" preserve="all" />
@@ -155,23 +156,6 @@
     <type fullname="UnityEngine.InputSystem.UI.VirtualMouseInput" preserve="all" />
     <type fullname="UnityEngine.InputSystem.Utilities.ReadOnlyArray`1" preserve="all" />
   </assembly>
-  <assembly fullname="Unity.LevelPlay">
-    <type fullname="Unity.Services.LevelPlay.LevelPlay" preserve="all" />
-    <type fullname="Unity.Services.LevelPlay.LevelPlayAdError" preserve="all" />
-    <type fullname="Unity.Services.LevelPlay.LevelPlayAdInfo" preserve="all" />
-    <type fullname="Unity.Services.LevelPlay.LevelPlayAdSize" preserve="all" />
-    <type fullname="Unity.Services.LevelPlay.LevelPlayBannerAd" preserve="all" />
-    <type fullname="Unity.Services.LevelPlay.LevelPlayBannerAd/Config" preserve="all" />
-    <type fullname="Unity.Services.LevelPlay.LevelPlayBannerAd/Config/Builder" preserve="all" />
-    <type fullname="Unity.Services.LevelPlay.LevelPlayBannerPosition" preserve="all" />
-    <type fullname="Unity.Services.LevelPlay.LevelPlayConfiguration" preserve="all" />
-    <type fullname="Unity.Services.LevelPlay.LevelPlayInitError" preserve="all" />
-    <type fullname="Unity.Services.LevelPlay.LevelPlayInterstitialAd" preserve="all" />
-    <type fullname="Unity.Services.LevelPlay.LevelPlayInterstitialAd/Config" preserve="all" />
-    <type fullname="Unity.Services.LevelPlay.LevelPlayReward" preserve="all" />
-    <type fullname="Unity.Services.LevelPlay.LevelPlayRewardedAd" preserve="all" />
-    <type fullname="Unity.Services.LevelPlay.LevelPlayRewardedAd/Config" preserve="all" />
-  </assembly>
   <assembly fullname="Unity.Purchasing">
     <type fullname="UnityEngine.Purchasing.ProductType" preserve="all" />
   </assembly>
@@ -245,6 +229,7 @@
     <type fullname="UnityEngine.RectOffset" preserve="all" />
     <type fullname="UnityEngine.RectTransform" preserve="all" />
     <type fullname="UnityEngine.RectTransform/Axis" preserve="all" />
+    <type fullname="UnityEngine.Renderer" preserve="all" />
     <type fullname="UnityEngine.RequireComponent" preserve="all" />
     <type fullname="UnityEngine.Resolution" preserve="all" />
     <type fullname="UnityEngine.Resources" preserve="all" />
@@ -294,11 +279,13 @@
   </assembly>
   <assembly fullname="UnityEngine.ParticleSystemModule">
     <type fullname="UnityEngine.ParticleSystem" preserve="all" />
+    <type fullname="UnityEngine.ParticleSystem/ColorOverLifetimeModule" preserve="all" />
     <type fullname="UnityEngine.ParticleSystem/MainModule" preserve="all" />
     <type fullname="UnityEngine.ParticleSystem/MinMaxCurve" preserve="all" />
     <type fullname="UnityEngine.ParticleSystem/MinMaxGradient" preserve="all" />
     <type fullname="UnityEngine.ParticleSystem/NoiseModule" preserve="all" />
     <type fullname="UnityEngine.ParticleSystem/Particle" preserve="all" />
+    <type fullname="UnityEngine.ParticleSystemRenderer" preserve="all" />
     <type fullname="UnityEngine.ParticleSystemStopBehavior" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.Physics2DModule">
