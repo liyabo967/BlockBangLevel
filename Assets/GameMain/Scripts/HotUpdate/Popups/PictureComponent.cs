@@ -128,6 +128,7 @@ namespace Quester
                 scrollView.offsetMin = new Vector2(50, 300 + offset);
                 scrollView.offsetMax = new Vector2(-50, -300 - offset);
             }
+            pictureFrame.GetComponent<RectTransform>().sizeDelta = itemParent.sizeDelta + new Vector2(25, 25);
         }
 
         public void ShowLevel(int level)

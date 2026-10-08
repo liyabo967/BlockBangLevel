@@ -27,7 +27,7 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
         public RuntimeAnimatorController overrideAnimatorController;
         private bool isClicked;
         private readonly float cooldownTime = .5f;
-        public new ButtonClickedEvent onClick;
+        // public new ButtonClickedEvent onClick;
         private new Animator animator;
 
         private static bool blockInput;
@@ -50,10 +50,10 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
                 return;
             }
             
-            if (transition != Transition.Animation)
-            {
-                Pressed();
-            }
+            // if (transition != Transition.Animation)
+            // {
+            //     Pressed();
+            // }
 
             isClicked = true;
             GameEntry.Sound.PlaySound(SoundId.Click);
@@ -68,15 +68,15 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
             base.OnPointerClick(eventData);
         }
 
-        public void Pressed()
-        {
-            if (blockInput)
-            {
-                return;
-            }
-
-            ExecuteEvent();
-        }
+        // public void Pressed()
+        // {
+        //     if (blockInput)
+        //     {
+        //         return;
+        //     }
+        //
+        //     ExecuteEvent();
+        // }
 
         private void ExecuteEvent()
         {

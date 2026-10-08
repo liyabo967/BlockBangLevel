@@ -96,10 +96,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 }
             }
 
-            if (result.Count < 3)
-            {
-                Debug.LogError($"ShapeError, shapeList: {shapeList.Count}, result: {result.Count}");
-            }
+            // if (result.Count < 3)
+            // {
+            //     Debug.LogError($"ShapeError, shapeList: {shapeList.Count}, result: {result.Count}");
+            // }
             return result;
         }
         

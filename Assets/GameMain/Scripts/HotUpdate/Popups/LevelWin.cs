@@ -59,6 +59,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            GameAnalyticsManager.SendDesignEvent("level:win:open");
             if (_pictureComponent == null)
             {
                 _pictureComponent = FindFirstObjectByType<PictureComponent>(FindObjectsInactive.Include);
@@ -148,9 +149,15 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         {
             base.OnClose(isShutdown, userData);
             EventManager.GameStatus = EGameState.Win;
+            GameAnalyticsManager.SendDesignEvent("level:win:close");
             if (!UserDataManager.Instance.NoAdsPurchased)
             {
+                GameAnalyticsManager.SendDesignEvent("level:win:close:interstitial");
                 AdManager.Instance.ShowInterstitial();
+            }
+            else
+            {
+                GameAnalyticsManager.SendDesignEvent("level:win:close:noAds");
             }
         }
     }

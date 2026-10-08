@@ -33,6 +33,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            GameAnalyticsManager.SendDesignEvent("classic:end");
             modeHandler = FindObjectOfType<BaseModeHandler>(false);
             var score = modeHandler.score;
             var bestScore = modeHandler.bestScore;
@@ -57,6 +58,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         public void BackToHome()
         {
+            GameAnalyticsManager.SendDesignEvent("classic:end:homepage");
             Close(true);
             GameManager.instance.MainMenu();
         }

@@ -32,6 +32,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6493890737260574068}
+  - {fileID: 6927454520229271682}
   - {fileID: 1375081656469571187}
   - {fileID: 4384755430290372618}
   m_Father: {fileID: 5336740743528647107}
@@ -174,7 +175,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "\u6536\u96C6\u62FC\u56FE\u788E\u7247\u4EE5\u5B8C\u6210\u56FE\u7247\u3002"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 14928a98ac0086a4483452d618f1764c, type: 2}
   m_sharedMaterial: {fileID: 3722732180671858053, guid: 14928a98ac0086a4483452d618f1764c, type: 2}
@@ -553,7 +554,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "\u5192\u9669"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 14928a98ac0086a4483452d618f1764c, type: 2}
   m_sharedMaterial: {fileID: 3722732180671858053, guid: 14928a98ac0086a4483452d618f1764c, type: 2}
@@ -580,7 +581,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
+  m_fontSize: 100
   m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -996,9 +997,6 @@ MonoBehaviour:
       m_Calls: []
   overrideClickSound: {fileID: 0}
   overrideAnimatorController: {fileID: 0}
-  onClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &3025129208220376261
 GameObject:
   m_ObjectHideFlags: 0
@@ -5941,13 +5939,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8235971603756041804}
+  m_Father: {fileID: 8035601941583756466}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 10}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 10}
+  m_SizeDelta: {x: 10, y: 366}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2831001851376537483
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6303,9 +6301,6 @@ MonoBehaviour:
       m_Calls: []
   overrideClickSound: {fileID: 0}
   overrideAnimatorController: {fileID: 0}
-  onClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &4893477537979923339
 GameObject:
   m_ObjectHideFlags: 0
@@ -7548,9 +7543,6 @@ MonoBehaviour:
       m_Calls: []
   overrideClickSound: {fileID: 0}
   overrideAnimatorController: {fileID: 0}
-  onClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &8926643269063879059
 GameObject:
   m_ObjectHideFlags: 0
@@ -7708,7 +7700,6 @@ RectTransform:
   m_Children:
   - {fileID: 7701711438167766367}
   - {fileID: 8788495999383072409}
-  - {fileID: 6927454520229271682}
   - {fileID: 526483419460797819}
   m_Father: {fileID: 6493890737260574068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

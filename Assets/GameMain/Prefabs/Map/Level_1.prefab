@@ -520,9 +520,6 @@ MonoBehaviour:
         m_CallState: 2
   overrideClickSound: {fileID: 0}
   overrideAnimatorController: {fileID: 0}
-  onClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &6801505688431754226
 GameObject:
   m_ObjectHideFlags: 0

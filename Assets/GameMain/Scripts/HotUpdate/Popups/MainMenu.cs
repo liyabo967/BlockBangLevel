@@ -36,7 +36,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         public CustomButton adventureMode;
         public CustomButton settingsButton;
         public CustomButton luckySpin;
-        public GameObject playObject;
+        public GameObject tutorialHand;
         public GameObject seasonTimeObject;
         public TextMeshProUGUI remainingTimeText;
         public GameObject adventureLock;
@@ -125,20 +125,21 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         private void PlayAdventureButtonAnim()
         {
+            tutorialHand.SetActive(true);
             _adventureSequence = DOTween.Sequence();
             _adventureSequence.AppendInterval(2f);
             _adventureSequence.Append(
-                adventureMode.transform.DOScale(1.15f, 0.15f));
+                adventureMode.transform.DOScale(1.15f, 0.4f));
             
             _adventureSequence.Append(
-                adventureMode.transform.DOScale(1f, 0.15f));
+                adventureMode.transform.DOScale(1f, 0.4f));
             
-            _adventureSequence.Append(
-                adventureMode.transform.DOShakeRotation(
-                    0.5f,
-                    new Vector3(0, 0, 6),
-                    15,
-                    90));
+            // _adventureSequence.Append(
+            //     adventureMode.transform.DOShakeRotation(
+            //         0.5f,
+            //         new Vector3(0, 0, 6),
+            //         15,
+            //         90));
             _adventureSequence.SetLoops(-1);
             
             // _adventureSequence.AppendInterval(2f);
@@ -187,6 +188,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             {
                 return;
             }
+            tutorialHand.SetActive(false);
             StopAdventureButtonAnim();
             GameManager.instance.SetGameMode(EGameMode.Adventure);
             GameManager.instance.OpenMap();
