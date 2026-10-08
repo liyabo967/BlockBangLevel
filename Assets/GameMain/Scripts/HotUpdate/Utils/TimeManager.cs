@@ -25,18 +25,18 @@ namespace Quester
                 requestConfig,
                 res =>
                 {
-                    var success = res.success;
-                    if (success)
+                    var responseTime = res.GetData<ApiResponse<SeasonTime>>();
+                    if (res.success && responseTime != null)
                     {
-                        SeasonTime = res.GetData<ApiResponse<SeasonTime>>().data;
+                        SeasonTime = responseTime.data;
                     }
-                    else
+                    if(SeasonTime == null)
                     {
                         SeasonTime = GetSeasonTimeFromLocal();
                     }
                     StartupTime = Time.realtimeSinceStartup;
                     SetSeason();
-                    callback.Invoke(success);
+                    callback.Invoke(res.success);
                 }
             );
         }

@@ -95,6 +95,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                     Log.Info($"Skip-------: {perfectInfo.id}, pos: {perfectInfo.placeRow}, {perfectInfo.placeCol}");
                 }
             }
+
+            if (result.Count < 3)
+            {
+                Debug.LogError($"ShapeError, shapeList: {shapeList.Count}, result: {result.Count}");
+            }
             return result;
         }
         
@@ -170,6 +175,20 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             }
 
             return perfectInfo;
+        }
+
+        private static void PrintCapturedBoard()
+        {
+            var sb = new StringBuilder();
+            for (var i = 0; i < _capturedBoardStatus.GetLength(0); i++)
+            {
+                for (var j = 0; j < _capturedBoardStatus.GetLength(1); j++)
+                {
+                    sb.Append(_capturedBoardStatus[i, j] + ", ");
+                }
+                sb.AppendLine();
+            }
+            Debug.Log(sb);
         }
         
         private static bool CheckCapturedBoardPosition(ShapeTemplate shapeInfo, int row, int col)

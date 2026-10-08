@@ -147,7 +147,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                             else
                             {
                                 var isPerfect = Random.Range(0, 1f) <= perfectRatio;
-                                if (isPerfect)
+                                if (isPerfect && shapeTemplateIndex < shapeTemplates.Count)
                                 {
                                     debugInfo.Append("NonFit_P, ");
                                     resultShape = itemFactory.CreatePerfectShape(shapeObject, shapeTemplates[shapeTemplateIndex++]);
@@ -164,7 +164,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                             var isPerfect = Random.Range(0, 1f) <= perfectRatio;
                             if (isPerfect)
                             {
-                                if (shapeTemplateIndex  < shapeTemplates.Count)
+                                if (shapeTemplateIndex < shapeTemplates.Count)
                                 {
                                     debugInfo.Append("Perfect, ");
                                     resultShape = itemFactory.CreatePerfectShape(shapeObject, shapeTemplates[shapeTemplateIndex++]);
@@ -429,28 +429,21 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 var cellDeck = cellDecks[index];
                 cellDeck.ClearCell();
                 
+                Shape shape = null;
                 var shapeObject = PoolObject.GetObject(shapePrefab.gameObject);
-                var shape = itemFactory.CreatePerfectShape(shapeObject, shapeTemplates[shapeTemplateIndex++]);
-                
-                // Use the shape if one was found
-                if (shape != null)
+                if (shapeTemplates.Count >= 3)
                 {
-                    cellDeck.FillCell(shape);
-                    if (shape.shapeTemplate != null)
-                    {
-                        usedShapes.Add(shape.shapeTemplate);
-                    }
+                    shape = itemFactory.CreatePerfectShape(shapeObject, shapeTemplates[shapeTemplateIndex++]);
                 }
                 else
                 {
-                    // If no fitting shape was found, create a regular random shape as fallback
-                    shapeObject = PoolObject.GetObject(shapePrefab.gameObject);
                     shape = itemFactory.CreateRandomShape(shapeObject, usedShapes);
-                    cellDeck.FillCell(shape);
-                    if (shape.shapeTemplate != null)
-                    {
-                        usedShapes.Add(shape.shapeTemplate);
-                    }
+                }
+                
+                cellDeck.FillCell(shape);
+                if (shape.shapeTemplate != null)
+                {
+                    usedShapes.Add(shape.shapeTemplate);
                 }
             }
         }
