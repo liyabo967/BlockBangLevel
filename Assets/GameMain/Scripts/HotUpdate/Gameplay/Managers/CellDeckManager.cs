@@ -274,11 +274,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         private int GetClassicDifficulty()
         {
-            if (_levelManager.ClassicModeHandler.score < 1000)
+            if (_levelManager.ClassicModeHandler.score < 3000)
             {
                 return 1;
             }
-            if (_levelManager.ClassicModeHandler.score < 5000)
+            if (_levelManager.ClassicModeHandler.score < 10000)
             {
                 return 2;
             }

@@ -53,7 +53,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 bestScoreStuff.SetActive(false);
             }
             // closeButton.gameObject.SetActive(true);
-            GameAnalyticsManager.SendUserProgression(UserStage.Classic, GAProgressionStatus.Complete, bestScore.ToString(), score);
+            GameAnalyticsManager.SendUserProgression(UserStage.Classic, GAProgressionStatus.Complete, null, score);
         }
 
         public void BackToHome()

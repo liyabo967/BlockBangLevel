@@ -275,6 +275,7 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
         {
             if (!_initialized)
             {
+                RetryInitializeAds();
                 return;
             }
             if (_adapter != null)

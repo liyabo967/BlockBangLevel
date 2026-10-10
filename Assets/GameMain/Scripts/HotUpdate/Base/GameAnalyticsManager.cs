@@ -11,7 +11,7 @@ public class GameAnalyticsManager
         GameAnalytics.NewProgressionEvent(status, progression01, level.ToString(), score);
     }
     
-    public static void SendUserProgression(UserStage stage, GAProgressionStatus status, string progression2 = "", int score = 0)
+    public static void SendUserProgression(UserStage stage, GAProgressionStatus status, string progression2 = null, int score = 0)
     {
         GameAnalytics.NewProgressionEvent(status, stage.ToString(), progression2, score);
     }
