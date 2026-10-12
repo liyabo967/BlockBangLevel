@@ -26,8 +26,14 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
 
         private void OnEnable()
         {
-            imageToFade.DOFade(.5f, .5f).SetLoops(-1, LoopType.Yoyo);
-            imageToFade2.DOFade(.5f, .5f).SetLoops(-1, LoopType.Yoyo);
+            imageToFade.DOFade(.2f, .5f).SetLoops(-1, LoopType.Yoyo);
+            imageToFade2.DOFade(.2f, .5f).SetLoops(-1, LoopType.Yoyo);
+        }
+
+        public void SetColor(Color color)
+        {
+            imageToFade.color = color;
+            imageToFade2.color = color;
         }
     }
 }

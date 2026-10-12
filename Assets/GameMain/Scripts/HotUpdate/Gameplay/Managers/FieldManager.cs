@@ -14,6 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.System;
 using UnityEngine;
@@ -317,6 +318,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             }
 
             return true;
+        }
+
+        public void ShowOutlineWithColor(bool show, Color color)
+        {
+            ShowOutline(show);
+            outline.GetComponent<OutlineField>().SetColor(color);
         }
 
         public void ShowOutline(bool show)

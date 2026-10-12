@@ -10,6 +10,7 @@
 // // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // // THE SOFTWARE.
 
+using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using BlockPuzzleGameToolkit.Scripts.System;
@@ -23,6 +24,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 {
     public class FailedClassic : Failed
     {
+        [SerializeField] private Sprite gold;
+        [SerializeField] private Sprite green;
+        [SerializeField] private Image buttonImage;
+        
         public GameObject failedStuff;
         public GameObject bestScoreStuff;
 
@@ -36,21 +41,23 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             GameAnalyticsManager.SendDesignEvent("classic:end");
             modeHandler = FindObjectOfType<BaseModeHandler>(false);
             var score = modeHandler.score;
-            var bestScore = modeHandler.bestScore;
+            var bestScore = UserDataManager.Instance.ClassicBestScore;
             scoreText[0].text = score.ToString();
             scoreText[1].text = score.ToString();
             bestScoreText.text = bestScore.ToString();
-            if (score > bestScore)
+            if (score >= bestScore)
             {
                 GameEntry.Sound.PlaySound(SoundId.SeasonSuccess);
                 bestScoreStuff.SetActive(true);
                 failedStuff.SetActive(false);
+                buttonImage.sprite = gold;
             }
             else
             {
                 GameEntry.Sound.PlaySound(SoundId.Win);
                 failedStuff.SetActive(true);
                 bestScoreStuff.SetActive(false);
+                buttonImage.sprite = green;
             }
             // closeButton.gameObject.SetActive(true);
             GameAnalyticsManager.SendUserProgression(UserStage.Classic, GAProgressionStatus.Complete, null, score);
