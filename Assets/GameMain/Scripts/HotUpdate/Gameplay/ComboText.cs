@@ -23,7 +23,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private void SetText(int comboCount)
         {
             text.text = "x" + comboCount;
-            text.alignment = TextAlignmentOptions.Center;
+            // text.alignment = TextAlignmentOptions.Center;
         }
 
         public void Show(int comboCount)

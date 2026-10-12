@@ -62,7 +62,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private GameObject noSpaceLeft;
 
         [SerializeField]
-        private GameObject[] words;
+        private GameObject word;
 
         [SerializeField]
         private TutorialManager tutorialManager;
@@ -147,7 +147,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             );
 
             wordsPool = new ObjectPool<GameObject>(
-                () => Instantiate(words[Random.Range(0, words.Length)], fxPool),
+                () => Instantiate(word, fxPool),
                 obj => obj.SetActive(true),
                 obj => obj.SetActive(false),
                 Destroy
@@ -471,7 +471,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             var comboText = comboTextPool.Get();
             comboText.transform.position = comboPosition;
             comboText.Show(comboCount);
-            DOVirtual.DelayedCall(0.75f, () => { comboTextPool.Release(comboText); }); // Adjusted to match faster animation
+            DOVirtual.DelayedCall(1f, () => { comboTextPool.Release(comboText); }); // Adjusted to match faster animation
         }
         
         private int CalculateScore(int lines, int combo)
@@ -498,7 +498,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         {
             Vector3 center = GetFieldCenter();
             Vector3 scorePosition = center + new Vector3(0, 0.75f, 0); // Move score higher
-            Vector3 gratzPosition = center + new Vector3(0, 0.35f, 0); // Position gratz between score and center
+            Vector3 gratzPosition = center + new Vector3(0, 0f, 0); // Position gratz between score and center
 
             yield return new WaitForSeconds(0.1f);
             if (gameMode == EGameMode.Adventure)
