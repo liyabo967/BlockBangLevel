@@ -422,7 +422,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 
                 if (comboCounter > 1)
                 {
-                    field.ShowOutlineWithColor(true, obj.GetActiveItems()[0].itemTemplate.topColor);
+                    field.ShowOutlineWithColor(true, obj.GetActiveItems()[0].itemTemplate.overlayColor);
                 }
             }
             else

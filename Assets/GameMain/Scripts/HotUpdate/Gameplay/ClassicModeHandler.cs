@@ -130,7 +130,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 // 每局游戏只显示一次新纪录
                 _newRecordShown = true;
                 GameEntry.UI.OpenUIForm(UIFormId.NewRecordBanner);
-                _backgroundChanger?.ChangeBackground();
+                // _backgroundChanger?.ChangeBackground();
+                _backgroundChanger.ShowBestScoreBg();
                 return true;
             }
             return false;
@@ -143,7 +144,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             {
                 _betterIndex = index;
                 GameEntry.UI.OpenUIForm(UIFormId.BetterBanner, _betterList[index].Percent);
-                _backgroundChanger?.ChangeBackground();
+                // _backgroundChanger?.ChangeBackground();
             }
         }
 

@@ -23,6 +23,7 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
     public class BackgroundChanger : MonoBehaviour, ILevelLoadable
     {
         public Sprite[] backgrounds;
+        public Sprite bestScore;
         
         private Image _background;
 
@@ -47,6 +48,11 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
 
             GameManager.instance.SetLastBackgroundIndex(newBackgroundIndex);
             _background.sprite = backgrounds[newBackgroundIndex];
+        }
+
+        public void ShowBestScoreBg()
+        {
+            _background.sprite = bestScore;
         }
     }
 }
