@@ -10,6 +10,7 @@
 // // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // // THE SOFTWARE.
 
+using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,17 +24,41 @@ namespace BlockPuzzleGameToolkit.Scripts.GUI
 
         [SerializeField]
         private Image imageToFade2;
+        
+        private Color _targetColor;
+        private Sequence imgSequence;
 
-        private void OnEnable()
+        public void PlayAnim(Color color)
         {
-            imageToFade.DOFade(.2f, .5f).SetLoops(-1, LoopType.Yoyo);
-            imageToFade2.DOFade(.2f, .5f).SetLoops(-1, LoopType.Yoyo);
-        }
-
-        public void SetColor(Color color)
-        {
+            _targetColor = color;
             imageToFade.color = color;
             imageToFade2.color = color;
+            
+            _targetColor.a = 0.1f;
+            imageToFade.color = _targetColor;
+            if (imgSequence == null)
+            {
+                imgSequence = DOTween.Sequence();
+                imgSequence.Append(imageToFade.DOFade(1f, 1f));
+                imgSequence.Append(imageToFade.DOFade(0.1f, 1f));
+                imgSequence.SetLoops(-1, LoopType.Yoyo);
+            }
+            
+            imageToFade2.gameObject.SetActive(true);
+            imageToFade2.transform.localScale = Vector3.one;
+            var sequence2 = DOTween.Sequence();
+            sequence2.Append(imageToFade2.transform.DOScale(1.1f, 0.3f));
+            sequence2.AppendInterval(0.1f);
+            sequence2.Append(imageToFade2.DOFade(0f, 0.2f)).OnComplete(() =>
+            {
+                imageToFade2.gameObject.SetActive(false);
+            });
+        }
+
+        private void OnDisable()
+        {
+            imgSequence.Kill();
+            imgSequence = null;
         }
     }
 }

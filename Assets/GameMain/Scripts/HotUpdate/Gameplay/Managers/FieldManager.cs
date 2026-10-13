@@ -322,8 +322,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         public void ShowOutlineWithColor(bool show, Color color)
         {
-            outline.GetComponent<OutlineField>().SetColor(color);
             ShowOutline(show);
+            if (show)
+            {
+                outline.GetComponent<OutlineField>().PlayAnim(color);
+            }
         }
 
         public void ShowOutline(bool show)
