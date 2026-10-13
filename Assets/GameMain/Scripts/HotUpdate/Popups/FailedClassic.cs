@@ -14,6 +14,7 @@ using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using BlockPuzzleGameToolkit.Scripts.System;
+using DG.Tweening;
 using GameAnalyticsSDK;
 using Quester;
 using TMPro;
@@ -27,6 +28,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         [SerializeField] private Sprite gold;
         [SerializeField] private Sprite green;
         [SerializeField] private Image buttonImage;
+        
+        [SerializeField] private GameObject bestTitle;
+        [SerializeField] private GameObject loudspeaker;
         
         public GameObject failedStuff;
         public GameObject bestScoreStuff;
@@ -47,6 +51,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             bestScoreText.text = bestScore.ToString();
             if (score >= bestScore)
             {
+                PlayBestScoreAnimation();
                 GameEntry.Sound.PlaySound(SoundId.SeasonSuccess);
                 bestScoreStuff.SetActive(true);
                 failedStuff.SetActive(false);
@@ -54,13 +59,25 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             }
             else
             {
-                GameEntry.Sound.PlaySound(SoundId.Win);
+                GameEntry.Sound.PlaySound(SoundId.ClassicFailure);
                 failedStuff.SetActive(true);
                 bestScoreStuff.SetActive(false);
                 buttonImage.sprite = green;
             }
             // closeButton.gameObject.SetActive(true);
             GameAnalyticsManager.SendUserProgression(UserStage.Classic, GAProgressionStatus.Complete, null, score);
+        }
+
+        private void PlayBestScoreAnimation()
+        {
+            bestTitle.transform.localScale = Vector3.zero;
+            bestTitle.transform.DOScale(1, 0.5f).OnComplete(() =>
+            {
+                var sequence = DOTween.Sequence();
+                sequence.Append(loudspeaker.transform.DOScale(1.2f, 0.2f));
+                sequence.Append(loudspeaker.transform.DOScale(1f, 0.2f));
+                sequence.SetLoops(3, LoopType.Yoyo);
+            });
         }
 
         public void BackToHome()

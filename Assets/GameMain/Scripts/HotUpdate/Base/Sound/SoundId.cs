@@ -41,6 +41,7 @@ namespace Quester
         // 收集到拼图碎片
         Fragment,
         // 赛季完成
-        SeasonSuccess
+        SeasonSuccess,
+        ClassicFailure,
     }
 }

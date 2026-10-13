@@ -16,13 +16,13 @@ namespace GameMain.Scripts.HotUpdate.UI
 
         private void SetCanvas()
         {
-            var mainCamera = Camera.main;
-            if (mainCamera)
-            {
-                _canvas.renderMode = RenderMode.ScreenSpaceCamera;
-                _canvas.worldCamera = mainCamera;
-                // _canvas.sortingLayerName = "UI";
-            }
+            // var mainCamera = Camera.main;
+            // if (mainCamera)
+            // {
+            //     _canvas.renderMode = RenderMode.ScreenSpaceCamera;
+            //     _canvas.worldCamera = mainCamera;
+            //     // _canvas.sortingLayerName = "UI";
+            // }
         }
 
         // private void Start()
