@@ -26,6 +26,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private void OnEnable()
         {
             image.sprite = sprites[Random.Range(0, sprites.Length)];
+            image.SetNativeSize();
         }
     }
 }

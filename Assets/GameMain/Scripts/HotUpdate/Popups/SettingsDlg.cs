@@ -263,7 +263,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 if (classicHandler.bestScore > UserDataManager.Instance.ClassicBestScore)
                 {
                     UserDataManager.Instance.SetClassicBestScore(classicHandler.bestScore);
-                    if (classicHandler.bestScore >= 1000)
+                    if (classicHandler.bestScore >= ClassicModeHandler.UnlockAdventureScore)
                     {
                         UserDataManager.Instance.SetAdventureState(1);
                     }

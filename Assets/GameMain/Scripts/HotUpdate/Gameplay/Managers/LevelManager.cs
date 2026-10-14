@@ -79,7 +79,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private Cell[] emptyCells;
 
         public UnityEvent<Level> OnLevelLoaded;
-        public Action<int, int> OnScored;
+        public Action<int, int, int> OnScored;
         public Action OnLose;
         private FieldManager field;
         public CellDeckManager cellDeck;
@@ -480,10 +480,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             if (gameMode == EGameMode.Classic)
             {
                 score = GameManager.instance.GameSettings.ScorePerLine * lines;
-                if (combo > 0)
+                if (combo > 1)
                 {
-                    double power = Math.Pow(1.5f, Math.Max(1, combo / 5));
-                    score *= (int)(combo * power);
+                    // double power = Math.Pow(1.5f, Math.Max(1, combo / 5));
+                    // score *= (int)(combo * power);
+                    score += (combo - 1) * Random.Range(30, 40);
                 }
             }
             else
@@ -511,7 +512,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             var scoreTarget = shape.shapeTemplate.filled;
             // Debug.Log("print filled, " + shape.shapeTemplate.id + ", " + shape.shapeTemplate.filled);
             scoreTarget += CalculateScore(lines.Count, comboCounter);
-            OnScored?.Invoke(scoreTarget, comboCounter);
+            OnScored?.Invoke(scoreTarget, lines.Count, comboCounter);
             if (gameMode == EGameMode.Adventure)
             {
                 targetManager.UpdateScoreTarget(scoreTarget);
@@ -519,17 +520,20 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             
             // Show combo first if active
             // Debug.Log($"comboCounter: {comboCounter}, missCounter: {missCounter}");
-            if (comboCounter > 1 && lines.Count > 0)
+            if (comboCounter > 1 && lines.Count > 0 && gameMode == EGameMode.Classic)
             {
                 ShowComboText(comboCounter);
                 yield return new WaitForSeconds(0.4f);
             }
 
             // Then show score at higher position
-            var scoreText = scoreTextPool.Get();
-            scoreText.transform.position = scorePosition;
-            scoreText.ShowScore(scoreTarget, scorePosition);
-            DOVirtual.DelayedCall(0.7f, () => { scoreTextPool.Release(scoreText); }); // Halved from 1.5f to match faster animation
+            if (gameMode == EGameMode.Classic)
+            {
+                var scoreText = scoreTextPool.Get();
+                scoreText.transform.position = scorePosition;
+                scoreText.ShowScore(scoreTarget, scorePosition);
+                DOVirtual.DelayedCall(0.7f, () => { scoreTextPool.Release(scoreText); }); // Halved from 1.5f to match faster animation
+            }
 
             // Show congratulatory words below score
             if (lines.Count > 0 && comboCounter > 5)
@@ -765,8 +769,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                         rowCells.Add(field.cells[0, col]);
                     }
 
-                    var itemTemplate = Resources.Load<ItemTemplate>("Items/ItemTemplate 0");
-                    
+                    // var itemTemplate = Resources.Load<ItemTemplate>("Items/ItemTemplate 0");
+                    var itemTemplate = Addressables
+                        .LoadAssetAsync<ItemTemplate>("Assets/GameMain/Prefabs/Items/ItemTemplate 0.asset")
+                        .WaitForCompletion();
                     // Get all available bonus items from the level data
                     var availableBonuses = _levelData.targetInstance
                         .Where(t => t.targetScriptable.bonusItem != null)

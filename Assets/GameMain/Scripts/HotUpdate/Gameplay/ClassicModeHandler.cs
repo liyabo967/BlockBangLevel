@@ -13,29 +13,27 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 {
     public class ClassicModeHandler : BaseModeHandler
     {
+        public static readonly int UnlockAdventureScore = 5000;
         private BackgroundChanger  _backgroundChanger;
         private bool _newRecordShown = false;
         private int _betterIndex = -1;
         private List<BetterItem> _betterList = new()
         {
-            new BetterItem(200, 30),
-            new BetterItem(500, 35),
+            new BetterItem(200, 35),
             new BetterItem(1000, 40),
             new BetterItem(2000, 45),
-            new BetterItem(3000, 50),
-            new BetterItem(4000, 55),
-            new BetterItem(5000, 60),
-            new BetterItem(6000, 65),
-            new BetterItem(7000, 70),
-            new BetterItem(8000, 75),
-            new BetterItem(9000, 80),
-            new BetterItem(10000, 85),
-            new BetterItem(12000, 90),
-            new BetterItem(15000, 91),
-            new BetterItem(20000, 92),
-            new BetterItem(30000, 93),
-            new BetterItem(40000, 94),
-            new BetterItem(50000, 95),
+            new BetterItem(4000, 50),
+            new BetterItem(7000, 55),
+            new BetterItem(10000, 70),
+            new BetterItem(15000, 75),
+            new BetterItem(20000, 80),
+            new BetterItem(25000, 85),
+            new BetterItem(30000, 90),
+            new BetterItem(40000, 91),
+            new BetterItem(50000, 92),
+            new BetterItem(60000, 93),
+            new BetterItem(70000, 94),
+            new BetterItem(80000, 95),
             new BetterItem(100000, 96),
             new BetterItem(200000, 97),
             new BetterItem(500000, 98),
@@ -108,20 +106,22 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             base.OnLose();
         }
 
-        protected override void ShowBanner(int newScore, bool isNewRecord)
+        protected override void ShowBanner(int lines, int newScore, bool isNewRecord)
         {
-            StartCoroutine(ShowBannerCo(newScore, isNewRecord));
+            StartCoroutine(ShowBannerCo(lines, newScore, isNewRecord));
         }
 
-        private IEnumerator ShowBannerCo(int newScore, bool isNewRecord)
+        private IEnumerator ShowBannerCo(int lines, int newScore, bool isNewRecord)
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.6f);
             var recordShown = false;
             if (isNewRecord)
             {
                 recordShown = ShowNewRecord();
             }
-            if (!recordShown)
+            
+            // 发生消除的时候才显示，如果在只放置的时候加分触发 Better，效果有点奇怪
+            if (!recordShown && lines > 0)
             {
                 ShowBetterBanner(newScore);
             }

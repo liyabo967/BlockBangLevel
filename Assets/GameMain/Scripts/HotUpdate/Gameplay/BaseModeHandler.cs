@@ -67,7 +67,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             }
         }
 
-        public virtual void OnScored(int scoreToAdd, int combo)
+        public virtual void OnScored(int scoreToAdd, int lines, int combo)
         {
             int previousScore = this.score;
             this.score += scoreToAdd;
@@ -80,7 +80,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 StopCoroutine(_counterCoroutine);
             }
             _counterCoroutine = StartCoroutine(CountScore(previousScore, this.score));
-
+            ShowBanner(lines, score, score > UserDataManager.Instance.ClassicBestScore);
             PlayScoreTextAnim(combo);
         }
 
@@ -113,7 +113,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             {
                 bestScore = endValue;
             }
-            ShowBanner(endValue, newBestScore);
 
             float actualSpeed = counterSpeed;
             if (endValue - startValue > 100)
@@ -178,7 +177,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             // SaveGameState();
         }
 
-        protected virtual void ShowBanner(int newScore, bool isNewRecord)
+        protected virtual void ShowBanner(int lines, int newScore, bool isNewRecord)
         {
             
         }
