@@ -6,7 +6,7 @@ namespace GameMain.Scripts.HotUpdate.Services
 {
     public class MobileReviewManager : MonoSingleton<MobileReviewManager>
     {
-        private const int ReviewInterval = 15 * 24 * 3600;
+        private const int ReviewInterval = 7 * 24 * 3600;
         
         public void RequestReview(EGameMode gameMode)
         {

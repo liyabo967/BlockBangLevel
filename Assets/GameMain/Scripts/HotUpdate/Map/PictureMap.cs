@@ -16,6 +16,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
 {
     public class PictureMap : MonoBehaviour
     {
+        [SerializeField] private GameObject tutorialHand;
+        [SerializeField] private Sprite red;
+        [SerializeField] private Sprite green;
+        
         public TextMeshProUGUI levelText;
         public TextMeshProUGUI tipsText;
         public CustomButton levelButton;
@@ -23,13 +27,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
         public CustomButton collectionButton;
         public TextMeshProUGUI completedText;
         public ParticleSystem starParticle;
-
-        [SerializeField] private Sprite red;
-        [SerializeField] private Sprite green;
         
         private PictureComponent _pictureComponent;
         private SeasonShape _seasonShape;
         private int _currentLevel = 0;
+        private Sequence _tutorialSequence;
 
         public SeasonShape SeasonShape => _seasonShape;
 
@@ -67,6 +69,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
                 _pictureComponent.ShowNextLevel(UserDataManager.Instance.Level, PictureCompleted);
                 _currentLevel = UserDataManager.Instance.Level;
             }
+
+            if (UserDataManager.Instance.Level == 1)
+            {
+                PlayTutorialAnim();
+            }
         }
 
         private void Start()
@@ -81,6 +88,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
 
         private void PlayGame()
         {
+            tutorialHand.SetActive(false);
             SceneLoader.instance.StartGameScene(UserDataManager.Instance.Level);
         }
 
@@ -92,6 +100,18 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
         private void OpenCollection()
         {
             GameEntry.UI.OpenUIForm(UIFormId.CollectionDlg);
+        }
+
+        private void PlayTutorialAnim()
+        {
+            tutorialHand.SetActive(true);
+            _tutorialSequence = DOTween.Sequence();
+            _tutorialSequence.AppendInterval(2f);
+            _tutorialSequence.Append(
+                levelButton.transform.DOScale(1.15f, 0.4f));
+            _tutorialSequence.Append(
+                levelButton.transform.DOScale(1f, 0.4f));
+            _tutorialSequence.SetLoops(-1);
         }
         
         private void PictureCompleted(bool completed)
@@ -132,6 +152,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
                 MobileReviewManager.Instance.RequestReview(EGameMode.Adventure);
                 // GameEntry.UI.OpenUIForm(UIFormId.RateDlg);
             });
+        }
+
+        private void OnDisable()
+        {
+            _tutorialSequence?.Kill();
+            _tutorialSequence = null;
         }
     }
 }

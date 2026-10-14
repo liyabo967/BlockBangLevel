@@ -19,11 +19,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private int _betterIndex = -1;
         private List<BetterItem> _betterList = new()
         {
-            new BetterItem(200, 35),
-            new BetterItem(1000, 40),
-            new BetterItem(2000, 45),
-            new BetterItem(4000, 50),
-            new BetterItem(7000, 55),
+            new BetterItem(300, 45),
+            new BetterItem(1000, 50),
+            new BetterItem(2000, 55),
+            new BetterItem(4000, 60),
+            new BetterItem(7000, 65),
             new BetterItem(10000, 70),
             new BetterItem(15000, 75),
             new BetterItem(20000, 80),

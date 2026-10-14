@@ -20,7 +20,6 @@ using UnityEngine.UI;
 
 namespace BlockPuzzleGameToolkit.Scripts.GUI
 {
-    [RequireComponent(typeof(Animator))]
     public class CustomButton : Button
     {
         public AudioClip overrideClickSound;

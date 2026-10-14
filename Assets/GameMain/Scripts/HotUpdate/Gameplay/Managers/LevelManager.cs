@@ -520,14 +520,14 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             
             // Show combo first if active
             // Debug.Log($"comboCounter: {comboCounter}, missCounter: {missCounter}");
-            if (comboCounter > 1 && lines.Count > 0 && gameMode == EGameMode.Classic)
+            if (comboCounter > 1 && lines.Count > 0 && IsScoreMode())
             {
                 ShowComboText(comboCounter);
                 yield return new WaitForSeconds(0.4f);
             }
 
             // Then show score at higher position
-            if (gameMode == EGameMode.Classic)
+            if (IsScoreMode())
             {
                 var scoreText = scoreTextPool.Get();
                 scoreText.transform.position = scorePosition;
@@ -557,6 +557,15 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             {
                 yield return StartCoroutine(CheckLoseCo());
             }
+        }
+
+        private bool IsScoreMode()
+        {
+            if (GameManager.instance.IsTutorialMode())
+            {
+                return false;
+            }
+            return gameMode == EGameMode.Classic || _levelData.levelType.elevelType == ELevelType.Score;
         }
 
         private IEnumerator CheckLoseCo()
