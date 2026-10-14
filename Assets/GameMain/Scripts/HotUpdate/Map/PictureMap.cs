@@ -1,9 +1,11 @@
 using System;
 using BlockPuzzleGameToolkit.Scripts.Data;
+using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.Popups;
 using DG.Tweening;
 using GameMain;
+using GameMain.Scripts.HotUpdate.Services;
 using Quester;
 using TMPro;
 using UnityEngine;
@@ -116,12 +118,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
                 };
                 GameEntry.Sound.PlaySound(SoundId.SeasonSuccess);
             }
-
-            var isIntervalReady =  UserDataManager.Instance.LastRateTimestamp == 0;
-            if (isIntervalReady && _currentLevel == 6)
+            
+            if (_currentLevel == 6)
             {
                 OpenRateDlg(0.2f);
-                UserDataManager.Instance.SetLastRateTimestamp(DateTimeOffset.Now.ToUnixTimeSeconds());
             }
         }
 
@@ -129,7 +129,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
         {
             CoroutineRunner.Instance.Delay(delay, () =>
             {
-                MobileReview.Instance.RequestReview();
+                MobileReviewManager.Instance.RequestReview(EGameMode.Adventure);
                 // GameEntry.UI.OpenUIForm(UIFormId.RateDlg);
             });
         }

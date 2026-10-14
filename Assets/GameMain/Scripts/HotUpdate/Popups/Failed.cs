@@ -54,7 +54,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             }
         }
 
-        private void Retry()
+        protected virtual void Retry()
         {
             GameManager.instance.RestartLevel();
             Close();

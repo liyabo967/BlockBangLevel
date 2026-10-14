@@ -16,6 +16,7 @@ using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using BlockPuzzleGameToolkit.Scripts.System;
 using DG.Tweening;
 using GameAnalyticsSDK;
+using GameMain.Scripts.HotUpdate.Services;
 using Quester;
 using TMPro;
 using UnityEngine;
@@ -76,7 +77,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 var sequence = DOTween.Sequence();
                 sequence.Append(loudspeaker.transform.DOScale(1.2f, 0.2f));
                 sequence.Append(loudspeaker.transform.DOScale(1f, 0.2f));
-                sequence.SetLoops(3, LoopType.Yoyo);
+                sequence.SetLoops(3, LoopType.Yoyo).OnComplete(() =>
+                {
+                    MobileReviewManager.Instance.RequestReview(EGameMode.Classic);
+                });
             });
         }
 
@@ -85,6 +89,18 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             GameAnalyticsManager.SendDesignEvent("classic:end:homepage");
             Close(true);
             GameManager.instance.MainMenu();
+        }
+
+        protected override void Retry()
+        {
+            if (UserDataManager.Instance.AdventureState == 1)
+            {
+                BackToHome();
+            }
+            else
+            {
+                base.Retry();
+            }
         }
     }
 }
