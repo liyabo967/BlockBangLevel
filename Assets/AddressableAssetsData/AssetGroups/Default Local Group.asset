@@ -74,6 +74,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - items
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b26089e58d044448692fab32d7a37a03
+    m_Address: Assets/GameMain/Prefabs/UnityGameFramework.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bd2e45949530e4069b8c5629368fed36
     m_Address: Assets/GameMain/Audio
     m_ReadOnly: 0
