@@ -220,7 +220,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             switch (difficulty)
             {
                 case 1:
-                    result = 0.8f;
+                    result = 0.9f;
                     break;
                 case 2:
                     result = 0.7f;
@@ -244,7 +244,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             switch (difficulty)
             {
                 case 1:
-                    result = 0.1f;
+                    result = 0f;
                     break;
                 case 2:
                     result = 0.1f;

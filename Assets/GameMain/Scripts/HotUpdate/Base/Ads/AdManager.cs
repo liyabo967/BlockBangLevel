@@ -121,19 +121,19 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
 
         private void RetryInitializeAds()
         {
-            _adapter.Initialize(_adConfig, success =>
-            {
-                _initialized = success;
-                _initializeCallback?.Invoke(success);
-                if (success)
-                {
-                    // 预加载常用广告
-                    // _adapter.LoadAd(AdType.Banner);
-                    // _adapter.LoadAd(AdType.Interstitial);
-                    // _adapter.LoadAd(AdType.RewardedVideo);
-                    StartCoroutine(DelayLoadAd());
-                }
-            });
+            // _adapter.Initialize(_adConfig, success =>
+            // {
+            //     _initialized = success;
+            //     _initializeCallback?.Invoke(success);
+            //     if (success)
+            //     {
+            //         // 预加载常用广告
+            //         // _adapter.LoadAd(AdType.Banner);
+            //         // _adapter.LoadAd(AdType.Interstitial);
+            //         // _adapter.LoadAd(AdType.RewardedVideo);
+            //         StartCoroutine(DelayLoadAd());
+            //     }
+            // });
         }
 
         private IEnumerator DelayLoadAd()
