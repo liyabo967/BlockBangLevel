@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections;
+using AppsFlyerSDK;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
@@ -196,6 +197,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             if (UserDataManager.Instance.AdventureState == 1)
             {
                 FirebaseAnalytics.LogEvent("adventure_start");
+                AppsFlyer.sendEvent("adventure_start", null);
             }
             UserDataManager.Instance.SetAdventureState(2);
         }

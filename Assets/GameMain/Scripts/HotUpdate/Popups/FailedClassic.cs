@@ -10,6 +10,8 @@
 // // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // // THE SOFTWARE.
 
+using System.Collections.Generic;
+using AppsFlyerSDK;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
@@ -57,6 +59,18 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 bestScoreStuff.SetActive(true);
                 failedStuff.SetActive(false);
                 buttonImage.sprite = gold;
+                if (score >= ClassicModeHandler.UnlockAdventureScore)
+                {
+                    var eventValues = new Dictionary<string, string>
+                    {
+                        { "score", score.ToString() }
+                    };
+
+                    AppsFlyer.sendEvent(
+                        "classic_complete",
+                        eventValues
+                    );
+                }
             }
             else
             {
