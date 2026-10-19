@@ -65,13 +65,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         {
             base.OnInit(userData);
             versionText.text = $"Version {Application.version}";
-            var dllPath = Path.Combine(Application.persistentDataPath, $"{Application.version}/HotUpdate/HotUpdate.dll");
-            if (File.Exists(dllPath))
-            {
-                string localMD5 = Util.CalculateMD5(dllPath);
-                versionText.text = $"Version {Application.version}_{localMD5.Substring(localMD5.Length - 6)}";
-                versionText.text += $"\n{GameAnalytics.GetUserId()}";
-            }
             
             back.onClick.AddListener(BackToMain);
             privacypolicy.onClick.AddListener(PrivacyPolicy);
@@ -148,6 +141,14 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             }
             // Load the saved vibration level
             LoadVibrationLevel();
+            
+            var dllPath = Path.Combine(Application.persistentDataPath, $"{Application.version}/HotUpdate/HotUpdate.dll.bytes");
+            if (File.Exists(dllPath))
+            {
+                string localMD5 = Util.CalculateMD5(dllPath);
+                versionText.text = $"Version {Application.version}";
+                versionText.text += $"\n{localMD5.Substring(localMD5.Length - 6)}_{GameAnalytics.GetUserId()}";
+            }
             
             // HomeButtonPlayAnim();
         }
