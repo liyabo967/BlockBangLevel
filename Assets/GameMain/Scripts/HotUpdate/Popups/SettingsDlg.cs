@@ -65,13 +65,25 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         {
             base.OnInit(userData);
             versionText.text = $"Version {Application.version}";
-            var dllPath = Path.Combine(Application.persistentDataPath, "HotUpdate/HotUpdate.dll");
+            var dllPath = Path.Combine(Application.persistentDataPath, $"{Application.version}/HotUpdate/HotUpdate.dll");
             if (File.Exists(dllPath))
             {
                 string localMD5 = Util.CalculateMD5(dllPath);
                 versionText.text = $"Version {Application.version}_{localMD5.Substring(localMD5.Length - 6)}";
                 versionText.text += $"\n{GameAnalytics.GetUserId()}";
             }
+            
+            back.onClick.AddListener(BackToMain);
+            privacypolicy.onClick.AddListener(PrivacyPolicy);
+            privacyConsent.onClick.AddListener(ShowPrivacyConsent);
+            shop.onClick.AddListener(Shop);
+            retryButton.onClick.AddListener(Retry);
+            
+            // Register the OnValueChanged event
+            vibrationSlider.onValueChanged.AddListener(SaveVibrationLevel);
+            closeButton.onClick.RemoveAllListeners();
+            closeButton.onClick.AddListener(BackToGame);
+            restorePurchase.onClick.AddListener(RestorePurchase);
         }
 
         protected override void OnOpen(object userData)
@@ -121,21 +133,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                     GameState.Save(currentState, fieldManager);
                 }
             }
-
-            back.onClick.AddListener(BackToMain);
-            privacypolicy.onClick.AddListener(PrivacyPolicy);
-            privacyConsent.onClick.AddListener(ShowPrivacyConsent);
-            shop.onClick.AddListener(Shop);
-            retryButton.onClick.AddListener(Retry);
-
-            // Load the saved vibration level
-            LoadVibrationLevel();
-
-            // Register the OnValueChanged event
-            vibrationSlider.onValueChanged.AddListener(SaveVibrationLevel);
-            closeButton.onClick.RemoveAllListeners();
-            closeButton.onClick.AddListener(BackToGame);
-            restorePurchase.onClick.AddListener(RestorePurchase);
+            
             if (restorePurchase.gameObject.activeSelf)
             {
                 restorePurchase.gameObject.SetActive(GameManager.instance.GameSettings.enableInApps);
@@ -148,6 +146,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 privacyConsent.gameObject.SetActive(GameManager.instance.GameSettings.enableAds &&
                                                  AdManager.Instance.IsPrivacyOptionsRequired());
             }
+            // Load the saved vibration level
+            LoadVibrationLevel();
             
             // HomeButtonPlayAnim();
         }
