@@ -351,7 +351,8 @@ namespace Quester
 
         private void LoadImage()
         {
-            var filePath = $"{Application.persistentDataPath}/Pictures/{TimeManager.SeasonTime.year}/{TimeManager.SeasonTime.week}.jpg";
+            var pictureName = PictureManager.GetLocalName(UserDataManager.Instance.PictureCount);
+            var filePath = $"{Application.persistentDataPath}/Pictures/{pictureName}";
             // Debug.Log(filePath);
             if (File.Exists(filePath))
             {

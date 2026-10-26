@@ -74,28 +74,10 @@ namespace Quester
             CheckPicture();
         }
 
-        private bool HaveSpecialPictures(string countryCode)
-        {
-            HashSet<string> countryCodeSet = new HashSet<string>()
-            {
-                "US"
-            };
-            return countryCodeSet.Contains(countryCode);
-        }
-
         private void CheckPicture()
         {
-            var pictureName = $"{UserDataManager.Instance.PictureCount}.jpg";
-            var countryCode = CountryHelper.GetCountryCode();
-            if (!string.IsNullOrEmpty(countryCode) && HaveSpecialPictures(countryCode))
-            {
-                pictureName = $"{countryCode}/{pictureName}";
-            }
-            else
-            {
-                pictureName = $"US/{pictureName}";
-            }
-            var pictureUrl = $"https://assets-1301567094.cos.ap-beijing.myqcloud.com/block-bang/pictures/{pictureName}";
+            var pictureName = PictureManager.GetLocalName(UserDataManager.Instance.PictureCount);
+            var pictureUrl = PictureManager.GetPictureUrl(pictureName);
             Debug.Log($"pictureUrl: {pictureUrl}");
             string savePath = Path.Combine(Application.persistentDataPath, "Pictures", pictureName);
             if (File.Exists(savePath))
