@@ -69,6 +69,7 @@ namespace Quester
             {
                 UserDataManager.Instance.SetUnlockAdventureTimestamp(DateTimeOffset.Now.ToUnixTimeSeconds());
             }
+            TimeManager.SetSeasonTimeByUnlockAdventureTime();
             UpdateProgress(PreloadKey.SeasonTime, 1f);
             CheckPicture();
         }

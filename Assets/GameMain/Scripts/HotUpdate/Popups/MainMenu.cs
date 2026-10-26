@@ -237,13 +237,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         {
             while (_enableTimer)
             {
-                var seconds = TimeManager.SeasonTime.seasonEndTime - TimeManager.GetCurrentTime();
+                var seconds = TimeManager.SeasonTime.seasonEndTime - DateTimeOffset.Now.ToUnixTimeSeconds();
                 // Debug.Log($"seconds: {seconds}");
                 remainingTimeText.text = FormatTime((int)seconds);
                 yield return _waitForSeconds;
                 if (seconds == 0)
                 {
-                    RefreshTime();
+                    TimeManager.SetSeasonTimeByUnlockAdventureTime();
                 }
             }
         }
