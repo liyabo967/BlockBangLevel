@@ -621,7 +621,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
         public float GetFilledRate()
         {
-            return 1f;
+            return field.GetFilledRate();
         }
 
         private void SetWin()

@@ -118,6 +118,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             _refreshCount++;
             yield return new WaitForSeconds(0.2f);
             usedShapes.Clear();
+            // 延迟 0.2 秒之后获取的数据是准确的，因为清理 cell 有延迟
+            // Debug.Log("FillCellDecksForClassic, fillRate: " + _levelManager.GetFilledRate());
             
             var isHard = _refreshCount % 4 == 0;
             var difficulty = GetClassicDifficulty();
@@ -137,7 +139,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                     {
                         if (difficulty == 5 && index == cellDecks.Length - 1)
                         {
-                            
                             resultShape = itemFactory.CreateNotFitShape(shapeObject);
                             if (resultShape != null)
                             {

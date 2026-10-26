@@ -14,6 +14,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public int Group => _userData.group;
         public int LevelGroup => _userData.levelGroup;
         public int Coins => _userData.coins;
+        public int PictureCount => _userData.pictureCount;
         // public int Score => _userData.score;
         public int ClassicBestScore => _userData.classicBestScore;
         public int TimedBestScore => _userData.timedBestScore;
@@ -23,11 +24,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public int AdventureState => _userData.adventureState;
         public int GameMode => _userData.gameMode;
         public int FailStreak => _userData.failStreak;
-        public int CurrentSeason => _userData.currentSeason;
+        public long CurrentSeasonTimestamp => _userData.currentSeasonTimestamp;
         public int CurrentSeasonShape => _userData.currentSeasonShape;
-        public int FirstSeason => _userData.firstSeason;
+        public long FirstSeasonTimestamp => _userData.firstSeasonTimestamp;
         public long LastLaunchTimestamp => _userData.lastLaunchTimestamp;
         public long LastRateTimestamp => _userData.lastRateTimestamp;
+        public long UnlockAdventureTimestamp => _userData.unlockAdventureTimestamp;
         public bool NoAdsPurchased => _userData.noAdsPurchased;
         public List<string> PictureList => _userData.pictureList;
 
@@ -122,9 +124,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             _userData.timedBestScore = timedBestScore;
         }
 
-        public void SetSeason(int season)
+        public void SetSeason(long seasonTime)
         {
-            _userData.currentSeason = season;
+            _userData.currentSeasonTimestamp = seasonTime;
         }
 
         public void SetSeasonShape(int seasonShape)
@@ -132,14 +134,14 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             _userData.currentSeasonShape = seasonShape;
         }
 
-        public void SetFirstSeason(int firstSeason)
+        public void SetFirstSeason(long firstSeason)
         {
-            _userData.firstSeason = firstSeason;
+            _userData.firstSeasonTimestamp = firstSeason;
         }
 
         public bool IsFirstSeason()
         {
-            return _userData.firstSeason == _userData.currentSeason;
+            return _userData.firstSeasonTimestamp == _userData.currentSeasonTimestamp;
         }
 
         public void SetLastLaunchTimestamp(long timestamp)
@@ -150,6 +152,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public void SetLastRateTimestamp(long lastRateTimestamp)
         {
             _userData.lastRateTimestamp = lastRateTimestamp;
+        }
+
+        public void SetUnlockAdventureTimestamp(long timestamp)
+        {
+            _userData.unlockAdventureTimestamp = timestamp;
         }
 
         /// <summary>
@@ -270,12 +277,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             return _userData.purchasedIdList.Contains(productId);
         }
 
-        public void AddPicture(string picture)
+        public void AddPictureCount()
         {
-            if (!_userData.pictureList.Contains(picture))
-            {
-                _userData.pictureList.Add(picture);
-            }
+            _userData.pictureCount++;
+            // if (!_userData.pictureList.Contains(picture))
+            // {
+            //     _userData.pictureList.Add(picture);
+            // }
         }
         
     }

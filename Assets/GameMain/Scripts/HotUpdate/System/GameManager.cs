@@ -150,11 +150,6 @@ namespace BlockPuzzleGameToolkit.Scripts.System
         private bool CheckDailyBonusConditions()
         {
             return false;
-            // No DailyBonus For First Season
-            if (UserDataManager.Instance.FirstSeason == UserDataManager.Instance.CurrentSeason)
-            {
-                return false;
-            }
             var today = DateTime.Today;
             var lastRewardDate = DateTime.ParseExact(UserDataManager.Instance.DailyBonusDay, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
             return today.Date > lastRewardDate.Date && dailyBonusSettings.dailyBonusEnabled;

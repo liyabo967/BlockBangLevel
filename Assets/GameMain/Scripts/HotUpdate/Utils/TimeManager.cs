@@ -12,47 +12,72 @@ namespace Quester
         public static SeasonTime SeasonTime;
         public static float StartupTime;
         
-        public static void SetSeasonTime(Action<bool> callback)
+        public static void SetSeasonTimeByUnlockAdventureTime()
         {
-            var requestConfig = new NetworkRequest()
+            if (UserDataManager.Instance.UnlockAdventureTimestamp != 0)
             {
-                url = "http://api.xjoy.games/block/season",
-                method = NetworkRequest.HttpMethod.GET,
-                retryCount = 1,
-                timeout = 5
-            };
-            GameEntry.Http.SendRequest(
-                requestConfig,
-                res =>
+                long startTime = UserDataManager.Instance.UnlockAdventureTimestamp;
+                long nowTime = DateTimeOffset.Now.ToUnixTimeSeconds();
+                while (startTime + SecondsOneWeek < nowTime)
                 {
-                    var responseTime = res.GetData<ApiResponse<SeasonTime>>();
-                    if (res.success && responseTime != null)
-                    {
-                        SeasonTime = responseTime.data;
-                    }
-                    if(SeasonTime == null)
-                    {
-                        SeasonTime = GetSeasonTimeFromLocal();
-                    }
-                    StartupTime = Time.realtimeSinceStartup;
-                    SetSeason();
-                    callback.Invoke(res.success);
+                    startTime += SecondsOneWeek;
                 }
-            );
+                
+                DateTime dateTime = DateTimeOffset
+                    .FromUnixTimeSeconds(startTime)
+                    .LocalDateTime;
+
+                Debug.Log(dateTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                
+                var seasonTime = new SeasonTime();
+                seasonTime.seasonStartTime = startTime;
+                seasonTime.seasonEndTime = startTime + SecondsOneWeek;
+                SeasonTime = seasonTime;
+                SetSeasonData();
+            }
         }
         
-        private static void SetSeason()
+        // public static void SetSeasonTime(Action<bool> callback)
+        // {
+        //     var requestConfig = new NetworkRequest()
+        //     {
+        //         url = "http://api.xjoy.games/block/season",
+        //         method = NetworkRequest.HttpMethod.GET,
+        //         retryCount = 1,
+        //         timeout = 5
+        //     };
+        //     GameEntry.Http.SendRequest(
+        //         requestConfig,
+        //         res =>
+        //         {
+        //             var responseTime = res.GetData<ApiResponse<SeasonTime>>();
+        //             if (res.success && responseTime != null)
+        //             {
+        //                 SeasonTime = responseTime.data;
+        //             }
+        //             if(SeasonTime == null)
+        //             {
+        //                 SeasonTime = GetSeasonTimeFromLocal();
+        //             }
+        //             StartupTime = Time.realtimeSinceStartup;
+        //             SetSeason();
+        //             callback.Invoke(res.success);
+        //         }
+        //     );
+        // }
+        
+        private static void SetSeasonData()
         {
-            int season = SeasonTime.year * 100 + SeasonTime.week;
-            if (season != UserDataManager.Instance.CurrentSeason)
+            var seasonTime = SeasonTime.seasonStartTime;
+            if (seasonTime != UserDataManager.Instance.CurrentSeasonTimestamp)
             {
                 UserDataManager.Instance.SetLevel(1);
-                UserDataManager.Instance.SetSeason(season);
+                UserDataManager.Instance.SetSeason(seasonTime);
                 UserDataManager.Instance.SetSeasonShape(Random.Range(1, 11));
                 UserDataManager.Instance.SetLevelGroup(1);
-                if (UserDataManager.Instance.FirstSeason == 0)
+                if (UserDataManager.Instance.FirstSeasonTimestamp == 0)
                 {
-                    UserDataManager.Instance.SetFirstSeason(season);
+                    UserDataManager.Instance.SetFirstSeason(seasonTime);
                 }
             }
         }

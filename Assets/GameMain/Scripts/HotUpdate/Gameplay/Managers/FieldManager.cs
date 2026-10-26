@@ -284,6 +284,21 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             return cells[y, x];
         }
 
+        public float GetFilledRate()
+        {
+            int filled = 0;
+            var rows = cells.GetLength(0);
+            var columns = cells.GetLength(1);
+            for (var i = 0; i < rows; i++)
+            {
+                for (var j = 0; j < columns; j++)
+                {
+                    filled += cells[i, j].IsEmpty() ? 0 : 1;
+                }
+            }
+            return filled * 1.0f / (rows * columns);
+        }
+
         private void PrintBoard()
         {
             Debug.Log("PrintBoard ---------------");

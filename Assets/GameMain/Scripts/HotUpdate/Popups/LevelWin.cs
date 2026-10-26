@@ -79,7 +79,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             GameEntry.Sound.PlaySound(SoundId.Win);
             if (UserDataManager.Instance.Level > PictureComponent.MaxLevel)
             {
-                UserDataManager.Instance.AddPicture($"{TimeManager.SeasonTime.year}_{TimeManager.SeasonTime.week}");
+                UserDataManager.Instance.AddPictureCount();
             }
         }
 

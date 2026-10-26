@@ -26,46 +26,46 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 {
     public class PreWin : Banner
     {
-        [SerializeField] private TextMeshProUGUI messageText;
-
-        protected override void OnOpen(object userData)
-        {
-            base.OnOpen(userData);
-            // AppsFlyer
-            Dictionary<string, string> eventValues = new Dictionary<string, string>();
-            eventValues.Add(AFInAppEvents.LEVEL, (UserDataManager.Instance.Level - 1).ToString());
-            AppsFlyer.sendEvent(AFInAppEvents.LEVEL_ACHIEVED, eventValues);
-            UserDataManager.Instance.AddWinCount();
-        }
-
-        protected virtual void OnEnable()
-        {
-            messageText.transform.localScale = Vector3.zero;
-            GameEntry.Sound.PlaySound(SoundId.Win);
-            if (UserDataManager.Instance.Level > PictureComponent.MaxLevel)
-            {
-                UserDataManager.Instance.AddPicture($"{TimeManager.SeasonTime.year}_{TimeManager.SeasonTime.week}");
-            }
-        }
-        
-        public override void AfterShowAnimation()
-        {
-            if (messageText != null)
-            {
-                messageText.transform.DOScale(Vector3.one, 0.2f);
-            }
-            base.AfterShowAnimation();
-        }
-
-        protected override void OnClose(bool isShutdown, object userData)
-        {
-            base.OnClose(isShutdown, userData);
-            EventManager.GameStatus = EGameState.Win;
-            if (!UserDataManager.Instance.NoAdsPurchased)
-            {
-                AdManager.Instance.ShowInterstitial();
-            }
-        }
+        // [SerializeField] private TextMeshProUGUI messageText;
+        //
+        // protected override void OnOpen(object userData)
+        // {
+        //     base.OnOpen(userData);
+        //     // AppsFlyer
+        //     Dictionary<string, string> eventValues = new Dictionary<string, string>();
+        //     eventValues.Add(AFInAppEvents.LEVEL, (UserDataManager.Instance.Level - 1).ToString());
+        //     AppsFlyer.sendEvent(AFInAppEvents.LEVEL_ACHIEVED, eventValues);
+        //     UserDataManager.Instance.AddWinCount();
+        // }
+        //
+        // protected virtual void OnEnable()
+        // {
+        //     messageText.transform.localScale = Vector3.zero;
+        //     GameEntry.Sound.PlaySound(SoundId.Win);
+        //     if (UserDataManager.Instance.Level > PictureComponent.MaxLevel)
+        //     {
+        //         UserDataManager.Instance.AddPicture($"{TimeManager.SeasonTime.year}_{TimeManager.SeasonTime.week}");
+        //     }
+        // }
+        //
+        // public override void AfterShowAnimation()
+        // {
+        //     if (messageText != null)
+        //     {
+        //         messageText.transform.DOScale(Vector3.one, 0.2f);
+        //     }
+        //     base.AfterShowAnimation();
+        // }
+        //
+        // protected override void OnClose(bool isShutdown, object userData)
+        // {
+        //     base.OnClose(isShutdown, userData);
+        //     EventManager.GameStatus = EGameState.Win;
+        //     if (!UserDataManager.Instance.NoAdsPurchased)
+        //     {
+        //         AdManager.Instance.ShowInterstitial();
+        //     }
+        // }
     }
     
 }

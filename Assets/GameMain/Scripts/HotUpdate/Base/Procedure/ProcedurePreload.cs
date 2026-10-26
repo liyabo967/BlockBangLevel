@@ -2,6 +2,7 @@
 using System.Collections;
 using GameFramework.Event;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using UnityEngine;
@@ -59,17 +60,42 @@ namespace Quester
 
         private void InitSeasonTime()
         {
-            TimeManager.SetSeasonTime((result) =>
+            // TimeManager.SetSeasonTime((result) =>
+            // {
+            //     UpdateProgress(PreloadKey.SeasonTime, 1f);
+            //     CheckPicture();
+            // });
+            if (UserDataManager.Instance.UnlockAdventureTimestamp == 0 && UserDataManager.Instance.AdventureState == 2)
             {
-                UpdateProgress(PreloadKey.SeasonTime, 1f);
-                CheckPicture();
-            });
+                UserDataManager.Instance.SetUnlockAdventureTimestamp(DateTimeOffset.Now.ToUnixTimeSeconds());
+            }
+            UpdateProgress(PreloadKey.SeasonTime, 1f);
+            CheckPicture();
+        }
+
+        private bool HaveSpecialPictures(string countryCode)
+        {
+            HashSet<string> countryCodeSet = new HashSet<string>()
+            {
+                "US"
+            };
+            return countryCodeSet.Contains(countryCode);
         }
 
         private void CheckPicture()
         {
-            var pictureName = $"{TimeManager.SeasonTime.year}/{TimeManager.SeasonTime.week}.jpg";
+            var pictureName = $"{UserDataManager.Instance.PictureCount}.jpg";
+            var countryCode = CountryHelper.GetCountryCode();
+            if (!string.IsNullOrEmpty(countryCode) && HaveSpecialPictures(countryCode))
+            {
+                pictureName = $"{countryCode}/{pictureName}";
+            }
+            else
+            {
+                pictureName = $"US/{pictureName}";
+            }
             var pictureUrl = $"https://assets-1301567094.cos.ap-beijing.myqcloud.com/block-bang/pictures/{pictureName}";
+            Debug.Log($"pictureUrl: {pictureUrl}");
             string savePath = Path.Combine(Application.persistentDataPath, "Pictures", pictureName);
             if (File.Exists(savePath))
             {

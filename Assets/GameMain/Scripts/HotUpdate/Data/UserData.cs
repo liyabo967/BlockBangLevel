@@ -7,6 +7,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public int level;
         public int coins;
         // public int score;
+        public int pictureCount;
         public int classicBestScore;
         public int group;
         public int levelGroup;
@@ -21,11 +22,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public int failCount;
         public int winStreak;
         public int failStreak;
-        public int firstSeason;
-        public int currentSeason;
         public int currentSeasonShape;
         public long lastLaunchTimestamp;
         public long lastRateTimestamp;
+        public long unlockAdventureTimestamp;
+        public long currentSeasonTimestamp;
+        public long firstSeasonTimestamp;
         public bool noAdsPurchased;
         public List<string> pictureList = new ();
         public List<string> purchasedIdList = new ();

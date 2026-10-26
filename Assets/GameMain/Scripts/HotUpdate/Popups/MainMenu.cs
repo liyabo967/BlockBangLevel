@@ -84,12 +84,19 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             lockedText.text = GameEntry.Localization.GetString("#unlock_adventure", ClassicModeHandler.UnlockAdventureScore);
             adventureLock.SetActive(!_adventureUnlocked);
             seasonTimeObject.SetActive(_adventureUnlocked);
+            if (UserDataManager.Instance.AdventureState == 1)
+            {
+                remainingTimeText.text = GameEntry.Localization.GetString("#new_season");
+            }
         }
 
         private void OnEnable()
         {
-            _enableTimer = true;
-            StartCoroutine(RefreshRemainingTime());
+            if (UserDataManager.Instance.AdventureState == 2)
+            {
+                _enableTimer = true;
+                StartCoroutine(RefreshRemainingTime());
+            }
         }
 
         public void RefreshUI()
@@ -200,6 +207,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 AppsFlyer.sendEvent("adventure_start", null);
             }
             UserDataManager.Instance.SetAdventureState(2);
+            UserDataManager.Instance.SetUnlockAdventureTimestamp(DateTimeOffset.Now.ToUnixTimeSeconds());
+            TimeManager.SetSeasonTimeByUnlockAdventureTime();
         }
 
         private void PlayTimedMode()
@@ -242,10 +251,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         private void RefreshTime()
         {
             _enableTimer = false;
-            TimeManager.SetSeasonTime(result =>
-            {
-                _enableTimer = true;
-            });
+            // TimeManager.SetSeasonTime(result =>
+            // {
+            //     _enableTimer = true;
+            // });
+            TimeManager.SetSeasonTimeByUnlockAdventureTime();
         }
         
         private string FormatTime(int seconds)
