@@ -103,10 +103,83 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             //     }
             // }
 
-            StartCoroutine(FillCellDecksWithPerfectShape());
+            if (GameDataManager.GetGameMode() == EGameMode.Classic)
+            {
+                StartCoroutine(FillCellDecksForClassic());
+            }
+            else
+            {
+                StartCoroutine(FillCellDecksForAdventure());
+            }
         }
 
-        private IEnumerator FillCellDecksWithPerfectShape()
+        private IEnumerator FillCellDecksForClassic()
+        {
+            _refreshCount++;
+            yield return new WaitForSeconds(0.2f);
+            usedShapes.Clear();
+            
+            var isHard = _refreshCount % 4 == 0;
+            var difficulty = GetClassicDifficulty();
+            var perfectRatio = GetPerfectRatioForClassic(difficulty);
+            var shapeTemplates = itemFactory.GetPerfectShape();
+            var shapeTemplateIndex = 0;
+            
+            StringBuilder debugInfo = new StringBuilder();
+            for (var index = 0; index < cellDecks.Length; index++)
+            {
+                var cellDeck = cellDecks[index];
+                if (cellDeck.IsEmpty)
+                {
+                    Shape resultShape = null;
+                    var shapeObject = PoolObject.GetObject(shapePrefab.gameObject);
+                    if (isHard && Random.Range(0, 1f) > perfectRatio)
+                    {
+                        if (difficulty == 5 && index == cellDecks.Length - 1)
+                        {
+                            
+                            resultShape = itemFactory.CreateNotFitShape(shapeObject);
+                            if (resultShape != null)
+                            {
+                                debugInfo.Append("Hard, ");
+                            }
+                            else
+                            {
+                                debugInfo.Append("Hard_Bak, ");
+                                resultShape = itemFactory.CreateRandomShapeFits(shapeObject, usedShapes);
+                            }
+                        }
+                        else
+                        {
+                            debugInfo.Append("RandomFit, ");
+                            resultShape = itemFactory.CreateRandomShapeFits(shapeObject, usedShapes);
+                        }
+                    }
+                    else
+                    {
+                        if (shapeTemplateIndex < shapeTemplates.Count)
+                        {
+                            debugInfo.Append("Perfect, ");
+                            resultShape = itemFactory.CreatePerfectShape(shapeObject, shapeTemplates[shapeTemplateIndex++]);
+                        }
+                        else
+                        {
+                            debugInfo.Append("Perfect_Bak, ");
+                            resultShape = itemFactory.CreateRandomShapeFits(shapeObject, usedShapes);
+                        }
+                    }
+                    cellDeck.FillCell(resultShape);
+                }
+            }
+            
+            _levelManager.SetDebugInfo(debugInfo.ToString());
+            if (EventManager.GameStatus == EGameState.Playing && !GameManager.instance.IsTutorialMode())
+            {
+                _levelManager.CheckLose();
+            }
+        }
+
+        private IEnumerator FillCellDecksForAdventure()
         {
             _refreshCount++;
             yield return new WaitForSeconds(0.2f);
@@ -114,7 +187,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             usedShapes.Clear();
             var shapeTemplates = itemFactory.GetPerfectShape();
             var shapeTemplateIndex = 0;
-            var difficulty = GetDifficulty();
+            var difficulty = GetAdventureDifficulty(UserDataManager.Instance.Level);
             var perfectRatio = GetPerfectRatio(difficulty);
             // Debug.Log("FillPerfectShape, perfectRatio:" + perfectRatio);
             StringBuilder debugInfo = new StringBuilder();
@@ -261,28 +334,57 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             }
             return result;
         }
+        
 
-        private int GetDifficulty()
+        private float GetPerfectRatioForClassic(int difficulty)
         {
-            if (GameDataManager.GetGameMode() == EGameMode.Classic)
+            var prefectRatio = 1f;
+            switch (difficulty)
             {
-                return GetClassicDifficulty();
+                case 1:
+                    prefectRatio = 1f;
+                    break;
+                case 2:
+                    prefectRatio = 0.9f;
+                    break;
+                case 3:
+                    prefectRatio = 0.8f;
+                    break;
+                case 4:
+                    prefectRatio = 0.7f;
+                    break;
+                case 5:
+                    prefectRatio = 0.6f;
+                    break;
             }
-
-            return GetAdventureDifficulty(UserDataManager.Instance.Level);
+            return prefectRatio;
         }
 
         private int GetClassicDifficulty()
         {
-            if (_levelManager.ClassicModeHandler.score < 3000)
+            var score = _levelManager.ClassicModeHandler.score;
+            var difficulty = 1;
+            if (score < 1000)
             {
-                return 1;
+                difficulty = 1;
             }
-            if (_levelManager.ClassicModeHandler.score < 10000)
+            else if (score < 3000)
             {
-                return 2;
+                difficulty = 2;
             }
-            return 3;
+            else if (score < 5000)
+            {
+                difficulty = 3;
+            }
+            else if (score < 10000)
+            {
+                difficulty = 4;
+            }
+            else
+            {
+                difficulty = 5;
+            }
+            return difficulty;
         }
 
         private int GetAdventureDifficulty(int level)

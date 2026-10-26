@@ -13,7 +13,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 {
     public class ClassicModeHandler : BaseModeHandler
     {
-        public static readonly int UnlockAdventureScore = 5000;
+        public static readonly int UnlockAdventureScore = 8000;
         private BackgroundChanger  _backgroundChanger;
         private bool _newRecordShown = false;
         private int _betterIndex = -1;
