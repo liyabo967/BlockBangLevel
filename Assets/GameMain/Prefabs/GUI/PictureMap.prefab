@@ -6885,7 +6885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68188dbc46e4fbb94a140dbb45e2e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialHand: {fileID: 5643027716571500802}
+  tutorialHand: {fileID: 6857262049707470252}
   red: {fileID: 21300000, guid: 4f22e7be22ce24dff9925f0ab20b098d, type: 3}
   green: {fileID: 21300000, guid: 71aea581c96494d0e9e5fb4907b10f0d, type: 3}
   levelText: {fileID: 6307733228302906588}
@@ -7883,8 +7883,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5009012371450125464, guid: 260afa0b3a9364cb9bdf6bbe266481ea, type: 3}
   m_PrefabInstance: {fileID: 8281301787728201844}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5643027716571500802 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4376680624534411638, guid: 260afa0b3a9364cb9bdf6bbe266481ea, type: 3}
+--- !u!114 &6857262049707470252 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3298037462693864920, guid: 260afa0b3a9364cb9bdf6bbe266481ea, type: 3}
   m_PrefabInstance: {fileID: 8281301787728201844}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bce89860e434663834537230e80d433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

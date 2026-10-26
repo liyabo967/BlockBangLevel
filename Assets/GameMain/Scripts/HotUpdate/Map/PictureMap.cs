@@ -16,7 +16,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
 {
     public class PictureMap : MonoBehaviour
     {
-        [SerializeField] private GameObject tutorialHand;
+        [SerializeField] private TutorialHand tutorialHand;
         [SerializeField] private Sprite red;
         [SerializeField] private Sprite green;
         
@@ -88,7 +88,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
 
         private void PlayGame()
         {
-            tutorialHand.SetActive(false);
+            tutorialHand.gameObject.SetActive(false);
             SceneLoader.instance.StartGameScene(UserDataManager.Instance.Level);
         }
 
@@ -104,14 +104,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
 
         private void PlayTutorialAnim()
         {
-            tutorialHand.SetActive(true);
-            _tutorialSequence = DOTween.Sequence();
-            _tutorialSequence.AppendInterval(2f);
-            _tutorialSequence.Append(
-                levelButton.transform.DOScale(1.15f, 0.4f));
-            _tutorialSequence.Append(
-                levelButton.transform.DOScale(1f, 0.4f));
-            _tutorialSequence.SetLoops(-1);
+            Debug.Log("PlayTutorialAnim: " + (tutorialHand == null));
+            tutorialHand.gameObject.SetActive(true);
+            tutorialHand.PlayAnim(levelButton.transform);
         }
         
         private void PictureCompleted(bool completed)

@@ -23,11 +23,10 @@ namespace Quester
                     startTime += SecondsOneWeek;
                 }
                 
-                DateTime dateTime = DateTimeOffset
-                    .FromUnixTimeSeconds(startTime)
-                    .LocalDateTime;
-
-                Debug.Log(dateTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                // DateTime dateTime = DateTimeOffset
+                //     .FromUnixTimeSeconds(startTime)
+                //     .LocalDateTime;
+                // Debug.Log(dateTime.ToString("yyyy-MM-dd HH:mm:ss"));
                 
                 var seasonTime = new SeasonTime();
                 seasonTime.seasonStartTime = startTime;

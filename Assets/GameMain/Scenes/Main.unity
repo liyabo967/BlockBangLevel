@@ -12889,7 +12889,7 @@ MonoBehaviour:
   adventureMode: {fileID: 62952946}
   settingsButton: {fileID: 728960682}
   luckySpin: {fileID: 51932003}
-  tutorialHand: {fileID: 1929025663}
+  tutorialHand: {fileID: 2204354334567243228}
   seasonTimeObject: {fileID: 2017783606}
   remainingTimeText: {fileID: 1382725825}
   adventureLock: {fileID: 431783454}
@@ -14110,11 +14110,6 @@ MonoBehaviour:
 Animator:
   m_CorrespondingSourceObject: {fileID: 6871821559796155679, guid: e81bbbc218b73d345bfb5f45c5fa7c66, type: 3}
   m_PrefabInstance: {fileID: 1906400248}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1929025663 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4376680624534411638, guid: 260afa0b3a9364cb9bdf6bbe266481ea, type: 3}
-  m_PrefabInstance: {fileID: 2204354334567243227}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &1929025664 stripped
 RectTransform:
@@ -15871,6 +15866,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 260afa0b3a9364cb9bdf6bbe266481ea, type: 3}
+--- !u!114 &2204354334567243228 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3298037462693864920, guid: 260afa0b3a9364cb9bdf6bbe266481ea, type: 3}
+  m_PrefabInstance: {fileID: 2204354334567243227}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bce89860e434663834537230e80d433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2220609634332694927
 MonoBehaviour:
   m_ObjectHideFlags: 0

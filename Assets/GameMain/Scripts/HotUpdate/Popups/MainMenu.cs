@@ -37,7 +37,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         public CustomButton adventureMode;
         public CustomButton settingsButton;
         public CustomButton luckySpin;
-        public GameObject tutorialHand;
+        public TutorialHand tutorialHand;
         public GameObject seasonTimeObject;
         public TextMeshProUGUI remainingTimeText;
         public GameObject adventureLock;
@@ -133,32 +133,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         private void PlayAdventureButtonAnim()
         {
-            tutorialHand.SetActive(true);
-            _adventureSequence = DOTween.Sequence();
-            _adventureSequence.AppendInterval(2f);
-            _adventureSequence.Append(
-                adventureMode.transform.DOScale(1.15f, 0.4f));
-            
-            _adventureSequence.Append(
-                adventureMode.transform.DOScale(1f, 0.4f));
-            
-            // _adventureSequence.Append(
-            //     adventureMode.transform.DOShakeRotation(
-            //         0.5f,
-            //         new Vector3(0, 0, 6),
-            //         15,
-            //         90));
-            _adventureSequence.SetLoops(-1);
-            
-            // _adventureSequence.AppendInterval(2f);
-            // _adventureSequence.Append(
-            //     adventureMode.transform.DOPunchScale(
-            //         Vector3.one * 0.25f,
-            //         0.5f,
-            //         8,
-            //         0.8f));
-            //
-            // _adventureSequence.SetLoops(-1);
+            tutorialHand.gameObject.SetActive(true);
+            tutorialHand.PlayAnim(adventureMode.transform);
         }
 
         private void StopAdventureButtonAnim()
@@ -196,7 +172,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             {
                 return;
             }
-            tutorialHand.SetActive(false);
+            tutorialHand.gameObject.SetActive(false);
             StopAdventureButtonAnim();
             GameManager.instance.SetGameMode(EGameMode.Adventure);
             GameManager.instance.OpenMap();
@@ -205,10 +181,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             {
                 FirebaseAnalytics.LogEvent("adventure_start");
                 AppsFlyer.sendEvent("adventure_start", null);
+                
+                UserDataManager.Instance.SetAdventureState(2);
+                UserDataManager.Instance.SetUnlockAdventureTimestamp(DateTimeOffset.Now.ToUnixTimeSeconds());
+                TimeManager.SetSeasonTimeByUnlockAdventureTime();
             }
-            UserDataManager.Instance.SetAdventureState(2);
-            UserDataManager.Instance.SetUnlockAdventureTimestamp(DateTimeOffset.Now.ToUnixTimeSeconds());
-            TimeManager.SetSeasonTimeByUnlockAdventureTime();
         }
 
         private void PlayTimedMode()
