@@ -341,8 +341,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 }
                 else if (gameMode == EGameMode.Adventure)
                 {
-                    var season = $"{TimeManager.SeasonTime.year}_{TimeManager.SeasonTime.week}";
-                    GameAnalyticsManager.SendUserProgression(UserStage.Adventure, GAProgressionStatus.Start, season, currentLevel);
+                    // var season = $"{TimeManager.SeasonTime.year}_{TimeManager.SeasonTime.week}";
+                    GameAnalyticsManager.SendUserProgression(UserStage.Adventure, GAProgressionStatus.Start);
                 }
             }
             if(_levelData == null)
@@ -633,6 +633,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             if (gameMode == EGameMode.Adventure)
             {
                 GameAnalyticsManager.SendLevelProgression(currentLevel, GAProgressionStatus.Complete);
+                GameAnalyticsManager.SendUserProgression(UserStage.Adventure, GAProgressionStatus.Complete);
             }
             
             GameDataManager.UnlockLevel(currentLevel + 1);
