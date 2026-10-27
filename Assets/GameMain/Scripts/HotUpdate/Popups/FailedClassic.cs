@@ -37,6 +37,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         [SerializeField] private GameObject bestTitle;
         [SerializeField] private GameObject loudspeaker;
         [SerializeField] private TutorialHand tutorialHand;
+        [SerializeField] private TextMeshProUGUI exceedingTips;
         
         public GameObject failedStuff;
         public GameObject bestScoreStuff;
@@ -51,6 +52,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         {
             base.OnOpen(userData);
             tutorialHand.gameObject.SetActive(false);
+            exceedingTips.gameObject.SetActive(false);
             GameAnalyticsManager.SendDesignEvent("classic:end");
             modeHandler = FindObjectOfType<BaseModeHandler>(false);
             var score = modeHandler.score;
@@ -66,6 +68,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 bestScoreStuff.SetActive(true);
                 failedStuff.SetActive(false);
                 buttonImage.sprite = gold;
+                // exceedingTips.text = GameEntry.Localization.GetString("#better_than");
+                
                 if (score >= ClassicModeHandler.UnlockAdventureScore)
                 {
                     var eventValues = new Dictionary<string, string>

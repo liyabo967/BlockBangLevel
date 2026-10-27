@@ -17,7 +17,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         private BackgroundChanger  _backgroundChanger;
         private bool _newRecordShown = false;
         private int _betterIndex = -1;
-        private List<BetterItem> _betterList = new()
+        private static List<BetterItem> _betterList = new()
         {
             new BetterItem(300, 45),
             new BetterItem(1000, 50),
@@ -152,7 +152,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             }
         }
 
-        private int GetBetterIndex(int newScore)
+        public static int GetBetterIndex(int newScore)
         {
             int index = -1;
             for (var i = 0; i < _betterList.Count; i++)

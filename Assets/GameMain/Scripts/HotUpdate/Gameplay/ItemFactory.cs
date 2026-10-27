@@ -240,7 +240,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             }
             else
             {
-                shapesToConsider = shapes.Where(shape => shape.scoreForSpawn <= GetClassicScore()).ToArray();
+                shapesToConsider = shapes.Where(shape => shape.scoreForSpawn <= GetClassicScore() && shape.filled >= 3).ToArray();
             }
             return ShapeController.GetPerfectShapeList(field, shapesToConsider);
         }
