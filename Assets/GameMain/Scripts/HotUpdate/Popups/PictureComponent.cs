@@ -36,7 +36,6 @@ namespace Quester
         public Image fullImage;
         public Sprite redHighlight;
         
-        
         private SeasonShape _seasonShape;
         // private Action<bool> _callback;
         private Sprite _sourceSprite;
@@ -75,14 +74,8 @@ namespace Quester
             fullImage.gameObject.SetActive(false);
             _currentLevel = UserDataManager.Instance.Level;
 
-            SetSeasonShape(LoadSeasonShape());
+            SetSeasonShape(GlobalManager.Instance.SeasonShape);
             Init();
-        }
-        
-        private SeasonShape LoadSeasonShape()
-        {
-            var shapeIndex = UserDataManager.Instance.CurrentSeasonShape.ToString("D3");
-            return Addressables.LoadAssetAsync<SeasonShape>($"Assets/GameMain/SeasonShapes/SeasonShape_{shapeIndex}.asset").WaitForCompletion();
         }
 
         private void Init()
@@ -217,7 +210,7 @@ namespace Quester
             focusImage.gameObject.SetActive(false);
                 
             Sequence sequence = DOTween.Sequence();
-            sequence.AppendInterval(1f);
+            sequence.AppendInterval(0.6f);
             var targetPos = GetCellPosition(_focusedPosition.x, _focusedPosition.y);
             sequence.Append(unlockedPiece.transform.DOLocalMove(targetPos, 0.3f));
             sequence.Join(unlockedPiece.transform.DOScale(new Vector3(0.3f, 0.3f, 0.3f), 0.3f));
@@ -338,7 +331,7 @@ namespace Quester
                             }
                             else
                             {
-                                if (pictureMap.IsHardLevel(levelIndex))
+                                if (GlobalManager.Instance.IsHardLevel(levelIndex))
                                 {
                                     item.SetSprite(redHighlight);
                                 }
@@ -351,7 +344,7 @@ namespace Quester
 
         private void LoadImage()
         {
-            var pictureName = PictureManager.GetLocalName(UserDataManager.Instance.PictureCount);
+            var pictureName = GlobalManager.GetLocalName(UserDataManager.Instance.PictureCount);
             var filePath = $"{Application.persistentDataPath}/Pictures/{pictureName}";
             // Debug.Log(filePath);
             if (File.Exists(filePath))

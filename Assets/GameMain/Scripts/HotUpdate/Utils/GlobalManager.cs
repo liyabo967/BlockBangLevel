@@ -1,14 +1,23 @@
-using System;
 using System.Collections.Generic;
-using System.Globalization;
-using BlockPuzzleGameToolkit.Scripts.Data;
-using UnityEngine;
-using Random = UnityEngine.Random;
+using BlockPuzzleGameToolkit.Scripts;
 
 namespace Quester
 {
-    public class PictureManager
+    public class GlobalManager : MonoSingleton<GlobalManager>
     {
+        private SeasonShape _seasonShape;
+
+        public SeasonShape SeasonShape
+        {
+            get => _seasonShape;
+            set => _seasonShape = value;
+        }
+        
+        public bool IsHardLevel(int level)
+        {
+            return level % 5 == 0 || level == _seasonShape.MaxLevel;;
+        }
+
         private static bool HaveSpecialPictures(string countryCode)
         {
             HashSet<string> countryCodeSet = new HashSet<string>()

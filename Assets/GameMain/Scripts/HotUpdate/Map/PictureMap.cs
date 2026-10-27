@@ -33,11 +33,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
         private int _currentLevel = 0;
         private Sequence _tutorialSequence;
 
-        public SeasonShape SeasonShape => _seasonShape;
-
         private void Awake()
         {
-            LoadSeasonShape();
+            _seasonShape = GlobalManager.Instance.SeasonShape;
             _pictureComponent = GetComponentInChildren<PictureComponent>();
             backButton.onClick.AddListener(Back);
             levelButton.onClick.AddListener(PlayGame);
@@ -45,13 +43,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
             _currentLevel = UserDataManager.Instance.Level;
             collectionButton.gameObject.SetActive(UserDataManager.Instance.PictureList.Count > 0);
         }
-
-        private void LoadSeasonShape()
-        {
-            var shapeIndex = UserDataManager.Instance.CurrentSeasonShape.ToString("D3");
-            _seasonShape = Addressables.LoadAssetAsync<SeasonShape>($"Assets/GameMain/SeasonShapes/SeasonShape_{shapeIndex}.asset").WaitForCompletion();
-        }
-
+        
         private void OnEnable()
         {
             levelText.text = GameEntry.Localization.GetString("#level_n", UserDataManager.Instance.Level);
@@ -59,7 +51,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
             levelButton.gameObject.SetActive(!seasonCompleted);
             completedText.gameObject.SetActive(seasonCompleted);
             tipsText.gameObject.SetActive(!seasonCompleted);
-            levelButton.GetComponent<Image>().sprite = IsHardLevel(UserDataManager.Instance.Level) ? red : green;
+            levelButton.GetComponent<Image>().sprite = GlobalManager.Instance.IsHardLevel(UserDataManager.Instance.Level) ? red : green;
             starParticle.gameObject.SetActive(seasonCompleted);
             if (UserDataManager.Instance.Level > _currentLevel)
             {
@@ -79,11 +71,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
         private void Start()
         {
             _pictureComponent.ShowLevel(UserDataManager.Instance.Level);
-        }
-        
-        public bool IsHardLevel(int level)
-        {
-            return level % 5 == 0 || level == _seasonShape.MaxLevel;;
         }
 
         private void PlayGame()

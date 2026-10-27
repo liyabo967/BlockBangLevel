@@ -21,95 +21,125 @@ using DG.Tweening;
 using Quester;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BlockPuzzleGameToolkit.Scripts.Popups
 {
     public class PreFailed : UGuiForm
     {
-        public TextMeshProUGUI continuePrice;
+        [SerializeField] private Sprite greenRing;
+        [SerializeField] private Sprite redRing;
+        [SerializeField] private Sprite greenButton;
+        [SerializeField] private Sprite redButton;
+        
+        public Image countdownRing;
+        public Image rewardImage;
         public TextMeshProUGUI timerText;
-        public CustomButton continueButton;
         public CustomButton rewardButton;
         public TextMeshProUGUI timeLeftText;
         public TextMeshProUGUI noThanksText;
+        
         protected int timer;
         protected int price;
         protected bool hasContinued = false;
         protected EPopupResult result;
 
+        private int _countdownSeconds;
         private object _userData;
         private LevelManager _levelManager;
         private int _extraSeconds;
+        private bool _isHardLevel;
 
         protected virtual void OnEnable()
         {
+            _isHardLevel = GlobalManager.Instance.IsHardLevel(UserDataManager.Instance.Level);
             _levelManager = FindAnyObjectByType<LevelManager>();
             price = GameManager.instance.GameSettings.continuePrice;
-            continuePrice.text = price.ToString();
-            continueButton.onClick.AddListener(Continue);
             
             InitializeTimer();
-            
             timerText.text = timer.ToString();
-            // SoundBase.instance.PlaySound(SoundBase.instance.warningTime);
-            rewardButton.gameObject.SetActive(GameManager.instance.GameSettings.enableAds);
-            if(GameDataManager.GetLevel().enableTimer && timeLeftText != null)
+
+            if (_isHardLevel)
             {
-                timeLeftText.gameObject.SetActive(true);
-                _extraSeconds = 0;
-                if (_levelManager.timerManager.RemainingTime < 5)
-                {
-                    _extraSeconds = GameManager.instance.GameSettings.continueTimerBonus;
-                }
-                else
-                {
-                    _extraSeconds = GameManager.instance.GameSettings.continueTimerBonus / 2;
-                }
-                var extraString = $"<color=yellow>{_extraSeconds}</color>";
-                timeLeftText.text = GameEntry.Localization.GetString("#continue_with_extra_seconds", extraString);
+                SetRedUI();
             }
+            else
+            {
+                SetGreenUI();
+            }
+            
+            // SoundBase.instance.PlaySound(SoundBase.instance.warningTime);
+            // rewardButton.gameObject.SetActive(GameManager.instance.GameSettings.enableAds);
+            // if(GameDataManager.GetLevel().enableTimer && timeLeftText != null)
+            // {
+            //     timeLeftText.gameObject.SetActive(true);
+            //     _extraSeconds = 0;
+            //     if (_levelManager.timerManager.RemainingTime < 5)
+            //     {
+            //         _extraSeconds = GameManager.instance.GameSettings.continueTimerBonus;
+            //     }
+            //     else
+            //     {
+            //         _extraSeconds = GameManager.instance.GameSettings.continueTimerBonus / 2;
+            //     }
+            //     var extraString = $"<color=yellow>{_extraSeconds}</color>";
+            //     timeLeftText.text = GameEntry.Localization.GetString("#continue_with_extra_seconds", extraString);
+            // }
+        }
+
+        private void SetGreenUI()
+        {
+            countdownRing.sprite = greenRing;
+            rewardImage.sprite = greenButton;
+        }
+
+        private void SetRedUI()
+        {
+            countdownRing.sprite = redRing;
+            rewardImage.sprite = redButton;
         }
 
         protected virtual void InitializeTimer()
         {
             timer = GameManager.instance.GameSettings.failedTimerStart;
+            _countdownSeconds = timer;
         }
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
             _userData = userData;
-            continueButton.interactable = true;
+            countdownRing.fillAmount = 0;
             rewardButton.interactable = true;
             hasContinued = false;
             noThanksText.gameObject.SetActive(false);
         }
 
-        protected override void OnResume()
-        {
-            base.OnResume();
-            StartCoroutine(ShowNoThanks(1f));
-        }
-
-        public void ClickNoThanks()
-        {
-            Close(true);
-            EventManager.GameStatus = EGameState.Failed;
-        }
-
-        private IEnumerator ShowNoThanks(float delay)
-        {
-            yield return new WaitForSeconds(delay);
-            noThanksText.gameObject.SetActive(true);
-            // noThanksText.transform.localScale = Vector3.zero;
-            // noThanksText.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
-        }
-
         // protected override void OnResume()
         // {
         //     base.OnResume();
-        //     InvokeRepeating(nameof(UpdateTimer), 1, 1);
+        //     StartCoroutine(ShowNoThanks(1f));
         // }
+
+        // public void ClickNoThanks()
+        // {
+        //     Close(true);
+        //     EventManager.GameStatus = EGameState.Failed;
+        // }
+
+        // private IEnumerator ShowNoThanks(float delay)
+        // {
+        //     yield return new WaitForSeconds(delay);
+        //     noThanksText.gameObject.SetActive(true);
+        //     // noThanksText.transform.localScale = Vector3.zero;
+        //     // noThanksText.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
+        // }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            InvokeRepeating(nameof(UpdateTimer), 1, 1);
+        }
 
         protected virtual void UpdateTimer()
         {
@@ -122,9 +152,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             }
 
             timerText.text = timer.ToString();
+            countdownRing.fillAmount = (float)(_countdownSeconds - timer) / _countdownSeconds;
             if (timer <= 0)
             {
-                continueButton.interactable = false;
                 rewardButton.interactable = false;
                 hasContinued = true;
 
@@ -141,30 +171,30 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             CancelInvoke(nameof(UpdateTimer));
         }
 
-        protected virtual void Continue()
-        {
-            if (timer <= 0 || hasContinued)
-            {
-                return;
-            }
-            
-            if (UserDataManager.Instance.Coins >= price)
-            {
-                UserDataManager.Instance.ConsumeCoins(price);
-                hasContinued = true;
-                continueButton.interactable = false;
-                rewardButton.interactable = false;
-                                
-                CancelInvoke(nameof(UpdateTimer));
-                ShowCoinsSpendFX(continueButton.transform.position);
-                OnContinue();
-            }
-            else
-            {
-                PauseTimer();
-                GameEntry.UI.OpenUIForm(UIFormId.CoinsShop);
-            }
-        }
+        // protected virtual void Continue()
+        // {
+        //     if (timer <= 0 || hasContinued)
+        //     {
+        //         return;
+        //     }
+        //     
+        //     if (UserDataManager.Instance.Coins >= price)
+        //     {
+        //         UserDataManager.Instance.ConsumeCoins(price);
+        //         hasContinued = true;
+        //         continueButton.interactable = false;
+        //         rewardButton.interactable = false;
+        //                         
+        //         CancelInvoke(nameof(UpdateTimer));
+        //         ShowCoinsSpendFX(continueButton.transform.position);
+        //         OnContinue();
+        //     }
+        //     else
+        //     {
+        //         PauseTimer();
+        //         GameEntry.UI.OpenUIForm(UIFormId.CoinsShop);
+        //     }
+        // }
 
         public void OnContinue()
         {

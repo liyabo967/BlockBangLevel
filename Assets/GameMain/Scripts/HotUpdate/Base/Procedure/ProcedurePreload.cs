@@ -4,6 +4,7 @@ using GameFramework.Event;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using BlockPuzzleGameToolkit.Scripts;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -29,6 +30,7 @@ namespace Quester
             base.OnEnter(procedureOwner);
             InitUserData();
             InitSeasonTime();
+            LoadSeasonData();
             GameEntry.Event.Subscribe(PreloadSuccessEventArgs.EventId, OnPreloadSuccess);
         }
 
@@ -58,6 +60,13 @@ namespace Quester
             UserDataManager.Instance.SetLastLaunchTimestamp(DateTimeOffset.Now.ToUnixTimeSeconds());
         }
 
+        private void LoadSeasonData()
+        {
+            var shapeIndex = UserDataManager.Instance.CurrentSeasonShape.ToString("D3");
+            var seasonShape = Addressables.LoadAssetAsync<SeasonShape>($"Assets/GameMain/SeasonShapes/SeasonShape_{shapeIndex}.asset").WaitForCompletion();
+            GlobalManager.Instance.SeasonShape = seasonShape;
+        }
+
         private void InitSeasonTime()
         {
             // TimeManager.SetSeasonTime((result) =>
@@ -76,8 +85,8 @@ namespace Quester
 
         private void CheckPicture()
         {
-            var pictureName = PictureManager.GetLocalName(UserDataManager.Instance.PictureCount);
-            var pictureUrl = PictureManager.GetPictureUrl(pictureName);
+            var pictureName = GlobalManager.GetLocalName(UserDataManager.Instance.PictureCount);
+            var pictureUrl = GlobalManager.GetPictureUrl(pictureName);
             Debug.Log($"pictureUrl: {pictureUrl}");
             string savePath = Path.Combine(Application.persistentDataPath, "Pictures", pictureName);
             if (File.Exists(savePath))
