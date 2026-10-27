@@ -185,6 +185,12 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 UserDataManager.Instance.SetAdventureState(2);
                 UserDataManager.Instance.SetUnlockAdventureTimestamp(DateTimeOffset.Now.ToUnixTimeSeconds());
                 TimeManager.SetSeasonTimeByUnlockAdventureTime();
+                
+                GameAnalyticsManager.SendDesignEvent("adventure:start:first");
+            }
+            else
+            {
+                GameAnalyticsManager.SendDesignEvent("adventure:start:normal");
             }
         }
 

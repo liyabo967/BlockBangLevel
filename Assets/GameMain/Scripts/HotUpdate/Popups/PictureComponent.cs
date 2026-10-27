@@ -54,7 +54,7 @@ namespace Quester
         private float _yOffset;
         private Vector2Int _focusedPosition;
         private Sprite _focusedSprite;
-        private Color _fullImageColor = new Color32(160, 160, 160, 255);
+        private Color _fullImageColor = new Color32(200, 200, 200, 255);
         
         // 原始图片大小
         private int _imgWidth = 420;

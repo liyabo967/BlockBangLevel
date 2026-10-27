@@ -90,6 +90,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
         {
             tutorialHand.gameObject.SetActive(false);
             SceneLoader.instance.StartGameScene(UserDataManager.Instance.Level);
+            GameAnalyticsManager.SendDesignEvent("adventure:start:level");
         }
 
         private void Back()

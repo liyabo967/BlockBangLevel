@@ -10,11 +10,13 @@
 // // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // // THE SOFTWARE.
 
+using System.Collections;
 using System.Collections.Generic;
 using AppsFlyerSDK;
 using BlockPuzzleGameToolkit.Scripts.Data;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
+using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.System;
 using DG.Tweening;
 using GameAnalyticsSDK;
@@ -34,6 +36,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         
         [SerializeField] private GameObject bestTitle;
         [SerializeField] private GameObject loudspeaker;
+        [SerializeField] private TutorialHand tutorialHand;
         
         public GameObject failedStuff;
         public GameObject bestScoreStuff;
@@ -41,10 +44,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         public TextMeshProUGUI[] scoreText;
         public TextMeshProUGUI bestScoreText;
         protected BaseModeHandler modeHandler;
+        
+        private int _score;
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
+            tutorialHand.gameObject.SetActive(false);
             GameAnalyticsManager.SendDesignEvent("classic:end");
             modeHandler = FindObjectOfType<BaseModeHandler>(false);
             var score = modeHandler.score;
@@ -52,7 +58,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             scoreText[0].text = score.ToString();
             scoreText[1].text = score.ToString();
             bestScoreText.text = bestScore.ToString();
-            if (score >= bestScore)
+            _score = score;
+            if (score >= bestScore && score >= 300)
             {
                 PlayBestScoreAnimation();
                 GameEntry.Sound.PlaySound(SoundId.SeasonSuccess);
@@ -81,6 +88,23 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             }
             // closeButton.gameObject.SetActive(true);
             GameAnalyticsManager.SendUserProgression(UserStage.Classic, GAProgressionStatus.Complete, null, score);
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            if (_score < 300)
+            {
+                StartCoroutine(AutoRetry(2.5f));
+            }
+        }
+
+        private IEnumerator AutoRetry(float delay)
+        {
+            tutorialHand.gameObject.SetActive(true);
+            tutorialHand.PlayAnim(retryButton.transform);
+            yield return new WaitForSeconds(delay);
+            Retry();
         }
 
         private void PlayBestScoreAnimation()
