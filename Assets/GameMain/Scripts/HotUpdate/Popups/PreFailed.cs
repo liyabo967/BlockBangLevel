@@ -49,6 +49,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         private LevelManager _levelManager;
         private int _extraSeconds;
         private bool _isHardLevel;
+        private Coroutine _countdownCo;
 
         protected virtual void OnEnable()
         {
@@ -109,17 +110,42 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         {
             base.OnOpen(userData);
             _userData = userData;
+            result = EPopupResult.No;
             countdownRing.fillAmount = 0;
             rewardButton.interactable = true;
             hasContinued = false;
             noThanksText.gameObject.SetActive(false);
         }
+        
+        protected override void OnResume()
+        {
+            base.OnResume();
+            StartTimer();
+        }
 
-        // protected override void OnResume()
-        // {
-        //     base.OnResume();
-        //     StartCoroutine(ShowNoThanks(1f));
-        // }
+        private void StartTimer()
+        {
+            countdownRing.fillAmount = 0;
+            countdownRing.DOFillAmount(1f, 5f);
+            _countdownCo = StartCoroutine(CountdownRoutine());
+        }
+
+        private IEnumerator CountdownRoutine()
+        {
+            timerText.text = timer.ToString();
+            GameEntry.Sound.PlaySound(SoundId.FewTime);
+            var waitForSeconds = new WaitForSeconds(1f);
+            for (int i = 1; i < 5; i++)
+            {
+                yield return waitForSeconds;
+                timer--;
+                GameEntry.Sound.PlaySound(SoundId.FewTime);
+                timerText.text = timer.ToString();
+            }
+            yield return new WaitForSeconds(1f);
+            Close(true);
+            EventManager.GameStatus = EGameState.Failed;
+        }
 
         // public void ClickNoThanks()
         // {
@@ -135,40 +161,41 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         //     // noThanksText.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
         // }
 
-        protected override void OnResume()
-        {
-            base.OnResume();
-            InvokeRepeating(nameof(UpdateTimer), 1, 1);
-        }
+        // protected override void OnResume()
+        // {
+        //     base.OnResume();
+        //     InvokeRepeating(nameof(UpdateTimer), 1, 1);
+        // }
 
-        protected virtual void UpdateTimer()
-        {
-            // Only decrement timer if this popup is active and not already expired
-            if (timer > 0)
-            {
-                timer--;
-                SaveTimerState();
-                GameEntry.Sound.PlaySound(SoundId.FewTime);
-            }
-
-            timerText.text = timer.ToString();
-            countdownRing.fillAmount = (float)(_countdownSeconds - timer) / _countdownSeconds;
-            if (timer <= 0)
-            {
-                rewardButton.interactable = false;
-                hasContinued = true;
-
-                CancelInvoke(nameof(UpdateTimer));
-                Close();
-                EventManager.GameStatus = EGameState.Failed;
-            }
-        }
+        // protected virtual void UpdateTimer()
+        // {
+        //     // Only decrement timer if this popup is active and not already expired
+        //     if (timer > 0)
+        //     {
+        //         timer--;
+        //         SaveTimerState();
+        //         GameEntry.Sound.PlaySound(SoundId.FewTime);
+        //     }
+        //
+        //     timerText.text = timer.ToString();
+        //     countdownRing.fillAmount = (float)(_countdownSeconds - timer) / _countdownSeconds;
+        //     if (timer <= 0)
+        //     {
+        //         rewardButton.interactable = false;
+        //         hasContinued = true;
+        //
+        //         CancelInvoke(nameof(UpdateTimer));
+        //         Close();
+        //         EventManager.GameStatus = EGameState.Failed;
+        //     }
+        // }
 
         protected virtual void SaveTimerState() { }
 
         public void PauseTimer()
         {
-            CancelInvoke(nameof(UpdateTimer));
+            // CancelInvoke(nameof(UpdateTimer));
+            StopCoroutine(_countdownCo);
         }
 
         // protected virtual void Continue()

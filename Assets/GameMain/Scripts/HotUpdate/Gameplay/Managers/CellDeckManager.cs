@@ -120,8 +120,9 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             usedShapes.Clear();
             // 延迟 0.2 秒之后获取的数据是准确的，因为清理 cell 有延迟
             // Debug.Log("FillCellDecksForClassic, fillRate: " + _levelManager.GetFilledRate());
-            
-            var isHard = _refreshCount % 4 == 0;
+
+            var mod = _levelManager.ClassicModeHandler.score < 1000 ? 4 : 3;
+            var isHard = _refreshCount % mod == 0;
             var difficulty = GetClassicDifficulty();
             var perfectRatio = GetPerfectRatioForClassic(difficulty);
             var shapeTemplates = itemFactory.GetPerfectShape();
@@ -135,7 +136,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                 {
                     Shape resultShape = null;
                     var shapeObject = PoolObject.GetObject(shapePrefab.gameObject);
-                    if (isHard && Random.Range(0, 1f) > perfectRatio)
+                    if (isHard)
                     {
                         if (difficulty == 5 && index == cellDecks.Length - 1)
                         {
@@ -202,7 +203,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                         var shapeObject = PoolObject.GetObject(shapePrefab.gameObject);
                         
                         Shape resultShape = null;
-                        if (_refreshCount % 4 == 0)
+                        if (_refreshCount % 3 == 0)
                         {
                             var notFit = GetNotFitRatio(difficulty);
                             if (Random.Range(0, 1f) <= notFit)
@@ -346,16 +347,16 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
                     prefectRatio = 1f;
                     break;
                 case 2:
-                    prefectRatio = 0.9f;
-                    break;
-                case 3:
                     prefectRatio = 0.8f;
                     break;
-                case 4:
+                case 3:
                     prefectRatio = 0.7f;
                     break;
-                case 5:
+                case 4:
                     prefectRatio = 0.6f;
+                    break;
+                case 5:
+                    prefectRatio = 0.5f;
                     break;
             }
             return prefectRatio;
