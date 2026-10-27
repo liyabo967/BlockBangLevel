@@ -42,15 +42,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 GameAnalyticsManager.SendLevelProgression(UserDataManager.Instance.Level, GAProgressionStatus.Fail);
                 
                 GameAnalyticsManager.SendDesignEvent("level:fail:open");
-                if (!UserDataManager.Instance.NoAdsPurchased)
-                {
-                    GameAnalyticsManager.SendDesignEvent("level:fail:open:interstitial");
-                    AdManager.Instance.ShowInterstitial();
-                }
-                else
-                {
-                    GameAnalyticsManager.SendDesignEvent("level:fail:open:noAds");
-                }
             }
         }
 

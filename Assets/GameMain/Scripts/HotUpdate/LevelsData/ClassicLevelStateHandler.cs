@@ -13,7 +13,6 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData
     // [CreateAssetMenu(fileName = "ClassicStateHandler", menuName = "BlockPuzzleGameToolkit/Levels/ClassicStateHandler")]
     public class ClassicLevelStateHandler : LevelStateHandler
     {
-
         private bool OnPreFailCondition(LevelManager levelManager)
         {
             if (levelManager.ClassicModeHandler.IsNewRecord)
@@ -36,8 +35,8 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData
                 return false;
             }
 
-            var rewardInterval = DateTimeOffset.Now.ToUnixTimeSeconds() - UserDataManager.Instance.FirstLaunchTimestamp;
-            if (rewardInterval < 3600)
+            var launchInterval = DateTimeOffset.Now.ToUnixTimeSeconds() - UserDataManager.Instance.FirstLaunchTimestamp;
+            if (launchInterval < 3600)
             {
                 return false;
             }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BlockPuzzleGameToolkit.Scripts.Data;
+using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.System;
 using GoogleMobileAds.Ump.Api;
 using UnityEngine;
@@ -162,33 +163,6 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 _adapter.LoadAd(type);
             }
         }
-
-        private bool CanShowInterstitial()
-        {
-#if UNITY_EDITOR
-            return false;
-#endif
-
-            if (Time.realtimeSinceStartup < 60)
-            {
-                return false;
-            }
-
-            if (UserDataManager.Instance.IsFirstSeason() && GameDataManager.GetLevelNum() < 10)
-            {
-                return false;
-            }
-
-            if (Time.time - _lastAdTime < 30f)
-            {
-                return false;
-            }
-
-            // if (failCount >= 3)
-            //     return false;
-
-            return true;
-        }
         
         public void ShowInterstitial()
         {
@@ -206,11 +180,11 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
                 _adapter?.LoadAd(AdType.Interstitial);
                 return;
             }
-            if (CanShowInterstitial())
+            if (OnInterstitialCondition())
             {
                 GameAnalyticsManager.SendDesignEvent("interstitial:shown");
                 _adapter.ShowAd(AdType.Interstitial);
-                _lastAdTime = Time.time;
+                _lastAdTime = Time.realtimeSinceStartup;
             }
             else
             {
@@ -299,6 +273,60 @@ namespace GameMain.Scripts.HotUpdate.Base.Ads
             }
             _adapter?.HideBanner();
         }
+        
+        
+        private bool OnInterstitialCondition()
+        {
+#if UNITY_EDITOR
+            return false;
+#endif
+            if (GameDataManager.GetGameMode() == EGameMode.Classic)
+            {
+                return OnClassicCondition();
+            }
+            else
+            {
+                return OnAdventureCondition();
+            }
+        }
+
+        private bool OnClassicCondition()
+        {
+            if (Time.realtimeSinceStartup < 60)
+            {
+                return false;
+            }
+            
+            var launchInterval = DateTimeOffset.Now.ToUnixTimeSeconds() - UserDataManager.Instance.FirstLaunchTimestamp;
+            if (launchInterval < 3600)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private bool OnAdventureCondition()
+        {
+            if (Time.realtimeSinceStartup < 60)
+            {
+                return false;
+            }
+
+            if (UserDataManager.Instance.IsFirstSeason() && GameDataManager.GetLevelNum() < 10)
+            {
+                return false;
+            }
+
+            if (Time.realtimeSinceStartup - _lastAdTime < 30f)
+            {
+                return false;
+            }
+
+            return true;
+            
+        }
+        
+        
 
         public void ReconsiderUMPConsent()
         {

@@ -18,6 +18,7 @@ using BlockPuzzleGameToolkit.Scripts.GUI;
 using BlockPuzzleGameToolkit.Scripts.LevelsData;
 using BlockPuzzleGameToolkit.Scripts.System;
 using DG.Tweening;
+using GameMain.Scripts.HotUpdate.Base.Ads;
 using Quester;
 using TMPro;
 using UnityEngine;
@@ -267,6 +268,19 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                     EventManager.GameStatus = EGameState.Playing;
                 }
             }
+            else
+            {
+                ShowAd();
+            }
         }
+
+        private void ShowAd()
+        {
+            if (!UserDataManager.Instance.NoAdsPurchased)
+            {
+                AdManager.Instance.ShowInterstitial();
+            }
+        }
+        
     }
 }

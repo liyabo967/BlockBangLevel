@@ -109,7 +109,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             tutorialHand.gameObject.SetActive(true);
             tutorialHand.PlayAnim(retryButton.transform);
             yield return new WaitForSeconds(delay);
-            Retry();
+            base.Retry();
         }
 
         private void PlayBestScoreAnimation()

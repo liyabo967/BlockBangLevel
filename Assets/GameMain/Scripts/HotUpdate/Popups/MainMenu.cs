@@ -80,7 +80,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 timedMode.gameObject.SetActive(false);
             }
 
-            _adventureUnlocked = UserDataManager.Instance.AdventureState > 0;
+            _adventureUnlocked = UserDataManager.Instance.AdventureState == 2;
             lockedText.text = GameEntry.Localization.GetString("#unlock_adventure", ClassicModeHandler.UnlockAdventureScore);
             adventureLock.SetActive(!_adventureUnlocked);
             seasonTimeObject.SetActive(_adventureUnlocked);
