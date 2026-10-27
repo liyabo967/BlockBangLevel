@@ -27,6 +27,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public long CurrentSeasonTimestamp => _userData.currentSeasonTimestamp;
         public int CurrentSeasonShape => _userData.currentSeasonShape;
         public long FirstSeasonTimestamp => _userData.firstSeasonTimestamp;
+        public long FirstLaunchTimestamp => _userData.firstLaunchTimestamp;
         public long LastLaunchTimestamp => _userData.lastLaunchTimestamp;
         public long LastRateTimestamp => _userData.lastRateTimestamp;
         public long UnlockAdventureTimestamp => _userData.unlockAdventureTimestamp;
@@ -51,6 +52,8 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             // _userData.level = 87;
         }
 
+        
+        // 用户首次登录，初始化数据
         private void InitData()
         {
             _userData.level = 1;
@@ -58,6 +61,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             _userData.group = UnityEngine.Random.Range(0, int.MaxValue) % 100;
             _userData.rewardStreak = -1;
             _userData.dailyBonusDay = "1900-01-01 00:00:00";
+            _userData.firstLaunchTimestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
         }
 
         private void FixUserData()
@@ -65,6 +69,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
             if (Application.version == "0.0.5")
             {
                 _userData.adventureState = 2;
+            }
+
+            if (_userData.firstLaunchTimestamp == 0)
+            {
+                _userData.firstLaunchTimestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
             }
         }
         

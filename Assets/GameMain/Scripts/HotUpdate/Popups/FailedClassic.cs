@@ -47,6 +47,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         protected BaseModeHandler modeHandler;
         
         private int _score;
+        private int _lowScore = 300;
 
         protected override void OnOpen(object userData)
         {
@@ -61,7 +62,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             scoreText[1].text = score.ToString();
             bestScoreText.text = bestScore.ToString();
             _score = score;
-            if (score >= bestScore && score >= 300)
+            if (score >= bestScore && score >= _lowScore)
             {
                 PlayBestScoreAnimation();
                 GameEntry.Sound.PlaySound(SoundId.SeasonSuccess);
@@ -97,7 +98,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         protected override void OnResume()
         {
             base.OnResume();
-            if (_score < 300)
+            if (_score < _lowScore)
             {
                 StartCoroutine(AutoRetry(2.5f));
             }

@@ -64,10 +64,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             bestScore = UserDataManager.Instance.ClassicBestScore;
             bestScore = bestScore > score ? bestScore : score;
             bestScoreText.text = bestScore.ToString();
-            if (bestScore == score)
-            {
-                _newRecordShown = true;
-            }
+            _newRecordShown = bestScore == score;
         }
 
         protected override void SaveGameState()

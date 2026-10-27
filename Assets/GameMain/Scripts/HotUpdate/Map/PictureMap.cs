@@ -122,7 +122,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Map
                 GameEntry.Sound.PlaySound(SoundId.SeasonSuccess);
             }
             
-            if (_currentLevel == 6)
+            if (_currentLevel == 3)
             {
                 OpenRateDlg(0.2f);
             }

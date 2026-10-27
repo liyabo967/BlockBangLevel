@@ -159,7 +159,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 hasContinued = true;
 
                 CancelInvoke(nameof(UpdateTimer));
-                Close(true);
+                Close();
                 EventManager.GameStatus = EGameState.Failed;
             }
         }
@@ -204,6 +204,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
 
         public void ContinueGame()
         {
+            _levelManager.ClassicModeHandler.IsRewarded = true;
             result = EPopupResult.Continue; 
             EventManager.GameStatus = EGameState.Playing; 
             Close();

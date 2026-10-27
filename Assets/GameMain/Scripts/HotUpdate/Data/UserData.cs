@@ -23,6 +23,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Data
         public int winStreak;
         public int failStreak;
         public int currentSeasonShape;
+        public long firstLaunchTimestamp;
         public long lastLaunchTimestamp;
         public long lastRateTimestamp;
         public long unlockAdventureTimestamp;

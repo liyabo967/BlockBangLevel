@@ -1,8 +1,11 @@
+using System;
+using BlockPuzzleGameToolkit.Scripts.Data;
 using UnityEngine;
 using BlockPuzzleGameToolkit.Scripts.Enums;
 using BlockPuzzleGameToolkit.Scripts.Gameplay;
 using BlockPuzzleGameToolkit.Scripts.System;
 using BlockPuzzleGameToolkit.Scripts.Popups;
+using GameMain.Scripts.HotUpdate.Base.Ads;
 using Quester;
 
 namespace BlockPuzzleGameToolkit.Scripts.LevelsData
@@ -10,6 +13,38 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData
     // [CreateAssetMenu(fileName = "ClassicStateHandler", menuName = "BlockPuzzleGameToolkit/Levels/ClassicStateHandler")]
     public class ClassicLevelStateHandler : LevelStateHandler
     {
+
+        private bool OnPreFailCondition(LevelManager levelManager)
+        {
+            if (levelManager.ClassicModeHandler.IsNewRecord)
+            {
+                return false;
+            }
+
+            if (levelManager.ClassicModeHandler.IsRewarded)
+            {
+                return false;
+            }
+
+            if (levelManager.ClassicModeHandler.score < 500)
+            {
+                return false;
+            }
+
+            if (!AdManager.Instance.IsReady(AdType.RewardedVideo))
+            {
+                return false;
+            }
+
+            var rewardInterval = DateTimeOffset.Now.ToUnixTimeSeconds() - UserDataManager.Instance.FirstLaunchTimestamp;
+            if (rewardInterval < 3600)
+            {
+                return false;
+            }
+            
+            return true;
+        }
+        
         private protected override void HandlePreFailed(LevelManager levelManager)
         {
             var level = levelManager.GetCurrentLevel();
@@ -18,7 +53,7 @@ namespace BlockPuzzleGameToolkit.Scripts.LevelsData
 
             levelManager.StartCoroutine(levelManager.EndAnimations(() =>
             {
-                if (preFailedPopup != UIFormId.Undefined && GameManager.instance.GameSettings.enablePreFailedPopup)
+                if (preFailedPopup != UIFormId.Undefined && OnPreFailCondition(levelManager))
                 {
                     GameEntry.UI.OpenUIForm(preFailedPopup, this);
                     levelManager.ClearEmptyCells();

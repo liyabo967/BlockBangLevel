@@ -24,9 +24,21 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         protected int _displayedScore = 0;
         [SerializeField]
         protected float counterSpeed = 0.01f;
+        private bool _isNewRecord = false;
+        private bool _isRewarded = false;
+
+        public bool IsNewRecord => _isNewRecord;
+
+        public bool IsRewarded
+        {
+            get => _isRewarded;
+            set => _isRewarded = value;
+        }
 
         protected virtual void OnEnable()
         {
+            _isRewarded = false;
+            _isNewRecord = false;
             _levelManager = FindObjectOfType<LevelManager>(true);
             
             if (_levelManager == null)
@@ -37,7 +49,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
 
             _levelManager.OnLose += OnLose;
             _levelManager.OnScored += OnScored;
-
             // ResetScore();
             LoadScores();
         }
@@ -79,7 +90,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             {
                 StopCoroutine(_counterCoroutine);
             }
-            _counterCoroutine = StartCoroutine(CountScore(previousScore, this.score));
+            
+            _isNewRecord = score > UserDataManager.Instance.ClassicBestScore;
+            if (_isNewRecord)
+            {
+                bestScore = score;
+            }
+            _counterCoroutine = StartCoroutine(CountScore(previousScore, score));
             ShowBanner(lines, score, score > UserDataManager.Instance.ClassicBestScore);
             PlayScoreTextAnim(combo);
         }
@@ -108,12 +125,6 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
         protected IEnumerator CountScore(int startValue, int endValue)
         {
             _displayedScore = startValue;
-            bool newBestScore = endValue > UserDataManager.Instance.ClassicBestScore;
-            if (newBestScore)
-            {
-                bestScore = endValue;
-            }
-
             float actualSpeed = counterSpeed;
             if (endValue - startValue > 100)
                 actualSpeed = counterSpeed * 0.5f;
@@ -124,7 +135,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Gameplay
             {
                 _displayedScore++;
                 scoreText.text = _displayedScore.ToString();
-                if (newBestScore)
+                if (_isNewRecord)
                 {
                     bestScoreText.text = _displayedScore.ToString();
                 }
