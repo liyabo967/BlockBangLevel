@@ -127,18 +127,18 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
                 }
             }
             
-            if (restorePurchase.gameObject.activeSelf)
-            {
-                restorePurchase.gameObject.SetActive(GameManager.instance.GameSettings.enableInApps);
-            }
-            shop.gameObject.SetActive(GameManager.instance.GameSettings.enableInApps);
+            // if (restorePurchase.gameObject.activeSelf)
+            // {
+            //     restorePurchase.gameObject.SetActive(GameManager.instance.GameSettings.enableInApps);
+            // }
+            // shop.gameObject.SetActive(GameManager.instance.GameSettings.enableInApps);
             
             // Show privacy consent button only if UMP is available and privacy options are required
-            if(privacyConsent.gameObject.activeSelf)
-            {
-                privacyConsent.gameObject.SetActive(GameManager.instance.GameSettings.enableAds &&
-                                                 AdManager.Instance.IsPrivacyOptionsRequired());
-            }
+            // if(privacyConsent.gameObject.activeSelf)
+            // {
+            //     privacyConsent.gameObject.SetActive(GameManager.instance.GameSettings.enableAds &&
+            //                                      AdManager.Instance.IsPrivacyOptionsRequired());
+            // }
             // Load the saved vibration level
             LoadVibrationLevel();
             
