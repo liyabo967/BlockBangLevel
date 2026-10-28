@@ -175,7 +175,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6536\u96C6\u62FC\u56FE\u788E\u7247\u4EE5\u5B8C\u6210\u56FE\u7247\u3002"
+  m_text: Collect puzzle pieces to complete the picture.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 14928a98ac0086a4483452d618f1764c, type: 2}
   m_sharedMaterial: {fileID: 3722732180671858053, guid: 14928a98ac0086a4483452d618f1764c, type: 2}
@@ -554,7 +554,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5192\u9669"
+  m_text: Adventure
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 14928a98ac0086a4483452d618f1764c, type: 2}
   m_sharedMaterial: {fileID: 3722732180671858053, guid: 14928a98ac0086a4483452d618f1764c, type: 2}
@@ -6094,8 +6094,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294441983
+  m_fontColor: {r: 1, g: 0.9843137, b: 0.96862745, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7728,7 +7728,7 @@ MonoBehaviour:
   scrollContent: {fileID: 8235971603756041804}
   unlockedPieceParent: {fileID: 5336740743528647107}
   unlockedPiece: {fileID: 6076284504769860236}
-  scrollView: {fileID: 8035601941583756466}
+  scrollView: {fileID: 1119411750216985659}
   itemPrefab: {fileID: 7804317480741393024}
   focusImage: {fileID: 8457197059395756007}
   fullImage: {fileID: 1779876265707036108}

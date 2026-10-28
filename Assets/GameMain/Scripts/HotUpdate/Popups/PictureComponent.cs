@@ -30,7 +30,7 @@ namespace Quester
         
         public Transform unlockedPieceParent;
         public Image unlockedPiece;
-        public RectTransform scrollView;
+        public ScrollRect scrollView;
         public PicturePiece itemPrefab;
         public Image focusImage;
         public Image fullImage;
@@ -114,14 +114,23 @@ namespace Quester
             
             scrollContent.sizeDelta = new Vector2(scrollContent.sizeDelta.x, _cellHeight * _rows);
             itemParent.sizeDelta = scrollContent.sizeDelta;
-            if (scrollView.rect.height > scrollContent.rect.height)
+            var scrollViewRect = scrollView.GetComponent<RectTransform>();
+            if (scrollViewRect.rect.height > scrollContent.rect.height)
             {
                 // 这里使用的 300 是 prefab 中顶部底部 UI 使用的尺寸，50 是左右边界
-                var offset = (scrollView.rect.height - scrollContent.rect.height) / 2;
-                scrollView.offsetMin = new Vector2(50, 300 + offset);
-                scrollView.offsetMax = new Vector2(-50, -300 - offset);
+                var offset = (scrollViewRect.rect.height - scrollContent.rect.height) / 2;
+                scrollViewRect.offsetMin = new Vector2(50, 300 + offset);
+                scrollViewRect.offsetMax = new Vector2(-50, -300 - offset);
             }
-            pictureFrame.GetComponent<RectTransform>().sizeDelta = itemParent.sizeDelta + new Vector2(25, 25);
+            
+            var frameSize = new Vector2(itemParent.sizeDelta.x, Mathf.Min(scrollViewRect.rect.height, scrollContent.rect.height));
+            pictureFrame.GetComponent<RectTransform>().sizeDelta = frameSize + new Vector2(25, 25);
+        }
+
+        private void ScrollToFocus()
+        {
+            var normalizedPosition = (_rows - _focusedPosition.x) * 1.0f / _rows;
+            scrollView.verticalNormalizedPosition = normalizedPosition;
         }
 
         public void ShowLevel(int level)
@@ -137,6 +146,7 @@ namespace Quester
             {
                 UpdateSprite();
                 UpdateFocusPosition();
+                ScrollToFocus();
             }
             else
             {
@@ -235,6 +245,7 @@ namespace Quester
                     focusImage.transform.localPosition = GetCellPosition(nextFocused.x, nextFocused.y);
                     focusImage.transform.localScale = Vector3.zero;
                     _focusedPosition = nextFocused;
+                    ScrollToFocus();
                     GameEntry.Sound.PlaySound(SoundId.Alert);
                 });
                 
