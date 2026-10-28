@@ -51,6 +51,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
         private int _extraSeconds;
         private bool _isHardLevel;
         private Coroutine _countdownCo;
+        private Sequence _rewardSequence;
 
         protected virtual void OnEnable()
         {
@@ -116,6 +117,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             rewardButton.interactable = true;
             hasContinued = false;
             noThanksText.gameObject.SetActive(false);
+            PlayRewardButtonAnim();
         }
         
         protected override void OnResume()
@@ -272,6 +274,7 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             {
                 ShowAd();
             }
+            _rewardSequence?.Kill();
         }
 
         private void ShowAd()
@@ -280,6 +283,16 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             {
                 AdManager.Instance.ShowInterstitial();
             }
+        }
+
+        private void PlayRewardButtonAnim()
+        {
+            _rewardSequence = DOTween.Sequence();
+            _rewardSequence.Append(
+                rewardButton.transform.DOScale(1.15f, 0.3f));
+            _rewardSequence.Append(
+                rewardButton.transform.DOScale(1f, 0.3f));
+            _rewardSequence.SetLoops(-1);
         }
         
     }

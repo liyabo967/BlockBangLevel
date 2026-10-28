@@ -3,86 +3,84 @@
 #import <CoreHaptics/CoreHaptics.h>
 
 static CHHapticEngine *hapticEngine = nil;
+static BOOL hapticEngineRunning = NO;
 
 
 // ============================================================
 // Haptic Engine Initialization
 // ============================================================
 
-static void InitHaptics()
+
+static BOOL InitHaptics(void)
 {
     if (@available(iOS 13.0, *))
     {
-        // 已经创建过 Engine
-        if (hapticEngine != nil)
-        {
-            NSLog(@"[Haptics] Engine already exists: %p",
-                  hapticEngine);
-            return;
-        }
-
         NSError *error = nil;
 
-        // 创建 Engine
+        // 已存在的 Engine 也必须尝试启动
+        if (hapticEngine != nil)
+        {
+            if ([hapticEngine startAndReturnError:&error])
+            {
+                hapticEngineRunning = YES;
+                NSLog(@"[Haptics] Engine started");
+                return YES;
+            }
+
+            NSLog(@"[Haptics] Existing Engine start failed: %@",
+                  error);
+
+            // 启动失败后尝试重建
+            hapticEngine = nil;
+            hapticEngineRunning = NO;
+        }
+
+        error = nil;
         hapticEngine =
             [[CHHapticEngine alloc] initAndReturnError:&error];
 
         if (hapticEngine == nil || error != nil)
         {
-            NSLog(@"[Haptics] Engine init failed: %@",
-                  error);
-
+            NSLog(@"[Haptics] Engine init failed: %@", error);
             hapticEngine = nil;
-            return;
+            return NO;
         }
-
-        NSLog(@"[Haptics] Engine created: %p",
-              hapticEngine);
-
-
-        // ========================================================
-        // Engine stopped callback
-        // ========================================================
 
         hapticEngine.stoppedHandler =
         ^(CHHapticEngineStoppedReason reason)
         {
             NSLog(@"[Haptics] Engine stopped. reason=%ld",
                   (long)reason);
+
+            hapticEngineRunning = NO;
         };
-
-
-        // ========================================================
-        // Engine reset callback
-        // ========================================================
 
         hapticEngine.resetHandler =
         ^{
             NSLog(@"[Haptics] Engine reset");
+
+            hapticEngineRunning = NO;
+            // 下一次播放前重新启动 Engine，
+            // 并重新创建 Pattern Player。
         };
-
-
-        // ========================================================
-        // 同步启动 Engine
-        // ========================================================
 
         error = nil;
 
-        BOOL success =
-            [hapticEngine startAndReturnError:&error];
-
-        if (!success || error != nil)
+        if (![hapticEngine startAndReturnError:&error])
         {
-            NSLog(@"[Haptics] Engine start failed: %@",
-                  error);
-
+            NSLog(@"[Haptics] Engine start failed: %@", error);
             hapticEngine = nil;
-            return;
+            hapticEngineRunning = NO;
+            return NO;
         }
 
-        NSLog(@"[Haptics] Engine start succeeded: %p",
-              hapticEngine);
+        hapticEngineRunning = YES;
+        NSLog(@"[Haptics] Engine start succeeded");
+
+        return YES;
     }
+
+    return NO;
 }
 
 
@@ -191,9 +189,7 @@ extern "C"
                 // 初始化 Engine
                 // ------------------------------------------------
 
-                InitHaptics();
-
-                if (hapticEngine == nil)
+                if (!InitHaptics())
                 {
                     NSLog(@"[Haptics] Engine unavailable. Abort.");
                     return;
