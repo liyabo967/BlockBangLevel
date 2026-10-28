@@ -142,13 +142,13 @@ namespace BlockPuzzleGameToolkit.Scripts.Popups
             // Load the saved vibration level
             LoadVibrationLevel();
             
-            var dllPath = Path.Combine(Application.persistentDataPath, $"{Application.version}/HotUpdate/HotUpdate.dll.bytes");
-            if (File.Exists(dllPath))
-            {
-                string localMD5 = Util.CalculateMD5(dllPath);
-                versionText.text = $"Version {Application.version}";
-                versionText.text += $"\n{localMD5.Substring(localMD5.Length - 6)}_{GameAnalytics.GetUserId()}";
-            }
+            // var dllPath = Path.Combine(Application.persistentDataPath, $"{Application.version}/HotUpdate/HotUpdate.dll.bytes");
+            // if (File.Exists(dllPath))
+            // {
+            //     string localMD5 = Util.CalculateMD5(dllPath);
+            //     versionText.text = $"Version {Application.version}";
+            //     versionText.text += $"\n{localMD5.Substring(localMD5.Length - 6)}_{GameAnalytics.GetUserId()}";
+            // }
             
             // HomeButtonPlayAnim();
         }
